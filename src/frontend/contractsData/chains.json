@@ -26,8 +26,18 @@
         "contractAddress": "0x1"
     },
     {
-        "networkName": "Polygon",
+        "networkName": "Goerli",
         "chainId": "0x4",
+        "contractAddress": "0x1"
+    },
+    {
+        "networkName": "Polygon",
+        "chainId": "0x5",
+        "contractAddress": "0x1"
+    },
+    {
+        "networkName": "Polygon",
+        "chainId": "0x89",
         "contractAddress": "0x1"
     }
 ]

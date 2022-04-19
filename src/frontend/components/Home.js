@@ -14,9 +14,9 @@ const Home = ({ networkName }) => {
     const getLastBlockNumber = async () => {
         const provider = new ethers.providers.Web3Provider(window.ethereum)
         const blockNumber = await provider.getBlockNumber()
+
         console.log('Last block number:', blockNumber)
         setLastBlockNumber(blockNumber)
-        return blockNumber
     }
 
     useEffect(() => {
@@ -31,11 +31,10 @@ const Home = ({ networkName }) => {
     return (
         <div className="flex justify-center">
             <div className="px-5 py-3 container">
-                <h2>CoeptIX Ethereum ETH Explorer</h2>
+                <h2>Ethereum Block Scanner</h2>
                 {lastBlockNumber}
             </div>
         </div>
-
     );
 }
 export default Home

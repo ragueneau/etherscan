@@ -1,22 +1,25 @@
-import {
-  BrowserRouter,
-  Routes,
-  Route
-} from "react-router-dom";
+// ---------------------------------------------------------------------------------------------------- //
+//
+// ---------------------------------------------------------------------------------------------------- //
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { Spinner } from 'react-bootstrap'
 import { useState } from 'react'
 import { ethers } from "ethers"
-import { Spinner } from 'react-bootstrap'
 
+// Export ------------------------------------------------------------------------------------------- //
+import './App.css';
+
+import Navigation from './nav/Navbar';
+import HTTP404 from './nav/404.js'
+
+import Home from './Home.js'
+import Faucet from './Faucet.js'
+
+// Contract Addresses ------------------------------------------------------------------------------ //
 import FaucetAbi from '../contractsData/Faucet.json'
 import FaucetAddress from '../contractsData/Faucet-address.json'
 
-import Navigation from './Navbar';
-import Home from './Home.js'
-import Faucet from './Faucet.js'
-import HTTP404 from './404.js'
-
-import './App.css';
-
+// Fonction ---------------------------------------------------------------------------------------- //
 function App() {
   const [loading, setLoading] = useState(true)
   const [account, setAccount] = useState(null)
@@ -57,22 +60,38 @@ function App() {
       console.log('Rinkeby network');
       setNetworkName('Rinkeby')
 
+    } else if (window.ethereum && network === '0x3') {
+      console.log('Roptsten network');
+      setNetworkName('Roptsten')
+
+    } else if (window.ethereum && network === '0x2a') {
+      console.log('Kovan network');
+      setNetworkName('Kovan')
+
+    } else if (window.ethereum && network === '0x5') {
+      console.log('Goerli network');
+      setNetworkName('Goerli')
+
     } else if (window.ethereum && network === '0x75c9') {
       console.log('CoeptIX network');
       setNetworkName('CoeptIX')
       FaucetAddress.address = '0xCAEB631af6e9A583A7DC5471E51B9E1E8b64bdBF'
 
     } else if (window.ethereum && network === '0x89') {
-      console.log('Polygon mainnet');
+      console.log('Polygon network');
       setNetworkName('Polygon')
+
+    } else if (window.ethereum && network === '0x13881') {
+      console.log('Mumbai network');
+      setNetworkName('Mumbai')
 
     } else if (window.ethereum && network === '0x539') {
       console.log('Ganache localnet');
       setNetworkName('Ganache')
 
     } else {
-      console.log('Main network');
-      setNetworkName('Main')
+      console.log('Mainnet network');
+      setNetworkName('Mainnet')
 
     }
 
