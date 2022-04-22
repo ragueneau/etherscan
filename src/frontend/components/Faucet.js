@@ -37,7 +37,7 @@ const Home = ({ faucet, account, networkName }) => {
     return (
         <div className="flex justify-center">
             <div className="px-5 py-3 container">
-                <h2>CoeptIX Ethereum ETH Faucet</h2>
+                <h2>xETH Faucet</h2>
                 <Row className="justify-content-center">
                     <Col xs={12} md={12}>
                         <Card className="text-center">
