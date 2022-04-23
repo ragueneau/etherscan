@@ -1,5 +1,5 @@
 {
-  "name": "gethscan",
+  "name": "scone",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -26,7 +26,6 @@
     "react-scripts": "5.0.0",
     "solc": "^0.8.13",
     "web-vitals": "^2.1.4",
-    "web3": "^1.7.1",
     "minimist": "^1.2.6"
   },
   "scripts": {

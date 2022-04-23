@@ -9,7 +9,7 @@ const Navigation = ({ web3Handler, account, networkName }) => {
         <Navbar expand="lg" bg="secondary" variant="dark">
             <Container>
                 <Navbar.Brand href="/">
-                    &nbsp; CPTX Faucet
+                    &nbsp; Dev Blockchain
                 </Navbar.Brand>
                 <Navbar.Toggle aria-controls="responsive-navbar-nav" />
                 <Navbar.Collapse id="responsive-navbar-nav">
@@ -23,7 +23,7 @@ const Navigation = ({ web3Handler, account, networkName }) => {
                     <Nav>
                         {account ? (
                             <Nav.Link
-                                href={`https://etherscan.io/address/${account}`}
+                                href={`/address/${account}`}
                                 target="_blank"
                                 rel="noopener noreferrer"
                                 className="button nav-button btn-sm mx-4">
