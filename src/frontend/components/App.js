@@ -119,17 +119,17 @@ function App() {
               <Route path="/" element={
                 <Home networkName={networkName} account={account}/>
               } />
-              <Route path="/faucet" element={
-                <Faucet networkName={networkName} account={account}/>
-              } />
               <Route path="/address/:ethAddress" element={
                 <Home networkName={networkName} account={account}/>
               } />
               <Route path="/token/:ethAddress" element={
                 <Home networkName={networkName} account={account}/>
               } />
-              <Route path="/tx/:ethAddress" element={
+              <Route path="/tx/:transactionHash" element={
                 <Home networkName={networkName} account={account}/>
+              } />
+              <Route path="/faucet" element={
+                <Faucet networkName={networkName} account={account}/>
               } />
               <Route path="*" element={
                 <HTTP404 faucet={faucet} networkName={networkName} account={account} />
