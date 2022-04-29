@@ -9,7 +9,7 @@ const Home = ({ networkName }) => {
     const [lastBlockNumber, setLastBlockNumber] = useState(0)
 
     //const [account, setAccount] = useState([])
-  
+
     //get last block number
     const getLastBlockNumber = async () => {
         const provider = new ethers.providers.Web3Provider(window.ethereum)
@@ -19,11 +19,6 @@ const Home = ({ networkName }) => {
         setLoading(false)
         setLastBlockNumber(blockNumber)
     }
-
-    //const getLastBlockTransaction = async () => {
-    //    const provider = new ethers.providers.Web3Provider(window.ethereum)
-      //  const blockNumber = await provider.getBlockNumber()
-    //}
 
     useEffect(() => {
       getLastBlockNumber()
