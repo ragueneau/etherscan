@@ -13,7 +13,13 @@ import Navigation from './nav/Navbar';
 import HTTP404 from './nav/404.js'
 
 import Home from './Home.js'
+import Address from './Address.js'
+import Block from './Block.js'
+import Contract from './Contract.js'
 import Faucet from './Faucet.js'
+import Token from './Token.js'
+import Tx from './Tx.js'
+import Txs from './Txs.js'
 
 // Contract Addresses ------------------------------------------------------------------------------ //
 import FaucetAbi from '../contractsData/Faucet.json'
@@ -23,7 +29,7 @@ import FaucetAddress from '../contractsData/Faucet-address.json'
 function App() {
   const [loading, setLoading] = useState(true)
   const [account, setAccount] = useState(null)
-  const [networkName, setNetworkName] = useState(null)
+  const [networkName, setNetworkName] = useState('network')
   const [faucet, setFaucet] = useState(null)
 
   // MetaMask Login/Connect ----------------------------------------------------------------------- //
@@ -53,7 +59,7 @@ function App() {
 
     // Get network chainid and name
     const network = await window.ethereum.request({ method: 'eth_chainId' });
-    console.log(network)
+    console.log('NetworkID:', network, )
 
     // if on rinkeby network then use Rinkeby network
     if (window.ethereum && network === '0x4') {
@@ -89,9 +95,17 @@ function App() {
       console.log('Ganache localnet');
       setNetworkName('Ganache')
 
-    } else {
-      console.log('Mainnet network');
+    } else if (window.ethereum && network === '0xa86a') {
+      console.log('Avalanche Mainnet');
+      setNetworkName('Avalanche')
+
+    } else if (window.ethereum && network === '0x1') {
+      console.log('Mainnet');
       setNetworkName('Mainnet')
+
+    } else {
+      console.log('Unknown network');
+      setNetworkName('Unknown')
 
     }
 
@@ -105,9 +119,9 @@ function App() {
   return (
     <BrowserRouter>
       <div className="App">
-        <>
+        <div>
           <Navigation web3Handler={web3Handler} account={account} networkName={networkName}/>
-        </>
+        </div>
         <div>
           {loading ? (
             <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', minHeight: '80vh' }}>
@@ -119,14 +133,23 @@ function App() {
               <Route path="/" element={
                 <Home networkName={networkName} account={account}/>
               } />
-              <Route path="/address/:ethAddress" element={
-                <Home networkName={networkName} account={account}/>
+              <Route path="/address/:walletAddress" element={
+                <Address networkName={networkName} account={account}/>
               } />
-              <Route path="/token/:ethAddress" element={
-                <Home networkName={networkName} account={account}/>
+              <Route path="/contract/:contractAddress" element={
+                <Contract networkName={networkName} account={account}/>
+              } />
+              <Route path="/block/:blockNumber" element={
+                <Block networkName={networkName} account={account}/>
+              } />
+              <Route path="/token/:walletAddress" element={
+                <Token networkName={networkName} account={account}/>
               } />
               <Route path="/tx/:transactionHash" element={
-                <Home networkName={networkName} account={account}/>
+                <Tx networkName={networkName} account={account}/>
+              } />
+              <Route path="/txs/:blockNumber" element={
+                <Txs networkName={networkName} account={account}/>
               } />
               <Route path="/faucet" element={
                 <Faucet networkName={networkName} account={account}/>
