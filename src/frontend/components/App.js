@@ -19,6 +19,7 @@ import Contract from './Contract.js'
 import Faucet from './Faucet.js'
 import Token from './Token.js'
 import Tx from './Tx.js'
+import Txs from './Txs.js'
 
 // Contract Addresses ------------------------------------------------------------------------------ //
 import FaucetAbi from '../contractsData/Faucet.json'
@@ -58,7 +59,9 @@ function App() {
 
     // Get network chainid and name
     const network = await window.ethereum.request({ method: 'eth_chainId' });
-    console.log(network)
+    console.log('Network:', networkName, '(', network, ')')
+
+
 
     // if on rinkeby network then use Rinkeby network
     if (window.ethereum && network === '0x4') {
@@ -94,9 +97,17 @@ function App() {
       console.log('Ganache localnet');
       setNetworkName('Ganache')
 
-    } else {
-      console.log('Mainnet network');
+    } else if (window.ethereum && network === '0xa86a') {
+      console.log('Avalanche Mainnet');
+      setNetworkName('Avalanche')
+
+    } else if (window.ethereum && network === '0x1') {
+      console.log('Mainnet');
       setNetworkName('Mainnet')
+
+    } else {
+      console.log('Unknown network');
+      setNetworkName('Unknown')
 
     }
 
@@ -124,20 +135,27 @@ function App() {
               <Route path="/" element={
                 <Home networkName={networkName} account={account}/>
               } />
-              <Route path="/address/:walletAddress" element={
-                <Address networkName={networkName} account={account}/>
-              } />
+
+                <Route path="/address/:walletAddress" element={
+                  <Address networkName={networkName} account={account}/>
+                } />
+
               <Route path="/contract/:contractAddress" element={
                 <Contract networkName={networkName} account={account}/>
               } />
-              <Route path="/block/:blockNumber" element={
-                <Block networkName={networkName} account={account}/>
-              } />
+
+                <Route path="/block/:blockNumber" element={
+                  <Block networkName={networkName} account={account}/>
+                } />
+
               <Route path="/token/:walletAddress" element={
                 <Token networkName={networkName} account={account}/>
               } />
               <Route path="/tx/:transactionHash" element={
                 <Tx networkName={networkName} account={account}/>
+              } />
+              <Route path="/txs/:blockNumber" element={
+                <Txs networkName={networkName} account={account}/>
               } />
               <Route path="/faucet" element={
                 <Faucet networkName={networkName} account={account}/>
