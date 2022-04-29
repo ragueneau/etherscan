@@ -13,7 +13,12 @@ import Navigation from './nav/Navbar';
 import HTTP404 from './nav/404.js'
 
 import Home from './Home.js'
+import Address from './Address.js'
+import Block from './Block.js'
+import Contract from './Contract.js'
 import Faucet from './Faucet.js'
+import Token from './Token.js'
+import Tx from './Tx.js'
 
 // Contract Addresses ------------------------------------------------------------------------------ //
 import FaucetAbi from '../contractsData/Faucet.json'
@@ -119,14 +124,20 @@ function App() {
               <Route path="/" element={
                 <Home networkName={networkName} account={account}/>
               } />
-              <Route path="/address/:ethAddress" element={
-                <Home networkName={networkName} account={account}/>
+              <Route path="/address/:walletAddress" element={
+                <Address networkName={networkName} account={account}/>
               } />
-              <Route path="/token/:ethAddress" element={
-                <Home networkName={networkName} account={account}/>
+              <Route path="/contract/:contractAddress" element={
+                <Contract networkName={networkName} account={account}/>
+              } />
+              <Route path="/block/:blockNumber" element={
+                <Block networkName={networkName} account={account}/>
+              } />
+              <Route path="/token/:walletAddress" element={
+                <Token networkName={networkName} account={account}/>
               } />
               <Route path="/tx/:transactionHash" element={
-                <Home networkName={networkName} account={account}/>
+                <Tx networkName={networkName} account={account}/>
               } />
               <Route path="/faucet" element={
                 <Faucet networkName={networkName} account={account}/>
