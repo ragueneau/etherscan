@@ -25,8 +25,8 @@ const Block = ({ match, networkName }) => {
 
     //72533
     //const blockNumber = match.params.blockNumber || 14037513
-    const blockNumber = 14037513
-
+    //const blockNumber = 14037513
+    const blockNumber = 72533
 
     //get last block number
     const getBlockNumber = async () => {
@@ -109,7 +109,7 @@ const Block = ({ match, networkName }) => {
                                         Difficulty: <i className="fas fa-user-circle">{blockContent.difficulty}</i>
                                     </div>
                                     <div className="text-muted text-center">
-                                        Total Difficulty: <i className="fas fa-user-circle">{blockContent.number}</i>
+                                        Total Difficulty: <i className="fas fa-user-circle">{blockContent.totalDifficulty}</i>
                                     </div>
                                     <div className="text-muted text-center">
                                         Gas Used: <i className="fas fa-user-circle">{blockContent.gasUsed.toString()} xWei</i>
