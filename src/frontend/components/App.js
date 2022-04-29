@@ -29,7 +29,7 @@ import FaucetAddress from '../contractsData/Faucet-address.json'
 function App() {
   const [loading, setLoading] = useState(true)
   const [account, setAccount] = useState(null)
-  const [networkName, setNetworkName] = useState(null)
+  const [networkName, setNetworkName] = useState('network')
   const [faucet, setFaucet] = useState(null)
 
   // MetaMask Login/Connect ----------------------------------------------------------------------- //
@@ -59,9 +59,7 @@ function App() {
 
     // Get network chainid and name
     const network = await window.ethereum.request({ method: 'eth_chainId' });
-    console.log('Network:', networkName, '(', network, ')')
-
-
+    console.log('NetworkID:', network, )
 
     // if on rinkeby network then use Rinkeby network
     if (window.ethereum && network === '0x4') {
@@ -121,9 +119,9 @@ function App() {
   return (
     <BrowserRouter>
       <div className="App">
-        <>
+        <div>
           <Navigation web3Handler={web3Handler} account={account} networkName={networkName}/>
-        </>
+        </div>
         <div>
           {loading ? (
             <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', minHeight: '80vh' }}>
