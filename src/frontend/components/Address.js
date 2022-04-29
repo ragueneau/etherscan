@@ -25,6 +25,12 @@ const Address = ({ networkName }) => {
         const transactions = await provider.getTransactionCount(params.walletAddress)
         console.log('Transactions:', transactions)
 
+        //verify erc20 token Balance
+        //const erc20 = new ethers.Contract(params.erc20Address, params.erc20ABI, provider)
+        //const erc20Balance = await erc20.balanceOf(params.walletAddress)
+        //console.log('ERC20 Balance:', erc20Balance)
+
+
 
         setLoading(false)
     }

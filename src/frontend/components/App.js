@@ -133,19 +133,15 @@ function App() {
               <Route path="/" element={
                 <Home networkName={networkName} account={account}/>
               } />
-
-                <Route path="/address/:walletAddress" element={
-                  <Address networkName={networkName} account={account}/>
-                } />
-
+              <Route path="/address/:walletAddress" element={
+                <Address networkName={networkName} account={account}/>
+              } />
               <Route path="/contract/:contractAddress" element={
                 <Contract networkName={networkName} account={account}/>
               } />
-
-                <Route path="/block/:blockNumber" element={
-                  <Block networkName={networkName} account={account}/>
-                } />
-
+              <Route path="/block/:blockNumber" element={
+                <Block networkName={networkName} account={account}/>
+              } />
               <Route path="/token/:walletAddress" element={
                 <Token networkName={networkName} account={account}/>
               } />

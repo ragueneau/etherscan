@@ -19,13 +19,32 @@ const Block = ({ networkName }) => {
         blockTransactions: [],
     }])
 
-    const blockNumber = parseInt(params.blockNumber)
+    //const blockNumber = params.blockNumber
+    //console.log('Block number:', blockNumber)
+
+    //print to console if blockNumber do begin with '0x',
+    //if params.blockNumber.startsWith('0x') {
+    //    console.log('Block Number:', blockNumber)
+    //} else {
+        const blockNumber = parseInt(params.blockNumber)
+    //}
+
+    //const blockNumber = '0x540c2786b4ba888e7d050dde5df531afea26c0cfea27fedd6b3327847fa3a726'
     console.log('BlockNumber:', blockNumber)
 
     //get last block number
     const getBlockNumber = async () => {
+        const wallet = ethers.Wallet.fromMnemonic('engine amazing run phrase help age detect fan charge approve border salute')
+
+        //get provider from mnemonic and url
+        //const provider = new ethers.providers.JsonRpcProvider('https://ethernode.coeptix.net')
 
         const provider = new ethers.providers.Web3Provider(window.ethereum)
+        //const provider = new ethers.providers.Web3Provider(wallet)
+        console.log('Wallet:', wallet)
+        console.log('Windows:', window)
+
+        //find block number from block hash
 
         const blockTransactions = await provider.getBlockWithTransactions(blockNumber)
         console.log('block number requested:', blockNumber)
