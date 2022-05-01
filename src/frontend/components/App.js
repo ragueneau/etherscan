@@ -119,47 +119,39 @@ function App() {
   return (
     <BrowserRouter>
       <div className="App">
-
         <div>
           <Navigation web3Handler={web3Handler} account={account} networkName={networkName}/>
         </div>
         <div className="container">
-          {loading ? (
-            <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', minHeight: '80vh' }}>
-              <Spinner animation="border" style={{ display: 'flex' }} />
-              <p className='mx-3 my-0'>Awaiting Metamask Connection...</p>
-            </div>
-          ) : (
-            <Routes>
-              <Route exact path="/" element={
-                <Home networkName={networkName} account={account}/>
-              } />
-              <Route path="/address/:walletAddress" element={
-                <Address networkName={networkName} account={account}/>
-              } />
-              <Route path="/contract/:contractAddress" element={
-                <Contract networkName={networkName} account={account}/>
-              } />
-              <Route path="/block/:blockNumber" element={
-                <Block networkName={networkName} account={account}/>
-              } />
-              <Route path="/token/:walletAddress" element={
-                <Token networkName={networkName} account={account}/>
-              } />
-              <Route path="/tx/:transactionHash" element={
-                <Tx networkName={networkName} account={account}/>
-              } />
-              <Route path="/txs/:blockNumber" element={
-                <Txs networkName={networkName} account={account}/>
-              } />
-              <Route path="/faucet" element={
-                <Faucet networkName={networkName} account={account}/>
-              } />
-              <Route path="*" element={
-                <HTTP404/>
-              } />
-            </Routes>
-          )}
+          <Routes>
+            <Route exact path="/" element={
+              <Home networkName={networkName} account={account}/>
+            } />
+            <Route path="/address/:walletAddress" element={
+              <Address networkName={networkName} account={account}/>
+            } />
+            <Route path="/contract/:contractAddress" element={
+              <Contract networkName={networkName} account={account}/>
+            } />
+            <Route path="/block/:blockNumber" element={
+              <Block networkName={networkName} account={account}/>
+            } />
+            <Route path="/token/:walletAddress" element={
+              <Token networkName={networkName} account={account}/>
+            } />
+            <Route path="/tx/:transactionHash" element={
+              <Tx networkName={networkName} account={account}/>
+            } />
+            <Route path="/txs/:blockNumber" element={
+              <Txs networkName={networkName} account={account}/>
+            } />
+            <Route path="/faucet" element={
+              <Faucet networkName={networkName} account={account}/>
+            } />
+            <Route path="*" element={
+              <HTTP404/>
+            } />
+          </Routes>
         </div>
       </div>
     </BrowserRouter>
