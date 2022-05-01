@@ -57,4 +57,5 @@ contract faucet {
     function getAvailableTokens() public view returns (uint) {
         return address(this).balance;
     }
+
 }

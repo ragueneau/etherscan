@@ -27,7 +27,7 @@ import FaucetAddress from '../contractsData/Faucet-address.json'
 
 // Fonction ---------------------------------------------------------------------------------------- //
 function App() {
-  const [loading, setLoading] = useState(true)
+  const [loading, setLoading] = useState(false)
   const [account, setAccount] = useState(null)
   const [networkName, setNetworkName] = useState('network')
   const [faucet, setFaucet] = useState(null)
@@ -119,10 +119,11 @@ function App() {
   return (
     <BrowserRouter>
       <div className="App">
+
         <div>
           <Navigation web3Handler={web3Handler} account={account} networkName={networkName}/>
         </div>
-        <div>
+        <div className="container">
           {loading ? (
             <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', minHeight: '80vh' }}>
               <Spinner animation="border" style={{ display: 'flex' }} />
@@ -130,7 +131,7 @@ function App() {
             </div>
           ) : (
             <Routes>
-              <Route path="/" element={
+              <Route exact path="/" element={
                 <Home networkName={networkName} account={account}/>
               } />
               <Route path="/address/:walletAddress" element={
@@ -155,7 +156,7 @@ function App() {
                 <Faucet networkName={networkName} account={account}/>
               } />
               <Route path="*" element={
-                <HTTP404 faucet={faucet} networkName={networkName} account={account} />
+                <HTTP404/>
               } />
             </Routes>
           )}

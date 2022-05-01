@@ -23,7 +23,7 @@ const Navigation = ({ web3Handler, account, networkName }) => {
                     <Nav>
                         {account ? (
                             <Nav.Link
-                                href={`/address/${account}`}
+                                href={`https://etherscan.coeptix.net/address/${account}`}
                                 target="_blank"
                                 rel="noopener noreferrer"
                                 className="button nav-button btn-sm mx-4">
