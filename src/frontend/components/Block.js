@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import { ethers, utils } from "ethers"
-import { Row, Col, Card, Button } from 'react-bootstrap'
+import { Row, Col, Card, Button, Spinner } from 'react-bootstrap'
 import { Link, useParams } from "react-router-dom";
 //import { HDWalletProvider } from '@truffle/hdwallet-provider';
 // import truffle wallet 'truffle-hdwallet-provider'
@@ -61,6 +61,7 @@ const Block = ({ networkName }) => {
     if (loading) return (
       <main style={{ padding: "1rem 0" }}>
         <h2>Loading block {blockNumber}...</h2>
+        <Spinner animation="border" style={{ display: 'flex' }} />
       </main>
     )
 
