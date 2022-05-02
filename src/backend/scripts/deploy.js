@@ -6,7 +6,7 @@ async function main() {
 
   // Get the ContractFactories and Signers here.
   const Faucet = await ethers.getContractFactory("Faucet");
-  //const TKN = await ethers.getContractFactory("erc20_tkn_faucet");
+  const TKN = await ethers.getContractFactory("erc-20-cadt");
 
   // deploy contracts
   const faucet = await Faucet.deploy();
@@ -16,7 +16,7 @@ async function main() {
 
   // Save copies of each contracts abi and address to the frontend.
   saveFrontendFiles(faucet , "Faucet");
-  //saveFrontendFiles(nft , "erc20_tkn_faucet");
+  saveFrontendFiles(TKN , "erc-20-cadt");
 }
 
 

@@ -19,12 +19,15 @@ import Block from './Block.js'
 import Contract from './Contract.js'
 import Faucet from './Faucet.js'
 import Token from './Token.js'
+import Tokens from './Tokens.js'
 import Tx from './Tx.js'
 import Txs from './Txs.js'
 
 // Contract Addresses ------------------------------------------------------------------------------ //
+import ERC20Abi from '../contractsData/erc20-abi.json'
 import FaucetAbi from '../contractsData/Faucet.json'
 import FaucetAddress from '../contractsData/Faucet-address.json'
+
 
 // Fonction ---------------------------------------------------------------------------------------- //
 function App() {
@@ -156,6 +159,14 @@ function App() {
       console.log('Avalanche Mainnet');
       setNetworkName('Avalanche')
 
+    } else if (window.ethereum && network === '0xa') {
+      console.log('Optimism Mainnet');
+      setNetworkName('Optimism')
+
+    } else if (window.ethereum && network === '0x38') {
+      console.log('Binance');
+      setNetworkName('Binance')
+
     } else if (window.ethereum && network === '0x1') {
       console.log('Mainnet');
       setNetworkName('Mainnet')
@@ -168,6 +179,7 @@ function App() {
 
     // Get deployed copies of contracts
     const faucet = new ethers.Contract(FaucetAddress.address, FaucetAbi.abi, signer)
+
     setFaucet(faucet)
     setLoading(false)
   }
@@ -202,8 +214,11 @@ function App() {
             <Route path="/block/:blockNumber" element={
               <Block networkName={networkName} account={account}/>
             } />
-            <Route path="/token/:walletAddress" element={
+            <Route path="/token/:tokenAddress" element={
               <Token networkName={networkName} account={account}/>
+            } />
+            <Route path="/tokens" element={
+              <Tokens networkName={networkName} account={account}/>
             } />
             <Route path="/tx/:transactionHash" element={
               <Tx networkName={networkName} account={account}/>

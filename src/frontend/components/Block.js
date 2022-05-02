@@ -70,7 +70,7 @@ const Block = ({ networkName }) => {
 
         <div className="flex justify-center">
             <div className="px-5 py-3 container text-center">
-                <h5>Block #{blockContent.hash}</h5>
+                <h5>Block {blockContent.hash}</h5>
 
                 <Row className="justify-content-center">
                     <Col xs={1} md={8} lg={12}>

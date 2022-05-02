@@ -1,36 +1,20 @@
 import { useState, useEffect } from 'react'
 import { ethers } from "ethers"
 import { Row, Col, Card } from 'react-bootstrap'
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 
 const Contract = ({ networkName }) => {
-    const [loading, setLoading] = useState(false)
-    const [lastBlockNumber, setLastBlockNumber] = useState(0)
+    const params = useParams()
+    const [loading, setLoading] = useState(true)
 
-    //const [account, setAccount] = useState([])
-    console.log('Network:', networkName)
-
-    //get last block number
-    const getLastBlockNumber = async () => {
-        const provider = new ethers.providers.Web3Provider(window.ethereum)
-        const blockNumber = await provider.getBlockNumber()
-        console.log('Last block number:', blockNumber)
-
-        setLastBlockNumber(blockNumber)
-    }
-
-    //const getLastBlockTransaction = async () => {
-    //    const provider = new ethers.providers.Web3Provider(window.ethereum)
-      //  const blockNumber = await provider.getBlockNumber()
-    //}
 
     useEffect(() => {
-      getLastBlockNumber()
+        setLoading(false)
 
       }, [])
       if (loading) return (
         <main style={{ padding: "1rem 0" }}>
-          <h2>Loading home...</h2>
+          <h5>Loading contract {params.contractAddress}</h5>
         </main>
       )
 
@@ -39,37 +23,50 @@ const Contract = ({ networkName }) => {
       return (
         <div className="flex justify-center">
             <div className="px-5 py-3 container">
-                <h2>Ethereum Block Scanner</h2>
-
-                <Link to={`/block/${lastBlockNumber}`}>{lastBlockNumber}</Link>
+                <h5>Contract {params.contractAddress}</h5>
 
                 <Row className="justify-content-center">
-                    <Col xs={1} md={4} lg={6}>
+                    <Col xs={1} md={6} lg={6}>
                         <Card className="text-center">
                             <Card.Body>
-                                <Card.Title>
-                                    <h3>Latest Blocks</h3>
-                                </Card.Title>
+                                <Card.Title>Overview</Card.Title>
                                 <Card.Text>
-                                    <span className="text-muted">
-                                        <i className="fas fa-user-circle">Text</i>
-                                    </span>
+                                    <ul>
+                                        <li className="list-group-item">Price: </li>
+                                        <li className="list-group-item">Total Supply: </li>
+                                        <li className="list-group-item">Holders: </li>
+                                    </ul>
                                 </Card.Text>
                             </Card.Body>
                         </Card>
                     </Col>
-                    <Col xs={1} md={4} lg={6}>
+                    <Col xs={1} md={6} lg={6}>
                         <Card className="text-center">
                             <Card.Body>
-                                <Card.Title>
-                                    <h3>Latest Transactions</h3>
+                                <Card.Title>Profile Summary</Card.Title>
+                                <Card.Text>
+                                <ul>
+                                    <li className="list-group-item">Contract:
+                                    <Link to={`/contract/${params.tokenAddress}`}>{params.tokenAddress}</Link></li>
+                                    <li className="list-group-item">Decimals: </li>
+                                    <li className="list-group-item">Official Site: </li>
+                                    <li className="list-group-item">Social profiles: </li>
+                                </ul>
+                                </Card.Text>
+                            </Card.Body>
+                        </Card>
+                    </Col>
+                </Row>
 
-                                </Card.Title>
+                <Row>
+                    <Col xs={1} md={10} lg={12}>
+                        <Card>
+                            <Card.Body>
+                                <Card.Title>Transactions</Card.Title>
                                 <Card.Text>
                                     <span className="text-muted">
-                                        <i className="fas fa-user-circle">Text</i>
+                                        <i className="fas fa-user-circle">Transactions</i>: 
                                     </span>
-
                                 </Card.Text>
                             </Card.Body>
                         </Card>

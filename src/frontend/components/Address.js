@@ -100,7 +100,7 @@ const Address = ({ networkName }) => {
       return (
         <div className="flex justify-center">
             <div className="px-5 py-3 container">
-                <h4>Address: {params.walletAddress}</h4>
+                <h5>Address {params.walletAddress}</h5>
                 <Row className="justify-content-center">
                     <Col xs={1} md={6} lg={6}>
                         <Card className="text-center">
@@ -108,9 +108,9 @@ const Address = ({ networkName }) => {
                                 <Card.Title>Overview</Card.Title>
                                 <Card.Text>
                                     <ul>
-                                    <li className="list-group-item">Balance: {address.balance} xETH</li>
-                                    <li className="list-group-item">xETH Value: ${address.value}</li>
-                                    <li className="list-group-item">Token: {address.tokens}</li>
+                                        <li className="list-group-item"><b>Balance</b>: {address.balance} xETH</li>
+                                        <li className="list-group-item"><b>xETH Value</b>: ${address.value}</li>
+                                        <li className="list-group-item"><b>Token</b>: {address.tokens}</li>
                                     </ul>
                                 </Card.Text>
                             </Card.Body>
