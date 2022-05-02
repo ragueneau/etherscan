@@ -55,6 +55,62 @@ function App() {
     loadContracts(signer)
   }
 
+    // Load contracts -------------------------------------------------------------------------------- //
+  const loadNetwork = async () => {
+
+      // Get network chainid and name
+      const network = await window.ethereum.request({ method: 'eth_chainId' });
+      console.log('NetworkID:', network, )
+  
+      // if on rinkeby network then use Rinkeby network
+      if (window.ethereum && network === '0x4') {
+        console.log('Rinkeby network');
+        setNetworkName('Rinkeby')
+  
+      } else if (window.ethereum && network === '0x3') {
+        console.log('Roptsten network');
+        setNetworkName('Roptsten')
+  
+      } else if (window.ethereum && network === '0x2a') {
+        console.log('Kovan network');
+        setNetworkName('Kovan')
+  
+      } else if (window.ethereum && network === '0x5') {
+        console.log('Goerli network');
+        setNetworkName('Goerli')
+  
+      } else if (window.ethereum && network === '0x75c9') {
+        console.log('CoeptIX network');
+        setNetworkName('CoeptIX')
+        FaucetAddress.address = '0xCAEB631af6e9A583A7DC5471E51B9E1E8b64bdBF'
+  
+      } else if (window.ethereum && network === '0x89') {
+        console.log('Polygon network');
+        setNetworkName('Polygon')
+  
+      } else if (window.ethereum && network === '0x13881') {
+        console.log('Mumbai network');
+        setNetworkName('Mumbai')
+  
+      } else if (window.ethereum && network === '0x539') {
+        console.log('Ganache localnet');
+        setNetworkName('Ganache')
+  
+      } else if (window.ethereum && network === '0xa86a') {
+        console.log('Avalanche Mainnet');
+        setNetworkName('Avalanche')
+  
+      } else if (window.ethereum && network === '0x1') {
+        console.log('Mainnet');
+        setNetworkName('Mainnet')
+  
+      } else {
+        console.log('Unknown network');
+        setNetworkName('Unknown')
+
+      }
+
+  }
   // Load contracts -------------------------------------------------------------------------------- //
   const loadContracts = async (signer) => {
 
@@ -116,6 +172,7 @@ function App() {
     setLoading(false)
   }
 
+  loadNetwork()
 
   // Render ---------------------------------------------------------------------------------------- //
   return (
@@ -126,6 +183,12 @@ function App() {
           <Navigation web3Handler={web3Handler} account={account} networkName={networkName}/>
         </div>
         <div className="container">
+        {loading ? (
+            <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', minHeight: '80vh' }}>
+              <Spinner animation="border" style={{ display: 'flex' }} />
+              <p className='mx-3 my-0'>Awaiting Metamask Connection...</p>
+            </div>
+          ) : (
           <Routes>
             <Route exact path="/" element={
               <Home networkName={networkName} account={account}/>
@@ -154,7 +217,7 @@ function App() {
             <Route path="*" element={
               <HTTP404/>
             } />
-          </Routes>
+          </Routes>)}
         </div>
       </div>
     </BrowserRouter>
