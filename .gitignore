@@ -24,3 +24,4 @@ yarn-error.log*
 
 artifacts/
 cache/
+package-lock.json
