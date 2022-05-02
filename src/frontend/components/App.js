@@ -11,6 +11,7 @@ import './App.css';
 
 import Navigation from './nav/Navbar';
 import HTTP404 from './nav/404.js'
+import SearchBar from './nav/search_bar';
 
 import Home from './Home.js'
 import Address from './Address.js'
@@ -115,11 +116,13 @@ function App() {
     setLoading(false)
   }
 
+
   // Render ---------------------------------------------------------------------------------------- //
   return (
     <BrowserRouter>
       <div className="App">
         <div>
+
           <Navigation web3Handler={web3Handler} account={account} networkName={networkName}/>
         </div>
         <div className="container">

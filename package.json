@@ -19,6 +19,8 @@
     "hardhat": "^2.8.4",
     "ipfs-http-client": "^56.0.1",
     "minimist": "^1.2.6",
+    "mongodb": "^4.5.0",
+    "mongoose": "^6.3.1",
     "react": "^17.0.2",
     "react-bootstrap": "^2.1.2",
     "react-dom": "^17.0.2",

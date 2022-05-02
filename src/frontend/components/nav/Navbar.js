@@ -6,7 +6,8 @@ import { Navbar, Nav, Button, Container } from 'react-bootstrap'
 
 const Navigation = ({ web3Handler, account, networkName }) => {
     return (
-        <Navbar expand="lg" bg="secondary" variant="dark">
+
+        <Navbar expand="lg" bg="dark" variant="dark">
             <Container>
                 <Navbar.Brand href="/">
                     &nbsp; Dev Blockchain

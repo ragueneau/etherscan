@@ -1,12 +1,23 @@
 import { useState, useEffect } from 'react'
 import { ethers } from "ethers"
 import { Row, Col, Card } from 'react-bootstrap'
-import { Link, useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom"
+
+//import mongoose from 'mongoose'
+//const mongoose = require('mongoose')
 
 const Address = ({ networkName }) => {
     const params = useParams()
     const [loading, setLoading] = useState(true)
-    const [lastBlockNumber, setLastBlockNumber] = useState(0)
+    const [address, setAddress] = useState({
+        address: params.address,
+        balance: 0,
+        value: 0,
+        txs: []
+    })
+
+    //const MongoClient = require('mongodb').MongoClient;
+
 
     //const [account, setAccount] = useState([])
     console.log('Params:', params)
@@ -18,6 +29,12 @@ const Address = ({ networkName }) => {
         const address = await provider.getBalance(params.walletAddress)
         console.log('Address:', address)
 
+        //get account balance in ether
+        const balance = ethers.utils.formatEther(address)
+        console.log('Balance:', balance)
+
+        //const HDNode  = await ethers.utils.HDNode.fromMnemonic('boss rural month arm exit elegant eight grain palace biology pistol control outside album slab top boil absorb tree mean street giggle head frozen')
+
         //setLastBlockNumber(blockNumber)
         // get transactions
         const transactions = await provider.getTransactionCount(params.walletAddress)
@@ -28,11 +45,30 @@ const Address = ({ networkName }) => {
         //const erc20Balance = await erc20.balanceOf(params.walletAddress)
         //console.log('ERC20 Balance:', erc20Balance)
 
-        //get transactions list from address 
+        //get transactions list from address
         //const txs = await provider.getHistory(params.walletAddress)
         //console.log('Txs:', txs)
 
+        //get the transactions list from the mongodb collection 'transactions'
 
+
+        //mongoose.connect('mongodb://192.168.2.125:27017/geth', { useNewUrlParser: true, useUnifiedTopology: true }, (err) => {
+        //    if (err) {
+        //        console.log('Error:', err)
+        //    } else {
+        //        console.log('Connected to MongoDB')
+        //    }
+        //})
+
+
+        setAddress({
+            address: address,
+            balance: balance,
+            value: 0.00,
+            txs: [],
+            transactions: transactions,
+            tokens: []
+        })
 
         setLoading(false)
     }
@@ -58,11 +94,11 @@ const Address = ({ networkName }) => {
                             <Card.Body>
                                 <Card.Title>Overview</Card.Title>
                                 <Card.Text>
-                                    <span className="text-muted">
-                                        <i className="fas fa-user-circle">Balance: </i><br/>
-                                        <i className="fas fa-user-circle">Value: </i><br/>
-                                        <i className="fas fa-user-circle">Token: </i>
-                                    </span>
+                                    <ul>
+                                    <li className="list-group-item">Balance: {address.balance} xETH</li>
+                                    <li className="list-group-item">xETH Value: ${address.value}</li>
+                                    <li className="list-group-item">Token: {address.tokens}</li>
+                                    </ul>
                                 </Card.Text>
                             </Card.Body>
                         </Card>
@@ -72,9 +108,11 @@ const Address = ({ networkName }) => {
                             <Card.Body>
                                 <Card.Title>More Info</Card.Title>
                                 <Card.Text>
-                                    <span className="text-muted">
-                                        <i className="fas fa-user-circle">Text</i>
-                                    </span>
+                                <ul>
+                                    <li className="list-group-item"></li>
+                                    <li className="list-group-item"></li>
+                                    <li className="list-group-item"></li>
+                                </ul>
                                 </Card.Text>
                             </Card.Body>
                         </Card>
@@ -88,7 +126,7 @@ const Address = ({ networkName }) => {
                                 <Card.Title>Transactions</Card.Title>
                                 <Card.Text>
                                     <span className="text-muted">
-                                        <i className="fas fa-user-circle">Text</i>
+                                        <i className="fas fa-user-circle">Transactions</i>: {address.transactions}
                                     </span>
                                 </Card.Text>
                             </Card.Body>
