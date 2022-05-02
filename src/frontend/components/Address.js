@@ -9,6 +9,8 @@ import { Link, useParams } from "react-router-dom"
 //const mongoose = require('mongoose')
 
 const Address = ({ networkName }) => {
+    const [count, setCount] = useState(0);
+
     const params = useParams()
     const [loading, setLoading] = useState(true)
     const [address, setAddress] = useState({
@@ -18,18 +20,11 @@ const Address = ({ networkName }) => {
         txs: []
     })
 
-    //const MongoClient = require('mongodb').MongoClient;
-
-
-    //const [account, setAccount] = useState([])
-    console.log('Params:', params)
-
-    //get last block number
-    const getAddress = async () => {
+    const getAddress2 = async () => {
         const provider = new ethers.providers.Web3Provider(window.ethereum)
 
         const address = await provider.getBalance(params.walletAddress)
-        console.log('Address:', address)
+        console.log('Address:', params.walletAddress)
 
         //get account balance in ether
         const balance = ethers.utils.formatEther(address)
@@ -40,9 +35,8 @@ const Address = ({ networkName }) => {
         //setLastBlockNumber(blockNumber)
         // get transactions
         const transactions = await provider.getTransactionCount(params.walletAddress)
-        console.log('Transactions:', transactions)
+        //console.log('Transactions:', transactions)
 
-        
         //verify erc20 token Balance
         //const erc20 = new ethers.Contract(params.erc20Address, params.erc20ABI, provider)
         //const erc20Balance = await erc20.balanceOf(params.walletAddress)
@@ -54,15 +48,26 @@ const Address = ({ networkName }) => {
 
         //get the transactions list from the mongodb collection 'transactions'
 
-
         //mongoose.connect('mongodb://192.168.2.125:27017/geth', { useNewUrlParser: true, useUnifiedTopology: true }, (err) => {
         //    if (err) {
         //        console.log('Error:', err)
         //    } else {
         //        console.log('Connected to MongoDB')
         //    }
-        //})
+                //})
+        //get last block number
+    }
 
+    const getAddress = async () => {
+        const provider = new ethers.providers.Web3Provider(window.ethereum)
+
+        const address = await provider.getBalance(params.walletAddress)
+
+        //get account balance in ether
+        const balance = ethers.utils.formatEther(address)
+        console.log('Balance:', balance)
+
+        const transactions = await provider.getTransactionCount(params.walletAddress)
 
         setAddress({
             address: address,
@@ -79,7 +84,12 @@ const Address = ({ networkName }) => {
     useEffect(() => {
         getAddress()
 
-      }, [])
+        let timer = setTimeout(() => {
+            setCount((count) => count + 1);
+        }, 10000);
+
+          return () => clearTimeout(timer)
+          })
       if (loading) return (
         <main style={{ padding: "1rem 0" }}>
           <h4>Loading address: {params.walletAddress}</h4>
