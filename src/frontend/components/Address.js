@@ -3,6 +3,8 @@ import { ethers } from "ethers"
 import { Row, Col, Card } from 'react-bootstrap'
 import { Link, useParams } from "react-router-dom"
 
+//import { MongoClient } from "mongodb";
+
 //import mongoose from 'mongoose'
 //const mongoose = require('mongoose')
 
@@ -40,6 +42,7 @@ const Address = ({ networkName }) => {
         const transactions = await provider.getTransactionCount(params.walletAddress)
         console.log('Transactions:', transactions)
 
+        
         //verify erc20 token Balance
         //const erc20 = new ethers.Contract(params.erc20Address, params.erc20ABI, provider)
         //const erc20Balance = await erc20.balanceOf(params.walletAddress)
