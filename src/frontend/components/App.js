@@ -22,6 +22,7 @@ import Token from './Token.js'
 import Tokens from './Tokens.js'
 import Tx from './Tx.js'
 import Txs from './Txs.js'
+import Profile from './Profile.js'
 
 // Contract Addresses ------------------------------------------------------------------------------ //
 import ERC20Abi from '../contractsData/erc20-abi.json'
@@ -191,7 +192,6 @@ function App() {
     <BrowserRouter>
       <div className="App">
         <div>
-
           <Navigation web3Handler={web3Handler} account={account} networkName={networkName}/>
         </div>
         <div className="container">
@@ -228,6 +228,9 @@ function App() {
             } />
             <Route path="/faucet" element={
               <Faucet networkName={networkName} account={account}/>
+            } />
+            <Route path="/profile" element={
+              <Profile networkName={networkName} account={account}/>
             } />
             <Route path="*" element={
               <HTTP404/>

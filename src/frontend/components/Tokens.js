@@ -1,10 +1,9 @@
 import { useState, useEffect } from 'react'
-import { ethers } from "ethers"
+//import { ethers } from "ethers"
 import { Row, Col, Card, Spinner } from 'react-bootstrap'
-import { Link, useParams } from "react-router-dom";
+import { Link  } from "react-router-dom";
 
 const Tokens = ({ networkName }) => {
-    const params = useParams()
     const [loading, setLoading] = useState(true)
 
     const getTokenList = async () => {

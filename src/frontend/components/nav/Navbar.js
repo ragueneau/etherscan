@@ -23,9 +23,8 @@ const Navigation = ({ web3Handler, account, networkName }) => {
                     <Button variant="outline-light">{networkName}</Button>
                     <Nav>
                         {account ? (
-                            <Nav.Link
-                                href={`https://etherscan.coeptix.net/address/${account}`}
-                                target="_blank"
+                            <Nav.Link 
+                                href={`/profile`}
                                 rel="noopener noreferrer"
                                 className="button nav-button btn-sm mx-4">
                                 <Button variant="outline-light">

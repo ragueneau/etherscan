@@ -7,7 +7,7 @@ import { useParams } from 'react-router-dom'
 const Txs = ({ networkName, blockNumber }) => {
     const params = useParams()
     const [loading, setLoading] = useState(true)
-    const [lastBlockNumber, setLastBlockNumber] = useState(0)
+    //const [lastBlockNumber, setLastBlockNumber] = useState(0)
     const [blockContent, setBlockContent] = useState([{
         blockNumber: 1,
         blockHash: '',
@@ -31,7 +31,7 @@ const Txs = ({ networkName, blockNumber }) => {
         console.log('block number requested:', blockNumber)
         console.log('Block Transactions', blockTransactions)
 
-       // setBlockContent(blockTransactions)
+        setBlockContent(blockTransactions)
         setLoading(false)
     }
 
@@ -65,9 +65,7 @@ const Txs = ({ networkName, blockNumber }) => {
                             </Card.Body>
                         </Card>
                     </Col>
-
                 </Row>
-
             </div>
         </div>
     );

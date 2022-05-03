@@ -8,9 +8,7 @@ const LatestBlocks = ({items}) => {
         <Col xs={1} md={4} lg={6}>
         <Card className="text-center">
             <Card.Body>
-                <Card.Title>
-                    <h5>Latest Blocks</h5>
-                </Card.Title>
+                <Card.Title><h5>Latest Blocks</h5></Card.Title>
                 <Card.Text>
                     <ul>
                     {items.map((item, idx) => (
@@ -28,5 +26,4 @@ const LatestBlocks = ({items}) => {
     </Col>
     );
 };
-
 export default LatestBlocks;

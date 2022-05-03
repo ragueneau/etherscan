@@ -1,7 +1,7 @@
 
 import React from "react";
 import { Col, Card } from 'react-bootstrap'
-import { Link } from "react-router-dom"
+//import { Link } from "react-router-dom"
 
 const LatestTransactions = ({items}) => {
     return (
