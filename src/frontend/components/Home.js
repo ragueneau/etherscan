@@ -2,15 +2,43 @@
 import { useState, useEffect } from 'react'
 import { ethers } from "ethers"
 import { Row, Spinner } from 'react-bootstrap'
-//import { axios } from 'axios'
 
 import LatestBlocks from './blocks/LatestBlocks'
 import LatestTransactions from './tx/LatestTransactions'
 
+const axios = require('axios').default;
+
+
 const Home = ({ networkName }) => {
     const [count, setCount] = useState(0);
-    const [loading, setLoading] = useState(true)
+    const [loading, setLoading] = useState(false)
     const [items, setItems] = useState([])
+    const [txs, setTxs] = useState([])
+
+    const getLatestTransactions = async () => {
+        //const response = await axios.get('http://api.etherscan.io/api?module=account&action=txlist&address=0x8d12a197cb00d4747a1fe03395095ce2a5cc6819&startblock=0&endblock=99999999&sort=asc&apikey=YourApiKeyToken')
+
+        const response = await axios.get('https://etherapi.coeptix.net/tx')
+        .then(function (response) {
+          // handle success
+          //console.log(response);
+          setTxs(response.data.msg)
+        })
+        .catch(function (error) {
+         // handle error
+          console.log(error);
+        })
+       .then(function () {
+          // always executed
+        });
+
+        //console.log('getLatestTransactions')
+
+        //block.timediff = Math.round(+new Date()/1000) - block.timestamp
+       // console.log(response)
+
+        //setTxs(response.data.msg)
+    }
 
     //get last block number
     const getLatestBlocks = async () => {
@@ -21,24 +49,21 @@ const Home = ({ networkName }) => {
         //a for loop to get the last 10 blocks
         for (let i = 0; i < 10; i++) {
             const block = await provider.getBlock(blockNumber - i)
-            //console.log('Block:', block)
 
             block.timediff = Math.round(+new Date()/1000) - block.timestamp
-
             items.push(block)
         }
 
         setItems(items)
-        setLoading(false)
     }
 
     useEffect(() => {
-        getLatestBlocks()
-
         let timer = setTimeout(() => {
             setCount((count) => count + 1);
-        }, 1000);
-
+            getLatestBlocks()
+            getLatestTransactions()
+            setLoading(false)
+        }, 900);
         return () => clearTimeout(timer)
     })
     if (loading) return (
@@ -55,7 +80,7 @@ const Home = ({ networkName }) => {
             <h3>EVM Blockchain Scanner</h3>
             <Row className="justify-content-center">
                 <LatestBlocks items={items} />
-                <LatestTransactions />
+                <LatestTransactions txs={txs} />
             </Row>
         </div>
       </div>
