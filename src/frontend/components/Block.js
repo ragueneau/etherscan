@@ -64,7 +64,7 @@ const Block = ({ networkName }) => {
         <Spinner animation="border" style={{ display: 'flex' }} />
       </main>
     )
-
+//    <Link to={`/block/${blockContent.number+1}`}><Button variant="primary" size="sm" className="ml-2">Next</Button></Link>
     // Render ---------------------------------------------------------------------------------------------------------- //
     return (
 
@@ -80,11 +80,9 @@ const Block = ({ networkName }) => {
                                 </Card.Title>
                                 <Card.Text>
                                     <div className="text-muted text-center">
-                                        Block height: <i className="fas fa-user-circle">{blockContent.number}</i> <Link to={`/block/${blockContent.number-1}`}>
-                                            <Button variant="primary" size="sm" className="ml-2">Previous</Button>
-                                        </Link> <Link to={`/block/${blockContent.number+1}`}>
-                                            <Button variant="primary" size="sm" className="ml-2">Next</Button>
-                                        </Link>
+                                        Block height: <i className="fas fa-user-circle">{blockContent.number}
+                                        </i> <a href={`/block/${blockContent.number-1}`} class="btn btn-primary ">Previous
+                                        </a> <a href={`/block/${blockContent.number+1}`} class="btn btn-primary ">Next</a>
                                     </div>
                                     <div className="text-muted text-center">
                                         Timestamp: <i className="fas fa-user-circle">{blockContent.timestamp}</i>
