@@ -37,10 +37,9 @@ const Block = ({ networkName }) => {
     }
 
     useEffect(() => {
-        getBlockNumber()
-
         let timer = setTimeout(() => {
             setCount((count) => count + 1);
+            getBlockNumber()
         }, 1000);
 
         return () => clearTimeout(timer)

@@ -82,11 +82,11 @@ const Address = ({ networkName }) => {
     }
 
     useEffect(() => {
-        getAddress()
 
         let timer = setTimeout(() => {
             setCount((count) => count + 1);
-        }, 10000);
+            getAddress()
+        }, 1000);
 
           return () => clearTimeout(timer)
           })
