@@ -16,7 +16,7 @@ const LatestTransactions = ({txs}) => {
                 <ul>
                     {txs.map((item, idx) => (
                         <li key={idx} className="list-group-item">
-                        Tx <Link to={`/tx/${item.hash}`}>{item.hash.slice(0, 7) + '...'}</Link> {item.gas} xWEI<br/>
+                        Tx <Link to={`/tx/${item.hash}`}>{item.hash.slice(0, 7) + '...'}</Link> {item.gas} xwei<br/>
                         From: <Link to={`/address/${item.from}`}>{item.from.slice(0, 9) + '...'+item.from.slice(33, 42)}</Link><br/>
                         {item.to ? <span>To: <Link to={`/address/${item.to}`}>{item.to.slice(0, 9) + '...'+item.to.slice(33, 42)}</Link><br/></span> : null}
                         </li>
