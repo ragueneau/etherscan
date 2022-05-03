@@ -49,22 +49,18 @@ const Txs = ({ networkName, blockNumber }) => {
       return (
         <div className="flex justify-center">
             <div className="px-5 py-3 container">
-                <h2>Block Transactions #{blockContent.number}</h2>
+                <h5>Transactions {blockContent.number}</h5>
 
                 <Row className="justify-content-center">
 
                     <Col xs={1} md={10} lg={12}>
                         <Card className="text-center">
                             <Card.Body>
-                                <Card.Title>
-                                    <h3>Latest Transactions</h3>
-
-                                </Card.Title>
+                                <Card.Title>Latest Transactions</Card.Title>
                                 <Card.Text>
                                     <span className="text-muted">
                                         <i className="fas fa-user-circle">Text</i>
                                     </span>
-
                                 </Card.Text>
                             </Card.Body>
                         </Card>
