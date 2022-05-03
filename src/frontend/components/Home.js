@@ -5,6 +5,7 @@ import { Row, Spinner } from 'react-bootstrap'
 
 import LatestBlocks from './blocks/LatestBlocks'
 import LatestTransactions from './tx/LatestTransactions'
+import Dashboard from './blocks/Dashboard'
 
 const axios = require('axios').default;
 
@@ -21,7 +22,6 @@ const Home = ({ networkName }) => {
         const response = await axios.get('https://etherapi.coeptix.net/tx')
         .then(function (response) {
           // handle success
-          //console.log(response);
           setTxs(response.data.msg)
         })
         .catch(function (error) {
@@ -31,13 +31,6 @@ const Home = ({ networkName }) => {
        .then(function () {
           // always executed
         });
-
-        //console.log('getLatestTransactions')
-
-        //block.timediff = Math.round(+new Date()/1000) - block.timestamp
-       // console.log(response)
-
-        //setTxs(response.data.msg)
     }
 
     //get last block number
@@ -77,7 +70,10 @@ const Home = ({ networkName }) => {
     return (
       <div className="flex justify-center">
         <div className="px-5 py-3 container">
-            <h3>EVM Blockchain Scanner</h3>
+            <h3>EVM Blockchain Explorer</h3>
+            <Row className="justify-content-center">
+                <Dashboard items={items} />
+            </Row>
             <Row className="justify-content-center">
                 <LatestBlocks items={items} />
                 <LatestTransactions txs={txs} />
