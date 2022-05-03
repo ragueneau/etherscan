@@ -22,8 +22,6 @@ const Home = ({ networkName }) => {
         const response = await axios.get('https://etherapi.coeptix.net/tx')
         .then(function (response) {
           // handle success
-          //console.log(response);
-          //console.log(response.data.msg)
           setTxs(response.data.msg)
         })
         .catch(function (error) {
