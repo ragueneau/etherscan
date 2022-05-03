@@ -5,6 +5,7 @@ import { Row, Spinner } from 'react-bootstrap'
 
 import LatestBlocks from './blocks/LatestBlocks'
 import LatestTransactions from './tx/LatestTransactions'
+import Dashboard from './blocks/Dashboard'
 
 const axios = require('axios').default;
 
@@ -22,7 +23,7 @@ const Home = ({ networkName }) => {
         .then(function (response) {
           // handle success
           //console.log(response);
-          console.log(response.data.msg)
+          //console.log(response.data.msg)
           setTxs(response.data.msg)
         })
         .catch(function (error) {
@@ -72,6 +73,9 @@ const Home = ({ networkName }) => {
       <div className="flex justify-center">
         <div className="px-5 py-3 container">
             <h3>EVM Blockchain Explorer</h3>
+            <Row className="justify-content-center">
+                <Dashboard items={items} />
+            </Row>
             <Row className="justify-content-center">
                 <LatestBlocks items={items} />
                 <LatestTransactions txs={txs} />
