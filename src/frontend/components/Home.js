@@ -1,22 +1,28 @@
 
 import { useState, useEffect } from 'react'
 import { ethers } from "ethers"
-import { Row, Col, Card } from 'react-bootstrap'
-import { Link } from "react-router-dom"
+import { Row, Col, Card, Spinner } from 'react-bootstrap'
+import { axios } from 'axios'
+
+import LatestBlocks from './blocks/LatestBlocks'
+import LatestTransactions from './tx/LatestTransactions'
 
 const Home = ({ networkName }) => {
     const [count, setCount] = useState(0);
     const [loading, setLoading] = useState(true)
     const [lastBlockNumber, setLastBlockNumber] = useState()
     const [items, setItems] = useState([])
+    //const [timestamp, setTimestamp] = useState()
 
     //const [account, setAccount] = useState([])
 
     //get last block number
-    const getLastBlockNumber = async () => {
+    const getLatestBlocks = async () => {
         const provider = new ethers.providers.Web3Provider(window.ethereum)
         const blockNumber = await provider.getBlockNumber()
         console.log('Last block number:', blockNumber)
+
+        //setTimestamp(Math.round(+new Date()/1000))
 
         let items = []
 
@@ -25,7 +31,10 @@ const Home = ({ networkName }) => {
             const block = await provider.getBlock(blockNumber - i)
             //console.log('Block:', block)
 
+            block.timediff = Math.round(+new Date()/1000) - block.timestamp
+
             items.push(block)
+
         }
 
         setItems(items)
@@ -35,65 +44,32 @@ const Home = ({ networkName }) => {
     }
 
     useEffect(() => {
-      getLastBlockNumber()
+        getLatestBlocks()
 
-      let timer = setTimeout(() => {
-        setCount((count) => count + 1);
-      }, 10000);
+        let timer = setTimeout(() => {
+            setCount((count) => count + 1);
+        }, 1000);
 
-      return () => clearTimeout(timer)
-      })
-      if (loading) return (
+        return () => clearTimeout(timer)
+    })
+    if (loading) return (
         <main style={{ padding: "1rem 0" }}>
-                <h2>Loading the latest blocks...</h2>
+            <h2>Loading the latest blocks...</h2>
+            <Spinner animation="border" style={{ display: 'flex' }} />
         </main>
-      )
+    )
 
-      // Render ---------------------------------------------------------------------------------------------------------- //
-      return (
-        <div className="flex justify-center">
-          <div className="px-5 py-3 container">
-            <h2>EVM Blockchain Scanner</h2>
+    // Render ---------------------------------------------------------------------------------------------------------- //
+    return (
+      <div className="flex justify-center">
+        <div className="px-5 py-3 container">
+            <h3>EVM Blockchain Scanner</h3>
             <Row className="justify-content-center">
-
-
-                <Col xs={1} md={4} lg={6}>
-                    <Card className="text-center">
-                        <Card.Body>
-                            <Card.Title>
-                              <h3>Latest Blocks</h3>
-                            </Card.Title>
-                            <Card.Text>
-                                <ul>
-                                {items.map((item, idx) => (
-                                  <li key={idx} className="list-group-item">
-                                    <Link to={`/block/${item.number}`}>{item.number}</Link> Hash: <Link to={`/block/${item.number}`}>{item.hash.slice(0, 15) + '...'}</Link><br/>
-                                    {item.transactions.length} transaction(s)
-                                  </li>
-                                ))}
-                                </ul>
-                            </Card.Text>
-                        </Card.Body>
-                    </Card>
-                </Col>
-
-                <Col xs={1} md={4} lg={6}>
-                    <Card className="text-center">
-                        <Card.Body>
-                            <Card.Title>
-                              <h3>Latest Transactions</h3>
-                            </Card.Title>
-                            <Card.Text>
-                                <span className="text-muted">
-                                  <i className="fas fa-user-circle">Text</i>
-                                </span>
-                            </Card.Text>
-                        </Card.Body>
-                    </Card>
-                </Col>
+                <LatestBlocks items={items} />
+                <LatestTransactions />
             </Row>
-          </div>
         </div>
+      </div>
     );
 }
 export default Home
