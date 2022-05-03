@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import { ethers } from "ethers"
-import { Row, Col, Card } from 'react-bootstrap'
+import { Row, Col, Card, Spinner } from 'react-bootstrap'
 import { Link, useParams } from "react-router-dom";
 
 const Token = ({ networkName }) => {
@@ -32,6 +32,7 @@ const Token = ({ networkName }) => {
       if (loading) return (
         <main style={{ padding: "1rem 0" }}>
           <h5>Loading token {params.tokenAddress}</h5>
+          <Spinner animation="border" style={{ display: 'flex' }} />
         </main>
       )
 

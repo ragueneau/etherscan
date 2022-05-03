@@ -7,7 +7,7 @@ import { useParams } from 'react-router-dom'
 const Txs = ({ networkName, blockNumber }) => {
     const params = useParams()
     const [loading, setLoading] = useState(true)
-    const [lastBlockNumber, setLastBlockNumber] = useState(0)
+    //const [lastBlockNumber, setLastBlockNumber] = useState(0)
     const [blockContent, setBlockContent] = useState([{
         blockNumber: 1,
         blockHash: '',
@@ -31,7 +31,7 @@ const Txs = ({ networkName, blockNumber }) => {
         console.log('block number requested:', blockNumber)
         console.log('Block Transactions', blockTransactions)
 
-       // setBlockContent(blockTransactions)
+        setBlockContent(blockTransactions)
         setLoading(false)
     }
 
@@ -49,29 +49,23 @@ const Txs = ({ networkName, blockNumber }) => {
       return (
         <div className="flex justify-center">
             <div className="px-5 py-3 container">
-                <h2>Block Transactions #{blockContent.number}</h2>
+                <h5>Transactions {blockContent.number}</h5>
 
                 <Row className="justify-content-center">
 
                     <Col xs={1} md={10} lg={12}>
                         <Card className="text-center">
                             <Card.Body>
-                                <Card.Title>
-                                    <h3>Latest Transactions</h3>
-
-                                </Card.Title>
+                                <Card.Title>Latest Transactions</Card.Title>
                                 <Card.Text>
                                     <span className="text-muted">
                                         <i className="fas fa-user-circle">Text</i>
                                     </span>
-
                                 </Card.Text>
                             </Card.Body>
                         </Card>
                     </Col>
-
                 </Row>
-
             </div>
         </div>
     );
