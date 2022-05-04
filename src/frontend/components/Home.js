@@ -19,7 +19,7 @@ const Home = ({ networkName }) => {
     const getLatestTransactions = async () => {
         //const response = await axios.get('http://api.etherscan.io/api?module=account&action=txlist&address=0x8d12a197cb00d4747a1fe03395095ce2a5cc6819&startblock=0&endblock=99999999&sort=asc&apikey=YourApiKeyToken')
 
-        const response = await axios.get('https://etherapi.coeptix.net/tx')
+        const response = await axios.get('https://etherapi.coeptix.net/api/tx')
         .then(function (response) {
           // handle success
           setTxs(response.data.msg)
