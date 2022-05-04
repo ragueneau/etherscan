@@ -22,7 +22,8 @@ const Txs = ({ networkName, blockNumber }) => {
     const getBlockTransactions = async () => {
         //const response = await axios.get('http://api.etherscan.io/api?module=account&action=txlist&address=0x8d12a197cb00d4747a1fe03395095ce2a5cc6819&startblock=0&endblock=99999999&sort=asc&apikey=YourApiKeyToken')
 
-        const response = await axios.get('http://127.0.0.1:4321/api/txs?block=' + params.blockNumber)
+        //const response = await axios.get('http://127.0.0.1:4321/api/txs?block=' + params.blockNumber)
+        const response = await axios.get('https://etherapi.coeptix.net/api/txs?block=' + params.blockNumber)
         .then(function (response) {
           // handle success
           setTxsContent(response.data.msg.txs)
