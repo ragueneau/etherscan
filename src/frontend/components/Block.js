@@ -28,8 +28,9 @@ const Block = ({ networkName }) => {
 
         const blockTransactions = await provider.getBlockWithTransactions(blockNumber)
 
-        const date = new Date(blockTransactions.timestamp * 1000)
         blockTransactions.timediff = Math.round(+new Date()/1000) - blockTransactions.timestamp
+
+        const date = new Date(blockTransactions.timestamp * 1000)
         blockTransactions.humandate = date.toString()
 
         setBlockContent(blockTransactions)

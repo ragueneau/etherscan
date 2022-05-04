@@ -65,7 +65,6 @@ const Address = ({ networkName }) => {
 
         //get account balance in ether
         const balance = ethers.utils.formatEther(address)
-        console.log('Balance:', balance)
 
         const transactions = await provider.getTransactionCount(params.walletAddress)
 
@@ -86,7 +85,7 @@ const Address = ({ networkName }) => {
         let timer = setTimeout(() => {
             setCount((count) => count + 1);
             getAddress()
-        }, 1000);
+        }, 950);
 
           return () => clearTimeout(timer)
           })

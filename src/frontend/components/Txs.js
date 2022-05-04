@@ -1,47 +1,55 @@
 import { useState, useEffect } from 'react'
-import { ethers } from "ethers"
-import { Row, Col, Card } from 'react-bootstrap'
+//import { ethers } from "ethers"
+import { Card, Spinner } from 'react-bootstrap'
 import { useParams } from 'react-router-dom'
 //import { Link } from "react-router-dom";
 
+import TransactionList from './tx/TransactionList'
+
+const axios = require('axios').default;
+
 const Txs = ({ networkName, blockNumber }) => {
+    const [count, setCount] = useState(0);
     const params = useParams()
     const [loading, setLoading] = useState(true)
-    //const [lastBlockNumber, setLastBlockNumber] = useState(0)
-    const [blockContent, setBlockContent] = useState([{
+    const [blockContent, setTxsContent] = useState([{
         blockNumber: 1,
         blockHash: '',
         blockTransactions: [],
     }])
 
-    //get params from url
-    console.log('TXs BlockNumber:', params)
+    // ---------------------------------------------------------------------------------------------------------- //
+    const getBlockTransactions = async () => {
+        //const response = await axios.get('http://api.etherscan.io/api?module=account&action=txlist&address=0x8d12a197cb00d4747a1fe03395095ce2a5cc6819&startblock=0&endblock=99999999&sort=asc&apikey=YourApiKeyToken')
 
-    //72533
-    //const blockNumber = match.params.blockNumber || 14037513
-    //const blockNumber = 14037513
-    // blockNumber = 72533
-
-    //get last block number
-    const getBlockNumber = async () => {
-
-        const provider = new ethers.providers.Web3Provider(window.ethereum)
-
-        const blockTransactions = await provider.getBlockWithTransactions(blockNumber)
-        console.log('block number requested:', blockNumber)
-        console.log('Block Transactions', blockTransactions)
-
-        setBlockContent(blockTransactions)
-        setLoading(false)
+        const response = await axios.get('http://127.0.0.1:4321/api/txs?block=' + params.blockNumber)
+        .then(function (response) {
+          // handle success
+          setTxsContent(response.data.msg.txs)
+        })
+        .catch(function (error) {
+         // handle error
+          console.log(error);
+        })
+       .then(function () {
+          // always executed
+        });
     }
 
+    // ---------------------------------------------------------------------------------------------------------- //
     useEffect(() => {
-        getBlockNumber()
 
-      }, [])
+        let timer = setTimeout(() => {
+            setCount((count) => count + 1);
+            getBlockTransactions()
+            setLoading(false)
+        }, 900);
+        return () => clearTimeout(timer)
+    })
       if (loading) return (
         <main style={{ padding: "1rem 0" }}>
-          <h2>Loading block #{blockContent.number}...</h2>
+          <h5>Loading transaction for block #{params.blockNumber}</h5>
+          <Spinner animation="border" style={{ display: 'flex' }} />
         </main>
       )
 
@@ -49,23 +57,17 @@ const Txs = ({ networkName, blockNumber }) => {
       return (
         <div className="flex justify-center">
             <div className="px-5 py-3 container">
-                <h5>Transactions {blockContent.number}</h5>
+            <h5>Transactions</h5>
+            For block #{params.blockNumber}
+            <Card>
+                    <Card.Body>
+                        <Card.Text>
+                        A total of {blockContent.length} transaction(s) found.
+                        </Card.Text>
+                        <TransactionList txs={blockContent} />
+                    </Card.Body>
+                </Card>
 
-                <Row className="justify-content-center">
-
-                    <Col xs={1} md={10} lg={12}>
-                        <Card className="text-center">
-                            <Card.Body>
-                                <Card.Title>Latest Transactions</Card.Title>
-                                <Card.Text>
-                                    <span className="text-muted">
-                                        <i className="fas fa-user-circle">Text</i>
-                                    </span>
-                                </Card.Text>
-                            </Card.Body>
-                        </Card>
-                    </Col>
-                </Row>
             </div>
         </div>
     );
