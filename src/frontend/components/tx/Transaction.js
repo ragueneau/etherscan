@@ -6,7 +6,7 @@ const Transaction = ({ transaction }) => {
       // Render ---------------------------------------------------------------------------------------------------------- //
       return (
         <Row className="justify-content-center">
-            <Col xs={1} md={4} lg={12}>
+            <Col xs={1} md={1} lg={12}>
 
             <ListGroup variant="flush">
                 <ListGroup.Item>

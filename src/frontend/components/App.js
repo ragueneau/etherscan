@@ -87,27 +87,27 @@ function App() {
         console.log('CoeptIX network');
         setNetworkName('CoeptIX')
         FaucetAddress.address = '0xCAEB631af6e9A583A7DC5471E51B9E1E8b64bdBF'
-  
+
       } else if (window.ethereum && network === '0x89') {
         console.log('Polygon network');
         setNetworkName('Polygon')
-  
+
       } else if (window.ethereum && network === '0x13881') {
         console.log('Mumbai network');
         setNetworkName('Mumbai')
-  
+
       } else if (window.ethereum && network === '0x539') {
         console.log('Ganache localnet');
         setNetworkName('Ganache')
-  
+
       } else if (window.ethereum && network === '0xa86a') {
         console.log('Avalanche Mainnet');
         setNetworkName('Avalanche')
-  
+
       } else if (window.ethereum && network === '0x1') {
         console.log('Mainnet');
         setNetworkName('Mainnet')
-  
+
       } else {
         console.log('Unknown network');
         setNetworkName('Unknown')
@@ -222,6 +222,9 @@ function App() {
             } />
             <Route path="/tx/:transactionHash" element={
               <Tx networkName={networkName} account={account}/>
+            } />
+            <Route path="/txs" element={
+              <Txs networkName={networkName} account={account}/>
             } />
             <Route path="/txs/:blockNumber" element={
               <Txs networkName={networkName} account={account}/>

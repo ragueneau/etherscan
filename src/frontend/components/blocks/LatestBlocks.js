@@ -1,14 +1,12 @@
 
 import React from "react";
-import { Col, Card } from 'react-bootstrap'
+import { Card } from 'react-bootstrap'
 import { Link } from "react-router-dom"
 
 const LatestBlocks = ({items}) => {
     return (
-        <Col xs={1} md={4} lg={6}>
         <Card className="text-center">
             <Card.Body>
-                <Card.Title><h5>Latest Blocks</h5></Card.Title>
                 <Card.Text>
                     <ul>
                     {items.map((item, idx) => (
@@ -23,7 +21,6 @@ const LatestBlocks = ({items}) => {
                 </Card.Text>
             </Card.Body>
         </Card>
-    </Col>
     );
 };
 export default LatestBlocks;
