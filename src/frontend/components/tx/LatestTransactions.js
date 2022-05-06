@@ -15,5 +15,4 @@ const LatestTransactions = ({txs}) => {
         </ListGroup>
     );
 };
-
 export default LatestTransactions;
