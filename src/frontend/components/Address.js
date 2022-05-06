@@ -119,8 +119,8 @@ const Address = ({ networkName }) => {
                                 <Card.Title>Overview</Card.Title>
                                 <Card.Text>
                                     <ul>
-                                        <li className="list-group-item"><b>Balance</b>: {address.balance} xETH</li>
-                                        <li className="list-group-item"><b>xETH Value</b>: ${address.value}</li>
+                                        <li className="list-group-item"><b>Balance</b>: {address.balance} eth</li>
+                                        <li className="list-group-item"><b>eth Value</b>: ${address.value}</li>
                                         <li className="list-group-item"><b>Token</b>: {address.tokens}</li>
                                     </ul>
                                 </Card.Text>
