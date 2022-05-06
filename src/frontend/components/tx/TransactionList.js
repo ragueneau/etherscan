@@ -32,5 +32,4 @@ const TransactionList = ({txs}) => {
         </Table>
     );
 };
-
 export default TransactionList;
