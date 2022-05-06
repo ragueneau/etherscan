@@ -24,7 +24,7 @@ const TransactionsTable = ({txs, walletAddress}) => {
                 <tr key={idx}>
                     <td><Link to={`/tx/${item.hash}`}>{item.hash.slice(0, 7) + '...'}</Link></td>
                     <td><Button variant="secondary" size="sm" className="ml-2">{item.input ? item.input.slice(0, 10): null}</Button></td>
-                    <td><Link to={`/tx/${item.blockNumber}`}>{item.blockNumber}</Link></td>
+                    <td><Link to={`/block/${item.blockNumber}`}>{item.blockNumber}</Link></td>
                     <td>{item.age}</td>
                     <td><Link to={`/address/${item.from}`}>{item.from.slice(0, 9) + '...'+item.from.slice(33, 42)}</Link></td>
                     <td>{item.from === walletAddress ? <Button variant="danger" size="sm" className="ml-2">OUT</Button> : <Button variant="success" size="sm" className="ml-2">IN</Button> }</td>
@@ -34,9 +34,7 @@ const TransactionsTable = ({txs, walletAddress}) => {
                 </tr>
             ))}
             </tbody>
-
         </Table>
     );
 };
-
 export default TransactionsTable;

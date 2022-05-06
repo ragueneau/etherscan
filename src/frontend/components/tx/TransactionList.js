@@ -24,8 +24,8 @@ const TransactionList = ({txs}) => {
                         <td><Link to={`/block/${item.blockNumber}`}>{item.blockNumber}</Link></td>
                         <td><Link to={`/address/${item.from}`}>{item.from ? item.from.slice(0, 9) + '...'+item.from.slice(33, 42) : null}</Link></td>
                         <td>{item.to ? <Link to={`/address/${item.to}`}>{item.to.slice(0, 9) + '...'+item.to.slice(33, 42)}</Link> : null}</td>
-                        <td>{item.value / 10 ** 18} xETH</td>
-                        <td>{item.gas} xwei</td>
+                        <td>{item.value / 10 ** 18} Ethers</td>
+                        <td>{item.gas / 10 ** 9} gwei</td>
                     </tr>
                 )): null}
             </tbody>

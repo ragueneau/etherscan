@@ -3,6 +3,7 @@ import { useState, useEffect } from 'react'
 import { Card, Spinner } from 'react-bootstrap'
 import { useParams } from 'react-router-dom'
 //import { Link } from "react-router-dom";
+import Config from '../../config.json'
 
 import TransactionList from './tx/TransactionList'
 
@@ -22,11 +23,12 @@ const Txs = ({ networkName, blockNumber }) => {
     const getBlockTransactions = async () => {
         //const response = await axios.get('http://api.etherscan.io/api?module=account&action=txlist&address=0x8d12a197cb00d4747a1fe03395095ce2a5cc6819&startblock=0&endblock=99999999&sort=asc&apikey=YourApiKeyToken')
 
-        //const response = await axios.get('http://127.0.0.1:4321/api/txs?block=' + params.blockNumber)
-        const response = await axios.get('https://etherapi.coeptix.net/api/txs?block=' + params.blockNumber)
+        const apicall = Config.restAPI + '/api?module=proxy&action=eth_getTransactionByBlockNumber&blockNumber=' + params.blockNumber + '&startblock=0&endblock=999999999&sort=asc&apikey=' + Config.ApiKeyToken
+        const response = await axios.get( apicall )
         .then(function (response) {
           // handle success
-          setTxsContent(response.data.msg.txs)
+          console.log(response,apicall);
+          setTxsContent(response.data.result)
         })
         .catch(function (error) {
          // handle error
@@ -39,7 +41,6 @@ const Txs = ({ networkName, blockNumber }) => {
 
     // ---------------------------------------------------------------------------------------------------------- //
     useEffect(() => {
-
         let timer = setTimeout(() => {
             setCount((count) => count + 1);
             getBlockTransactions()

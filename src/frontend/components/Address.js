@@ -7,7 +7,6 @@ import TransactionsTable from './tx/TransactionsTable'
 import Config from '../../config.json'
 
 const axios = require('axios').default;
-const ApiKeyToken = 'YOUR_API_KEY_HERE'
 
 const Address = ({ networkName }) => {
     const [count, setCount] = useState(0)
