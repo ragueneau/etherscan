@@ -73,7 +73,7 @@ const Block = ({ networkName }) => {
                                 <b>Transactions</b>: <Link to={`/txs/${blockContent.number}`}><Button variant="secondary" size="sm" className="ml-2">{blockContent.transactions.length} transactions</Button></Link>
                             </li>
                             <li className="list-group-item">
-                                <b>Burned Fees</b>: <i className="fas fa-user-circle">0 xWei</i>
+                                <b>Burned Fees</b>: <i className="fas fa-user-circle">0 wei</i>
                             </li>
                             <li className="list-group-item">
                                 <b>Difficulty</b>: <i className="fas fa-user-circle">{blockContent.difficulty}</i>
@@ -82,10 +82,10 @@ const Block = ({ networkName }) => {
                                 <b>Total Difficulty</b>: <i className="fas fa-user-circle">{blockContent.totalDifficulty}</i>
                             </li>
                             <li className="list-group-item">
-                                <b>Gas Used</b>: <i className="fas fa-user-circle">{blockContent.gasUsed.toString()} xWei</i>
+                                <b>Gas Used</b>: <i className="fas fa-user-circle">{blockContent.gasUsed.toString()} wei</i>
                             </li>
                             <li className="list-group-item">
-                                <b>Gas Limit</b>: <i className="fas fa-user-circle">{blockContent.gasLimit.toString()} xWei</i>
+                                <b>Gas Limit</b>: <i className="fas fa-user-circle">{blockContent.gasLimit.toString()} wei</i>
                             </li>
                             <li className="list-group-item">
                                 <b>Nonce</b>: <i className="fas fa-user-circle">{blockContent.nonce}</i>
