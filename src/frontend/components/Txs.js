@@ -21,7 +21,6 @@ const Txs = ({ networkName, blockNumber }) => {
 
     // ---------------------------------------------------------------------------------------------------------- //
     const getBlockTransactions = async () => {
-        //const response = await axios.get('http://api.etherscan.io/api?module=account&action=txlist&address=0x8d12a197cb00d4747a1fe03395095ce2a5cc6819&startblock=0&endblock=99999999&sort=asc&apikey=YourApiKeyToken')
 
         const apicall = Config.restAPI + '/api?module=proxy&action=eth_getTransactionByBlockNumber&blockNumber=' + params.blockNumber + '&startblock=0&endblock=999999999&sort=asc&apikey=' + Config.ApiKeyToken
         const response = await axios.get( apicall )
@@ -58,17 +57,16 @@ const Txs = ({ networkName, blockNumber }) => {
       return (
         <div className="flex justify-center">
             <div className="px-5 py-3 container">
-            <h5>Transactions</h5>
-            For block #{params.blockNumber}
-            <Card>
-                    <Card.Body>
-                        <Card.Text>
+              <h5>Transactions</h5>
+              For block #{params.blockNumber}
+              <Card>
+                <Card.Body>
+                    <Card.Text>
                         A total of {blockContent.length} transaction(s) found.
-                        </Card.Text>
-                        <TransactionList txs={blockContent} />
-                    </Card.Body>
-                </Card>
-
+                    </Card.Text>
+                    <TransactionList txs={blockContent} />
+                </Card.Body>
+              </Card>
             </div>
         </div>
     );
