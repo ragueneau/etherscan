@@ -15,7 +15,7 @@ const TransactionsTable = ({txs, walletAddress}) => {
                     <th></th>
                     <th>To</th>
                     <th>Value</th>
-                    <th>Gas</th>
+                    <th>Tx Fee</th>
                 </tr>
             </thead>
             <tbody>
@@ -29,8 +29,8 @@ const TransactionsTable = ({txs, walletAddress}) => {
                     <td><Link to={`/address/${item.from}`}>{item.from.slice(0, 9) + '...'+item.from.slice(33, 42)}</Link></td>
                     <td>{item.from === walletAddress ? <Button variant="danger" size="sm" className="ml-2">OUT</Button> : <Button variant="success" size="sm" className="ml-2">IN</Button> }</td>
                     <td>{item.to ? <span><Link to={`/address/${item.to}`}>{item.to.slice(0, 9) + '...'+item.to.slice(33, 42)}</Link></span> : null}</td>
-                    <td>{(item.value / 10 ** 18).toString()} xeth</td>
-                    <td>{(item.gas).toString()} xwei</td>
+                    <td>{(item.value / 10 ** 18).toString()} Ether</td>
+                    <td>{(item.gas / 10 ** 9).toString()}</td>
                 </tr>
             ))}
             </tbody>
