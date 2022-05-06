@@ -27,7 +27,6 @@ const Txs = ({ networkName, blockNumber }) => {
         const response = await axios.get( apicall )
         .then(function (response) {
           // handle success
-          console.log(response,apicall);
           setTxsContent(response.data.result)
         })
         .catch(function (error) {
