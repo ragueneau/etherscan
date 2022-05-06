@@ -28,7 +28,7 @@ const Transaction = ({ transaction }) => {
                 <b>To</b>: <Link to={`/address/${transaction.to}`}>{transaction.to ? transaction.toRef : null}</Link>
                 </ListGroup.Item>
                 <ListGroup.Item>
-                <b>Value</b>: {transaction.value.toString() / 10 ** 18} xETH
+                <b>Value</b>: {transaction.value.toString() / 10 ** 18} Ethers
                 </ListGroup.Item>
                 <ListGroup.Item>
                 <b>Transaction Fee</b>: {}
