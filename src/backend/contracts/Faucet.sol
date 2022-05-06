@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: MIT
-pragma solidity ^0.8.5;
+pragma solidity ^0.8.9;
 
 contract faucet {
 
@@ -7,7 +7,7 @@ contract faucet {
     address public owner;
     uint public amountAllowed = 5000000000000000000;
 
-    //mapping to keep track of requested rokens
+    //mapping to keep track of requested tokens
     //Address and blocktime + 1 day is saved in TimeLock
     mapping(address => uint) public lockTime;
 

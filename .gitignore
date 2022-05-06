@@ -25,3 +25,4 @@ yarn-error.log*
 artifacts/
 cache/
 package-lock.json
+src/config.json

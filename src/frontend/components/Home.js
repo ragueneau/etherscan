@@ -1,7 +1,7 @@
 
 import { useState, useEffect } from 'react'
 import { ethers } from "ethers"
-import { Row, Spinner } from 'react-bootstrap'
+import { Col, Row, Spinner } from 'react-bootstrap'
 
 import LatestBlocks from './blocks/LatestBlocks'
 import LatestTransactions from './tx/LatestTransactions'
@@ -19,10 +19,10 @@ const Home = ({ networkName }) => {
     const getLatestTransactions = async () => {
         //const response = await axios.get('http://api.etherscan.io/api?module=account&action=txlist&address=0x8d12a197cb00d4747a1fe03395095ce2a5cc6819&startblock=0&endblock=99999999&sort=asc&apikey=YourApiKeyToken')
 
-        const response = await axios.get('https://etherapi.coeptix.net/api/tx')
+        const response = await axios.get('http://127.0.0.1:4321/api?module=proxy&action=eth_blockNumber&apikey=YourApiKeyToken')
         .then(function (response) {
           // handle success
-          setTxs(response.data.msg)
+          setTxs(response.data.result)
         })
         .catch(function (error) {
          // handle error
@@ -75,8 +75,14 @@ const Home = ({ networkName }) => {
                 <Dashboard items={items} />
             </Row>
             <Row className="justify-content-center">
-                <LatestBlocks items={items} />
-                <LatestTransactions txs={txs} />
+                <Col xs={1} md={1} lg={6} className="mb-3">
+                    <h5>Latest Blocks</h5>
+                    <LatestBlocks items={items} />
+                </Col>
+                <Col xs={1} md={1} lg={6} className="mb-3">
+                    <h5>Latest Transactions</h5>
+                    <LatestTransactions txs={txs} />
+                </Col>
             </Row>
         </div>
       </div>

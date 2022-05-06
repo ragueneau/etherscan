@@ -1,15 +1,17 @@
 import { useState, useEffect } from 'react'
 import { ethers } from "ethers"
-import { Row, Col, Card } from 'react-bootstrap'
-import { Link, useParams } from "react-router-dom"
+import { Row, Col, Card, Spinner } from 'react-bootstrap'
+import { useParams } from "react-router-dom"
+import LatestTransactions from './tx/LatestTransactions'
+import TransactionsTable from './tx/TransactionsTable'
+import Config from '../../config.json'
 
-//import { MongoClient } from "mongodb";
-
-//import mongoose from 'mongoose'
-//const mongoose = require('mongoose')
+const axios = require('axios').default;
+const ApiKeyToken = 'YOUR_API_KEY_HERE'
 
 const Address = ({ networkName }) => {
-    const [count, setCount] = useState(0);
+    const [count, setCount] = useState(0)
+    const [txs, setTxs] = useState([])
 
     const params = useParams()
     const [loading, setLoading] = useState(true)
@@ -20,45 +22,56 @@ const Address = ({ networkName }) => {
         txs: []
     })
 
-    const getAddress2 = async () => {
-        const provider = new ethers.providers.Web3Provider(window.ethereum)
+    //const [addressBalance, setAddressBalance] = useState(0)
 
-        const address = await provider.getBalance(params.walletAddress)
-        console.log('Address:', params.walletAddress)
 
-        //get account balance in ether
-        const balance = ethers.utils.formatEther(address)
-        console.log('Balance:', balance)
+    const getAddressLatestTransactions = async (addr) => {
 
-        //const HDNode  = await ethers.utils.HDNode.fromMnemonic('boss rural month arm exit elegant eight grain palace biology pistol control outside album slab top boil absorb tree mean street giggle head frozen')
+        //const response = await axios.get('http://api.etherscan.io/api?module=account&action=txlist&address=0x8d12a197cb00d4747a1fe03395095ce2a5cc6819&startblock=0&endblock=99999999&sort=asc&apikey=YourApiKeyToken')
 
-        //setLastBlockNumber(blockNumber)
-        // get transactions
-        const transactions = await provider.getTransactionCount(params.walletAddress)
-        //console.log('Transactions:', transactions)
-
-        //verify erc20 token Balance
-        //const erc20 = new ethers.Contract(params.erc20Address, params.erc20ABI, provider)
-        //const erc20Balance = await erc20.balanceOf(params.walletAddress)
-        //console.log('ERC20 Balance:', erc20Balance)
-
-        //get transactions list from address
-        //const txs = await provider.getHistory(params.walletAddress)
-        //console.log('Txs:', txs)
-
-        //get the transactions list from the mongodb collection 'transactions'
-
-        //mongoose.connect('mongodb://192.168.2.125:27017/geth', { useNewUrlParser: true, useUnifiedTopology: true }, (err) => {
-        //    if (err) {
-        //        console.log('Error:', err)
-        //    } else {
-        //        console.log('Connected to MongoDB')
-        //    }
-                //})
-        //get last block number
+        const apicall = Config.restAPI + '/api?module=account&action=txlist&address=' + addr + '&startblock=0&endblock=999999999&sort=asc&apikey=' + Config.ApiKeyToken
+        const response = await axios.get(apicall)
+        .then(function (response) {
+          // handle success
+          //console.log(response,apicall);
+          setTxs(response.data.result)
+        })
+        .catch(function (error) {
+         // handle error
+          console.log(error);
+        })
+       .then(function () {
+          // always executed
+        });
     }
 
-    const getAddress = async () => {
+    const getProxyAddressInfo = async (addr) => {
+        const apicall = Config.restAPI + '/api?module=account&action=balance&address=' + addr + '&tag=latest&apikey=' + Config.ApiKeyToken
+
+        const response = await axios.get(apicall)
+        .then(function (response) {
+            // handle success
+            console.log(response,apicall);
+            //setAddress(response.data.result)
+            setAddress({
+                balance: ethers.utils.formatEther(response.data.result),
+                value: 0.00
+            })
+        })
+        .catch(function (error) {
+            // handle error
+            console.log(error);
+        })
+        .then(function () {
+            // always executed
+        });
+
+        setLoading(false)
+    }
+
+
+    const getOnChainAddressInfo = async () => {
+
         const provider = new ethers.providers.Web3Provider(window.ethereum)
 
         const address = await provider.getBalance(params.walletAddress)
@@ -66,32 +79,31 @@ const Address = ({ networkName }) => {
         //get account balance in ether
         const balance = ethers.utils.formatEther(address)
 
-        const transactions = await provider.getTransactionCount(params.walletAddress)
+        //const transactions = await provider.getTransactionCount(params.walletAddress)
 
         setAddress({
             address: address,
             balance: balance,
-            value: 0.00,
-            txs: [],
-            transactions: transactions,
-            tokens: []
+            value: 0.00
         })
 
         setLoading(false)
     }
 
     useEffect(() => {
-
         let timer = setTimeout(() => {
             setCount((count) => count + 1);
-            getAddress()
-        }, 950);
+            //getOnChainAddressInfo()
+            getProxyAddressInfo(params.walletAddress)
+            getAddressLatestTransactions(params.walletAddress)
+        }, 900);
 
           return () => clearTimeout(timer)
-          })
+          },[count]);
       if (loading) return (
         <main style={{ padding: "1rem 0" }}>
           <h4>Loading address: {params.walletAddress}</h4>
+          <Spinner animation="border" style={{ display: 'flex' }} />
         </main>
       )
 
@@ -133,16 +145,8 @@ const Address = ({ networkName }) => {
 
                 <Row>
                     <Col xs={1} md={10} lg={12}>
-                        <Card>
-                            <Card.Body>
-                                <Card.Title>Transactions</Card.Title>
-                                <Card.Text>
-                                    <span className="text-muted">
-                                        <i className="fas fa-user-circle">Transactions</i>: {address.transactions}
-                                    </span>
-                                </Card.Text>
-                            </Card.Body>
-                        </Card>
+                        <h5>Transactions</h5>
+                        <TransactionsTable txs={txs} walletAddress={params.walletAddress}/>
                     </Col>
 
                 </Row>
