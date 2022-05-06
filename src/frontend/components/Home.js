@@ -7,8 +7,9 @@ import LatestBlocks from './blocks/LatestBlocks'
 import LatestTransactions from './tx/LatestTransactions'
 import Dashboard from './blocks/Dashboard'
 
-const axios = require('axios').default;
+import Config from '../../config.json'
 
+const axios = require('axios').default;
 
 const Home = ({ networkName }) => {
     const [count, setCount] = useState(0);
@@ -19,7 +20,7 @@ const Home = ({ networkName }) => {
     const getLatestTransactions = async () => {
         //const response = await axios.get('http://api.etherscan.io/api?module=account&action=txlist&address=0x8d12a197cb00d4747a1fe03395095ce2a5cc6819&startblock=0&endblock=99999999&sort=asc&apikey=YourApiKeyToken')
 
-        const response = await axios.get('http://127.0.0.1:4321/api?module=proxy&action=eth_blockNumber&apikey=YourApiKeyToken')
+        const response = await axios.get(Config.restAPI + '/api?module=proxy&action=eth_blockNumber&apikey=' + Config.ApiKeyToken)
         .then(function (response) {
           // handle success
           setTxs(response.data.result)
