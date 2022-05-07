@@ -26,8 +26,8 @@ import Profile from './routes/Profile.js'
 
 // Configuration ----------------------------------------------------------------------------------- //
 import Config from './config.json'
-import ERC20Abi from './contractsData/erc20-abi.json'
-import FaucetAbi from './contractsData/Faucet.json'
+//import ERC20Abi from './contractsData/erc20-abi.json'
+//import FaucetAbi from './contractsData/Faucet.json'
 
 //import the axios library
 import axios from 'axios'
@@ -183,9 +183,9 @@ function App() {
     }
 
     // Get deployed copies of contracts
-    const faucet = new ethers.Contract(FaucetAddress.address, FaucetAbi.abi, signer)
+    //const faucet = new ethers.Contract(FaucetAddress.address, FaucetAbi.abi, signer)
 
-    setFaucet(faucet)
+    //setFaucet(faucet)
     setLoading(false)
   }
 
