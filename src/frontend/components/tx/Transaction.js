@@ -1,13 +1,10 @@
-import { Row, Button, Col, ListGroup } from 'react-bootstrap'
-import { Link,  } from "react-router-dom";
+import { Button, ListGroup } from 'react-bootstrap'
+import { Link } from "react-router-dom";
 
 const Transaction = ({ transaction }) => {
 
       // Render ---------------------------------------------------------------------------------------------------------- //
       return (
-        <Row className="justify-content-center">
-            <Col xs={1} md={1} lg={12}>
-
             <ListGroup variant="flush">
                 <ListGroup.Item>
                 <b>Transaction Hash</b>: {transaction.hash}
@@ -42,10 +39,11 @@ const Transaction = ({ transaction }) => {
                 <ListGroup.Item>
                 <b>Nonce</b>: {}
                 </ListGroup.Item>
+                <ListGroup.Item>
+                <b>Input</b>: {transaction.input}
+                </ListGroup.Item>
 
             </ListGroup>
-            </Col>
-        </Row>
     );
 }
 export default Transaction
