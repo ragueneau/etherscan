@@ -1,15 +1,8 @@
 import { useState, useEffect } from 'react'
-import { ethers, utils } from "ethers"
+import { ethers } from "ethers"
 import { Row, Col, Card, Button, Spinner } from 'react-bootstrap'
 import { Link, useParams } from "react-router-dom";
 
-//import { HDWalletProvider } from '@truffle/hdwallet-provider';
-// import truffle wallet 'truffle-hdwallet-provider'
-//const wallet = ethers.Wallet.fromMnemonic('engine amazing run phrase help age detect fan charge approve border salute')
-//const provider = new HDWalletProvider(
- //   'engine amazing run phrase help age detect fan charge approve border salute',
-//    'https://rinkeby.infura.io/v3/7b16e033fae342cd8afa67a9d340aaac'
-//);
 
 const Block = ({ networkName }) => {
     const [count, setCount] = useState(0);
