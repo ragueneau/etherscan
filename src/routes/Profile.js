@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
-import { ethers, utils } from "ethers"
-import { Row, Col, Card, Button, Spinner } from 'react-bootstrap'
-import { Link, useParams } from "react-router-dom";
+import { ethers } from "ethers"
+import { Spinner } from 'react-bootstrap'
+import { useParams } from "react-router-dom";
 
 const Profile = ({ networkName }) => {
     const [count, setCount] = useState(0);

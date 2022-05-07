@@ -3,9 +3,9 @@ import { useState, useEffect } from 'react'
 import { Card, Spinner } from 'react-bootstrap'
 import { useParams } from 'react-router-dom'
 //import { Link } from "react-router-dom";
-import Config from '../../config.json'
+import Config from '../config.json'
 
-import TransactionList from './tx/TransactionList'
+import TransactionList from '../components/TransactionList'
 
 const axios = require('axios').default;
 

@@ -1,0 +1,43 @@
+[
+    {
+        "networkName": "CoeptIX",
+        "chainId": "0x75c9",
+        "networkId": "0x1",
+        "contractAddress": "0xCAEB631af6e9A583A7DC5471E51B9E1E8b64bdBF"
+    },
+    {
+        "networkName": "Rinkeby",
+        "chainId": "0x4",
+        "contractAddress": "0x1"
+    },
+    {
+        "networkName": "Mainnet",
+        "chainId": "0x1",
+        "contractAddress": "0x1"
+    },
+    {
+        "networkName": "Kovan",
+        "chainId": "0x2",
+        "contractAddress": "0x1"
+    },
+    {
+        "networkName": "Ropsten",
+        "chainId": "0x3",
+        "contractAddress": "0x1"
+    },
+    {
+        "networkName": "Goerli",
+        "chainId": "0x4",
+        "contractAddress": "0x1"
+    },
+    {
+        "networkName": "Polygon",
+        "chainId": "0x5",
+        "contractAddress": "0x1"
+    },
+    {
+        "networkName": "Polygon",
+        "chainId": "0x89",
+        "contractAddress": "0x1"
+    }
+]
