@@ -2,9 +2,9 @@ import { useState, useEffect } from 'react'
 import { ethers } from "ethers"
 import { Row, Col, Card, Spinner } from 'react-bootstrap'
 import { useParams } from "react-router-dom"
-import LatestTransactions from './tx/LatestTransactions'
-import TransactionsTable from './tx/TransactionsTable'
-import Config from '../../config.json'
+import LatestTransactions from '../components/LatestTransactions'
+import TransactionsTable from '../components/TransactionsTable'
+import Config from '../config.json'
 
 const axios = require('axios').default;
 

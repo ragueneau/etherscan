@@ -9,26 +9,30 @@ import { ethers } from "ethers"
 // Export ------------------------------------------------------------------------------------------- //
 import './App.css';
 
-import Navigation from './nav/Navbar';
-import HTTP404 from './nav/404.js'
-import SearchBar from './nav/search_bar';
+import Navigation from './components/Navbar';
+import HTTP404 from './components/404.js'
+import SearchBar from './components/search_bar';
 
-import Home from './Home.js'
-import Address from './Address.js'
-import Block from './Block.js'
-import Contract from './Contract.js'
-import Faucet from './Faucet.js'
-import Token from './Token.js'
-import Tokens from './Tokens.js'
-import Tx from './Tx.js'
-import Txs from './Txs.js'
-import Profile from './Profile.js'
+import Home from './routes/Home.js'
+import Address from './routes/Address.js'
+import Block from './routes/Block.js'
+import Contract from './routes/Contract.js'
+import Faucet from './routes/Faucet.js'
+import Token from './routes/Token.js'
+import Tokens from './routes/Tokens.js'
+import Tx from './routes/Tx.js'
+import Txs from './routes/Txs.js'
+import Profile from './routes/Profile.js'
 
-// Contract Addresses ------------------------------------------------------------------------------ //
-import ERC20Abi from '../contractsData/erc20-abi.json'
-import FaucetAbi from '../contractsData/Faucet.json'
-import FaucetAddress from '../contractsData/Faucet-address.json'
+// Configuration ----------------------------------------------------------------------------------- //
+import Config from './config.json'
+import ERC20Abi from './contractsData/erc20-abi.json'
+import FaucetAbi from './contractsData/Faucet.json'
 
+//import the axios library
+import axios from 'axios'
+
+const FaucetAddress = Config.contracts.faucet;
 
 // Fonction ---------------------------------------------------------------------------------------- //
 function App() {
@@ -65,7 +69,7 @@ function App() {
       // Get network chainid and name
       const network = await window.ethereum.request({ method: 'eth_chainId' });
       console.log('NetworkID:', network, )
-  
+
       // if on rinkeby network then use Rinkeby network
       if (window.ethereum && network === '0x4') {
         console.log('Rinkeby network');
@@ -185,6 +189,25 @@ function App() {
     setLoading(false)
   }
 
+  const getabi = async (contractAddress) => {
+    const network = await window.ethereum.request({ method: 'eth_chainId' });
+
+    const apicall = Config.restAPI + '/api?module=contract&action=getabi&address=' + contractAddress + '&apikey=' + Config.ApiKeyToken
+    const response = await axios.get(apicall)
+    .then(function (response) {
+      //setTxs(response.data.result)
+      console.log(response.data.result)
+    })
+    .catch(function (error) {
+     // handle error
+      console.log(error);
+    })
+   .then(function () {
+      // always executed
+    });
+  }
+
+  getabi(FaucetAddress.address)
   loadNetwork()
 
   // Render ---------------------------------------------------------------------------------------- //

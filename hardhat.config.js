@@ -4,7 +4,7 @@ module.exports = {
   solidity: "0.8.9",
   networks: {
     localhost: {
-      url: "http://127.0.0.1:8545"
+      url: "http://127.0.0.1:7545"
     },
     coeptix: {
       url: "https://ethernode.coeptix.net"
@@ -14,9 +14,9 @@ module.exports = {
     }
 },
   paths: {
-    artifacts: "./src/backend/artifacts",
-    sources: "./src/backend/contracts",
-    cache: "./src/backend/cache",
-    tests: "./src/backend/test"
+    artifacts: "./backend/artifacts",
+    sources: "./backend/contracts",
+    cache: "./backend/cache",
+    tests: "./backend/test"
   },
 };

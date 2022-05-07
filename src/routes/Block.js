@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import { ethers } from "ethers"
-import { Row, Col, Card, Button, Spinner } from 'react-bootstrap'
+import { Row, Col, Button, Spinner } from 'react-bootstrap'
 import { Link, useParams } from "react-router-dom";
 
 

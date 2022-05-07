@@ -1,6 +1,5 @@
 import React from "react";
-import { Image, Row, Col, Card } from 'react-bootstrap'
-import { Link } from "react-router-dom"
+import { Image, Col, Card } from 'react-bootstrap'
 
 const Dashboard = ({txs}) => {
     return (

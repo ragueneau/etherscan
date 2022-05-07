@@ -3,7 +3,7 @@ import { Col, Row } from 'react-bootstrap'
 import { ethers } from "ethers"
 import { useParams } from "react-router-dom";
 
-import Transaction from './tx/Transaction'
+import Transaction from '../components/Transaction'
 
 const Tx = ({ networkName, transactionHash }) => {
     const [count, setCount] = useState(0);
