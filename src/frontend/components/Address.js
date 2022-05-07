@@ -21,18 +21,11 @@ const Address = ({ networkName }) => {
         txs: []
     })
 
-    //const [addressBalance, setAddressBalance] = useState(0)
-
-
     const getAddressLatestTransactions = async (addr) => {
-
-        //const response = await axios.get('http://api.etherscan.io/api?module=account&action=txlist&address=0x8d12a197cb00d4747a1fe03395095ce2a5cc6819&startblock=0&endblock=99999999&sort=asc&apikey=YourApiKeyToken')
 
         const apicall = Config.restAPI + '/api?module=account&action=txlist&address=' + addr + '&startblock=0&endblock=999999999&sort=asc&apikey=' + Config.ApiKeyToken
         const response = await axios.get(apicall)
         .then(function (response) {
-          // handle success
-          //console.log(response,apicall);
           setTxs(response.data.result)
         })
         .catch(function (error) {
@@ -49,9 +42,6 @@ const Address = ({ networkName }) => {
 
         const response = await axios.get(apicall)
         .then(function (response) {
-            // handle success
-            console.log(response,apicall);
-            //setAddress(response.data.result)
             setAddress({
                 balance: ethers.utils.formatEther(response.data.result),
                 value: 0.00
