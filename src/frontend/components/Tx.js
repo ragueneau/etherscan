@@ -1,6 +1,8 @@
 import { useState, useEffect } from 'react'
+import { Col, Row } from 'react-bootstrap'
 import { ethers } from "ethers"
 import { useParams } from "react-router-dom";
+
 import Transaction from './tx/Transaction'
 
 const Tx = ({ networkName, transactionHash }) => {
@@ -58,7 +60,11 @@ const Tx = ({ networkName, transactionHash }) => {
         <div className="flex justify-center">
             <div className="px-5 py-3 container">
                 <h5>Transaction Details</h5>
-                <Transaction transaction={transaction} />
+                <Row className="justify-content-center">
+                    <Col xs={1} md={1} lg={12}>
+                        <Transaction transaction={transaction} />
+                    </Col>
+                </Row>
             </div>
         </div>
     );
