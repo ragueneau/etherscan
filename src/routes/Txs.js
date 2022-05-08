@@ -20,7 +20,7 @@ const Txs = ({ networkName, blockNumber }) => {
     }])
 
     // ---------------------------------------------------------------------------------------------------------- //
-    const getBlockTransactions = async () => {
+    const eth_getTransactionByBlockNumber = async () => {
 
         const apicall = Config.restAPI + '/api?module=proxy&action=eth_getTransactionByBlockNumber&blockNumber=' + params.blockNumber + '&startblock=0&endblock=999999999&sort=asc&apikey=' + Config.ApiKeyToken
         const response = await axios.get( apicall )
@@ -41,7 +41,7 @@ const Txs = ({ networkName, blockNumber }) => {
     useEffect(() => {
         let timer = setTimeout(() => {
             setCount((count) => count + 1);
-            getBlockTransactions()
+            eth_getTransactionByBlockNumber()
             setLoading(false)
         }, 900);
         return () => clearTimeout(timer)

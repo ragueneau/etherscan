@@ -6,7 +6,7 @@ async function main() {
 
   // Get the ContractFactories and Signers here.
   const Faucet = await ethers.getContractFactory("faucet");
- 
+
   // deploy contracts
   const faucet = await Faucet.deploy();
 

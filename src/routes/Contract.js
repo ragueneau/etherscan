@@ -1,11 +1,12 @@
 import { useState, useEffect } from 'react'
-//import { ethers } from "ethers"
+import { ethers } from "ethers"
 import { Row, Col, Card } from 'react-bootstrap'
 import { Link, useParams } from "react-router-dom";
 
 const Contract = ({ networkName }) => {
     const params = useParams()
     const [loading, setLoading] = useState(true)
+
 
 
     useEffect(() => {

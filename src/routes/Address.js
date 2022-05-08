@@ -1,14 +1,27 @@
-import { useState, useEffect } from 'react'
-import { ethers } from "ethers"
-import { Row, Col, Card, Spinner } from 'react-bootstrap'
-import { useParams } from "react-router-dom"
-import LatestTransactions from '../components/LatestTransactions'
-import TransactionsTable from '../components/TransactionsTable'
 import Config from '../config.json'
 
-const axios = require('axios').default;
+//import { get_account_balance } from '../class/Etherscan'
 
+import { ethers } from "ethers"
+
+// -=< React.Component >=- ------------------------------------------------------------------------------------------------- //
+import { useState, useEffect } from 'react'
+import { Row, Col, Card, Spinner } from 'react-bootstrap'
+import { useParams } from "react-router-dom"
+
+// -=< Components >=- ------------------------------------------------------------------------------------------------------ //
+import AddressOverview from '../components/AddressOverview'
+import AddressMoreInfo from '../components/AddressMoreInfo'
+import AddressTxTable from '../components/AddressTxTable'
+import ContractOverview from '../components/ContractOverview'
+import ContractMoreInfo from '../components/ContractMoreInfo'
+
+// ---------------------------------------------------------------------------------------------------------------------------- //
 const Address = ({ networkName }) => {
+
+    // -=< Variables >=- ------------------------------------------------------------------------------------------------------ //
+    const axios = require('axios').default;
+
     const [count, setCount] = useState(0)
     const [txs, setTxs] = useState([])
 
@@ -17,11 +30,12 @@ const Address = ({ networkName }) => {
     const [address, setAddress] = useState({
         address: params.address,
         balance: 0,
-        value: 0,
-        txs: []
+        value: 0.00
     })
+    const [contract, setContract] = useState(false)
 
-    const getAddressLatestTransactions = async (addr) => {
+    // -=< Functions >=- ------------------------------------------------------------------------------------------------------ //
+    const get_account_txlist = async (addr) => {
 
         const apicall = Config.restAPI + '/api?module=account&action=txlist&address=' + addr + '&startblock=0&endblock=999999999&sort=asc&apikey=' + Config.ApiKeyToken
         const response = await axios.get(apicall)
@@ -35,14 +49,16 @@ const Address = ({ networkName }) => {
        .then(function () {
           // always executed
         });
+
     }
 
-    const getProxyAddressInfo = async (addr) => {
+    const get_account_balance = async (addr) => {
         const apicall = Config.restAPI + '/api?module=account&action=balance&address=' + addr + '&tag=latest&apikey=' + Config.ApiKeyToken
 
         const response = await axios.get(apicall)
         .then(function (response) {
             setAddress({
+                address: addr,
                 balance: ethers.utils.formatEther(response.data.result),
                 value: 0.00
             })
@@ -55,7 +71,6 @@ const Address = ({ networkName }) => {
             // always executed
         });
 
-        setLoading(false)
     }
 
 
@@ -79,67 +94,77 @@ const Address = ({ networkName }) => {
         setLoading(false)
     }
 
+    //a function to verify with ethers.js if the address is a wallet of a contract
+    const isContract = async (addr) => {
+
+        const apicall = Config.restAPI + '/api?module=contract&action=iscontract&address=' + addr + '&apikey=' + Config.ApiKeyToken
+
+        const response = await axios.get(apicall)
+        .then(function (response) {
+            setContract(response.data.result)
+        })
+        .catch(function (error) {
+            // handle error
+            console.log(error);
+        })
+        .then(function () {
+            // always executed
+        });
+    }
+
     useEffect(() => {
         let timer = setTimeout(() => {
             setCount((count) => count + 1);
             //getOnChainAddressInfo()
-            getProxyAddressInfo(params.walletAddress)
-            getAddressLatestTransactions(params.walletAddress)
-        }, 900);
+            if (params.walletAddress !== address.address) {
+                setLoading(true)
+                console.log(params.walletAddress)
+                console.log(address.address)
+            }
 
-          return () => clearTimeout(timer)
-          },[count]);
+            get_account_balance(params.walletAddress)
+            get_account_txlist(params.walletAddress)
+            isContract(params.walletAddress)
+
+            setLoading(false)
+        }, 900);
+        return () => clearTimeout(timer)
+    });
+
       if (loading) return (
         <main style={{ padding: "1rem 0" }}>
           <h4>Loading address: {params.walletAddress}</h4>
           <Spinner animation="border" style={{ display: 'flex' }} />
         </main>
       )
-
-      // Render ---------------------------------------------------------------------------------------------------------- //
+      // -=< Render >=- ------------------------------------------------------------------------------------------------------ //
       return (
         <div className="flex justify-center">
             <div className="px-5 py-3 container">
                 <h5>Address {params.walletAddress}</h5>
                 <Row className="justify-content-center">
-                    <Col xs={1} md={6} lg={6}>
-                        <Card className="text-center">
-                            <Card.Body>
-                                <Card.Title>Overview</Card.Title>
-                                <Card.Text>
-                                    <ul>
-                                        <li className="list-group-item"><b>Balance</b>: {address.balance} eth</li>
-                                        <li className="list-group-item"><b>eth Value</b>: ${address.value}</li>
-                                        <li className="list-group-item"><b>Token</b>: {address.tokens}</li>
-                                    </ul>
-                                </Card.Text>
-                            </Card.Body>
-                        </Card>
+                    <Col xs={2} md={6} lg={6}>
+                        {contract ? (
+                            <ContractOverview address={address} />
+                        ) : (
+                            <AddressOverview address={address} />
+                        )}
                     </Col>
-                    <Col xs={1} md={6} lg={6}>
-                        <Card className="text-center">
-                            <Card.Body>
-                                <Card.Title>More Info</Card.Title>
-                                <Card.Text>
-                                <ul>
-                                    <li className="list-group-item"></li>
-                                    <li className="list-group-item"></li>
-                                    <li className="list-group-item"></li>
-                                </ul>
-                                </Card.Text>
-                            </Card.Body>
-                        </Card>
+                    <Col xs={2} md={6} lg={6}>
+                    {address.isContract ? (
+                        <ContractMoreInfo address={address} />
+                    ) : (
+                        <AddressMoreInfo address={address} />
+                    )}
                     </Col>
                 </Row>
-
                 <Row>
-                    <Col xs={1} md={10} lg={12}>
+                    <Col xs={2} md={12} lg={12}>
                         <h5>Transactions</h5>
-                        <TransactionsTable txs={txs} walletAddress={params.walletAddress}/>
+                        <AddressTxTable txs={txs} walletAddress={params.walletAddress}/>
                     </Col>
 
                 </Row>
-
             </div>
         </div>
     );

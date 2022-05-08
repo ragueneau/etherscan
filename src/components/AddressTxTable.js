@@ -1,8 +1,10 @@
 import React from "react";
 import { Table, Button } from 'react-bootstrap'
 import { Link } from "react-router-dom"
+import Config from '../config.json'
 
-const TransactionsTable = ({txs, walletAddress}) => {
+const AddressTxTable = ({txs, walletAddress}) => {
+    // Render ---------------------------------------------------------------------------------------------------------- //
     return (
         <Table striped bordered hover>
             <thead>
@@ -23,7 +25,7 @@ const TransactionsTable = ({txs, walletAddress}) => {
             {txs.map((item, idx) => (
                 <tr key={idx}>
                     <td><Link to={`/tx/${item.hash}`}>{item.hash.slice(0, 7) + '...'}</Link></td>
-                    <td><Button variant="secondary" size="sm" className="ml-2">{item.input ? item.input.slice(0, 10): null}</Button></td>
+                    <td><Button variant="secondary" size="sm" className="ml-2">{item.method}</Button></td>
                     <td><Link to={`/block/${item.blockNumber}`}>{item.blockNumber}</Link></td>
                     <td>{item.age}</td>
                     <td><Link to={`/address/${item.from}`}>{item.from.slice(0, 9) + '...'+item.from.slice(33, 42)}</Link></td>
@@ -37,4 +39,4 @@ const TransactionsTable = ({txs, walletAddress}) => {
         </Table>
     );
 };
-export default TransactionsTable;
+export default AddressTxTable;

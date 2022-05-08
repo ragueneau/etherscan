@@ -6,6 +6,7 @@ import { Spinner } from 'react-bootstrap'
 import { useState } from 'react'
 import { ethers } from "ethers"
 
+
 // Export ------------------------------------------------------------------------------------------- //
 import './App.css';
 
@@ -196,7 +197,7 @@ function App() {
     const response = await axios.get(apicall)
     .then(function (response) {
       //setTxs(response.data.result)
-      console.log(response.data.result)
+      console.log(apicall, response.data.result)
     })
     .catch(function (error) {
      // handle error
