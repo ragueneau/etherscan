@@ -56,8 +56,7 @@ const Block = ({ networkName }) => {
                         <ul>
                             <li className="list-group-item">
                                 <b>Block height</b>: <i className="fas fa-user-circle">{blockContent.number}
-                                </i> <a href={`/block/${blockContent.number-1}`} className="btn btn-primary ">Previous
-                                </a> <a href={`/block/${blockContent.number+1}`} className="btn btn-primary ">Next</a>
+                                </i> <Link to={`/block/${blockContent.number-1}`} className="btn btn-primary">Previous</Link> <Link to={`/block/${blockContent.number+1}`} className="btn btn-primary">Next</Link>
                             </li>
                             <li className="list-group-item">
                                 <b>Timestamp</b>: <i className="fas fa-user-circle">{blockContent.timediff} sec(s) ago {blockContent.humandate}</i>
@@ -87,10 +86,10 @@ const Block = ({ networkName }) => {
                                 <b>Miner</b>: <Link to={`/address/${blockContent.miner}`}><i className="fas fa-user-circle">{blockContent.miner}</i></Link>
                             </li>
                             <li className="list-group-item">
-                                <b>Block hash</b>: <Link to={`/block/${blockContent.hash}`}><i className="fas fa-user-circle">{blockContent.hash}</i></Link>
+                                <b>Block hash</b>: <Link to={`/block/${blockContent.number}`}><i className="fas fa-user-circle">{blockContent.hash}</i></Link>
                             </li>
                             <li className="list-group-item">
-                                <b>Parent Hash</b>: <Link to={`/block/${blockContent.parentHash}`}><i className="fas fa-user-circle">{blockContent.parentHash}</i></Link>
+                                <b>Parent Hash</b>: <Link to={`/block/${blockContent.number - 1}`}><i className="fas fa-user-circle">{blockContent.parentHash}</i></Link>
                             </li>
                         </ul>
                     </Col>
