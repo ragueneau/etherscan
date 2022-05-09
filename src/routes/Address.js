@@ -73,7 +73,6 @@ const Address = ({ networkName }) => {
 
     }
 
-
     const getOnChainAddressInfo = async () => {
 
         const provider = new ethers.providers.Web3Provider(window.ethereum)
@@ -94,7 +93,6 @@ const Address = ({ networkName }) => {
         setLoading(false)
     }
 
-    //a function to verify with ethers.js if the address is a wallet of a contract
     const isContract = async (addr) => {
 
         const apicall = Config.restAPI + '/api?module=contract&action=iscontract&address=' + addr + '&apikey=' + Config.ApiKeyToken
@@ -118,8 +116,6 @@ const Address = ({ networkName }) => {
             //getOnChainAddressInfo()
             if (params.walletAddress !== address.address) {
                 setLoading(true)
-                console.log(params.walletAddress)
-                console.log(address.address)
             }
 
             get_account_balance(params.walletAddress)
@@ -127,18 +123,21 @@ const Address = ({ networkName }) => {
             isContract(params.walletAddress)
 
             setLoading(false)
-        }, 900);
+        }, 1900);
+
         return () => clearTimeout(timer)
     });
 
-      if (loading) return (
+    //if params changes, reload page
+
+    if (loading) return (
         <main style={{ padding: "1rem 0" }}>
-          <h4>Loading address: {params.walletAddress}</h4>
-          <Spinner animation="border" style={{ display: 'flex' }} />
+            <h4>Loading address: {params.walletAddress}</h4>
+            <Spinner animation="border" style={{ display: 'flex' }} />
         </main>
-      )
-      // -=< Render >=- ------------------------------------------------------------------------------------------------------ //
-      return (
+    )
+    // -=< Render >=- ------------------------------------------------------------------------------------------------------ //
+    return (
         <div className="flex justify-center">
             <div className="px-5 py-3 container">
                 <h5>Address {params.walletAddress}</h5>
@@ -151,7 +150,7 @@ const Address = ({ networkName }) => {
                         )}
                     </Col>
                     <Col xs={2} md={6} lg={6}>
-                    {address.isContract ? (
+                    {contract ? (
                         <ContractMoreInfo address={address} />
                     ) : (
                         <AddressMoreInfo address={address} />
@@ -163,10 +162,10 @@ const Address = ({ networkName }) => {
                         <h5>Transactions</h5>
                         <AddressTxTable txs={txs} walletAddress={params.walletAddress}/>
                     </Col>
-
                 </Row>
             </div>
         </div>
     );
+    
 }
 export default Address

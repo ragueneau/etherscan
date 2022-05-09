@@ -36,6 +36,8 @@ const Tokens = ({ networkName }) => {
                                 <li className="list-group-item"><b>LePRJB</b>: <Link to={`/token/0xE57a2dDba8427e6b99dEE09F3EA125f19543c535`}>0xE57a2dDba8427e6b99dEE09F3EA125f19543c535</Link></li>
                                 <li className="list-group-item"><b>1inch</b>: <Link to={`/token/0xC2B476f730256b145cA3956478f315f7Bf4d3Cd4`}>0xC2B476f730256b145cA3956478f315f7Bf4d3Cd4</Link></li>
                                 <li className="list-group-item"><b>WETH</b>: <Link to={`/token/0x4E5E871aB1F4657D6F55C3D302Ec7C4Aa0920a41`}>0x4E5E871aB1F4657D6F55C3D302Ec7C4Aa0920a41</Link></li>
+                                <li className="list-group-item"><b>TSC1</b>: <Link to={`/token/0x2536384Ea97a74714b250E209dc57B895A040215`}>0x2536384Ea97a74714b250E209dc57B895A040215</Link></li>
+                                <li className="list-group-item"><b>TSC2</b>: <Link to={`/token/0x9e637D7af358E7B66854476BE04C15c96b20B582`}>0x9e637D7af358E7B66854476BE04C15c96b20B582</Link></li>
                             </Card.Body>
                         </Card>
                     </Col>
