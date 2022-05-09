@@ -1,10 +1,16 @@
+import Config from '../config.json'
+
 import { useState, useEffect } from 'react'
-//import { ethers } from "ethers"
+import { ethers } from "ethers"
 import { Row, Col, Card, Button } from 'react-bootstrap'
 //import { Link } from "react-router-dom";
 
 const Home = ({ faucet, account, networkName }) => {
+
+    // -=< Variables >=- ------------------------------------------------------------------------------------------------------ //
+
     const [loading, setLoading] = useState(false)
+    const [faucetContract, setFaucetContract] = useState(null)
 
     const faucetOwner = account
     //const faucetOwner = faucet.owner()
@@ -15,13 +21,14 @@ const Home = ({ faucet, account, networkName }) => {
     console.log('Faucet:', faucet)
     console.log('Account:', account)
 
-    const donateTokens = async (account) => {
-        await (await faucet.requestTokens(account)).wait()
-        //loadMarketplaceItems()
+    const donateTokens = async () => {
+        console.log('Donating tokens...', faucet)
+        await faucet.donateTofaucet().call()
     }
 
-    const requestTokens = async (account) => {
-        await (await faucet.requestTokens(account)).wait()
+    const requestTokens = async () => {
+        //await (await faucet.requestTokens(account).call())
+        await faucet.requestTokens(account).call()
         //loadMarketplaceItems()
     }
 
@@ -37,7 +44,7 @@ const Home = ({ faucet, account, networkName }) => {
     return (
         <div className="flex justify-center">
             <div className="px-5 py-3 container">
-                <h2>xETH Faucet</h2>
+                <h2>CoeptIX DevNet Ethers Faucet</h2>
                 <Row className="justify-content-center">
                     <Col xs={12} md={12}>
                         <Card className="text-center">
@@ -68,7 +75,7 @@ const Home = ({ faucet, account, networkName }) => {
                                 </Card.Title>
                                 <Card.Text>
                                     <span className="text-muted">
-                                        <i className="fas fa-user-circle">Donate 5 xETH</i>
+                                        <i className="fas fa-user-circle">Donate 5 Ethers</i>
                                     </span>
                                 </Card.Text>
                             </Card.Body>
@@ -83,13 +90,13 @@ const Home = ({ faucet, account, networkName }) => {
                                 <Card.Title>
                                     <Button onClick={requestTokens} variant="primary">
                                         <span className="text-white">
-                                            <i className="fas fa-user-circle">Request xETH</i>
+                                            <i className="fas fa-user-circle">Request Ethers</i>
                                         </span>
                                     </Button>
                                 </Card.Title>
                                 <Card.Text>
                                     <span className="text-muted">
-                                        <i className="fas fa-user-circle">Send 5 xETH to {account}</i>
+                                        <i className="fas fa-user-circle">Send 5 Ethers from {account}</i>
                                     </span>
                                 </Card.Text>
                             </Card.Body>

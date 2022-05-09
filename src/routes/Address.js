@@ -6,7 +6,7 @@ import { ethers } from "ethers"
 
 // -=< React.Component >=- ------------------------------------------------------------------------------------------------- //
 import { useState, useEffect } from 'react'
-import { Row, Col, Card, Spinner } from 'react-bootstrap'
+import { Row, Col, Spinner } from 'react-bootstrap'
 import { useParams } from "react-router-dom"
 
 // -=< Components >=- ------------------------------------------------------------------------------------------------------ //

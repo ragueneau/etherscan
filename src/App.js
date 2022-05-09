@@ -6,7 +6,6 @@ import { Spinner } from 'react-bootstrap'
 import { useState } from 'react'
 import { ethers } from "ethers"
 
-
 // Export ------------------------------------------------------------------------------------------- //
 import './App.css';
 
@@ -123,70 +122,27 @@ function App() {
   // Load contracts -------------------------------------------------------------------------------- //
   const loadContracts = async (signer) => {
 
-    // Get network chainid and name
-    const network = await window.ethereum.request({ method: 'eth_chainId' });
-    console.log('NetworkID:', network, )
+    //setLoading(true)
 
-    // if on rinkeby network then use Rinkeby network
-    if (window.ethereum && network === '0x4') {
-      console.log('Rinkeby network');
-      setNetworkName('Rinkeby')
+    const apicall = Config.restAPI + '/api?module=contract&action=getabi&address=' + Config.contracts.faucet.address + '&apikey=' + Config.ApiKeyToken
+    const response = await axios.get(apicall)
+    .then(function (response) {
+      console.log(response.data.result)
+        const faucet = new ethers.Contract(Config.contracts.faucet.address, response.data.result, signer)
+        console.log('load_contract', faucet, apicall)
 
-    } else if (window.ethereum && network === '0x3') {
-      console.log('Roptsten network');
-      setNetworkName('Roptsten')
+        setFaucet(faucet)
+    })
+    .catch(function (error) {
+     // handle error
+      console.log(error);
+    })
+   .then(function () {
+      // always executed
+    });
+    //setFaucetContract
 
-    } else if (window.ethereum && network === '0x2a') {
-      console.log('Kovan network');
-      setNetworkName('Kovan')
 
-    } else if (window.ethereum && network === '0x5') {
-      console.log('Goerli network');
-      setNetworkName('Goerli')
-
-    } else if (window.ethereum && network === '0x75c9') {
-      console.log('CoeptIX network');
-      setNetworkName('CoeptIX')
-      FaucetAddress.address = '0xCAEB631af6e9A583A7DC5471E51B9E1E8b64bdBF'
-
-    } else if (window.ethereum && network === '0x89') {
-      console.log('Polygon network');
-      setNetworkName('Polygon')
-
-    } else if (window.ethereum && network === '0x13881') {
-      console.log('Mumbai network');
-      setNetworkName('Mumbai')
-
-    } else if (window.ethereum && network === '0x539') {
-      console.log('Ganache localnet');
-      setNetworkName('Ganache')
-
-    } else if (window.ethereum && network === '0xa86a') {
-      console.log('Avalanche Mainnet');
-      setNetworkName('Avalanche')
-
-    } else if (window.ethereum && network === '0xa') {
-      console.log('Optimism Mainnet');
-      setNetworkName('Optimism')
-
-    } else if (window.ethereum && network === '0x38') {
-      console.log('Binance');
-      setNetworkName('Binance')
-
-    } else if (window.ethereum && network === '0x1') {
-      console.log('Mainnet');
-      setNetworkName('Mainnet')
-
-    } else {
-      console.log('Unknown network');
-      setNetworkName('Unknown')
-
-    }
-
-    // Get deployed copies of contracts
-    //const faucet = new ethers.Contract(FaucetAddress.address, FaucetAbi.abi, signer)
-
-    //setFaucet(faucet)
     setLoading(false)
   }
 
@@ -207,9 +163,6 @@ function App() {
       // always executed
     });
   }
-
-  getabi(FaucetAddress.address)
-  loadNetwork()
 
   // Render ---------------------------------------------------------------------------------------- //
   return (
@@ -254,7 +207,7 @@ function App() {
               <Txs networkName={networkName} account={account}/>
             } />
             <Route path="/faucet" element={
-              <Faucet networkName={networkName} account={account}/>
+              <Faucet faucet={faucet} networkName={networkName} account={account}/>
             } />
             <Route path="/profile" element={
               <Profile networkName={networkName} account={account}/>
