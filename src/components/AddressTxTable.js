@@ -1,7 +1,6 @@
 import React from "react";
 import { Table, Button } from 'react-bootstrap'
 import { Link } from "react-router-dom"
-import Config from '../config.json'
 
 const AddressTxTable = ({txs, walletAddress}) => {
     // Render ---------------------------------------------------------------------------------------------------------- //
