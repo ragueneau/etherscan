@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from 'react'
 import { ethers } from "ethers"
 import { Col, Row, Spinner } from 'react-bootstrap'
@@ -8,7 +7,6 @@ import LatestTransactions from '../components/LatestTransactions'
 import Dashboard from '../components/Dashboard'
 
 import Config from '../config.json'
-
 const axios = require('axios').default;
 
 const Home = ({ networkName }) => {

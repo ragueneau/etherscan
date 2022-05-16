@@ -2,16 +2,29 @@ import { useState, useEffect } from 'react'
 //import { ethers } from "ethers"
 import { Row, Col, Card, Spinner } from 'react-bootstrap'
 import { Link  } from "react-router-dom";
+import TokenList from '../components/TokenList'
+
+import Config from '../config.json'
+const axios = require('axios').default;
 
 const Tokens = ({ networkName }) => {
     const [loading, setLoading] = useState(true)
+    const [items, setItems] = useState([])
 
     const getTokenList = async () => {
-        //const provider = new ethers.providers.Web3Provider(window.ethereum)
-        //const tokenList = await provider.getTokenList()
-        //console.log('Token list:', tokenList)
+        //get token list from etherscan
+        const response = await axios.get(Config.restAPI + '/api?module=token&action=tokenlist&apikey=' + Config.ApiKeyToken )
+        const tokenList = response.data.result
+
+        console.log(tokenList)
+        setItems(tokenList)
         setLoading(false)
     }
+
+    //a function to return a qr code for a given token address
+    //const getQRCode = (tokenAddress) => {
+    //    return `https://chart.googleapis.com/chart?cht=qr&chs=300x300&chl=${tokenAddress}`
+    //}
 
     useEffect(() => {
         getTokenList()
@@ -30,16 +43,7 @@ const Tokens = ({ networkName }) => {
                 <h5>Tokens </h5>
                 <Row className="justify-content-center">
                     <Col md={6} lg={12}>
-                        <Card>
-                            <Card.Body>
-                                A token list
-                                <li className="list-group-item"><b>LePRJB</b>: <Link to={`/token/0xE57a2dDba8427e6b99dEE09F3EA125f19543c535`}>0xE57a2dDba8427e6b99dEE09F3EA125f19543c535</Link></li>
-                                <li className="list-group-item"><b>1inch</b>: <Link to={`/token/0xC2B476f730256b145cA3956478f315f7Bf4d3Cd4`}>0xC2B476f730256b145cA3956478f315f7Bf4d3Cd4</Link></li>
-                                <li className="list-group-item"><b>WETH</b>: <Link to={`/token/0x4E5E871aB1F4657D6F55C3D302Ec7C4Aa0920a41`}>0x4E5E871aB1F4657D6F55C3D302Ec7C4Aa0920a41</Link></li>
-                                <li className="list-group-item"><b>TSC1</b>: <Link to={`/token/0x2536384Ea97a74714b250E209dc57B895A040215`}>0x2536384Ea97a74714b250E209dc57B895A040215</Link></li>
-                                <li className="list-group-item"><b>TSC2</b>: <Link to={`/token/0x9e637D7af358E7B66854476BE04C15c96b20B582`}>0x9e637D7af358E7B66854476BE04C15c96b20B582</Link></li>
-                            </Card.Body>
-                        </Card>
+                        <TokenList tokens={items} />
                     </Col>
                 </Row>
 
