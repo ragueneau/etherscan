@@ -1,3 +1,4 @@
+import Config from '../config.json'
 import { useState, useEffect } from 'react'
 import { ethers } from "ethers"
 import { Spinner } from 'react-bootstrap'
