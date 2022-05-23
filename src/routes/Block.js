@@ -1,8 +1,8 @@
 import { useState, useEffect } from 'react'
 import { ethers } from "ethers"
-import { Row, Col, Button, Spinner } from 'react-bootstrap'
+import { Button, Spinner } from 'react-bootstrap'
 import { Link, useParams } from "react-router-dom";
-
+import Config from '../config.json'
 
 const Block = ({ networkName }) => {
     const [count, setCount] = useState(0);
@@ -17,7 +17,7 @@ const Block = ({ networkName }) => {
 
     //get last block number
     const getBlockNumber = async () => {
-        const provider = new ethers.providers.Web3Provider(window.ethereum)
+        const provider = new ethers.providers.JsonRpcProvider(Config.node)
 
         const blockTransactions = await provider.getBlockWithTransactions(blockNumber)
 
@@ -47,11 +47,9 @@ const Block = ({ networkName }) => {
 //    <Link to={`/block/${blockContent.number+1}`}><Button variant="primary" size="sm" className="ml-2">Next</Button></Link>
     // Render ---------------------------------------------------------------------------------------------------------- //
     return (
-        <div className="flex justify-center">
+        <div className="flex ">
             <div className="px-5 py-3 container text-center">
                 <h5>Block {blockContent.hash}</h5>
-                <Row className="justify-content-center">
-                    <Col xs={1} md={8} lg={12}>
                      <h5>Overview</h5>
                         <ul>
                             <li className="list-group-item">
@@ -92,8 +90,6 @@ const Block = ({ networkName }) => {
                                 <b>Parent Hash</b>: <Link to={`/block/${blockContent.number - 1}`}><i className="fas fa-user-circle">{blockContent.parentHash}</i></Link>
                             </li>
                         </ul>
-                    </Col>
-                </Row>
             </div>
         </div>
     );
