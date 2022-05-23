@@ -74,19 +74,19 @@ function App() {
       if (window.ethereum && network === '0x4') {
         console.log('Rinkeby network');
         setNetworkName('Rinkeby')
-  
+
       } else if (window.ethereum && network === '0x3') {
         console.log('Roptsten network');
         setNetworkName('Roptsten')
-  
+
       } else if (window.ethereum && network === '0x2a') {
         console.log('Kovan network');
         setNetworkName('Kovan')
-  
+
       } else if (window.ethereum && network === '0x5') {
         console.log('Goerli network');
         setNetworkName('Goerli')
-  
+
       } else if (window.ethereum && network === '0x75c9') {
         console.log('CoeptIX network');
         setNetworkName('CoeptIX')
