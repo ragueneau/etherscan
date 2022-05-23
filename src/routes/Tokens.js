@@ -1,7 +1,6 @@
 import { useState, useEffect } from 'react'
 //import { ethers } from "ethers"
-import { Row, Col, Card, Spinner } from 'react-bootstrap'
-import { Link  } from "react-router-dom";
+import { Row, Col, Spinner } from 'react-bootstrap'
 import TokenList from '../components/TokenList'
 
 import Config from '../config.json'
@@ -13,10 +12,9 @@ const Tokens = ({ networkName }) => {
 
     const getTokenList = async () => {
         //get token list from etherscan
-        const response = await axios.get(Config.restAPI + '/api?module=token&action=tokenlist&apikey=' + Config.ApiKeyToken )
+        const response = await axios.get(Config.restAPI + '/api?module=token&action=tokenlist&apikey=' + Config.ApiKeyToken)
         const tokenList = response.data.result
 
-        console.log(tokenList)
         setItems(tokenList)
         setLoading(false)
     }
