@@ -1,9 +1,9 @@
+import Config from '../config.json'
 import { useState, useEffect } from 'react'
 //import { ethers } from "ethers"
 import { Card, Spinner } from 'react-bootstrap'
 import { useParams } from 'react-router-dom'
 //import { Link } from "react-router-dom";
-import Config from '../config.json'
 
 import TransactionList from '../components/TransactionList'
 
