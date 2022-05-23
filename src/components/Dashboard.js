@@ -3,7 +3,7 @@ import { Image, Col, Card } from 'react-bootstrap'
 
 const Dashboard = ({txs}) => {
     return (
-        <Col xs={1} md={4} lg={12}>
+        <Col xs={12} md={12} lg={12}>
         <Card className="text-center">
             <Card.Body>
                 <Card.Title>
