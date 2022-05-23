@@ -1,3 +1,4 @@
+import Config from '../config.json'
 import { useState, useEffect } from 'react'
 import { Col, Row } from 'react-bootstrap'
 import { ethers } from "ethers"
@@ -28,7 +29,7 @@ const Tx = ({ networkName, transactionHash }) => {
     )
 
     const getTransaction = async () => {
-        const provider = new ethers.providers.Web3Provider(window.ethereum)
+        const provider = new ethers.providers.JsonRpcProvider(Config.node)
 
         const tx = await provider.getTransaction(params.transactionHash)
 
