@@ -14,9 +14,9 @@ const Home = ({ networkName }) => {
     const [loading, setLoading] = useState(false)
     const [items, setItems] = useState([])
     const [txs, setTxs] = useState([])
+    const [lastBlock, setLastBlock] = useState(0)
 
     const getLatestTransactions = async () => {
-        //const response = await axios.get('http://api.etherscan.io/api?module=account&action=txlist&address=0x8d12a197cb00d4747a1fe03395095ce2a5cc6819&startblock=0&endblock=99999999&sort=asc&apikey=YourApiKeyToken')
 
         const response = await axios.get(Config.restAPI + '/api?module=proxy&action=eth_blockNumber&apikey=' + Config.ApiKeyToken)
         .then(function (response) {
@@ -32,8 +32,43 @@ const Home = ({ networkName }) => {
         });
     }
 
-    //get last block number
+    //subscribe to new blocks with ethers.js
     const getLatestBlocks = async () => {
+        const provider = new ethers.providers.JsonRpcProvider(Config.node);
+        const blockNumber = await provider.getBlockNumber()
+
+        if (lastBlock === 0) {
+            setLastBlock(blockNumber - 11)
+        } else {
+
+            for (let i = lastBlock; i < blockNumber; i++) {
+
+                const block = await provider.getBlock(i+1)
+
+                setLastBlock(blockNumber)
+                items.unshift(block)
+                console.log('added block: ' + block.number, i)
+
+                // remove oldest item if we have more than 10 items
+                if (items.length > 10) {
+                    console.log('removed item')
+                    items.pop()
+                }
+            }
+
+            //for each item is items echo to console
+            items.forEach(item => {
+                item.timediff = Math.round(+new Date()/1000) - item.timestamp
+            })
+
+            console.log('blocks:',blockNumber,'lastblock:',lastBlock,'nb:',items.length,'items:',items)
+            setItems(items)
+        }
+    }
+
+
+    //get last block number
+    const getLatestBlocks2 = async () => {
         const provider = new ethers.providers.Web3Provider(window.ethereum)
         const blockNumber = await provider.getBlockNumber()
 
@@ -46,6 +81,7 @@ const Home = ({ networkName }) => {
             items.push(block)
         }
 
+        console.log('blocks:',items)
         setItems(items)
     }
 
@@ -55,7 +91,7 @@ const Home = ({ networkName }) => {
             getLatestBlocks()
             getLatestTransactions()
             setLoading(false)
-        }, 900);
+        }, 1000);
         return () => clearTimeout(timer)
     })
     if (loading) return (
@@ -70,15 +106,15 @@ const Home = ({ networkName }) => {
       <div className="flex justify-center">
         <div className="px-5 py-3 container">
             <h3>EVM Blockchain Explorer</h3>
-            <Row className="justify-content-center">
+            <Row>
                 <Dashboard items={items} />
             </Row>
-            <Row className="justify-content-center">
-                <Col xs={1} md={1} lg={6} className="mb-3">
+            <Row >
+                <Col xs={12} md={12} lg={6}>
                     <h5>Latest Blocks</h5>
                     <LatestBlocks items={items} />
                 </Col>
-                <Col xs={1} md={1} lg={6} className="mb-3">
+                <Col xs={12} md={12} lg={6} >
                     <h5>Latest Transactions</h5>
                     <LatestTransactions txs={txs} />
                 </Col>
