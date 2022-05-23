@@ -1,3 +1,4 @@
+import Config from '../config.json'
 import { useState, useEffect } from 'react'
 import { ethers } from "ethers"
 import { Row, Col, Card, Spinner } from 'react-bootstrap'
@@ -14,7 +15,7 @@ const Token = ({ networkName }) => {
 
     //get the token supply
     const getTokenSupply = async () => {
-        const provider = new ethers.providers.Web3Provider(window.ethereum)
+        const provider = new ethers.providers.JsonRpcProvider(Config.node)
         //const tokenAddress = {params.tokenAddress}
         //const token = new ethers.Contract(FaucetAddress.address, FaucetAbi.abi, signer)
 
