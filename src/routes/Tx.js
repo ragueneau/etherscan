@@ -1,6 +1,6 @@
 import Config from '../config.json'
 import { useState, useEffect } from 'react'
-import { Col, Row } from 'react-bootstrap'
+import { Col, Row, Spinner } from 'react-bootstrap'
 import { ethers } from "ethers"
 import { useParams } from "react-router-dom";
 
@@ -51,9 +51,12 @@ const Tx = ({ networkName, transactionHash }) => {
         return () => clearTimeout(timer)
       })
       if (loading) return (
-        <main style={{ padding: "1rem 0" }}>
-          <h2>Loading transaction...</h2>
-        </main>
+        <div className="flex">
+            <div className="px-5 py-3 container text-left">
+            <h5>Loading transaction...</h5>
+            <Spinner animation="border" variant="secondary" />
+            </div>
+        </div>
       )
 
       // Render ---------------------------------------------------------------------------------------------------------- //

@@ -115,6 +115,7 @@ const Address = ({ networkName }) => {
             setCount((count) => count + 1);
             //getOnChainAddressInfo()
             if (params.walletAddress !== address.address) {
+                console.log('address changed')
                 setLoading(true)
             }
 
@@ -131,10 +132,12 @@ const Address = ({ networkName }) => {
     //if params changes, reload page
 
     if (loading) return (
-        <main style={{ padding: "1rem 0" }}>
+        <div className="flex ">
+            <div className="px-5 py-3 container text-left">
             <h4>Loading address: {params.walletAddress}</h4>
-            <Spinner animation="border" style={{ display: 'flex' }} />
-        </main>
+                <Spinner animation="border" variant="primary" />
+            </div>
+      </div>
     )
     // -=< Render >=- ------------------------------------------------------------------------------------------------------ //
     return (
@@ -142,14 +145,14 @@ const Address = ({ networkName }) => {
             <div className="px-5 py-3 container">
                 <h5>Address {params.walletAddress}</h5>
                 <Row className="justify-content-center">
-                    <Col xs={2} md={6} lg={6}>
+                    <Col xs={6} md={6} lg={6}>
                         {contract ? (
                             <ContractOverview address={address} />
                         ) : (
                             <AddressOverview address={address} />
                         )}
                     </Col>
-                    <Col xs={2} md={6} lg={6}>
+                    <Col xs={6} md={6} lg={6}>
                     {contract ? (
                         <ContractMoreInfo address={address} />
                     ) : (
@@ -158,7 +161,7 @@ const Address = ({ networkName }) => {
                     </Col>
                 </Row>
                 <Row>
-                    <Col xs={2} md={12} lg={12}>
+                    <Col xs={12} md={12} lg={12}>
                         <h5>Transactions</h5>
                         <AddressTxTable txs={txs} walletAddress={params.walletAddress}/>
                     </Col>
@@ -166,6 +169,5 @@ const Address = ({ networkName }) => {
             </div>
         </div>
     );
-    
 }
 export default Address

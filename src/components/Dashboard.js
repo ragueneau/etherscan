@@ -15,7 +15,6 @@ const Dashboard = ({txs}) => {
             </Card.Body>
         </Card>
     </Col>
-
     );
 };
 

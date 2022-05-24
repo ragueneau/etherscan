@@ -47,11 +47,9 @@ const Home = ({ networkName }) => {
 
                 setLastBlock(blockNumber)
                 items.unshift(block)
-                console.log('added block: ' + block.number, i)
 
                 // remove oldest item if we have more than 10 items
                 if (items.length > 10) {
-                    console.log('removed item')
                     items.pop()
                 }
             }
@@ -61,28 +59,8 @@ const Home = ({ networkName }) => {
                 item.timediff = Math.round(+new Date()/1000) - item.timestamp
             })
 
-            console.log('blocks:',blockNumber,'lastblock:',lastBlock,'nb:',items.length,'items:',items)
             setItems(items)
         }
-    }
-
-
-    //get last block number
-    const getLatestBlocks2 = async () => {
-        const provider = new ethers.providers.Web3Provider(window.ethereum)
-        const blockNumber = await provider.getBlockNumber()
-
-        let items = []
-        //a for loop to get the last 10 blocks
-        for (let i = 0; i < 10; i++) {
-            const block = await provider.getBlock(blockNumber - i)
-
-            block.timediff = Math.round(+new Date()/1000) - block.timestamp
-            items.push(block)
-        }
-
-        console.log('blocks:',items)
-        setItems(items)
     }
 
     useEffect(() => {
@@ -103,24 +81,26 @@ const Home = ({ networkName }) => {
 
     // Render ---------------------------------------------------------------------------------------------------------- //
     return (
-      <div className="flex justify-center">
-        <div className="px-5 py-3 container">
-            <h3>EVM Blockchain Explorer</h3>
-            <Row>
-                <Dashboard items={items} />
-            </Row>
-            <Row >
-                <Col xs={12} md={12} lg={6}>
-                    <h5>Latest Blocks</h5>
-                    <LatestBlocks items={items} />
-                </Col>
-                <Col xs={12} md={12} lg={6} >
-                    <h5>Latest Transactions</h5>
-                    <LatestTransactions txs={txs} />
-                </Col>
-            </Row>
+        <div className="flex justify-center">
+            <div className="px-5 py-3 container">
+                <h2>EVM Blockchain Explorer</h2>
+                <Row>
+                    <Dashboard items={items} />
+                </Row>
+                <div className="mt-3">
+                    <Row >
+                        <Col xs={12} md={12} lg={6}>
+                            <h5>Latest Blocks</h5>
+                            <LatestBlocks items={items} />
+                        </Col>
+                        <Col xs={12} md={12} lg={6} >
+                            <h5>Latest Transactions</h5>
+                            <LatestTransactions txs={txs} />
+                        </Col>
+                    </Row>
+                </div>
+            </div>
         </div>
-      </div>
     );
 }
 export default Home
