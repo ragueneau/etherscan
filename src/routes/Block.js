@@ -43,7 +43,7 @@ const Block = ({ networkName }) => {
             <div className="px-5 py-3 container text-left">
                 <h4>Loading block #{blockNumber}...</h4>
                 <Spinner animation="border" variant="primary" />
-            </div> 
+            </div>
       </div>
     )
 //    <Link to={`/block/${blockContent.number+1}`}><Button variant="primary" size="sm" className="ml-2">Next</Button></Link>

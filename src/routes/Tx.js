@@ -65,7 +65,7 @@ const Tx = ({ networkName, transactionHash }) => {
             <div className="px-5 py-3 container">
                 <h5>Transaction Details</h5>
                 <Row className="justify-content-center">
-                    <Col xs={1} md={1} lg={12}>
+                    <Col xs={12} md={12} lg={12}>
                         <Transaction transaction={transaction} />
                     </Col>
                 </Row>

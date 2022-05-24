@@ -45,7 +45,7 @@ const Token = ({ networkName }) => {
                 <h5>Token {params.tokenAddress}</h5>
 
                 <Row className="justify-content-center">
-                    <Col xs={1} md={6} lg={6}>
+                    <Col xs={6} md={6} lg={6}>
                         <Card className="text-center">
                             <Card.Body>
                                 <Card.Title>Overview</Card.Title>
@@ -59,7 +59,7 @@ const Token = ({ networkName }) => {
                             </Card.Body>
                         </Card>
                     </Col>
-                    <Col xs={1} md={6} lg={6}>
+                    <Col xs={6} md={6} lg={6}>
                         <Card className="text-center">
                             <Card.Body>
                                 <Card.Title>Profile Summary</Card.Title>
@@ -77,7 +77,7 @@ const Token = ({ networkName }) => {
                 </Row>
 
                 <Row>
-                    <Col xs={1} md={10} lg={12}>
+                    <Col xs={12} md={12} lg={12}>
                         <Card>
                             <Card.Body>
                                 <Card.Title>Transactions</Card.Title>
