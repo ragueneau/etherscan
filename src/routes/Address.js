@@ -145,14 +145,14 @@ const Address = ({ networkName }) => {
             <div className="px-5 py-3 container">
                 <h5>Address {params.walletAddress}</h5>
                 <Row className="justify-content-center">
-                    <Col xs={6} md={6} lg={6}>
+                    <Col xs={12} md={12} lg={6}>
                         {contract ? (
                             <ContractOverview address={address} />
                         ) : (
                             <AddressOverview address={address} />
                         )}
                     </Col>
-                    <Col xs={6} md={6} lg={6}>
+                    <Col xs={12} md={12} lg={6}>
                     {contract ? (
                         <ContractMoreInfo address={address} />
                     ) : (

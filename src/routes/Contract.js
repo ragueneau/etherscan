@@ -29,7 +29,7 @@ const Contract = ({ networkName }) => {
                 <h5>Contract {params.contractAddress}</h5>
 
                 <Row className="justify-content-center">
-                    <Col xs={6} md={6} lg={6}>
+                    <Col xs={12} md={12} lg={6}>
                         <Card className="text-center">
                             <Card.Body>
                                 <Card.Title>Overview</Card.Title>
@@ -43,7 +43,7 @@ const Contract = ({ networkName }) => {
                             </Card.Body>
                         </Card>
                     </Col>
-                    <Col xs={6} md={6} lg={6}>
+                    <Col xs={12} md={12} lg={6}>
                         <Card className="text-center">
                             <Card.Body>
                                 <Card.Title>Profile Summary</Card.Title>

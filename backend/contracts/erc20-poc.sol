@@ -3,10 +3,10 @@ pragma solidity ^0.8.5;
 
 import 'https://github.com/OpenZeppelin/openzeppelin-contracts/blob/master/contracts/token/ERC20/ERC20.sol';
 
-contract Potato is ERC20 {
+contract PotatoCoin is ERC20 {
     address public admin;
 
-    constructor() ERC20("Potato", "PTT")
+    constructor() ERC20("Potato Coin", "POC")
     {
         _mint(msg.sender, 1000000 * 10 ** 18);
         admin = msg.sender;
