@@ -20,12 +20,12 @@ const LatestTransactions = ({txs}) => {
                     <Col md={6}>
                         <Row>
                             <Col>
-                                <small>From:</small> <Link to={`/address/${item.from}`}>{item.from.slice(0, 7) + '...'+item.from.slice(34, 42)}</Link>
+                                <small>From:</small> <Link to={`/address/${item.from}`}>{item.from.slice(0, 7) + '...'+item.from.slice(37, 42)}</Link>
                             </Col>
                         </Row>
                         <Row>
                             <Col>
-                                {item.to ? <span><small>To:</small> <Link to={`/address/${item.to}`}>{item.to.slice(0, 8) + '...'+item.to.slice(35, 42)}</Link></span> : null}
+                                {item.to ? <span><small>To:</small> <Link to={`/address/${item.to}`}>{item.to.slice(0, 7) + '...'+item.to.slice(37, 42)}</Link></span> : null}
                             </Col>
                         </Row>
                     </Col>
