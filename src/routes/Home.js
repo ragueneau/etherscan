@@ -38,7 +38,7 @@ const Home = ({ networkName }) => {
         const blockNumber = await provider.getBlockNumber()
 
         if ( lastBlock === 0) {
-            setLastBlock(blockNumber - 10)
+            setLastBlock(blockNumber - 11)
         } else {
             if ( lastBlock < blockNumber ) {
                 for (let i = lastBlock+1; i < blockNumber; i++) {
