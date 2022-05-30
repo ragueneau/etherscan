@@ -19,7 +19,9 @@ const Navigation = ({ web3Handler, account, networkName }) => {
                         <Nav.Link as={Link} to="/tokens">Tokens</Nav.Link>
                         <Nav.Link as={Link} to="/faucet">Faucet</Nav.Link>
                     </Nav>
-                    <SearchBar />
+                    <Nav className="ml-auto">
+                        <SearchBar />
+                    </Nav>
                 </Navbar.Collapse>
             </Container>
         </Navbar>
