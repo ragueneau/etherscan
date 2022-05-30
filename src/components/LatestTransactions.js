@@ -14,7 +14,12 @@ const LatestTransactions = ({txs}) => {
                     </Col>
 
                     <Col md={2}>
-                        <Link to={`/tx/${item.hash}`}>{item.hash.slice(0, 6) + '...'}</Link>
+                        <Row>
+                            <Link to={`/tx/${item.hash}`}>{item.hash.slice(0, 6) + '...'}</Link>
+                        </Row>
+                        <Row>
+                            <small>Bk:{item.blockNumber}</small>
+                        </Row>
                     </Col>
 
                     <Col md={6}>
