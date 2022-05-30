@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import { Navbar, Nav, Button, Container } from 'react-bootstrap'
-
+import SearchBar from "./search_bar";
 //import MetamaskConnect from './MetamaskConnect'
 //                    <MetamaskConnect web3Handler={web3Handler} account={account} networkName={networkName} />
 
@@ -19,6 +19,7 @@ const Navigation = ({ web3Handler, account, networkName }) => {
                         <Nav.Link as={Link} to="/tokens">Tokens</Nav.Link>
                         <Nav.Link as={Link} to="/faucet">Faucet</Nav.Link>
                     </Nav>
+                    <SearchBar />
                 </Navbar.Collapse>
             </Container>
         </Navbar>
