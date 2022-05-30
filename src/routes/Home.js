@@ -37,29 +37,30 @@ const Home = ({ networkName }) => {
         const provider = new ethers.providers.JsonRpcProvider(Config.node);
         const blockNumber = await provider.getBlockNumber()
 
-        if (lastBlock === 0) {
-            setLastBlock(blockNumber - 11)
+        if ( lastBlock === 0) {
+            setLastBlock(blockNumber - 10)
         } else {
+            if ( lastBlock < blockNumber ) {
+                for (let i = lastBlock+1; i < blockNumber; i++) {
 
-            for (let i = lastBlock; i < blockNumber; i++) {
+                    const block = await provider.getBlock(i+1)
 
-                const block = await provider.getBlock(i+1)
+                    setLastBlock(i)
+                    items.unshift(block)
 
-                setLastBlock(blockNumber)
-                items.unshift(block)
-
-                // remove oldest item if we have more than 10 items
-                if (items.length > 10) {
-                    items.pop()
+                    // remove oldest item if we have more than 10 items
+                    if (items.length > 10) {
+                        items.pop()
+                    }
                 }
+
+                //for each item is items echo to console
+                items.forEach(item => {
+                    item.timediff = Math.round(+new Date()/1000) - item.timestamp
+                })
+
+                setItems(items)
             }
-
-            //for each item is items echo to console
-            items.forEach(item => {
-                item.timediff = Math.round(+new Date()/1000) - item.timestamp
-            })
-
-            setItems(items)
         }
     }
 
