@@ -3,10 +3,10 @@ pragma solidity ^0.8.5;
 
 import 'https://github.com/OpenZeppelin/openzeppelin-contracts/blob/master/contracts/token/ERC20/ERC20.sol';
 
-contract SLNM is ERC20 {
+contract WETH is ERC20 {
     address public admin;
 
-    constructor() ERC20("Solanum Token", "SLNM")
+    constructor() ERC20("Wrapped ETH", "WETH")
     {
         _mint(msg.sender, 1000000 * 10 ** 18);
         admin = msg.sender;
