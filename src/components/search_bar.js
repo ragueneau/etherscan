@@ -8,16 +8,42 @@ class SearchBar extends Component {
         this.state = { term: '' };
     }
 
+    isAddress(address) {
+        return /^(0x)?[0-9a-f]{40}$/i.test(address);
+    }
+    isTx(address) {
+        return /^(0x)?[0-9a-f]{64}$/i.test(address);
+    }
+
     search(term) {
-        console.log(`Searching for ${term}`);
 
-        //setState('');
-        //redirect to block page
+        //if the term is an integer, load the block page
+        if (term.match(/^[0-9]+$/)) {
+            console.log(`Searching for block: ${term}`);
+            //this.props.history.push(`/block/${term}`);
 
-        //if the term is an integer, redirect to block page
-        //if the term is a string, redirect to token page
+        } else if (this.isAddress(term)) {
+            console.log(`Searching for address: ${term}`);
+            //this.props.history.push(`/address/${term}`);
 
+        } else if (this.isTx(term)) {
+            console.log(`Searching for tx: ${term}`);
+            //this.props.history.push(`/tx/${term}`);
 
+        //else if ens name
+        } else if (term.match(/^[a-z0-9]+\.[a-z0-9]+$/i)) {
+            console.log(`Searching for ens name: ${term}`);
+            //this.props.history.push(`/ens/${term}`);
+
+        //else if token name
+        } else if (term.match(/^[a-z0-9]+$/i)) {
+            console.log(`Searching for token: ${term}`);
+            //this.props.history.push(`/token/${term}`);
+
+        } else {
+            console.log(`Not in bd: ${term}`);
+            //this.props.history.push(`/transaction/${term}`);
+        }
 
     }
 
