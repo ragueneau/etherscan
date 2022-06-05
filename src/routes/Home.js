@@ -45,6 +45,11 @@ const Home = ({ networkName }) => {
 
                     const block = await provider.getBlock(i+1)
 
+                    //skip if block is in items
+                    if ( items.find(item => item.number === block.number) ) {
+                        continue
+                    }
+
                     setLastBlock(i)
                     items.unshift(block)
 
