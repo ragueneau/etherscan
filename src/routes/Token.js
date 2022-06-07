@@ -4,10 +4,12 @@ import { ethers } from "ethers"
 import { Row, Col, Card, Spinner, Button } from 'react-bootstrap'
 import { Link, useParams } from "react-router-dom";
 
+const axios = require('axios').default;
 
 const Token = ({ networkName }) => {
     const params = useParams()
     const [loading, setLoading] = useState(true)
+    const [tokenAddress, setToken] = useState({})
     const [lastBlockNumber, setLastBlockNumber] = useState(0)
 
     //const [account, setAccount] = useState([])
@@ -18,25 +20,33 @@ const Token = ({ networkName }) => {
         return `https://chart.googleapis.com/chart?cht=qr&chs=300x300&chl=${address}`
     }
 
-    const addToken = async (address) => {
-        const tokenAddress = address;
-        const tokenSymbol = 'QCC';
-        const tokenDecimals = 18;
-        const tokenImage = 'https://freesvg.org/img/jpfle-Fleur-de-lis-du-drapeau-du-Qu-bec.png';
+    const addToken = async () => {
 
-        const wasAdded = await window.ethereum.request({
-            method: 'wallet_watchAsset',
-            params: {
-              type: 'ERC20', // Initially only supports ERC20, but eventually more!
-              options: {
-                address: tokenAddress, // The address that the token is at.
-                symbol: tokenSymbol, // A ticker symbol or shorthand, up to 5 chars.
-                decimals: tokenDecimals, // The number of decimals in the token
-                image: tokenImage, // A string url of the token logo
-              },
-            },
-          });
-        console.log('wasAdded:', wasAdded)
+        const response = await axios.get(Config.restAPI + '/api?module=token&action=tokeninfo&contractaddress='+tokenAddress+'&apikey=' + Config.ApiKeyToken)
+        const token = response.data.result
+
+        const tokenSymbol = token.symbol;
+        const tokenDecimals = token.decimals;
+        const tokenImage = token.image;
+
+        try {
+
+            const wasAdded = await window.ethereum.request({
+                method: 'wallet_watchAsset',
+                params: {
+                    type: 'ERC20', // Initially only supports ERC20, but eventually more!
+                    options: {
+                        address: tokenAddress, // The address that the token is at.
+                        symbol: tokenSymbol, // A ticker symbol or shorthand, up to 5 chars.
+                        decimals: tokenDecimals, // The number of decimals in the token
+                        image: tokenImage, // A string url of the token logo
+                    },
+                },
+            });
+            console.log('wasAdded:', wasAdded)
+        } catch (error) {
+            console.log('error:', error)
+        }
     }
 
 
@@ -55,7 +65,7 @@ const Token = ({ networkName }) => {
 
     useEffect(() => {
         getTokenSupply()
-
+        setToken(params.tokenAddress)
       }, [])
       if (loading) return (
         <main style={{ padding: "1rem 0" }}>
@@ -69,7 +79,7 @@ const Token = ({ networkName }) => {
       return (
         <div className="flex justify-center">
             <div className="px-5 py-3 container">
-                <h5>Token {params.tokenAddress}</h5>
+                <h5>Token {tokenAddress}</h5>
 
                 <Row className="justify-content-center">
                     <Col xs={12} md={12} lg={6}>
@@ -92,11 +102,11 @@ const Token = ({ networkName }) => {
                                 <Card.Title>Profile Summary</Card.Title>
                                 <Card.Text>
                                 <ul>
-                                    <li className="list-group-item"><b>Contract</b>: <Link to={`/address/${params.tokenAddress}`}>{params.tokenAddress.slice(0, 7) + '...' + params.tokenAddress.slice(35, 42)}</Link></li>
+                                    <li className="list-group-item"><b>Contract</b>: <Link to={`/address/${tokenAddress}`}>{tokenAddress.slice(0, 7) + '...' + tokenAddress.slice(35, 42)}</Link></li>
                                     <li className="list-group-item"><b>Decimals</b>: 0</li>
                                     <li className="list-group-item"><b>Official Site</b>: http://</li>
                                     <li className="list-group-item"><b>Social profiles</b>: </li>
-                                    <Button variant="primary" onClick={() => addToken(params.tokenAddress)}>Add Token</Button>
+                                    <Button variant="primary" onClick={() => addToken()}>Add Token</Button>
                                 </ul>
                                 </Card.Text>
                             </Card.Body>
