@@ -1,8 +1,9 @@
 import Config from '../config.json'
 import { useState, useEffect } from 'react'
 import { ethers } from "ethers"
-import { Row, Col, Card, Spinner } from 'react-bootstrap'
+import { Row, Col, Card, Spinner, Button } from 'react-bootstrap'
 import { Link, useParams } from "react-router-dom";
+
 
 const Token = ({ networkName }) => {
     const params = useParams()
@@ -11,6 +12,32 @@ const Token = ({ networkName }) => {
 
     //const [account, setAccount] = useState([])
     console.log('Network:', networkName)
+
+    //get a qr code for the token
+    const getQrCode = (address) => {
+        return `https://chart.googleapis.com/chart?cht=qr&chs=300x300&chl=${address}`
+    }
+
+    const addToken = async (address) => {
+        const tokenAddress = address;
+        const tokenSymbol = 'QCC';
+        const tokenDecimals = 18;
+        const tokenImage = 'https://freesvg.org/img/jpfle-Fleur-de-lis-du-drapeau-du-Qu-bec.png';
+
+        const wasAdded = await window.ethereum.request({
+            method: 'wallet_watchAsset',
+            params: {
+              type: 'ERC20', // Initially only supports ERC20, but eventually more!
+              options: {
+                address: tokenAddress, // The address that the token is at.
+                symbol: tokenSymbol, // A ticker symbol or shorthand, up to 5 chars.
+                decimals: tokenDecimals, // The number of decimals in the token
+                image: tokenImage, // A string url of the token logo
+              },
+            },
+          });
+        console.log('wasAdded:', wasAdded)
+    }
 
 
     //get the token supply
@@ -45,7 +72,7 @@ const Token = ({ networkName }) => {
                 <h5>Token {params.tokenAddress}</h5>
 
                 <Row className="justify-content-center">
-                    <Col xs={6} md={6} lg={6}>
+                    <Col xs={12} md={12} lg={6}>
                         <Card className="text-center">
                             <Card.Body>
                                 <Card.Title>Overview</Card.Title>
@@ -59,7 +86,7 @@ const Token = ({ networkName }) => {
                             </Card.Body>
                         </Card>
                     </Col>
-                    <Col xs={6} md={6} lg={6}>
+                    <Col xs={12} md={12} lg={6}>
                         <Card className="text-center">
                             <Card.Body>
                                 <Card.Title>Profile Summary</Card.Title>
@@ -69,6 +96,7 @@ const Token = ({ networkName }) => {
                                     <li className="list-group-item"><b>Decimals</b>: 0</li>
                                     <li className="list-group-item"><b>Official Site</b>: http://</li>
                                     <li className="list-group-item"><b>Social profiles</b>: </li>
+                                    <Button variant="primary" onClick={() => addToken(params.tokenAddress)}>Add Token</Button>
                                 </ul>
                                 </Card.Text>
                             </Card.Body>
