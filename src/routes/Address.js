@@ -34,6 +34,16 @@ const Address = ({ networkName }) => {
     })
     const [contract, setContract] = useState(false)
 
+    //function copy address to clipboard
+    function copyToClipboard(text) {
+        var textArea = document.createElement("textarea");
+        textArea.value = text;
+        document.body.appendChild(textArea);
+        textArea.select();
+        document.execCommand("copy");
+        textArea.remove();
+    }
+
     // -=< Functions >=- ------------------------------------------------------------------------------------------------------ //
     const get_account_txlist = async (addr) => {
 
@@ -143,7 +153,9 @@ const Address = ({ networkName }) => {
     return (
         <div className="flex justify-center">
             <div className="px-5 py-3 container">
-                <h5>Address {params.walletAddress}</h5>
+                <h5>Address {params.walletAddress} <button className="btn btn-primary" onClick={() => copyToClipboard(address.address)}>Copy Address</button>
+                </h5>
+
                 <Row className="justify-content-center">
                     <Col xs={12} md={12} lg={6}>
                         {contract ? (
