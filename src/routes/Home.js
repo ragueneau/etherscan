@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import { ethers } from "ethers"
-import { Col, Row, Spinner } from 'react-bootstrap'
+import { Card, Col, Row, Spinner } from 'react-bootstrap'
 
 import LatestBlocks from '../components/LatestBlocks'
 import LatestTransactions from '../components/LatestTransactions'
@@ -94,13 +94,11 @@ const Home = ({ networkName }) => {
                     <Dashboard items={items} />
                 </Row>
                 <div className="mt-3">
-                    <Row >
-                        <Col xs={12} md={12} lg={6}>
-                            <h5>Latest Blocks</h5>
+                    <Row>
+                        <Col xs={12} md={12} lg={6} xl={6}>
                             <LatestBlocks items={items} />
                         </Col>
-                        <Col xs={12} md={12} lg={6} >
-                            <h5>Latest Transactions</h5>
+                        <Col xs={12} md={12} lg={6} xl={6}>
                             <LatestTransactions txs={txs} />
                         </Col>
                     </Row>

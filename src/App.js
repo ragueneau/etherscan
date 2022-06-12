@@ -23,6 +23,8 @@ import Tokens from './routes/Tokens.js'
 import Tx from './routes/Tx.js'
 import Txs from './routes/Txs.js'
 import Profile from './routes/Profile.js'
+import Applications from './routes/Apps.js'
+import Footer from './components/Footer.js';
 
 // Configuration ----------------------------------------------------------------------------------- //
 import Config from './config.json'
@@ -208,6 +210,9 @@ function App() {
             } />
             <Route path="/faucet" element={
               <Faucet faucet={faucet} networkName={networkName} account={account}/>
+            } />
+            <Route path="/apps" element={
+              <Applications faucet={faucet} networkName={networkName} account={account}/>
             } />
             <Route path="/profile" element={
               <Profile networkName={networkName} account={account}/>

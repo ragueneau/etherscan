@@ -59,14 +59,8 @@ const Txs = ({ networkName, blockNumber }) => {
             <div className="px-5 py-3 container">
               <h5>Transactions</h5>
               For block #{params.blockNumber}
-              <Card>
-                <Card.Body>
-                    <Card.Text>
-                        A total of {blockContent.length} transaction(s) found.
-                    </Card.Text>
-                    <TransactionList txs={blockContent} />
-                </Card.Body>
-              </Card>
+              <TransactionList txs={blockContent} />
+              A total of {blockContent.length} transaction(s) found.
             </div>
         </div>
     );

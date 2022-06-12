@@ -5,6 +5,7 @@ import { ethers } from "ethers"
 import { useParams } from "react-router-dom";
 
 import Transaction from '../components/Transaction'
+const axios = require('axios').default;
 
 const Tx = ({ networkName, transactionHash }) => {
     const [count, setCount] = useState(0);
@@ -27,6 +28,7 @@ const Tx = ({ networkName, transactionHash }) => {
             }
         }
     )
+    const [txlogs, setTxlogs] = useState(null)
 
     const getTransaction = async () => {
         const provider = new ethers.providers.JsonRpcProvider(Config.node)
@@ -42,10 +44,41 @@ const Tx = ({ networkName, transactionHash }) => {
         setTransaction(tx)
     }
 
+    const getTxMongo = async () => {
+        const apicall = Config.restAPI + '/api?module=proxy&action=eth_getTransactionByHash&txhash=' + params.transactionHash + '&apikey=' + Config.ApiKeyToken
+        let tx
+        const response = await axios.get( apicall )
+        .then(function (response) {
+            tx = response.data.result
+        })
+        .catch(function (error) {
+         // handle error
+          console.log(error);
+        })
+       .then(function () {
+          // always executed
+        });
+
+        const provider = new ethers.providers.JsonRpcProvider(Config.node)
+        tx.block = await provider.getBlock(tx.blockNumber)
+        tx.block.timediff = Math.round(+new Date()/1000) - tx.block.timestamp
+        //get latest block number
+        const blockNumber = await provider.getBlockNumber()
+        tx.block.blockNumber = blockNumber
+        //get block confirmations
+        tx.confirmations = blockNumber - tx.blockNumber
+
+        const date = new Date(tx.block.timestamp * 1000)
+        tx.block.humandate = date.toString()
+
+        setTransaction(tx)
+    }
+
     useEffect(() => {
         let timer = setTimeout(() => {
             setCount((count) => count + 1);
-            getTransaction()
+            //getTransaction()
+            getTxMongo()
             setLoading(false)
         }, 900);
         return () => clearTimeout(timer)
@@ -53,7 +86,10 @@ const Tx = ({ networkName, transactionHash }) => {
       if (loading) return (
         <div className="flex">
             <div className="px-5 py-3 container text-left">
-            <h5>Loading transaction...</h5>
+            <h5>Transaction Details</h5>
+            Loading transaction...
+            </div>
+            <div className="px-5 py-3 container text-left">
             <Spinner animation="border" variant="secondary" />
             </div>
         </div>
