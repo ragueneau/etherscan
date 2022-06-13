@@ -17,7 +17,6 @@ const Navigation = ({ web3Handler, account, networkName }) => {
                     <Nav className="me-auto">
                         <Nav.Link as={Link} to="/">Home</Nav.Link>
                         <Nav.Link as={Link} to="/tokens">Tokens</Nav.Link>
-                        <Nav.Link as={Link} to="/faucet">Faucet</Nav.Link>
                         <Nav.Link as={Link} to="/apps">Applications</Nav.Link>
                     </Nav>
                     <Nav className="ml-auto">

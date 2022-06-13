@@ -17,7 +17,7 @@ import Home from './routes/Home.js'
 import Address from './routes/Address.js'
 import Block from './routes/Block.js'
 import Contract from './routes/Contract.js'
-import Faucet from './routes/Faucet.js'
+import Logs from './routes/Logs.js'
 import Token from './routes/Token.js'
 import Tokens from './routes/Tokens.js'
 import Tx from './routes/Tx.js'
@@ -192,14 +192,14 @@ function App() {
             <Route path="/txs/:blockNumber" element={
               <Txs networkName={networkName} account={account}/>
             } />
-            <Route path="/faucet" element={
-              <Faucet faucet={faucet} networkName={networkName} account={account}/>
-            } />
             <Route path="/apps" element={
               <Applications faucet={faucet} networkName={networkName} account={account}/>
             } />
             <Route path="/profile" element={
               <Profile networkName={networkName} account={account}/>
+            } />
+            <Route path="/logs/:contract/:topic" element={
+              <Logs networkName={networkName} account={account}/>
             } />
             <Route path="*" element={
               <HTTP404/>
