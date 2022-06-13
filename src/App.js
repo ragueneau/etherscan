@@ -1,10 +1,17 @@
 // ---------------------------------------------------------------------------------------------------- //
-//
+// Etherscan
 // ---------------------------------------------------------------------------------------------------- //
+
+// Configuration ----------------------------------------------------------------------------------- //
+import Config from './config.json'
+
+// Modules ----------------------------------------------------------------------------------------- //
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { Spinner } from 'react-bootstrap'
 import { useState } from 'react'
 import { ethers } from "ethers"
+
+import axios from 'axios'
 
 // Export ------------------------------------------------------------------------------------------- //
 import './App.css';
@@ -13,6 +20,7 @@ import Navigation from './components/Navbar';
 import HTTP404 from './components/404.js'
 import SearchBar from './components/search_bar';
 
+// Routes ------------------------------------------------------------------------------------------- //
 import Home from './routes/Home.js'
 import Address from './routes/Address.js'
 import Block from './routes/Block.js'
@@ -26,22 +34,11 @@ import Profile from './routes/Profile.js'
 import Applications from './routes/Apps.js'
 import Footer from './components/Footer.js';
 
-// Configuration ----------------------------------------------------------------------------------- //
-import Config from './config.json'
-//import ERC20Abi from './contractsData/erc20-abi.json'
-//import FaucetAbi from './contractsData/Faucet.json'
-
-//import the axios library
-import axios from 'axios'
-
-const FaucetAddress = Config.contracts.faucet;
-
-// Fonction ---------------------------------------------------------------------------------------- //
+// Functions --------------------------------------------------------------------------------------- //
 function App() {
   const [loading, setLoading] = useState(false)
   const [account, setAccount] = useState(null)
   const [networkName, setNetworkName] = useState('network')
-  const [faucet, setFaucet] = useState(null)
 
   // MetaMask Login/Connect ----------------------------------------------------------------------- //
   const web3Handler = async () => {
@@ -62,92 +59,7 @@ function App() {
       setAccount(accounts[0])
       await web3Handler()
     })
-    loadContracts(signer)
-  }
 
-    // Load contracts -------------------------------------------------------------------------------- //
-  const loadNetwork = async () => {
-
-      // Get network chainid and name
-      const network = await window.ethereum.request({ method: 'eth_chainId' });
-      console.log('NetworkID:', network, )
-
-      // if on rinkeby network then use Rinkeby network
-      if (window.ethereum && network === '0x4') {
-        console.log('Rinkeby network');
-        setNetworkName('Rinkeby')
-
-      } else if (window.ethereum && network === '0x3') {
-        console.log('Roptsten network');
-        setNetworkName('Roptsten')
-
-      } else if (window.ethereum && network === '0x2a') {
-        console.log('Kovan network');
-        setNetworkName('Kovan')
-
-      } else if (window.ethereum && network === '0x5') {
-        console.log('Goerli network');
-        setNetworkName('Goerli')
-
-      } else if (window.ethereum && network === '0x75c9') {
-        console.log('CoeptIX network');
-        setNetworkName('CoeptIX')
-        FaucetAddress.address = '0xCAEB631af6e9A583A7DC5471E51B9E1E8b64bdBF'
-
-      } else if (window.ethereum && network === '0x89') {
-        console.log('Polygon network');
-        setNetworkName('Polygon')
-
-      } else if (window.ethereum && network === '0x13881') {
-        console.log('Mumbai network');
-        setNetworkName('Mumbai')
-
-      } else if (window.ethereum && network === '0x539') {
-        console.log('Ganache localnet');
-        setNetworkName('Ganache')
-
-      } else if (window.ethereum && network === '0xa86a') {
-        console.log('Avalanche Mainnet');
-        setNetworkName('Avalanche')
-
-      } else if (window.ethereum && network === '0x1') {
-        console.log('Mainnet');
-        setNetworkName('Mainnet')
-
-      } else {
-        console.log('Unknown network');
-        setNetworkName('Unknown')
-
-      }
-
-  }
-  // Load contracts -------------------------------------------------------------------------------- //
-  const loadContracts = async (signer) => {
-    const apicall = Config.restAPI + '/api?module=contract&action=getabi&address=' + Config.contracts.faucet.address + '&apikey=' + Config.ApiKeyToken
-    const abi = await getabi(Config.contracts.faucet.address)
-    const faucet = new ethers.Contract(Config.contracts.faucet.address, abi, signer)
-    console.log('load_contract', faucet, apicall)
-    setFaucet(faucet)
-
-    setLoading(false)
-  }
-
-  const getabi = async (contractAddress) => {
-    const network = await window.ethereum.request({ method: 'eth_chainId' });
-
-    const apicall = Config.restAPI + '/api?module=contract&action=getabi&address=' + contractAddress + '&apikey=' + Config.ApiKeyToken
-    const response = await axios.get(apicall)
-    .then(function (response) {
-      //setTxs(response.data.result)
-      console.log(apicall, response.data.result)
-    })
-    .catch(function (error) {
-     // handle error
-      console.log(error);
-    })
-   .then(function () {
-      // always executed
-    });
   }
 
   // Render ---------------------------------------------------------------------------------------- //
@@ -192,11 +104,11 @@ function App() {
             <Route path="/txs/:blockNumber" element={
               <Txs networkName={networkName} account={account}/>
             } />
-            <Route path="/apps" element={
-              <Applications faucet={faucet} networkName={networkName} account={account}/>
-            } />
             <Route path="/profile" element={
               <Profile networkName={networkName} account={account}/>
+            } />
+            <Route path="/apps" element={
+              <Applications networkName={networkName} account={account}/>
             } />
             <Route path="/logs/:contract/:topic" element={
               <Logs networkName={networkName} account={account}/>
