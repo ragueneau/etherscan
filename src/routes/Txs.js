@@ -48,7 +48,8 @@ const Txs = ({ networkName, blockNumber }) => {
     })
       if (loading) return (
         <main style={{ padding: "1rem 0" }}>
-          <h5>Loading transaction for block #{params.blockNumber}</h5>
+          <h5>Transactions</h5>
+          Loading transaction for block #{params.blockNumber}
           <Spinner animation="border" style={{ display: 'flex' }} />
         </main>
       )

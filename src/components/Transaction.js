@@ -6,12 +6,12 @@ const Transaction = ({ transaction }) => {
     for (let key in transaction.receipt) {
         receipt[key] = transaction.receipt[key]
     }
-    console.log(transaction)
+
     // Render ---------------------------------------------------------------------------------------------------------- //
     return (
     <Card >
         <Card.Header>
-            <Card.Title>Overview</Card.Title>
+            <Card.Title className="std-card-title">Overview</Card.Title>
         </Card.Header>
         <Card.Body className="std-card-info">
             <ListGroup variant="flush">
@@ -23,7 +23,8 @@ const Transaction = ({ transaction }) => {
                 <ListGroup.Item><b>To</b>: <Link to={`/address/${transaction.to}`}>{transaction.to ? transaction.to : null}</Link></ListGroup.Item>
                 <ListGroup.Item><b>Value</b>: {transaction.value.toString() / 10 ** 18} Ethers</ListGroup.Item>
                 <ListGroup.Item><b>Gas Price</b>: {transaction.gasPrice / 10 ** 9} gwei</ListGroup.Item>
-                <ListGroup.Item><b>Gas Used</b>: {receipt.gasUsed / 10 ** 3} gwei</ListGroup.Item>
+                <ListGroup.Item><b>Gas Used</b>: {receipt.gasUsed / 10 ** 0} gwei</ListGroup.Item>
+                <ListGroup.Item><b>Gas Limit</b>: {transaction.gas / 10 ** 0} gwei</ListGroup.Item>
                 <ListGroup.Item><b>Nonce</b>: {transaction.nonce}</ListGroup.Item>
                 <ListGroup.Item><b>Transaction Index</b>: {transaction.transactionIndex}</ListGroup.Item>
                 <ListGroup.Item><b>Transaction Type</b>: {transaction.type}</ListGroup.Item>

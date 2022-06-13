@@ -2,12 +2,11 @@ import { Card, Button, ListGroup } from 'react-bootstrap'
 import { Link } from "react-router-dom";
 
 const BlockInfo = ({ block }) => {
-    console.log(block)
       // Render ---------------------------------------------------------------------------------------------------------- //
       return (
         <Card>
             <Card.Header>
-                <Card.Title>Overview</Card.Title>
+                <Card.Title className="std-card-title">Overview</Card.Title>
             </Card.Header>
             <Card.Body className="std-card-info">
                 <ListGroup variant="flush">

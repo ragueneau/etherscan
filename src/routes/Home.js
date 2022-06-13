@@ -91,10 +91,12 @@ const Home = ({ networkName }) => {
             <div className="px-5 py-3 container">
                 <h2>EVM Blockchain Explorer</h2>
                 <Row>
-                    <Dashboard items={items} />
+                    <Col md={12}>
+                        <Dashboard items={items} />
+                    </Col>
                 </Row>
                 <div className="mt-3">
-                    <Row>
+                    <Row >
                         <Col xs={12} md={12} lg={6} xl={6}>
                             <LatestBlocks items={items} />
                         </Col>

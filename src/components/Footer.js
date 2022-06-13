@@ -1,14 +1,34 @@
-import { Link } from "react-router-dom";
-import { Navbar, Nav, Button, Container } from 'react-bootstrap'
+import React from 'react';
+import Footer from './footer/index';
 
-//import MetamaskConnect from './MetamaskConnect'
-//                    <MetamaskConnect web3Handler={web3Handler} account={account} networkName={networkName} />
+//const FooterContainer = () => {
+export default function FooterContainer() {
+    return(
+        <Footer>
+            <Footer.Wrapper>
+                <Footer.Row>
+                <Footer.Column>
+                    <Footer.Title>About</Footer.Title>
+                    <Footer.Link href="#">About</Footer.Link>
+                    <Footer.Link href="#">Contact</Footer.Link>
+                    <Footer.Link href="#">Terms</Footer.Link>
+                </Footer.Column>
+                <Footer.Column>
+                    <Footer.Title>Resources</Footer.Title>
+                    <Footer.Link href="#">Resources</Footer.Link>
+                </Footer.Column>
+                </Footer.Row>
+                <Footer.Row>
+                    <Footer.Column>
+                        <Footer.Title>Legal</Footer.Title>
+                        <Footer.Link href="#">Legal</Footer.Link>
+                        <Footer.Link href="#">Privacy</Footer.Link>
+                    </Footer.Column>
+                </Footer.Row>
 
-const Footer = () => {
-    return (
-        <div className="footer">
-        </div>
-    )
+
+            </Footer.Wrapper>
+        </Footer>
+    );
 }
-export default Footer;
-
+//export default FooterContainer;

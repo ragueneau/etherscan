@@ -1,6 +1,6 @@
 
 import React from "react";
-import { Card, Row, Col, ListGroup } from 'react-bootstrap'
+import { Button, Card, Row, Col, ListGroup } from 'react-bootstrap'
 import { Link } from "react-router-dom"
 
 const LatestBlocks = ({items}) => {
@@ -8,11 +8,14 @@ const LatestBlocks = ({items}) => {
         <Card>
             <Card.Header>Latest Blocks</Card.Header>
             <Card.Body className="std-card-info">
-                <ListGroup variant="flush">
+                <ListGroup variant="flush" className="list-group-item">
                 {items.map((item, idx) => (
-                    <ListGroup.Item key={idx} className="list-group-item">
+                    <ListGroup.Item key={idx} >
                         <Row className="list">
-                            <Col className="col-list td-center" md={1}><h5>Bk</h5></Col>
+
+                            <Col md={1} className="col-list">
+                                <Link to={`/block/${item.number}`}><Button variant="secondary" size="sm" className="ml-2">Bk</Button></Link>
+                            </Col>
 
                             <Col md={3} className="col-list">
                                 <Row><Col><Link to={`/block/${item.number}`}>{item.number}</Link></Col></Row>

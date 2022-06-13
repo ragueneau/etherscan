@@ -123,27 +123,11 @@ function App() {
   }
   // Load contracts -------------------------------------------------------------------------------- //
   const loadContracts = async (signer) => {
-
-    //setLoading(true)
-
     const apicall = Config.restAPI + '/api?module=contract&action=getabi&address=' + Config.contracts.faucet.address + '&apikey=' + Config.ApiKeyToken
-    const response = await axios.get(apicall)
-    .then(function (response) {
-      console.log(response.data.result)
-        const faucet = new ethers.Contract(Config.contracts.faucet.address, response.data.result, signer)
-        console.log('load_contract', faucet, apicall)
-
-        setFaucet(faucet)
-    })
-    .catch(function (error) {
-     // handle error
-      console.log(error);
-    })
-   .then(function () {
-      // always executed
-    });
-    //setFaucetContract
-
+    const abi = await getabi(Config.contracts.faucet.address)
+    const faucet = new ethers.Contract(Config.contracts.faucet.address, abi, signer)
+    console.log('load_contract', faucet, apicall)
+    setFaucet(faucet)
 
     setLoading(false)
   }

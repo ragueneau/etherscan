@@ -12,21 +12,32 @@ const Block = ({ networkName }) => {
     const [loading, setLoading] = useState(true)
     const blockNumber = parseInt(params.blockNumber)
     const [blockContent, setBlockContent] = useState([{
-        blockNumber: blockNumber,
+        number: blockNumber,
         blockHash: '',
         blockTransactions: [],
     }])
 
     //get last block number
     const getBlockNumber = async () => {
-        const provider = new ethers.providers.JsonRpcProvider(Config.node)
+        let blockTransactions = {}
 
-        const blockTransactions = await provider.getBlockWithTransactions(blockNumber)
+        if ( blockNumber !== blockContent.number ) {
+            console.log('getBlockNumber')
+            console.log(blockNumber , blockContent.number)
 
-        blockTransactions.timediff = Math.round(+new Date()/1000) - blockTransactions.timestamp
+            const provider = new ethers.providers.JsonRpcProvider(Config.node)
+            blockTransactions = await provider.getBlockWithTransactions(blockNumber)
 
-        const date = new Date(blockTransactions.timestamp * 1000)
-        blockTransactions.humandate = date.toString()
+            blockTransactions.timediff = Math.round(+new Date()/1000) - blockTransactions.timestamp
+            const date = new Date(blockTransactions.timestamp * 1000)
+            blockTransactions.humandate = date.toString()
+        } else {
+            blockContent.timediff = Math.round(+new Date()/1000) - blockContent.timestamp
+
+            const date = new Date(blockContent.timestamp * 1000)
+            blockContent.humandate = date.toString()
+            blockTransactions = blockContent
+        }
 
         setBlockContent(blockTransactions)
         setLoading(false)
@@ -35,6 +46,9 @@ const Block = ({ networkName }) => {
     useEffect(() => {
         let timer = setTimeout(() => {
             setCount((count) => count + 1);
+            if ( blockNumber !== blockContent.number ) {
+                setLoading(true)
+            }
             getBlockNumber()
         }, 1000);
 

@@ -58,7 +58,6 @@
   font-size: small;
   padding: 0px;
   text-align: left;
-
 }
 
 .btn-card {
@@ -67,22 +66,32 @@
   text-align: left;
 }
 
+
+.btn-list {
+  font-size: small;
+  padding: 0px 0px 0px 0px;
+  text-align: center;
+}
+
 .list {
   margin: 0px;
-  padding: 5px;
+  padding: 0px;
 }
 
 .list-group-item {
-  padding: 0px;
-  margin: 0px;
+  padding: 5px 2px 5px 2px;
+  margin: 0px 0px 0px 0px;
+}
+
+.std-card-title {
+  font-size: large;
+  padding: 0px 0px 0px 0px;
+  margin: 0px 0px 0px 0px;
+  text-align: left;
 }
 
 .col-list {
-  padding: 0px;
-  margin: 0px;
-}
-
-.td-center {
-  text-align: center;
-  vertical-align: middle;
+  padding: 0px 0px 2px 3px;
+  margin: 0px 0px 0px 0px;
+  text-align: left;
 }
