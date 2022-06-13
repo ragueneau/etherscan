@@ -17,11 +17,12 @@ const Logs = ({ networkName }) => {
     const [count, setCount] = useState(0);
     const [loading, setLoading] = useState(true)
 
-
+    // ---------------------------------------------------------------------------------------------------- //
     const getLatestEvent = async () => {
         //get contract abi
-        console.log(params.contract)
-        const response = await axios.get(Config.restAPI + '/api?module=contract&action=getabi&address=' + params.contract + '&apikey=' + Config.ApiKeyToken)
+        //console.log(params.contract)
+
+        await axios.get(Config.restAPI + '/api?module=contract&action=getabi&address=' + params.contract + '&apikey=' + Config.ApiKeyToken)
         .then(function (response) {
             // handle success
             const abi = response.data.result
@@ -30,11 +31,11 @@ const Logs = ({ networkName }) => {
 
             //get the topics hash from the abi
             //const topics = contract.interface.events[0].topics
-            console.log(contract.interface.events)
+            //console.log(contract.interface.events)
 
             //get events
             contract.queryFilter(params.topic).then(function(filter) {
-                    console.log(filter)
+                    //console.log(filter)
             })
 
         }
@@ -49,8 +50,6 @@ const Logs = ({ networkName }) => {
         }
         );
     }
-
-
 
     // ---------------------------------------------------------------------------------------------------------- //
     useEffect(() => {
@@ -74,9 +73,8 @@ const Logs = ({ networkName }) => {
         <div className="flex justify-center">
             <div className="px-5 py-3 container">
               <h5>Logs</h5>
-              {params.topic}
-              {params.address}
-
+              Topic: {params.topic}<br/>
+              Contract: {params.contract}
             </div>
         </div>
     );
