@@ -95,3 +95,10 @@
   margin: 0px 0px 0px 0px;
   text-align: left;
 }
+
+.std-card-txlogs {
+  font-size: small;
+  padding: 0px 0px 0px 0px;
+  margin: 10px 0px 0px 0px;
+  text-align: left;
+}

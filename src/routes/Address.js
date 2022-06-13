@@ -1,7 +1,5 @@
 import Config from '../config.json'
 
-//import { get_account_balance } from '../class/Etherscan'
-
 import { ethers } from "ethers"
 
 // -=< React.Component >=- ------------------------------------------------------------------------------------------------- //
@@ -18,6 +16,7 @@ import ContractMoreInfo from '../components/ContractMoreInfo'
 
 // ---------------------------------------------------------------------------------------------------------------------------- //
 const Address = ({ networkName }) => {
+    let copyIcon = <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24"><path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"/></svg>
 
     // -=< Variables >=- ------------------------------------------------------------------------------------------------------ //
     const axios = require('axios').default;
@@ -110,6 +109,7 @@ const Address = ({ networkName }) => {
         const response = await axios.get(apicall)
         .then(function (response) {
             setContract(response.data.result)
+            setLoading(false)
         })
         .catch(function (error) {
             // handle error
@@ -118,6 +118,11 @@ const Address = ({ networkName }) => {
         .then(function () {
             // always executed
         });
+
+    }
+
+    const getAddressTokenList = async (addr) => {
+
     }
 
     useEffect(() => {
@@ -132,9 +137,9 @@ const Address = ({ networkName }) => {
             get_account_balance(params.walletAddress)
             get_account_txlist(params.walletAddress)
             isContract(params.walletAddress)
+            getAddressTokenList(params.walletAddress)
 
-            setLoading(false)
-        }, 1900);
+        }, 1000);
 
         return () => clearTimeout(timer)
     });
@@ -144,7 +149,7 @@ const Address = ({ networkName }) => {
     if (loading) return (
         <div className="flex ">
             <div className="px-5 py-3 container text-left">
-            <h4>Loading address: {params.walletAddress}</h4>
+            <h5>Address {params.walletAddress} <span onClick={() => copyToClipboard(params.walletAddress)}>{copyIcon}</span></h5>
                 <Spinner animation="border" variant="primary" />
             </div>
       </div>
@@ -153,8 +158,7 @@ const Address = ({ networkName }) => {
     return (
         <div className="flex justify-center">
             <div className="px-5 py-3 container">
-                <h5>Address {params.walletAddress} <button className="btn btn-primary" onClick={() => copyToClipboard(address.address)}>Copy Address</button>
-                </h5>
+                <h5>Address {params.walletAddress} <span onClick={() => copyToClipboard(params.walletAddress)}>{copyIcon}</span></h5>
 
                 <Row className="justify-content-center">
                     <Col xs={12} md={12} lg={6}>

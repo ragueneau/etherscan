@@ -5,12 +5,15 @@ import { ethers } from "ethers"
 import { useParams } from "react-router-dom";
 
 import Transaction from '../components/Transaction'
+import TransactionLogs from '../components/TransactionLogs'
+
 const axios = require('axios').default;
 
 const Tx = ({ networkName, transactionHash }) => {
     const [count, setCount] = useState(0);
     const [loading, setLoading] = useState(true)
     const params = useParams()
+    const [txlogs, setTxlogs] = useState(null)
     const [transaction, setTransaction] = useState(
         {
             transactionHash: params.transactionHash,
@@ -28,7 +31,6 @@ const Tx = ({ networkName, transactionHash }) => {
             }
         }
     )
-    const [txlogs, setTxlogs] = useState(null)
 
     const getTransaction = async () => {
         const provider = new ethers.providers.JsonRpcProvider(Config.node)
@@ -103,6 +105,7 @@ const Tx = ({ networkName, transactionHash }) => {
                 <Row className="justify-content-center">
                     <Col xs={12} md={12} lg={12}>
                         <Transaction transaction={transaction} />
+                        <TransactionLogs transaction={transaction} />
                     </Col>
                 </Row>
             </div>
