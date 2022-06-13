@@ -1,6 +1,6 @@
-// ---------------------------------------------------------------------------------------------------- //
+// ------------------------------------------------------------------------------------------------- //
 // Etherscan
-// ---------------------------------------------------------------------------------------------------- //
+// ------------------------------------------------------------------------------------------------- //
 
 // Configuration ----------------------------------------------------------------------------------- //
 import Config from './config.json'
@@ -13,14 +13,14 @@ import { ethers } from "ethers"
 
 import axios from 'axios'
 
-// Export ------------------------------------------------------------------------------------------- //
+// Export ------------------------------------------------------------------------------------------ //
 import './App.css';
 
 import Navigation from './components/Navbar';
 import HTTP404 from './components/404.js'
 import SearchBar from './components/search_bar';
 
-// Routes ------------------------------------------------------------------------------------------- //
+// Routes ------------------------------------------------------------------------------------------ //
 import Home from './routes/Home.js'
 import Address from './routes/Address.js'
 import Block from './routes/Block.js'
@@ -40,7 +40,7 @@ function App() {
   const [account, setAccount] = useState(null)
   const [networkName, setNetworkName] = useState('network')
 
-  // MetaMask Login/Connect ----------------------------------------------------------------------- //
+  // MetaMask Login/Connect ------------------------------------------------------------------------ //
   const web3Handler = async () => {
     const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
     setAccount(accounts[0])
