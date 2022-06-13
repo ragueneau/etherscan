@@ -1,10 +1,42 @@
-import React from "react";
-import { Button, Table } from 'react-bootstrap'
-import { Link } from "react-router-dom"
+import Config from '../config.json'
+import { useState, useEffect } from 'react'
+import { Spinner } from 'react-bootstrap'
 
-const Applications = ({}) => {
+import Applications from '../components/Applications'
+
+const axios = require('axios').default;
+
+const Apps = () => {
+    const [loading, setLoading] = useState(true)
+    const [apps, setApps] = useState([])
+
+    const getApplications = async () => {
+        const response = await axios.get(Config.restAPI + '/api?module=app&action=getapplist&apikey=' + Config.ApiKeyToken)
+        const applications = response.data.result
+
+        setApps(applications)
+        return applications
+    }
+
+    useEffect(() => {
+        getApplications()
+        setLoading(false)
+      }, [])
+      if (loading) return (
+        <main style={{ padding: "1rem 0" }}>
+          <h5>Applications</h5>
+          Loading Apps<Spinner animation="border" style={{ display: 'flex' }} />
+        </main>
+    )
+
+    // -------------------------------------------------------------------------------------------------------------------- //
     return (
-        <div></div>
+        <div className="flex justify-center">
+            <div className="px-5 py-3 container">
+                <h5>Applications</h5>
+                <Applications applications={apps} />
+            </div>
+        </div>
     );
 };
-export default Applications;
+export default Apps;

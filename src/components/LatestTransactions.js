@@ -3,7 +3,6 @@ import { Button, Card, Row, Col, ListGroup } from 'react-bootstrap'
 import { Link } from "react-router-dom"
 
 const LatestTransactions = ({txs}) => {
-    console.log(txs);
     return (
         <Card>
             <Card.Header>Latest Transactions</Card.Header>

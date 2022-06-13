@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import { ethers } from "ethers"
-import { Card, Col, Row, Spinner } from 'react-bootstrap'
+import { Col, Row, Spinner } from 'react-bootstrap'
 
 import LatestBlocks from '../components/LatestBlocks'
 import LatestTransactions from '../components/LatestTransactions'
