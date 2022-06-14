@@ -100,9 +100,9 @@ const Logs = ({ networkName }) => {
                     <tbody>
               {events ? events.map((event, idx) => (
                 <tr key={idx}>
-                    <td>{event.blockNumber}</td>
+                    <td><Link to={`/block/${event.blockNumber}`}>{event.blockNumber}</Link></td>
                     <td>{event.event}</td>
-                    <td>{event.transactionIndex}</td>
+                    <td><Link to={`/tx/${event.transactionHash}`}>{event.transactionIndex}</Link></td>
                     <td>{event.logIndex}</td>
                     <td>{event.address}</td>
                 </tr>
