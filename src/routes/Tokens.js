@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react'
 //import { ethers } from "ethers"
 import { Row, Col, Spinner } from 'react-bootstrap'
 import TokenList from '../components/TokenList'
+import { Link } from "react-router-dom";
 
 import Config from '../config.json'
 const axios = require('axios').default;
@@ -39,6 +40,7 @@ const Tokens = ({ networkName }) => {
         <div className="flex justify-center">
             <div className="px-5 py-3 container">
                 <h5>Tokens </h5>
+                <Link to="/tokenlogs">View Token activity</Link>
                 <Row className="justify-content-center">
                     <Col md={6} lg={12}>
                         <TokenList tokens={items} />

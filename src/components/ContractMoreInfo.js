@@ -1,5 +1,5 @@
 import { Card } from 'react-bootstrap'
-//import { Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 const ContractMoreinfo = ({ address }) => {
 
@@ -13,6 +13,7 @@ const ContractMoreinfo = ({ address }) => {
                     <li className="list-group-item"><b>Name Tag</b>: </li>
                     <li className="list-group-item"><b>Creator</b>: </li>
                     <li className="list-group-item"><b>Tracker</b>: </li>
+                    <li className="list-group-item"><Link to={`/logs/${address.address}`}>View contract logs</Link></li>
                 </ul>
                 </Card.Text>
             </Card.Body>

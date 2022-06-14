@@ -28,6 +28,7 @@ import Contract from './routes/Contract.js'
 import Logs from './routes/Logs.js'
 import Token from './routes/Token.js'
 import Tokens from './routes/Tokens.js'
+import TokensTx from './routes/TokensTx.js'
 import Tx from './routes/Tx.js'
 import Txs from './routes/Txs.js'
 import Profile from './routes/Profile.js'
@@ -104,6 +105,9 @@ function App() {
             <Route path="/txs/:blockNumber" element={
               <Txs networkName={networkName} account={account}/>
             } />
+            <Route path="/tokenlogs/" element={
+              <TokensTx networkName={networkName} account={account}/>
+            } />
             <Route path="/profile" element={
               <Profile networkName={networkName} account={account}/>
             } />
@@ -111,6 +115,9 @@ function App() {
               <Applications networkName={networkName} account={account}/>
             } />
             <Route path="/logs/:contract/:topic" element={
+              <Logs networkName={networkName} account={account}/>
+            } />
+            <Route path="/logs/:contract" element={
               <Logs networkName={networkName} account={account}/>
             } />
             <Route path="*" element={

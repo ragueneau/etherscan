@@ -43,9 +43,9 @@ const Transaction = ({ transaction }) => {
                 <ListGroup.Item><b>Transaction Index</b>: {transaction.transactionIndex}</ListGroup.Item>
                 <ListGroup.Item><b>Transaction Type</b>: {receipt.type}</ListGroup.Item>
                 <ListGroup.Item ><b>Input</b>: {transaction.input}</ListGroup.Item>
+                <ListGroup.Item ><b>V</b>: {transaction.v}</ListGroup.Item>
                 <ListGroup.Item ><b>R</b>: {transaction.r}</ListGroup.Item>
                 <ListGroup.Item ><b>S</b>: {transaction.s}</ListGroup.Item>
-                <ListGroup.Item ><b>V</b>: {transaction.v}</ListGroup.Item>
                 <ListGroup.Item ><b>logs Bloom</b>: {receipt.logsBloom}</ListGroup.Item>
             </ListGroup>
         </Card.Body>
