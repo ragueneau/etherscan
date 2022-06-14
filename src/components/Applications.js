@@ -1,6 +1,6 @@
 
 import React from "react";
-import { Card, Row, Col, ListGroup } from 'react-bootstrap'
+import { Button, Card, Row, Col, ListGroup } from 'react-bootstrap'
 import { Link } from "react-router-dom"
 
 const Applications = ({applications}) => {
@@ -11,11 +11,14 @@ const Applications = ({applications}) => {
                 {applications.map((item, idx) => (
                     <ListGroup.Item key={idx} >
                         <Row className="list">
-                            <Col md={3} className="col-list">
+                            <Col md={4} className="col-list">
                                 <a href={item.url} target="_blank" rel="noopener noreferrer">{item.name}</a>
                             </Col>
-                            <Col md={5} className="col-list">
+                            <Col md={6} className="col-list">
                                 <Link to={`/address/${item.contractAddress}`}>{item.contractAddress}</Link>
+                            </Col>
+                            <Col md={2} className="col-list">
+                                <Link to={`/logs/${item.contractAddress}`}><Button variant="secondary btn-list" size="sm"> View Events </Button></Link>
                             </Col>
                         </Row>
                     </ListGroup.Item>
