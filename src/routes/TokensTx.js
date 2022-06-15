@@ -41,7 +41,7 @@ const TokensLogs = ({ networkName }) => {
                     const signature = keccak256(toUtf8Bytes(key));
 
                     //get events
-                    contract.queryFilter(signature, -2).then(function(filter) {
+                    contract.queryFilter(signature, -1).then(function(filter) {
 
                         //for event in the filter array
                         for (let i = 0; i < filter.length; i++) {

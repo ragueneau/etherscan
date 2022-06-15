@@ -1,14 +1,14 @@
 import Config from '../config.json'
 import { useState, useEffect } from 'react'
 import { ethers } from "ethers"
-import { Table, Button, Spinner } from 'react-bootstrap'
+import { Button, Spinner } from 'react-bootstrap'
 import { useParams } from 'react-router-dom'
 import { Link } from "react-router-dom";
 
 import { keccak256 } from "@ethersproject/keccak256";
 import { toUtf8Bytes } from "@ethersproject/strings";
 
-import TransactionList from '../components/TransactionList'
+import ContractEvents from '../components/ContractEvents'
 
 //http://127.0.0.1:3000/logs/0x4edDe623379B27db9B0283E917F4c130963cd676/0xddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef
 //http://127.0.0.1:3000/logs/0x7d092def45Ba6960DF1A560E3990DAd430884C4d/0x966369fa3967a9adee1d13e1dfd82bfa577648627c3a450da8b4653b0425531e
@@ -96,7 +96,7 @@ const Logs = ({ networkName }) => {
     })
       if (loading) return (
         <main style={{ padding: "1rem 0" }}>
-            <h4>Contract Event Logs</h4>
+            <h3>Contract Event Logs</h3>
             <Spinner animation="border" style={{ display: 'flex' }} />
         </main>
       )
@@ -105,30 +105,9 @@ const Logs = ({ networkName }) => {
       return (
         <div className="flex justify-center">
             <div className="px-5 py-3 container">
-              <h4>Contract Event Logs</h4>
+              <h3>Contract Event Logs</h3>
               Contract: <Link to={`/address/${params.contract}`}>{params.contract}</Link> {copyButton(params.contract)}<br/>
-                <Table striped bordered hover>
-                    <thead>
-                        <tr>
-                            <th>Block</th>
-                            <th>Tx</th>
-                            <th>Idx</th>
-                            <th>Event</th>
-                            <th>Transaction Hash</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-              {events ? events.map((event, idx) => (
-                <tr key={idx}>
-                    <td><Link to={`/block/${event.blockNumber}`}>{event.blockNumber}</Link></td>
-                    <td><Link to={`/tx/${event.transactionHash}`}>{event.transactionIndex}</Link></td>
-                    <td>{event.logIndex}</td>
-                    <td>{event.event}</td>
-                    <td><Link to={`/tx/${event.transactionHash}`}>{event.transactionHash}</Link></td>
-                </tr>
-                )): null}
-                    </tbody>
-                </Table>
+                <ContractEvents events={events}/>
             </div>
         </div>
     );

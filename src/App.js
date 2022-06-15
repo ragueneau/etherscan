@@ -34,6 +34,7 @@ import Txs from './routes/Txs.js'
 import Profile from './routes/Profile.js'
 import Applications from './routes/Apps.js'
 import Footer from './components/Footer.js';
+import ContractSim from './routes/ContractSim.js'
 
 // Functions --------------------------------------------------------------------------------------- //
 function App() {
@@ -107,6 +108,9 @@ function App() {
             } />
             <Route path="/tokenlogs/" element={
               <TokensTx networkName={networkName} account={account}/>
+            } />
+            <Route path="/contractsim/:contract" element={
+              <ContractSim networkName={networkName} account={account}/>
             } />
             <Route path="/profile" element={
               <Profile networkName={networkName} account={account}/>

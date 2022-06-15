@@ -13,7 +13,7 @@ const ContractMoreinfo = ({ address }) => {
                     <li className="list-group-item"><b>Name Tag</b>: </li>
                     <li className="list-group-item"><b>Creator</b>: </li>
                     <li className="list-group-item"><b>Tracker</b>: </li>
-                    <li className="list-group-item"><Link to={`/logs/${address.address}`}>View contract logs</Link></li>
+                    <li className="list-group-item"><Link to={`/logs/${address.address}`}>View Contract Events</Link> - <Link to={`/contractsim/${address.address}`}>Contract interface</Link></li>
                 </ul>
                 </Card.Text>
             </Card.Body>

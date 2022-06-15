@@ -1,0 +1,206 @@
+import Config from '../config.json'
+import { useState, useEffect } from 'react'
+import { ethers } from "ethers"
+import { Table, Button, Row, Col, Card, Spinner, ListGroup } from 'react-bootstrap'
+import { useParams } from 'react-router-dom'
+import { Link } from "react-router-dom";
+
+import { keccak256 } from "@ethersproject/keccak256";
+import { toUtf8Bytes } from "@ethersproject/strings";
+
+import ContractEvents from '../components/ContractEvents'
+
+//http://127.0.0.1:3000/logs/0x4edDe623379B27db9B0283E917F4c130963cd676/0xddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef
+//http://127.0.0.1:3000/logs/0x7d092def45Ba6960DF1A560E3990DAd430884C4d/0x966369fa3967a9adee1d13e1dfd82bfa577648627c3a450da8b4653b0425531e
+
+const axios = require('axios').default;
+
+
+const ContractSim = ({ networkName }) => {
+    const params = useParams()
+    const variant = {
+        'nonpayable': 'warning',
+        'payable': 'danger',
+        'view': 'secondary',
+    }
+
+    const [abi, setAbi] = useState([])
+    const [abiInterface, setAbiInterface] = useState([])
+    const [events, setEvents] = useState([])
+
+    const [count, setCount] = useState(0);
+    const [loading, setLoading] = useState(true)
+
+    const getAbi = async () => {
+        await axios.get(Config.restAPI + '/api?module=contract&action=getabi&address='+params.contract+'&apikey=' + Config.ApiKeyToken)
+        .then(function (response) {
+            // handle success
+            //console.log(response.data.result)
+            let newabi = []
+            const abi = response.data.result
+            response.data.result.forEach(function (item) {
+                if (item.type === 'function') {
+                    newabi.push(item)
+                }
+            })
+
+            setAbi(abi)
+            setAbiInterface(newabi)
+            setLoading(false)
+        })
+    }
+
+    function copyToClipboard(text) {
+        navigator.clipboard.writeText(text);
+    }
+    //function to display a trunked address and a button to copy it
+    function getAddress(address) {
+        const addr = address.slice(0,6) + '...' + address.slice(-4)
+
+        return <div>
+            <span className="text-truncate">{address}</span>
+            <Button variant="link" className="copy-button" onClick={() => copyToClipboard(address)}>copy</Button>
+        </div>
+    }
+    function linkAddress(address) {
+        const addr = address.slice(0,6) + '...' + address.slice(-4)
+
+        return <div>
+            <Link to={`/address/${address}`}>{addr}</Link>
+        </div>
+    }
+
+    // ---------------------------------------------------------------------------------------------------- //
+    const getLatestEvent = async (address) => {
+        const provider = new ethers.providers.JsonRpcProvider(Config.node);
+        const contract = new ethers.Contract(address, abi, provider);
+        const topics = contract.interface.events
+
+        for (let key in topics) {
+            //convert the key to bytelike
+            const signature = keccak256(toUtf8Bytes(key));
+
+            //get events
+            await contract.queryFilter(signature, -1).then(function(filter) {
+
+                //for event in the filter array
+                for (let i = 0; i < filter.length; i++) {
+                    const event = filter[i]
+                    event.txkey = event.blockNumber +"-"+ event.transactionIndex +"-"+ event.logIndex +"-"+ event.transactionHash
+
+                    // insert if transactionHash is not in the array
+                    if ( !events.find(item => item.txkey === event.txkey) ) {
+                        events.unshift(event)
+
+                    }
+                }
+                //reverse sort by txkey
+                events.sort((a, b) => {
+                    if (a.txkey < b.txkey) {
+                        return 1;
+                    }
+                    if (a.txkey > b.txkey) {
+                        return -1;
+                    }
+                    return 0;
+                })
+                setEvents(events)
+            })
+        }
+    }
+
+    //function to call the function
+    const callFunction = async (address,action) => {
+        const provider = new ethers.providers.JsonRpcProvider(Config.node);
+        const contract = new ethers.Contract(address, abi, provider)
+
+        console.log(action.name, contract)
+
+        //call the function with a custom name
+        await contract[action.name]().then(function(result) {
+            console.log(result)
+        })
+
+        //const args = action.inputs.map(input => {
+        //    return input.type === 'address' ? input.value : toUtf8Bytes(input.value)
+        //})
+    }
+
+    //a function that retunr an input that autoajust to the size of  the div
+    function getInput(input) {
+        return <div className="input-group">
+            <input type="text" className="form-control" placeholder={input.name} value={input.value} onChange={(e) => input.setValue(e.target.value)} />
+            <div className="input-group-append">
+                <span className="input-group-text">{input.type}</span>
+            </div>
+        </div>
+    }
+
+
+    // ---------------------------------------------------------------------------------------------------------- //
+    // ---------------------------------------------------------------------------------------------------------- //
+    useEffect(() => {
+        let timer = setTimeout(() => {
+            setCount((count) => count + 1);
+
+            //if abi is empty, get it
+            if (abi.length === 0) {
+                console.log('get abi')
+                getAbi()
+            }
+
+            getLatestEvent(params.contract)
+            setLoading(false)
+
+        }, 3000);
+        return () => clearTimeout(timer)
+    })
+      if (loading) return (
+        <div className="flex ">
+            <div className="px-5 py-3 container text-left">
+                <h3>Contract Interface</h3>
+                    Loading... <br/><Spinner animation="border" variant="primary" />
+                </div>
+        </div>
+      )
+
+      // Render ---------------------------------------------------------------------------------------------------------- //
+      return (
+        <div className="flex ">
+            <div className="px-5 py-3 container text-left">
+                <h3>Contract Interface</h3>
+                <Row>
+                    <Col md={12} xs={12} lg={12} xl={12}>
+                        <Card className="event-table">
+                            <Card.Header>{getAddress(params.contract)}</Card.Header>
+                            <Card.Body>
+                                <Card.Text>
+                                <ListGroup variant="flush" className="list-group-item">
+                                {abiInterface.map((action, index) => {
+                                    return <ListGroup.Item key={index}>
+                                        <Row className="align-items-left">
+                                            <Col md={3} className="text-left">
+                                                <Button variant={variant[action.stateMutability]} className="copy-button" onClick={() => callFunction(params.contract,action)}>{action.name}</Button>
+                                            </Col>
+                                            <Col md={9} className="align-items-left">
+                                                <input variant={variant[action.stateMutability]} type="text" className="form-control" placeholder="" />
+                                            </Col>
+                                        </Row>
+                                    </ListGroup.Item>
+                                })}
+                                </ListGroup>
+                                </Card.Text>
+                            </Card.Body>
+                        </Card>
+                    </Col>
+
+                    <Col md={12} xs={12} lg={12} xl={12}>
+                        <ContractEvents events={events}/>
+                    </Col>
+                </Row>
+
+          </div>
+        </div>
+    );
+}
+export default ContractSim
