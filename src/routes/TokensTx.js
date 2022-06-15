@@ -125,7 +125,7 @@ const TokensLogs = ({ networkName }) => {
 
             getLatestEvent()
             setLoading(false)
-        }, 1000);
+        }, 5000);
         return () => clearTimeout(timer)
     })
       if (loading) return (
@@ -142,32 +142,38 @@ const TokensLogs = ({ networkName }) => {
         <div className="flex justify-center">
             <div className="px-5 py-3 container">
               <h5>Tokens Event Logs</h5>
-                <Table striped bordered hover>
-                    <thead>
-                        <tr>
-                            <th>Block Number</th>
-                            <th>Event</th>
-                            <th>tx#</th>
-                            <th>Log#</th>
-                            <th>Symbol</th>
-                            <th>From</th>
-                            <th>To</th>
-                            <th>Value</th>
-                        </tr>
-                    </thead>
-              {events ? events.map((event, idx) => (
-                <tr key={idx}>
-                    <td><Link to={`/block/${event.blockNumber}`}>{event.blockNumber}</Link></td>
-                    <td>{event.event}</td>
-                    <td><Link to={`/tx/${event.transactionHash}`}>{event.transactionIndex}</Link></td>
-                    <td>{event.logIndex}</td>
-                    <td><Link to={`/address/${event.address}`}>{event.symbol}</Link></td>
-                    <td><Link to={`/address/${event.args[0]}`}>{event.args[0].slice(0, 7) + '...' + event.args[0].slice(35, 42)}</Link></td>
-                    <td><Link to={`/address/${event.args[0]}`}>{event.args[1].slice(0, 7) + '...' + event.args[1].slice(35, 42)}</Link></td>
-                    <td>{event.args[2] / 10 ** 18 }</td>
-                </tr>
-                )): null}
-                </Table>
+              <Card className="event-table">
+                <Card.Header>
+                </Card.Header>
+                <Card.Body>
+                    <Table striped bordered hover>
+                        <thead>
+                            <tr>
+                                <th>Block Number</th>
+                                <th>Event</th>
+                                <th>tx#</th>
+                                <th>Log#</th>
+                                <th>Symbol</th>
+                                <th>From</th>
+                                <th>To</th>
+                                <th>Value</th>
+                            </tr>
+                            </thead>
+                            {events ? events.map((event, idx) => (
+                                <tr key={idx}>
+                                    <td><Link to={`/block/${event.blockNumber}`}>{event.blockNumber}</Link></td>
+                                    <td>{event.event}</td>
+                                    <td><Link to={`/tx/${event.transactionHash}`}>{event.transactionIndex}</Link></td>
+                                    <td>{event.logIndex}</td>
+                                    <td><Link to={`/address/${event.address}`}>{event.symbol}</Link></td>
+                                    <td><Link to={`/address/${event.args[0]}`}>{event.args[0].slice(0, 5) + '...' + event.args[0].slice(38, 42)}</Link></td>
+                                    <td><Link to={`/address/${event.args[0]}`}>{event.args[1].slice(0, 5) + '...' + event.args[1].slice(38, 42)}</Link></td>
+                                    <td>{event.args[2] / 10 ** 18}</td>
+                                </tr>
+                            )): null}
+                        </Table>
+                    </Card.Body>
+                </Card>
             </div>
         </div>
     );
