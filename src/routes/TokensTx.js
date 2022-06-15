@@ -1,7 +1,7 @@
 import Config from '../config.json'
 import { useState, useEffect } from 'react'
 import { ethers } from "ethers"
-import { Table, Row, Col, Card, Spinner } from 'react-bootstrap'
+import { Table, Button, Row, Col, Card, Spinner } from 'react-bootstrap'
 import { useParams } from 'react-router-dom'
 import { Link } from "react-router-dom";
 
@@ -41,22 +41,31 @@ const TokensLogs = ({ networkName }) => {
                     const signature = keccak256(toUtf8Bytes(key));
 
                     //get events
-                    contract.queryFilter(signature, -3).then(function(filter) {
+                    contract.queryFilter(signature, -2).then(function(filter) {
 
                         //for event in the filter array
                         for (let i = 0; i < filter.length; i++) {
                             const event = filter[i]
+                            event.txkey = event.blockNumber +"-"+ (event.transactionIndex+1000) +"-"+ (event.logIndex+1000) +"-"+ event.transactionHash
 
                             event.name = token.name
                             event.symbol = token.symbol
-                            console.log(event)
 
                             // insert if transactionHash is not in the array
-                            if ( !events.find(item => item.transactionHash === event.transactionHash) ) {
+                            if ( !events.find(item => item.txkey === event.txkey) ) {
                                 events.unshift(event)
                             }
                         }
-
+                        //reverse sort by txkey
+                        events.sort((a, b) => {
+                            if (a.txkey < b.txkey) {
+                                return 1;
+                            }
+                            if (a.txkey > b.txkey) {
+                                return -1;
+                            }
+                            return 0;
+                        })
                         setEvents(events)
                     })
                 }
@@ -67,7 +76,7 @@ const TokensLogs = ({ networkName }) => {
         await axios.get(Config.restAPI + '/api?module=contract&action=getabi&address=0x&apikey=' + Config.ApiKeyToken)
         .then(function (response) {
             // handle success
-            console.log(response.data.result)
+            //console.log(response.data.result)
             setAbi(response.data.result)
         })
     }
@@ -77,6 +86,27 @@ const TokensLogs = ({ networkName }) => {
         const list = tokens.data.result
         setTokenlist(list)
     }
+
+    function copyToClipboard(text) {
+        navigator.clipboard.writeText(text);
+    }
+
+    //function to display a trunked address and a button to copy it
+    function getAddress(address) {
+        const addr = address.slice(0,6) + '...' + address.slice(-4)
+
+        return <div>
+            <span className="text-truncate">{address}</span>
+            <Button variant="link" className="copy-button" onClick={() => copyToClipboard(address)}>copy</Button>
+        </div>
+    }
+    function linkAddress(address) {
+        const addr = address.slice(0,6) + '...' + address.slice(-4)
+
+        return <div>
+            <Link to={`/address/${address}`}>{addr}</Link>
+        </div>
+    }
     // ---------------------------------------------------------------------------------------------------------- //
     useEffect(() => {
         let timer = setTimeout(() => {
@@ -84,12 +114,12 @@ const TokensLogs = ({ networkName }) => {
 
             //if tken list is empty, get it
             if (tokenList.length === 0) {
-                console.log('get token list')
+                //console.log('get token list')
                 getTokenList()
             }
 
             if (abi.length === 0) {
-                console.log('get abi')
+                //console.log('get abi')
                 getAbi()
             }
 
@@ -111,7 +141,7 @@ const TokensLogs = ({ networkName }) => {
       return (
         <div className="flex justify-center">
             <div className="px-5 py-3 container">
-              <h5>Tokens Transfers Logs</h5>
+              <h5>Tokens Event Logs</h5>
                 <Table striped bordered hover>
                     <thead>
                         <tr>
