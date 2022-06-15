@@ -149,7 +149,7 @@ const Address = ({ networkName }) => {
     if (loading) return (
         <div className="flex ">
             <div className="px-5 py-3 container text-left">
-            <h5>Address {params.walletAddress} <span onClick={() => copyToClipboard(params.walletAddress)}>{copyIcon}</span></h5>
+            <h4 className="infobox">Address: {params.walletAddress} <span onClick={() => copyToClipboard(params.walletAddress)}>{copyIcon}</span></h4>
                 <Spinner animation="border" variant="primary" />
             </div>
       </div>
@@ -158,7 +158,7 @@ const Address = ({ networkName }) => {
     return (
         <div className="flex justify-center">
             <div className="px-5 py-3 container">
-                <h5>Address {params.walletAddress} <span onClick={() => copyToClipboard(params.walletAddress)}>{copyIcon}</span></h5>
+                <h4 className="infobox">Address: {params.walletAddress} <span onClick={() => copyToClipboard(params.walletAddress)}>{copyIcon}</span></h4>
 
                 <Row className="justify-content-center">
                     <Col xs={12} md={12} lg={6}>

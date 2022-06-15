@@ -1,20 +1,18 @@
-import { Card } from 'react-bootstrap'
+import { Card, ListGroup } from 'react-bootstrap'
 //import { Link } from "react-router-dom";
 
 const AddressMoreinfo = ({ address }) => {
 
       // Render ---------------------------------------------------------------------------------------------------------- //
       return (
-        <Card className="text-center">
+        <Card className="infobox">
+            <Card.Header>
+                <Card.Title><b>More Info</b></Card.Title>
+            </Card.Header>
             <Card.Body>
-                <Card.Title>More Info</Card.Title>
-                <Card.Text>
-                <ul>
-                    <li className="list-group-item"></li>
-                    <li className="list-group-item"></li>
-                    <li className="list-group-item"></li>
-                </ul>
-                </Card.Text>
+                <ListGroup variant="flush">
+                    <ListGroup.Item></ListGroup.Item>
+                </ListGroup>
             </Card.Body>
         </Card>
       );

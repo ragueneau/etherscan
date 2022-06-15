@@ -1,25 +1,23 @@
-import { Card } from 'react-bootstrap'
+import { Card, ListGroup } from 'react-bootstrap'
 import { Link } from "react-router-dom";
 
 const ContractMoreinfo = ({ address }) => {
 
       // Render ---------------------------------------------------------------------------------------------------------- //
       return (
-        <Card className="text-center">
+        <Card className="infobox">
             <Card.Header>
-                <Card.Title>Contract Info</Card.Title>
+                <Card.Title><b>Contract Info</b></Card.Title>
             </Card.Header>
             <Card.Body>
-                <Card.Text>
-                <ul>
-                    <li className="list-group-item"><b>Name Tag</b>: </li>
-                    <li className="list-group-item"><b>Creator</b>: </li>
-                    <li className="list-group-item"><b>Tracker</b>: </li>
-                    <li className="list-group-item"><Link to={`/logs/${address.address}`}>View Contract Events</Link> - <Link to={`/contractsim/${address.address}`}>Contract interface</Link></li>
-                </ul>
-                </Card.Text>
+                <ListGroup variant="flush">
+                    <ListGroup.Item><b>Name Tag</b>: </ListGroup.Item>
+                    <ListGroup.Item><b>Creator</b>: </ListGroup.Item>
+                    <ListGroup.Item><b>Tracker</b>: </ListGroup.Item>
+                    <ListGroup.Item><Link to={`/ListGroup.Itemgs/${address.address}`}>View Contract Events</Link> - <Link to={`/contractsim/${address.address}`}>Contract interface</Link></ListGroup.Item>
+                </ListGroup>
             </Card.Body>
         </Card>
-      );
+        );
 }
 export default ContractMoreinfo;
