@@ -31,22 +31,28 @@ const ContractSim = ({ networkName }) => {
     const [count, setCount] = useState(0);
     const [loading, setLoading] = useState(true)
 
-    const getAbi = async () => {
-        await axios.get(Config.restAPI + '/api?module=contract&action=getabi&address='+params.contract+'&apikey=' + Config.ApiKeyToken)
+    const getAbi = async (address) => {
+        await axios.get(Config.restAPI + '/api?module=contract&action=getabi&address='+address+'&apikey=' + Config.ApiKeyToken)
         .then(function (response) {
             // handle success
             //console.log(response.data.result)
             let newabi = []
             const abi = response.data.result
-            response.data.result.forEach(function (item) {
-                if (item.type === 'function') {
-                    newabi.push(item)
-                }
-            })
 
-            setAbi(abi)
-            setAbiInterface(newabi)
-            setLoading(false)
+            if (abi.length > 0) {
+                response.data.result.forEach(function (item) {
+                    if (item.type === 'function') {
+                        newabi.push(item)
+                    }
+                })
+
+                setAbi(abi)
+                setAbiInterface(newabi)
+                setLoading(false)
+            }   else {
+                setLoading(false)
+                getAbi('0x')
+            }
         })
     }
 
@@ -146,7 +152,7 @@ const ContractSim = ({ networkName }) => {
             //if abi is empty, get it
             if (abi.length === 0) {
                 console.log('get abi')
-                getAbi()
+                getAbi(params.contract)
             }
 
             getLatestEvent(params.contract)
