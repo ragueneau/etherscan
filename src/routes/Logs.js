@@ -1,7 +1,7 @@
 import Config from '../config.json'
 import { useState, useEffect } from 'react'
 import { ethers } from "ethers"
-import { Table, Row, Col, Card, Spinner } from 'react-bootstrap'
+import { Table, Button, Spinner } from 'react-bootstrap'
 import { useParams } from 'react-router-dom'
 import { Link } from "react-router-dom";
 
@@ -17,66 +17,86 @@ const axios = require('axios').default;
 
 
 const Logs = ({ networkName }) => {
+    let copyIcon = <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24"><path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"/></svg>
+
     const params = useParams()
     const [events, setEvents] = useState([])
+    const [abi, setAbi] = useState([])
 
     const [count, setCount] = useState(0);
     const [loading, setLoading] = useState(true)
 
     // ---------------------------------------------------------------------------------------------------- //
     const getLatestEvent = async () => {
+        const provider = new ethers.providers.JsonRpcProvider(Config.node);
+        const contract = new ethers.Contract(params.contract, abi, provider);
+        const topics = contract.interface.events
 
-        await axios.get(Config.restAPI + '/api?module=contract&action=getabi&address=' + params.contract + '&apikey=' + Config.ApiKeyToken)
-        .then(function (response) {
-            // handle success
-            const abi = response.data.result
-            const provider = new ethers.providers.JsonRpcProvider(Config.node);
-            const contract = new ethers.Contract(params.contract, abi, provider);
-            const topics = contract.interface.events
+        for (let key in topics) {
+            //convert the key to bytelike
+            const signature = keccak256(toUtf8Bytes(key));
 
-            for (let key in topics) {
-                //convert the key to bytelike
-                const signature = keccak256(toUtf8Bytes(key));
+            //get events
+            await contract.queryFilter(signature, -10).then(function(filter) {
 
-                //get events
-                contract.queryFilter(signature, -100).then(function(filter) {
+                //for event in the filter array
+                for (let i = 0; i < filter.length; i++) {
+                    const event = filter[i]
+                    event.txkey = event.blockNumber +"-"+ event.transactionIndex +"-"+ event.logIndex +"-"+ event.transactionHash
 
-                    //for event in the filter array
-                    for (let i = 0; i < filter.length; i++) {
-                        const event = filter[i]
+                    // insert if transactionHash is not in the array
+                    if ( !events.find(item => item.txkey === event.txkey) ) {
+                        events.unshift(event)
 
-                        // insert if transactionHash is not in the array
-                        if ( !events.find(item => item.transactionHash === event.transactionHash) ) {
-                            events.unshift(event)
-                        }
                     }
-
-                    setEvents(events)
+                }
+                //reverse sort by txkey
+                events.sort((a, b) => {
+                    if (a.txkey < b.txkey) {
+                        return 1;
+                    }
+                    if (a.txkey > b.txkey) {
+                        return -1;
+                    }
+                    return 0;
                 })
-            }
-
-        }).catch(function (error) {
-            // handle error
-            console.log(error);
-
-        }).then(function () {
-            // always executed
+                setEvents(events)
+            })
         }
-        );
     }
 
+    const getAbi = async () => {
+        await axios.get(Config.restAPI + '/api?module=contract&action=getabi&address=' + params.contract + '&apikey=' + Config.ApiKeyToken)
+        .then(function (response) {
+            setAbi(response.data.result)
+        })
+    }
+
+    function copyToClipboard(text) {
+        navigator.clipboard.writeText(text);
+    }
+    function copyButton(address) {
+        return <Button variant="link" className="copy-button" onClick={() => copyToClipboard(address)}>{copyIcon}</Button>
+    }
     // ---------------------------------------------------------------------------------------------------------- //
     useEffect(() => {
         let timer = setTimeout(() => {
             setCount((count) => count + 1);
+
+            //if abi is empty, get it
+            if (abi.length === 0) {
+                getAbi()
+            }
+
             getLatestEvent()
             setLoading(false)
-        }, 1000);
+
+        }, 3000);
         return () => clearTimeout(timer)
     })
       if (loading) return (
         <main style={{ padding: "1rem 0" }}>
-            <h5>Logs</h5>
+            <h4>Contract Event Logs</h4>
             <Spinner animation="border" style={{ display: 'flex' }} />
         </main>
       )
@@ -85,26 +105,26 @@ const Logs = ({ networkName }) => {
       return (
         <div className="flex justify-center">
             <div className="px-5 py-3 container">
-              <h5>Logs</h5>
-              Contract: <Link to={`/logs/${params.contract}`}>{params.contract}</Link><br/>
+              <h4>Contract Event Logs</h4>
+              Contract: <Link to={`/address/${params.contract}`}>{params.contract}</Link> {copyButton(params.contract)}<br/>
                 <Table striped bordered hover>
                     <thead>
                         <tr>
-                            <th>Block Number</th>
+                            <th>Block</th>
+                            <th>Tx</th>
+                            <th>Idx</th>
                             <th>Event</th>
-                            <th>tx#</th>
-                            <th>Log#</th>
-                            <th>Address</th>
+                            <th>Transaction Hash</th>
                         </tr>
                     </thead>
                     <tbody>
               {events ? events.map((event, idx) => (
                 <tr key={idx}>
                     <td><Link to={`/block/${event.blockNumber}`}>{event.blockNumber}</Link></td>
-                    <td>{event.event}</td>
                     <td><Link to={`/tx/${event.transactionHash}`}>{event.transactionIndex}</Link></td>
                     <td>{event.logIndex}</td>
-                    <td>{event.address}</td>
+                    <td>{event.event}</td>
+                    <td><Link to={`/tx/${event.transactionHash}`}>{event.transactionHash}</Link></td>
                 </tr>
                 )): null}
                     </tbody>
