@@ -5,7 +5,7 @@ import { Link } from "react-router-dom"
 const AddressTxTable = ({txs, walletAddress}) => {
     // Render ---------------------------------------------------------------------------------------------------------- //
     return (
-        <Card  className="event-table">
+        <Card className="event-table">
             <Card.Header>
                 <Card.Title>Transaction List</Card.Title>
             </Card.Header>
@@ -36,7 +36,7 @@ const AddressTxTable = ({txs, walletAddress}) => {
                             <td>{item.from === walletAddress ? <Button variant="danger btn-list" size="sm" className="ml-2"> OUT </Button> : <Button variant="success btn-list" size="sm" className="ml-2"> IN </Button> }</td>
                             <td>{item.to ? <span><Link to={`/address/${item.to}`}>{item.to.slice(0, 9) + '...'+item.to.slice(33, 42)}</Link></span> : null}</td>
                             <td>{(item.value / 10 ** 18).toString()} Ether</td>
-                            <td>{(item.gas / 10 ** 9).toString()}</td>
+                            <td>{(item.gas / 10 ** 0).toString()} gwei</td>
                         </tr>
                     ))}
                     </tbody>
