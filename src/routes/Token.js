@@ -62,6 +62,26 @@ const Token = ({ networkName }) => {
         setLoading(false)
     }
 
+    const getQRCode = (tokenAddress) => {
+        return `https://chart.googleapis.com/chart?cht=qr&chs=300x300&chl=${tokenAddress}`
+    }
+
+    //afunction that return qr code popup for a given token address
+    const getQRCodePopup = (tokenAddress) => {
+        return (
+            <div>
+                <div className="qr-code">
+                    <img src={getQrCode(tokenAddress)} alt="qr code" />
+                </div>
+                <div className="qr-code-address">
+                    <p>{tokenAddress}</p>
+                </div>
+            </div>
+        )
+    }
+
+
+
 
     useEffect(() => {
         getTokenSupply()
@@ -129,7 +149,7 @@ const Token = ({ networkName }) => {
                     </Col>
 
                 </Row>
-
+                {getQRCodePopup(tokenAddress)}
             </div>
         </div>
     );

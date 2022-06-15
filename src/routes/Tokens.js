@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 //import { ethers } from "ethers"
-import { Row, Col, Spinner } from 'react-bootstrap'
+import { Card, Row, Col, Spinner } from 'react-bootstrap'
 import TokenList from '../components/TokenList'
 import { Link } from "react-router-dom";
 
@@ -43,10 +43,15 @@ const Tokens = ({ networkName }) => {
                 <Link to="/tokenlogs">View Token activity</Link>
                 <Row className="justify-content-center">
                     <Col md={6} lg={12}>
-                        <TokenList tokens={items} />
+                    <Card className="event-table">
+                        <Card.Header>
+                        </Card.Header>
+                        <Card.Body>
+                                <TokenList tokens={items} />
+                        </Card.Body>
+                        </Card>
                     </Col>
                 </Row>
-
             </div>
         </div>
     );

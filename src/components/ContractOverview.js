@@ -1,20 +1,24 @@
-import { Card } from 'react-bootstrap'
+import { Card, ListGroup } from 'react-bootstrap'
 //import { Link } from "react-router-dom";
 
 const ContractOverview = ({ address }) => {
-
+    const tokens = []
       // Render ---------------------------------------------------------------------------------------------------------- //
       return (
         <Card className="text-center">
-            <Card.Body>
+            <Card.Header>
                 <Card.Title>Contract Overview</Card.Title>
-                <Card.Text>
-                    <ul>
-                        <li className="list-group-item"><b>Balance</b>: {address.balance} eth</li>
-                        <li className="list-group-item"><b>eth Value</b>: ${address.value}</li>
-                        <li className="list-group-item"><b>Tokens</b>: </li>
-                    </ul>
-                </Card.Text>
+            </Card.Header>
+            <Card.Body>
+                <ListGroup variant="flush">
+                    <ListGroup.Item><b>Balance</b>: {address.balance} eth</ListGroup.Item>
+                    <ListGroup.Item><b>eth Value</b>: ${address.value}</ListGroup.Item>
+                    <ListGroup.Item><b>Tokens</b>: </ListGroup.Item>
+                    <ListGroup.Item>{tokens.map((token, i) => {
+                        return <div key={i}>{token.symbol} {token.balance}</div>
+                    }
+                    )}</ListGroup.Item>
+                </ListGroup>
             </Card.Body>
         </Card>
         );

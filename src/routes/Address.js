@@ -178,7 +178,6 @@ const Address = ({ networkName }) => {
                 </Row>
                 <Row>
                     <Col xs={12} md={12} lg={12}>
-                        <h5>Transactions</h5>
                         <AddressTxTable txs={txs} walletAddress={params.walletAddress}/>
                     </Col>
                 </Row>

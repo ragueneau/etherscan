@@ -1,7 +1,7 @@
 import Config from '../config.json'
 import { useState, useEffect } from 'react'
 //import { ethers } from "ethers"
-import { Card, Spinner } from 'react-bootstrap'
+import { Spinner } from 'react-bootstrap'
 import { useParams } from 'react-router-dom'
 //import { Link } from "react-router-dom";
 
@@ -23,7 +23,7 @@ const Txs = ({ networkName, blockNumber }) => {
     const eth_getTransactionByBlockNumber = async () => {
 
         const apicall = Config.restAPI + '/api?module=proxy&action=eth_getTransactionByBlockNumber&blockNumber=' + params.blockNumber + '&startblock=0&endblock=999999999&sort=asc&apikey=' + Config.ApiKeyToken
-        const response = await axios.get( apicall )
+        await axios.get( apicall )
         .then(function (response) {
           // handle success
           setTxsContent(response.data.result)

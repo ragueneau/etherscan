@@ -69,8 +69,9 @@
 
 .btn-list {
   font-size: small;
-  padding: 0px 0px 0px 0px;
+  padding: 0px 3px 0px 3px;
   text-align: center;
+  font-size: small;
 }
 
 .list {
