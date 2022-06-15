@@ -6,8 +6,10 @@ const ContractMoreinfo = ({ address }) => {
       // Render ---------------------------------------------------------------------------------------------------------- //
       return (
         <Card className="text-center">
-            <Card.Body>
+            <Card.Header>
                 <Card.Title>Contract Info</Card.Title>
+            </Card.Header>
+            <Card.Body>
                 <Card.Text>
                 <ul>
                     <li className="list-group-item"><b>Name Tag</b>: </li>
