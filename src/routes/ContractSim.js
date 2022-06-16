@@ -9,6 +9,7 @@ import { keccak256 } from "@ethersproject/keccak256";
 import { toUtf8Bytes } from "@ethersproject/strings";
 
 import ContractEvents from '../components/ContractEvents'
+import MetamaskConnect from '../components/MetamaskConnect'
 
 //http://127.0.0.1:3000/logs/0x4edDe623379B27db9B0283E917F4c130963cd676/0xddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef
 //http://127.0.0.1:3000/logs/0x7d092def45Ba6960DF1A560E3990DAd430884C4d/0x966369fa3967a9adee1d13e1dfd82bfa577648627c3a450da8b4653b0425531e
@@ -16,7 +17,7 @@ import ContractEvents from '../components/ContractEvents'
 const axios = require('axios').default;
 
 
-const ContractSim = ({ networkName }) => {
+const ContractSim = ({ web3Handler, account, networkName }) => {
     const params = useParams()
     const variant = {
         'nonpayable': 'warning',
@@ -30,6 +31,10 @@ const ContractSim = ({ networkName }) => {
 
     const [count, setCount] = useState(0);
     const [loading, setLoading] = useState(true)
+
+    const [contract, setContract] = useState(null)
+
+    const [outputs, setOutputs] = useState([])
 
     const getAbi = async (address) => {
         await axios.get(Config.restAPI + '/api?module=contract&action=getabi&address='+address+'&apikey=' + Config.ApiKeyToken)
@@ -117,14 +122,24 @@ const ContractSim = ({ networkName }) => {
 
     //function to call the function
     const callFunction = async (address,action) => {
-        const provider = new ethers.providers.JsonRpcProvider(Config.node);
-        const contract = new ethers.Contract(address, abi, provider)
-
-        console.log(action.name, contract)
+        //console.log(action.name, contract[action.name])
 
         //call the function with a custom name
         await contract[action.name]().then(function(result) {
-            console.log(result)
+
+            if (result.toString().substring(0,2) === '0x') {
+                result = result.toString()
+
+            //if the result is a number
+            } else if (result.toString().substring(0,1) === '-') {
+                result = result.toString()
+
+            } else {
+                result = result.toString()
+            }
+
+            outputs[action.name] = result
+            setOutputs(outputs)
         })
 
         //const args = action.inputs.map(input => {
@@ -132,7 +147,7 @@ const ContractSim = ({ networkName }) => {
         //})
     }
 
-    //a function that retunr an input that autoajust to the size of  the div
+    //a function that return an input that autoajust to the size of  the div
     function getInput(input) {
         return <div className="input-group">
             <input type="text" className="form-control" placeholder={input.name} value={input.value} onChange={(e) => input.setValue(e.target.value)} />
@@ -142,6 +157,24 @@ const ContractSim = ({ networkName }) => {
         </div>
     }
 
+    const loadContract = async (address) => {
+        const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
+
+        let provider = new ethers.providers.JsonRpcProvider(Config.node);
+
+        //verify if metamask is connected
+        if (accounts.length > 0) {
+            provider = new ethers.providers.Web3Provider(window.ethereum);
+        }
+
+        //console.log('Loading contract...')
+
+        // Get provider from Metamask
+        const wallet = provider.getSigner()
+        const contract = new ethers.Contract(address, abi, wallet)
+
+        setContract(contract)
+    }
 
     // ---------------------------------------------------------------------------------------------------------- //
     // ---------------------------------------------------------------------------------------------------------- //
@@ -151,14 +184,14 @@ const ContractSim = ({ networkName }) => {
 
             //if abi is empty, get it
             if (abi.length === 0) {
-                console.log('get abi')
                 getAbi(params.contract)
             }
 
+            loadContract(params.contract)
             getLatestEvent(params.contract)
             setLoading(false)
 
-        }, 3000);
+        }, 1000);
         return () => clearTimeout(timer)
     })
       if (loading) return (
@@ -178,7 +211,8 @@ const ContractSim = ({ networkName }) => {
                 <Row>
                     <Col md={12} xs={12} lg={12} xl={12}>
                         <Card className="event-table">
-                            <Card.Header>{getAddress(params.contract)}</Card.Header>
+                            <Card.Header>{getAddress(params.contract)}
+                            </Card.Header>
                             <Card.Body>
                                 <Card.Text>
                                 <ListGroup variant="flush" className="list-group-item">
@@ -188,8 +222,13 @@ const ContractSim = ({ networkName }) => {
                                             <Col md={3} className="text-left">
                                                 <Button variant={variant[action.stateMutability]} className="copy-button" onClick={() => callFunction(params.contract,action)}>{action.name}</Button>
                                             </Col>
-                                            <Col md={9} className="align-items-left">
+                                            <Col md={8} className="align-items-left">
+                                                <Row className="align-items-left">
                                                 <input variant={variant[action.stateMutability]} type="text" className="form-control" placeholder="" />
+                                                </Row>
+                                                <Row className="align-items-left">
+                                                    {outputs[action.name]}
+                                                </Row>
                                             </Col>
                                         </Row>
                                     </ListGroup.Item>

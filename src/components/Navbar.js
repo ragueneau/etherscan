@@ -16,11 +16,25 @@ const Navigation = ({ web3Handler, account, networkName }) => {
                 <Navbar.Collapse id="responsive-navbar-nav">
                     <Nav className="me-auto">
                         <Nav.Link as={Link} to="/">Home</Nav.Link>
+                        <Nav.Link as={Link} to="/">Analytics</Nav.Link>
                         <Nav.Link as={Link} to="/tokens">Tokens</Nav.Link>
+                        <Nav.Link as={Link} to="/">Blockchain</Nav.Link>
                         <Nav.Link as={Link} to="/apps">Applications</Nav.Link>
+                        <Nav.Link as={Link} to="/">Resources</Nav.Link>
                     </Nav>
                     <Nav className="ml-auto">
-                        <SearchBar />
+                        {account ? (
+                            <Nav.Link
+                                href={`https://etherscan.coeptix.net/address/${account}`}
+                                rel="noopener noreferrer"
+                                className="button nav-button btn-sm nopadding">
+                                <Button variant="outline-light">
+                                    {account.slice(0, 6) + '...' + account.slice(36, 42)}
+                                </Button>
+                            </Nav.Link>
+                        ) : (
+                            <Button onClick={web3Handler} variant="outline-light">Connect Wallet</Button>
+                        )}
                     </Nav>
                 </Navbar.Collapse>
             </Container>

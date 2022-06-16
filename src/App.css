@@ -113,3 +113,8 @@
 .infobox {
   text-align: left;
 }
+
+.nopadding {
+  padding: 0px;
+  margin: 0px;
+}
