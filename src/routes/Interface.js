@@ -17,7 +17,7 @@ import MetamaskConnect from '../components/MetamaskConnect'
 const axios = require('axios').default;
 
 
-const ContractSim = ({ web3Handler, account, networkName }) => {
+const Interface = ({ web3Handler, account, networkName }) => {
     const params = useParams()
     const variant = {
         'nonpayable': 'warning',
@@ -345,4 +345,4 @@ const ContractSim = ({ web3Handler, account, networkName }) => {
         </div>
     );
 }
-export default ContractSim
+export default Interface
