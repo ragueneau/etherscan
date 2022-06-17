@@ -229,7 +229,7 @@ const Interface = ({ web3Handler, account, networkName }) => {
                 } else if (result.hash) {
                     result = <Link to={`/tx/${result.hash}`}>{result.hash}</Link>
                 } else {
-                    console.log('default result:', result)
+                    //console.log('default result:', result)
                     result = <span>{result.toString()}</span>
                 }
 
