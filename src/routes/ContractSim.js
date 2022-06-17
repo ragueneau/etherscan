@@ -182,6 +182,11 @@ const ContractSim = ({ web3Handler, account, networkName }) => {
             inputs[action.name] = [inputs[action.name]]
         }
 
+        //if inputs[action.name] is an empty array
+        if (inputs[action.name][0] === '') {
+            inputs[action.name] = ''
+        }
+
         console.log('action.name:',action.name,' inputs:', inputs[action.name], ' maximumGas:', maximumGas, ' etherValue:', etherValue)
 
         //call payable function 'enter'
@@ -308,10 +313,10 @@ const ContractSim = ({ web3Handler, account, networkName }) => {
                                     {abiInterface.map((action, index) => {
                                         return <ListGroup.Item key={index}>
                                             <Row className="align-items-left">
-                                                <Col md={2} className="text-left">
+                                                <Col md={3} className="text-left">
                                                     <Button variant={variant[action.stateMutability]} className="copy-button" onClick={() => callFunction(params.contract,action)}>{action.name}</Button>
                                                 </Col>
-                                                <Col md={9} className="align-items-left">
+                                                <Col md={8} className="align-items-left">
                                                     <Row className="align-items-left">
                                                         {! action.payable && action.inputs.length > 0 ?
                                                         <Col className="text-left">
