@@ -8,7 +8,7 @@ import Config from './config.json'
 // Modules ----------------------------------------------------------------------------------------- //
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { Spinner } from 'react-bootstrap'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { ethers } from "ethers"
 
 import axios from 'axios'
@@ -41,6 +41,7 @@ function App() {
   const [loading, setLoading] = useState(false)
   const [account, setAccount] = useState(null)
   const [networkName, setNetworkName] = useState('network')
+  const [chainId, setChainId] = useState(1)
 
   // MetaMask Login/Connect ------------------------------------------------------------------------ //
   const web3Handler = async () => {
@@ -63,6 +64,60 @@ function App() {
     })
 
   }
+
+  const loadNetwork = async () => {
+    console.log('CoeptIX network');
+
+    //get the network chain id
+    const _chainId = await window.ethereum.request({ method: 'eth_chainId' });
+
+    //chainid hex to int
+    const chainIdInt = parseInt(_chainId, 16);
+
+    //if chain id is 1, then it is mainnet (eth)
+    if (chainIdInt === 1) {
+      setNetworkName('Mainnet')
+    } else if (chainIdInt === 3) {
+      setNetworkName('Ropsten')
+    } else if (chainIdInt === 4) {
+      setNetworkName('Rinkeby')
+    } else if (chainIdInt === 5) {
+      setNetworkName('Goerli')
+    } else if (chainIdInt === 10) {
+      setNetworkName('Optimism')
+    } else if (chainIdInt === 42) {
+      setNetworkName('Kovan')
+    } else if (chainIdInt === 56) {
+      setNetworkName('Binance')
+    } else if (chainIdInt === 137) {
+      setNetworkName('Polygon Mainnet')
+    } else if (chainIdInt === 250) {
+      setNetworkName('Fantom')
+    } else if (chainIdInt === 1285) {
+      setNetworkName('Moonriver')
+    } else if (chainIdInt === 1337) {
+      setNetworkName('Ganache')
+    } else if (chainIdInt === 35478) {
+      setNetworkName('CoeptIX')
+    } else if (chainIdInt === 42161) {
+      setNetworkName('Arbitrum One')
+    } else if (chainIdInt === 43114) {
+      setNetworkName('Avalanche Mainnet')
+    } else {
+      setNetworkName('Unknown '+chainIdInt)
+    }
+  }
+
+  useEffect(() => {
+
+    //on network change, loadNetwork
+    window.ethereum.on('chainChanged', async (chainId) => {
+      //setChainId(chainId)
+      await loadNetwork()
+    })
+
+    loadNetwork()
+  }, [])
 
   // Render ---------------------------------------------------------------------------------------- //
   return (

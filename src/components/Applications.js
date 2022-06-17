@@ -18,7 +18,8 @@ const Applications = ({applications}) => {
                                 <Link to={`/address/${item.contractAddress}`}>{item.contractAddress}</Link>
                             </Col>
                             <Col md={2} className="col-list">
-                                <Link to={`/logs/${item.contractAddress}`}><Button variant="secondary btn-list" size="sm"> View Events </Button></Link>
+                                <Link to={`/logs/${item.contractAddress}`}><Button variant="secondary btn-list" size="sm"> View Events </Button>
+                                </Link> <Link to={`/contractsim/${item.contractAddress}`}><Button variant="secondary btn-list" size="sm"> View Abi </Button></Link>
                             </Col>
                         </Row>
                     </ListGroup.Item>

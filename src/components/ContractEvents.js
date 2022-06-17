@@ -31,6 +31,7 @@ const ContractEvents = ({ events }) => {
                 )): null}
                     </tbody>
                 </Table>
+
             </Card.Body>
         </Card>
     );

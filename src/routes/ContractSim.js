@@ -1,7 +1,7 @@
 import Config from '../config.json'
 import { useState, useEffect } from 'react'
 import { ethers } from "ethers"
-import { Table, Button, Row, Col, Card, Spinner, ListGroup } from 'react-bootstrap'
+import { Table, Button, Row, Col, Card, Spinner, ListGroup, Form } from 'react-bootstrap'
 import { useParams } from 'react-router-dom'
 import { Link } from "react-router-dom";
 
@@ -24,6 +24,10 @@ const ContractSim = ({ web3Handler, account, networkName }) => {
         'payable': 'danger',
         'view': 'secondary',
     }
+    const [inputLabels, setInputLabels] = useState({})
+    const [inputValues, setInputValues] = useState({})
+    const [maximumGas, setMaximumGas] = useState(300000)
+    const [etherValue, setEtherValue] = useState(0)
 
     const [abi, setAbi] = useState([])
     const [abiInterface, setAbiInterface] = useState([])
@@ -35,6 +39,7 @@ const ContractSim = ({ web3Handler, account, networkName }) => {
     const [contract, setContract] = useState(null)
 
     const [outputs, setOutputs] = useState([])
+    const [topicsStatus, setTopicsStatus] = useState(null)
 
     const getAbi = async (address) => {
         await axios.get(Config.restAPI + '/api?module=contract&action=getabi&address='+address+'&apikey=' + Config.ApiKeyToken)
@@ -50,6 +55,31 @@ const ContractSim = ({ web3Handler, account, networkName }) => {
                         newabi.push(item)
                     }
                 })
+
+                let labels = {}
+                newabi.forEach(function (item) {
+
+                    if (item.name !== undefined  ) {
+                        //if no inputs
+                        labels[item.name] = ''
+
+                       // if (item.inputs.length > 0) {
+                        item.inputs.map(function (input) {
+                            //next if undefined
+                            if (input.name !== undefined || input.name !== 'undefined') {
+                                labels[item.name] += input.name+' '+input.type
+
+                                if (item.inputs.indexOf(input) < item.inputs.length - 1) {
+                                    labels[item.name] += ', '
+                                }
+                            }
+                        })
+                //    }
+                }
+                })
+
+                console.log(labels)
+                setInputLabels(labels)
 
                 setAbi(abi)
                 setAbiInterface(newabi)
@@ -83,9 +113,14 @@ const ContractSim = ({ web3Handler, account, networkName }) => {
 
     // ---------------------------------------------------------------------------------------------------- //
     const getLatestEvent = async (address) => {
-        const provider = new ethers.providers.JsonRpcProvider(Config.node);
-        const contract = new ethers.Contract(address, abi, provider);
+        //const provider = new ethers.providers.JsonRpcProvider(Config.node);
+        //const contract = new ethers.Contract(address, abi, provider);
         const topics = contract.interface.events
+
+        //if no key in topics
+        //if (Object.keys(topics).length === 0) {
+        //    setTopicsStatus('No topics found for this contract')
+        //}
 
         for (let key in topics) {
             //convert the key to bytelike
@@ -102,7 +137,6 @@ const ContractSim = ({ web3Handler, account, networkName }) => {
                     // insert if transactionHash is not in the array
                     if ( !events.find(item => item.txkey === event.txkey) ) {
                         events.unshift(event)
-
                     }
                 }
                 //reverse sort by txkey
@@ -121,41 +155,60 @@ const ContractSim = ({ web3Handler, account, networkName }) => {
     }
 
     //function to call the function
-    const callFunction = async (address,action) => {
+    const callFunction = async (address, action) => {
         //console.log(action.name, contract[action.name])
+        console.log('inputValues: ', inputValues)
+        //call the function with a custom name and the input values
 
-        //call the function with a custom name
-        await contract[action.name]().then(function(result) {
+        const inputs = {}
 
-            if (result.toString().substring(0,2) === '0x') {
-                result = result.toString()
+        // if inputsValues is not empty
+        for (let key in inputValues) {
+            inputs[key] = inputValues[key]
+        }
 
-            //if the result is a number
-            } else if (result.toString().substring(0,1) === '-') {
-                result = result.toString()
+        if (inputs[action.name] === undefined ){
+            inputs[action.name] = ''
+        }
 
-            } else {
-                result = result.toString()
-            }
+        //split the string into an array of strings if there is a comma
+        if (inputs[action.name].includes(',')) {
+            inputs[action.name] = inputs[action.name].split(',')
+        }
 
-            outputs[action.name] = result
-            setOutputs(outputs)
-        })
 
-        //const args = action.inputs.map(input => {
-        //    return input.type === 'address' ? input.value : toUtf8Bytes(input.value)
-        //})
+        console.log('action.name:',action.name,' inputs:', inputs[action.name], ' maximumGas:', maximumGas, ' etherValue:', etherValue)
+
+        //call payable function 'enter'
+        if (action.payable) {
+            await contract[action.name]({value: etherValue, gasLimit: maximumGas})
+            .then(function(result) {
+
+                outputs[action.name] = result.hash
+                setOutputs(outputs)
+            })
+        } else {
+            await contract[action.name](...inputs[action.name],{ gasLimit: maximumGas }).
+            then(function(result) {
+
+                if (result.toString().substring(0,2) === '0x') {
+                    result = result.toString()
+
+                //if the result is a number
+                } else if (result.toString().substring(0,1) === '-') {
+                    result = result.toString()
+
+                } else {
+                    result = result.toString()
+                }
+
+                outputs[action.name] = result
+                setOutputs(outputs)
+            })
+        }
+
     }
 
-    //a function that return an input that autoajust to the size of  the div
-    function getInput(input) {
-        return <div className="input-group">
-            <input type="text" className="form-control" placeholder={input.name} value={input.value} onChange={(e) => input.setValue(e.target.value)} />
-            <div className="input-group-append">
-                <span className="input-group-text">{input.type}</span>
-            </div>
-        </div>
-    }
 
     const loadContract = async (address) => {
         const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
@@ -186,12 +239,13 @@ const ContractSim = ({ web3Handler, account, networkName }) => {
             if (abi.length === 0) {
                 getAbi(params.contract)
             }
+            //getAbi(params.contract)
+            //console.log(topicsStatus)
 
             loadContract(params.contract)
             getLatestEvent(params.contract)
             setLoading(false)
-
-        }, 1000);
+    }, 1000);
         return () => clearTimeout(timer)
     })
       if (loading) return (
@@ -202,45 +256,57 @@ const ContractSim = ({ web3Handler, account, networkName }) => {
                 </div>
         </div>
       )
-
-      // Render ---------------------------------------------------------------------------------------------------------- //
+    //<input variant={variant[action.stateMutability]} type="text" className="form-control" placeholder={inputLabels[action.name]}/>
+    // Render ---------------------------------------------------------------------------------------------------------- //
       return (
         <div className="flex ">
             <div className="px-5 py-3 container text-left">
-                <h3>Contract Interface</h3>
+                <h3>Contract Interface {getAddress(params.contract)}</h3>
                 <Row>
                     <Col md={12} xs={12} lg={12} xl={12}>
                         <Card className="event-table">
-                            <Card.Header>{getAddress(params.contract)}
+                            <Card.Header>
+                            <Row className="align-items-left">
+                                <Col md={3} className="text-left">
+                                    Value: <Form.Control onChange={(e) => setEtherValue(e.target.value)} value={etherValue} type="text" placeholder="wei" />
+                                    <span className="text-muted">{(etherValue / 10 ** 18).toFixed(18)} eth</span>
+                                </Col>
+                                <Col md={2} className="text-left">
+                                    Max Gas: <Form.Control onChange={(e) => setMaximumGas(e.target.value)} value={maximumGas} type="text" placeholder="Default Gas" />
+                                </Col>
+                            </Row>
                             </Card.Header>
                             <Card.Body>
                                 <Card.Text>
-                                <ListGroup variant="flush" className="list-group-item">
-                                {abiInterface.map((action, index) => {
-                                    return <ListGroup.Item key={index}>
-                                        <Row className="align-items-left">
-                                            <Col md={3} className="text-left">
-                                                <Button variant={variant[action.stateMutability]} className="copy-button" onClick={() => callFunction(params.contract,action)}>{action.name}</Button>
-                                            </Col>
-                                            <Col md={8} className="align-items-left">
-                                                <Row className="align-items-left">
-                                                <input variant={variant[action.stateMutability]} type="text" className="form-control" placeholder="" />
-                                                </Row>
-                                                <Row className="align-items-left">
-                                                    {outputs[action.name]}
-                                                </Row>
-                                            </Col>
-                                        </Row>
-                                    </ListGroup.Item>
-                                })}
-                                </ListGroup>
+                                    <ListGroup variant="flush" className="list-group-item">
+                                    {abiInterface.map((action, index) => {
+                                        return <ListGroup.Item key={index}>
+                                            <Row className="align-items-left">
+                                                <Col md={2} className="text-left">
+                                                    <Button variant={variant[action.stateMutability]} className="copy-button" onClick={() => callFunction(params.contract,action)}>{action.name}</Button>
+                                                </Col>
+                                                <Col md={9} className="align-items-left">
+                                                    <Row className="align-items-left">
+                                                        {! action.payable && action.inputs.length > 0 ?
+                                                        <Col className="text-left">
+                                                            <Form.Control onChange={(e) => setInputValues({...inputValues, [action.name]: e.target.value})} value={inputValues[action.name]} type="text" placeholder={inputLabels[action.name]} />
+                                                        </Col> : null
+                                                        }
+                                                    </Row>
+                                                    <Row className="align-items-left">
+                                                        {outputs[action.name]}
+                                                    </Row>
+                                                </Col>
+                                            </Row>
+                                        </ListGroup.Item>
+                                    })}
+                                    </ListGroup>
                                 </Card.Text>
                             </Card.Body>
                         </Card>
                     </Col>
-
                     <Col md={12} xs={12} lg={12} xl={12}>
-                        <ContractEvents events={events}/>
+                        <ContractEvents events={events} status={topicsStatus} />
                     </Col>
                 </Row>
 
