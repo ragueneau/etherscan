@@ -164,6 +164,7 @@ const ContractSim = ({ web3Handler, account, networkName }) => {
 
         // if inputsValues is not empty
         for (let key in inputValues) {
+            console.log('key',key, inputValues[key])
             inputs[key] = inputValues[key]
         }
 
@@ -176,6 +177,10 @@ const ContractSim = ({ web3Handler, account, networkName }) => {
             inputs[action.name] = inputs[action.name].split(',')
         }
 
+        //if inputs[action.name] is  not an array
+        if (Array.isArray(inputs[action.name]) === false) {
+            inputs[action.name] = [inputs[action.name]]
+        }
 
         console.log('action.name:',action.name,' inputs:', inputs[action.name], ' maximumGas:', maximumGas, ' etherValue:', etherValue)
 
@@ -184,7 +189,8 @@ const ContractSim = ({ web3Handler, account, networkName }) => {
             await contract[action.name]({value: etherValue, gasLimit: maximumGas})
             .then(function(result) {
 
-                outputs[action.name] = result.hash
+                outputs[action.name] = <Link target={'_blank'} to={`/tx/${result.hash}`}>{result.hash}</Link>
+
                 setOutputs(outputs)
             })
         } else {
@@ -192,14 +198,34 @@ const ContractSim = ({ web3Handler, account, networkName }) => {
             then(function(result) {
 
                 if (result.toString().substring(0,2) === '0x') {
-                    result = result.toString()
+
+                    if (result.toString().includes(',')) {
+                        result = result.toString().split(',')
+                        result.forEach(function(item, index) {
+                            result[index] = <span>{index}. {item}</span>
+                        })
+                    } else {
+                        result = <span>{result}</span>
+                    }
 
                 //if the result is a number
                 } else if (result.toString().substring(0,1) === '-') {
                     result = result.toString()
 
+
+                } else if (result.toString().includes(',')) {
+                    result = result.toString().split(',')
+                    result.forEach(function(item, index) {
+                        result[index] = <span>{index}. {item}</span>
+                    })
+
+
+                //if the result is an object
+                } else if (result.hash) {
+                    result = <Link to={`/tx/${result.hash}`}>{result.hash}</Link>
                 } else {
-                    result = result.toString()
+                    console.log('default result:', result)
+                    result = <span>{result.toString()}</span>
                 }
 
                 outputs[action.name] = result
@@ -293,7 +319,7 @@ const ContractSim = ({ web3Handler, account, networkName }) => {
                                                         </Col> : null
                                                         }
                                                     </Row>
-                                                    <Row className="align-items-left">
+                                                    <Row className="align-items-left infobox">
                                                         {outputs[action.name]}
                                                     </Row>
                                                 </Col>
@@ -306,7 +332,7 @@ const ContractSim = ({ web3Handler, account, networkName }) => {
                         </Card>
                     </Col>
                     <Col md={12} xs={12} lg={12} xl={12}>
-                        <ContractEvents events={events} status={topicsStatus} />
+                        <ContractEvents events={events} />
                     </Col>
                 </Row>
 
