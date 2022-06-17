@@ -10,7 +10,7 @@ const ContractEvents = ({ events }) => {
                 <Card.Title>Contract Events</Card.Title>
             </Card.Header>
             <Card.Body>
-                <Table striped bordered hover size="sm" className="table-sm table-responsive" >
+                <Table striped bordered hover responsive size="sm" className="table-sm table-responsive" >
                     <thead>
                         <tr>
                             <th>Block</th>
@@ -18,6 +18,7 @@ const ContractEvents = ({ events }) => {
                             <th>Idx</th>
                             <th>Event</th>
                             <th>Transaction Hash</th>
+                            <th>Transaction Arguments</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -28,24 +29,19 @@ const ContractEvents = ({ events }) => {
                     <td>{event.logIndex}</td>
                     <td>{event.event}</td>
                     <td>
-                        <Row className="no-gutters text-truncate infobox">
-                            <Col>
-                            <Link to={`/tx/${event.transactionHash}`}>{event.transactionHash}</Link>
+                        <Link to={`/tx/${event.transactionHash}`}>{event.transactionHash}</Link>
+                    </td>
+                    <td>
+                        {event.args.map((arg, idx) => (
+                        <Row key={idx} className="no-gutters infobox">
+                            <Col  md={3} className="text-truncate infobox">
+                                {Object.keys(event.args)[idx+event.args.length]}:
                             </Col>
-                            <Col>
-
-                            {event.args.map((arg, idx) => (
-                                <Row key={idx} className="no-gutters infobox">
-                                    <Col  md={3} className="text-truncate infobox">
-                                        {Object.keys(event.args)[idx+event.args.length]}:
-                                    </Col>
-                                    <Col  md={8} className="text-truncate infobox">
-                                         {event.args[idx].toString()}
-                                    </Col>
-                                </Row>
-                            ))}
+                            <Col  md={8} className="text-truncate infobox">
+                                    {event.args[idx].toString()}
                             </Col>
                         </Row>
+                        ))}
                     </td>
                 </tr>
                 )): null}
