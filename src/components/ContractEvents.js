@@ -1,4 +1,5 @@
-import { Card, Table } from 'react-bootstrap'
+import { Event } from '@ethersproject/providers/lib/base-provider';
+import { Card, Table, Col, Row } from 'react-bootstrap'
 import { Link } from "react-router-dom";
 
 const ContractEvents = ({ events }) => {
@@ -26,7 +27,26 @@ const ContractEvents = ({ events }) => {
                     <td><Link to={`/tx/${event.transactionHash}`}>{event.transactionIndex}</Link></td>
                     <td>{event.logIndex}</td>
                     <td>{event.event}</td>
-                    <td><Link to={`/tx/${event.transactionHash}`}>{event.transactionHash}</Link></td>
+                    <td>
+                        <Row className="no-gutters text-truncate infobox">
+                            <Col>
+                            <Link to={`/tx/${event.transactionHash}`}>{event.transactionHash}</Link>
+                            </Col>
+                            <Col>
+
+                            {event.args.map((arg, idx) => (
+                                <Row key={idx} className="no-gutters infobox">
+                                    <Col  md={3} className="text-truncate infobox">
+                                        {Object.keys(event.args)[idx+event.args.length]}:
+                                    </Col>
+                                    <Col  md={8} className="text-truncate infobox">
+                                         {event.args[idx].toString()}
+                                    </Col>
+                                </Row>
+                            ))}
+                            </Col>
+                        </Row>
+                    </td>
                 </tr>
                 )): null}
                     </tbody>

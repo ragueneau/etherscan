@@ -127,7 +127,7 @@ const Interface = ({ web3Handler, account, networkName }) => {
             const signature = keccak256(toUtf8Bytes(key));
 
             //get events
-            await contract.queryFilter(signature, -1).then(function(filter) {
+            await contract.queryFilter(signature, -100).then(function(filter) {
 
                 //for event in the filter array
                 for (let i = 0; i < filter.length; i++) {
@@ -272,6 +272,17 @@ const Interface = ({ web3Handler, account, networkName }) => {
             }
             //getAbi(params.contract)
             //console.log(topicsStatus)
+            //console.log(events[1])
+
+            //get the third object of the hash events[1].args
+
+            //list all keys and the index of events[1].args
+            //console.log(Object.keys(events[1].args)[3])
+            //console.log(Object.values(events[1].args))
+
+
+
+
 
             loadContract(params.contract)
             getLatestEvent(params.contract)

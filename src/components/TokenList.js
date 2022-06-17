@@ -24,7 +24,8 @@ const TokenList = ({tokens}) => {
                         <td>{item.decimals}</td>
                         <td>{item.supply / 10 ** 18 }</td>
                         <td>
-                            <Button variant="outline-primary" size="sm" as={Link} to={`/token/${item.address}`}>View</Button>
+                            <Button variant="secondary btn-list" size="sm" as={Link} to={`/token/${item.address}`}>View
+                            </Button> <Button variant="secondary btn-list" size="sm" as={Link} to={`/interface/${item.address}`}>Interface</Button>
                         </td>
                     </tr>
                 )): null}
