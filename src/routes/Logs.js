@@ -91,7 +91,7 @@ const Logs = ({ networkName }) => {
             getLatestEvent()
             setLoading(false)
 
-        }, 3000);
+        }, 1000);
         return () => clearTimeout(timer)
     })
       if (loading) return (
