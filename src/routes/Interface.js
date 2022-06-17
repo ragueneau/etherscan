@@ -157,14 +157,14 @@ const Interface = ({ web3Handler, account, networkName }) => {
     //function to call the function
     const callFunction = async (address, action) => {
         //console.log(action.name, contract[action.name])
-        console.log('inputValues: ', inputValues)
+        //console.log('inputValues: ', inputValues)
         //call the function with a custom name and the input values
 
         const inputs = {}
 
         // if inputsValues is not empty
         for (let key in inputValues) {
-            console.log('key',key, inputValues[key])
+            //console.log('key',key, inputValues[key])
             inputs[key] = inputValues[key]
         }
 
@@ -187,7 +187,7 @@ const Interface = ({ web3Handler, account, networkName }) => {
             inputs[action.name] = ''
         }
 
-        console.log('action.name:',action.name,' inputs:', inputs[action.name], ' maximumGas:', maximumGas, ' etherValue:', etherValue)
+        //console.log('action.name:',action.name,' inputs:', inputs[action.name], ' maximumGas:', maximumGas, ' etherValue:', etherValue)
 
         //call payable function 'enter'
         if (action.payable) {
