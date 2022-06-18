@@ -1,7 +1,7 @@
 import Config from '../config.json'
 import { useState, useEffect } from 'react'
 import { ethers } from "ethers"
-import { Table, Button, Row, Col, Card, Spinner, ListGroup, Form } from 'react-bootstrap'
+import { Button, Row, Col, Card, Spinner, ListGroup, Form } from 'react-bootstrap'
 import { useParams } from 'react-router-dom'
 import { Link } from "react-router-dom";
 
@@ -11,11 +11,7 @@ import { toUtf8Bytes } from "@ethersproject/strings";
 import ContractEvents from '../components/ContractEvents'
 import MetamaskConnect from '../components/MetamaskConnect'
 
-//http://127.0.0.1:3000/logs/0x4edDe623379B27db9B0283E917F4c130963cd676/0xddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef
-//http://127.0.0.1:3000/logs/0x7d092def45Ba6960DF1A560E3990DAd430884C4d/0x966369fa3967a9adee1d13e1dfd82bfa577648627c3a450da8b4653b0425531e
-
 const axios = require('axios').default;
-
 
 const Interface = ({ web3Handler, account, networkName }) => {
     const params = useParams()
