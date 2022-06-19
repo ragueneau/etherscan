@@ -6,12 +6,12 @@ import Applications from '../components/Applications'
 
 const axios = require('axios').default;
 
-const Apps = () => {
+const Apps = ({networkName, chainId }) => {
     const [loading, setLoading] = useState(true)
     const [apps, setApps] = useState([])
 
     const getApplications = async () => {
-        const response = await axios.get(Config.restAPI + '/api?module=app&action=getapplist&apikey=' + Config.ApiKeyToken)
+        const response = await axios.get(Config.restAPI + '/api?module=app&action=getapplist&chainid='+ chainId + '&apikey=' + Config.ApiKeyToken)
         const applications = response.data.result
 
         setApps(applications)
