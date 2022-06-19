@@ -84,7 +84,14 @@ const Address = ({ networkName }) => {
 
     const getOnChainAddressInfo = async () => {
 
-        const provider = new ethers.providers.Web3Provider(window.ethereum)
+        const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
+
+        let provider = new ethers.providers.JsonRpcProvider(Config.node);
+
+        //verify if metamask is connected
+        if (accounts.length > 0) {
+            provider = new ethers.providers.Web3Provider(window.ethereum);
+        }
 
         const address = await provider.getBalance(params.walletAddress)
 

@@ -33,7 +33,14 @@ const Tx = ({ networkName, transactionHash }) => {
     )
 
     const getTransaction = async () => {
-        const provider = new ethers.providers.JsonRpcProvider(Config.node)
+        const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
+
+        let provider = new ethers.providers.JsonRpcProvider(Config.node);
+
+        //verify if metamask is connected
+        if (accounts.length > 0) {
+            provider = new ethers.providers.Web3Provider(window.ethereum);
+        }
 
         const tx = await provider.getTransaction(params.transactionHash)
 
@@ -61,7 +68,15 @@ const Tx = ({ networkName, transactionHash }) => {
           // always executed
         });
 
-        const provider = new ethers.providers.JsonRpcProvider(Config.node)
+        const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
+
+        let provider = new ethers.providers.JsonRpcProvider(Config.node);
+
+        //verify if metamask is connected
+        if (accounts.length > 0) {
+            provider = new ethers.providers.Web3Provider(window.ethereum);
+        }
+
         tx.block = await provider.getBlock(tx.blockNumber)
         tx.block.timediff = Math.round(+new Date()/1000) - tx.block.timestamp
         //get latest block number

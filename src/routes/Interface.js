@@ -82,7 +82,7 @@ const Interface = ({ web3Handler, account, networkName }) => {
                 setLoading(false)
             }   else {
                 setLoading(false)
-                getAbi('0x')
+                //getAbi('0x')
             }
         })
     }

@@ -25,7 +25,15 @@ const Block = ({ networkName }) => {
             console.log('getBlockNumber')
             console.log(blockNumber , blockContent.number)
 
-            const provider = new ethers.providers.JsonRpcProvider(Config.node)
+            const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
+
+            let provider = new ethers.providers.JsonRpcProvider(Config.node);
+
+            //verify if metamask is connected
+            if (accounts.length > 0) {
+                provider = new ethers.providers.Web3Provider(window.ethereum);
+            }
+
             blockTransactions = await provider.getBlockWithTransactions(blockNumber)
 
             blockTransactions.timediff = Math.round(+new Date()/1000) - blockTransactions.timestamp

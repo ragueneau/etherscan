@@ -34,7 +34,15 @@ const Home = ({ networkName }) => {
 
     //subscribe to new blocks with ethers.js
     const getLatestBlocks = async () => {
-        const provider = new ethers.providers.JsonRpcProvider(Config.node);
+        const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
+
+        let provider = new ethers.providers.JsonRpcProvider(Config.node);
+
+        //verify if metamask is connected
+        if (accounts.length > 0) {
+            provider = new ethers.providers.Web3Provider(window.ethereum);
+        }
+
         const blockNumber = await provider.getBlockNumber()
 
         if ( lastBlock === 0) {
