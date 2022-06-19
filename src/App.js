@@ -176,7 +176,7 @@ function App() {
               <Profile networkName={networkName} account={account}/>
             } />
             <Route path="/apps" element={
-              <Applications networkName={networkName} account={account}/>
+              <Applications networkName={networkName} account={account} chainId={chainId}/>
             } />
             <Route path="/logs/:contract/:topic" element={
               <Logs networkName={networkName} account={account}/>
