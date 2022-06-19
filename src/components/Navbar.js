@@ -16,11 +16,8 @@ const Navigation = ({ web3Handler, account, networkName }) => {
                 <Navbar.Collapse id="responsive-navbar-nav">
                     <Nav className="me-auto">
                         <Nav.Link as={Link} to="/">Home</Nav.Link>
-                        <Nav.Link as={Link} to="/">Analytics</Nav.Link>
                         <Nav.Link as={Link} to="/tokens">Tokens</Nav.Link>
-                        <Nav.Link as={Link} to="/">Blockchain</Nav.Link>
                         <Nav.Link as={Link} to="/apps">Applications</Nav.Link>
-                        <Nav.Link as={Link} to="/">Resources</Nav.Link>
                     </Nav>
                     <Button variant="outline-light">{networkName}</Button>
                     <Nav className="ml-auto">
@@ -45,3 +42,7 @@ const Navigation = ({ web3Handler, account, networkName }) => {
 }
 
 export default Navigation;
+
+//<Nav.Link as={Link} to="/">Blockchain</Nav.Link>
+//<Nav.Link as={Link} to="/">Analytics</Nav.Link>
+//<Nav.Link as={Link} to="/">Resources</Nav.Link>

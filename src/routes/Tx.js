@@ -43,12 +43,17 @@ const Tx = ({ networkName, transactionHash }) => {
         }
 
         const tx = await provider.getTransaction(params.transactionHash)
+        tx.receipt = await provider.getTransactionReceipt(params.transactionHash)
+        tx.input = tx.data
 
         tx.block = await provider.getBlock(tx.blockNumber)
         tx.block.timediff = Math.round(+new Date()/1000) - tx.block.timestamp
 
         const date = new Date(tx.block.timestamp * 1000)
         tx.block.humandate = date.toString()
+
+
+        console.log(tx)
 
         setTransaction(tx)
     }
@@ -94,8 +99,8 @@ const Tx = ({ networkName, transactionHash }) => {
     useEffect(() => {
         let timer = setTimeout(() => {
             setCount((count) => count + 1);
-            //getTransaction()
-            getTxMongo()
+            getTransaction()
+            //getTxMongo()
             setLoading(false)
         }, 900);
         return () => clearTimeout(timer)

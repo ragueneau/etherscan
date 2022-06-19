@@ -1,6 +1,6 @@
 import Config from '../config.json'
 import { useState, useEffect } from 'react'
-//import { ethers } from "ethers"
+import { ethers } from "ethers"
 import { Spinner } from 'react-bootstrap'
 import { useParams } from 'react-router-dom'
 //import { Link } from "react-router-dom";
@@ -9,41 +9,48 @@ import TransactionList from '../components/TransactionList'
 
 const axios = require('axios').default;
 
-const Txs = ({ networkName, blockNumber }) => {
+const Txs = ({ networkName }) => {
     const [count, setCount] = useState(0);
     const params = useParams()
     const [loading, setLoading] = useState(true)
-    const [blockContent, setTxsContent] = useState([{
-        blockNumber: 1,
-        blockHash: '',
-        blockTransactions: [],
-    }])
+    const [blockContent, setTxsContent] = useState([])
+    const [blockNumber, setBlockNumber] = useState(parseInt(params.blockNumber))
 
     // ---------------------------------------------------------------------------------------------------------- //
     const eth_getTransactionByBlockNumber = async () => {
+        const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
 
-        const apicall = Config.restAPI + '/api?module=proxy&action=eth_getTransactionByBlockNumber&blockNumber=' + params.blockNumber + '&startblock=0&endblock=999999999&sort=asc&apikey=' + Config.ApiKeyToken
-        await axios.get( apicall )
-        .then(function (response) {
-          // handle success
-          setTxsContent(response.data.result)
+        let provider = new ethers.providers.JsonRpcProvider(Config.node);
+
+        //verify if metamask is connected
+        if (accounts.length > 0) {
+            provider = new ethers.providers.Web3Provider(window.ethereum);
+        }
+
+        const block = await provider.getBlock(blockNumber)
+        let txs = []
+
+        block.transactions.forEach(async (tx) => {
+            const txData = await provider.getTransaction(tx)
+            txData.method = txData.data.slice(0, 10)
+            txs.push(txData)
         })
-        .catch(function (error) {
-         // handle error
-          console.log(error);
-        })
-       .then(function () {
-          // always executed
-        });
+
+        setTxsContent(txs)
     }
 
     // ---------------------------------------------------------------------------------------------------------- //
     useEffect(() => {
         let timer = setTimeout(() => {
             setCount((count) => count + 1);
-            eth_getTransactionByBlockNumber()
-            setLoading(false)
-        }, 900);
+
+            if (blockContent.length === 0) {
+                setBlockNumber(parseInt(params.blockNumber))
+                eth_getTransactionByBlockNumber()
+                setLoading(false)
+            }
+
+        }, 100);
         return () => clearTimeout(timer)
     })
       if (loading) return (
