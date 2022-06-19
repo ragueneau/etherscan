@@ -11,6 +11,9 @@ import { toUtf8Bytes } from "@ethersproject/strings";
 import ContractEvents from '../components/ContractEvents'
 import MetamaskConnect from '../components/MetamaskConnect'
 
+import { copyToClipboard, getAddress, linkAddress } from '../class/Tools'
+import { getProvider, isContract, loadContract2 } from '../class/Evm'
+
 const axios = require('axios').default;
 
 const Interface = ({ web3Handler, account, networkName }) => {
@@ -37,6 +40,8 @@ const Interface = ({ web3Handler, account, networkName }) => {
     const [outputs, setOutputs] = useState([])
     const [topicsStatus, setTopicsStatus] = useState(null)
 
+
+    // ---------------------------------------------------------------------------------------------------- //
     const getAbi = async (address) => {
         await axios.get(Config.restAPI + '/api?module=contract&action=getabi&address='+address+'&apikey=' + Config.ApiKeyToken)
         .then(function (response) {
@@ -87,31 +92,12 @@ const Interface = ({ web3Handler, account, networkName }) => {
         })
     }
 
-    function copyToClipboard(text) {
-        navigator.clipboard.writeText(text);
-    }
-    //function to display a trunked address and a button to copy it
-    function getAddress(address) {
-        const addr = address.slice(0,6) + '...' + address.slice(-4)
-
-        return <div>
-            <span className="text-truncate">{address}</span>
-            <Button variant="link" className="copy-button" onClick={() => copyToClipboard(address)}>copy</Button>
-        </div>
-    }
-    function linkAddress(address) {
-        const addr = address.slice(0,6) + '...' + address.slice(-4)
-
-        return <div>
-            <Link to={`/address/${address}`}>{addr}</Link>
-        </div>
-    }
-
     // ---------------------------------------------------------------------------------------------------- //
-    const getLatestEvent = async (address) => {
+    const getLatestEvent = async (address,abi) => {
         //const provider = new ethers.providers.JsonRpcProvider(Config.node);
         //const contract = new ethers.Contract(address, abi, provider);
-        const topics = contract.interface.events
+        const contract1 = await loadContract2(params.contract,abi)
+        const topics = contract1.interface.events
 
         //if no key in topics
         //if (Object.keys(topics).length === 0) {
@@ -123,7 +109,7 @@ const Interface = ({ web3Handler, account, networkName }) => {
             const signature = keccak256(toUtf8Bytes(key));
 
             //get events
-            await contract.queryFilter(signature, -100).then(function(filter) {
+            await contract1.queryFilter(signature, -100).then(function(filter) {
 
                 //for event in the filter array
                 for (let i = 0; i < filter.length; i++) {
@@ -236,7 +222,6 @@ const Interface = ({ web3Handler, account, networkName }) => {
 
     }
 
-
     const loadContract = async (address) => {
         const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
 
@@ -255,7 +240,6 @@ const Interface = ({ web3Handler, account, networkName }) => {
 
         setContract(contract)
     }
-
     // ---------------------------------------------------------------------------------------------------------- //
     // ---------------------------------------------------------------------------------------------------------- //
     useEffect(() => {
@@ -271,7 +255,11 @@ const Interface = ({ web3Handler, account, networkName }) => {
             //console.log(events[1])
 
             loadContract(params.contract)
-            getLatestEvent(params.contract)
+
+            //const cntract = await loadContract2(params.contract,abi)
+            //setContract(cntract)
+
+            getLatestEvent(params.contract,abi)
             setLoading(false)
     }, 1000);
         return () => clearTimeout(timer)

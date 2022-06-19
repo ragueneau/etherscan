@@ -1,10 +1,14 @@
 import Config from '../config.json'
 
+import { getAddress, linkAddress } from '../class/Tools'
+import { getProvider, isContract } from '../class/Evm'
+
+// -=< Ethers >=------------------------------------------------------------------------------------------------------------ //
 import { ethers } from "ethers"
 
 // -=< React.Component >=- ------------------------------------------------------------------------------------------------- //
 import { useState, useEffect } from 'react'
-import { Row, Col, Spinner } from 'react-bootstrap'
+import { Button, Row, Col, Spinner } from 'react-bootstrap'
 import { useParams } from "react-router-dom"
 
 // -=< Components >=- ------------------------------------------------------------------------------------------------------ //
@@ -14,12 +18,12 @@ import AddressTxTable from '../components/AddressTxTable'
 import ContractOverview from '../components/ContractOverview'
 import ContractMoreInfo from '../components/ContractMoreInfo'
 
+const axios = require('axios').default;
+
 // ---------------------------------------------------------------------------------------------------------------------------- //
 const Address = ({ networkName }) => {
-    let copyIcon = <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24"><path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"/></svg>
 
     // -=< Variables >=- ------------------------------------------------------------------------------------------------------ //
-    const axios = require('axios').default;
 
     const [count, setCount] = useState(0)
     const [txs, setTxs] = useState([])
@@ -32,16 +36,6 @@ const Address = ({ networkName }) => {
         value: 0.00
     })
     const [contract, setContract] = useState(false)
-
-    //function copy address to clipboard
-    function copyToClipboard(text) {
-        var textArea = document.createElement("textarea");
-        textArea.value = text;
-        document.body.appendChild(textArea);
-        textArea.select();
-        document.execCommand("copy");
-        textArea.remove();
-    }
 
     // -=< Functions >=- ------------------------------------------------------------------------------------------------------ //
     const get_account_txlist = async (addr) => {
@@ -61,6 +55,7 @@ const Address = ({ networkName }) => {
 
     }
 
+    // ---------------------------------------------------------------------------------------------------------------------------- //
     const get_account_balance = async (addr) => {
         const apicall = Config.restAPI + '/api?module=account&action=balance&address=' + addr + '&tag=latest&apikey=' + Config.ApiKeyToken
 
@@ -82,34 +77,8 @@ const Address = ({ networkName }) => {
 
     }
 
-    const getOnChainAddressInfo = async () => {
-
-        const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
-
-        let provider = new ethers.providers.JsonRpcProvider(Config.node);
-
-        //verify if metamask is connected
-        if (accounts.length > 0) {
-            provider = new ethers.providers.Web3Provider(window.ethereum);
-        }
-
-        const address = await provider.getBalance(params.walletAddress)
-
-        //get account balance in ether
-        const balance = ethers.utils.formatEther(address)
-
-        //const transactions = await provider.getTransactionCount(params.walletAddress)
-
-        setAddress({
-            address: address,
-            balance: balance,
-            value: 0.00
-        })
-
-        setLoading(false)
-    }
-
-    const isContract = async (addr) => {
+    // ---------------------------------------------------------------------------------------------------------------------------- //
+    const isContractMongo = async (addr) => {
 
         const apicall = Config.restAPI + '/api?module=contract&action=iscontract&address=' + addr + '&apikey=' + Config.ApiKeyToken
 
@@ -126,25 +95,52 @@ const Address = ({ networkName }) => {
             // always executed
         });
 
+        setLoading(false)
     }
 
+    // ---------------------------------------------------------------------------------------------------------------------------- //
     const getAddressTokenList = async (addr) => {
 
     }
 
+    // ---------------------------------------------------------------------------------------------------------------------------- //
+    const getOnChainAddressInfo = async () => {
+
+        let provider = await getProvider()
+
+        const address = await provider.getBalance(params.walletAddress)
+
+        //get account balance in ether
+        const balance = ethers.utils.formatEther(address)
+
+        //const transactions = await provider.getTransactionCount(address)
+
+        //get transactions for address
+        //const transactions = await provider.getTransactions(address)
+        //console.log(transactions)
+
+        setAddress({
+            address: address,
+            balance: balance,
+            value: 0.00
+        })
+
+        if (await isContract(params.walletAddress) === true) {
+            setContract(true)
+        }
+
+        //getAddressTokenList(params.walletAddress)
+        setLoading(false)
+    }
+
+    // -=< Effects >=- ------------------------------------------------------------------------------------------------------ //
     useEffect(() => {
         let timer = setTimeout(() => {
             setCount((count) => count + 1);
-            //getOnChainAddressInfo()
-            if (params.walletAddress !== address.address) {
-                console.log('address changed')
-                setLoading(true)
-            }
 
-            get_account_balance(params.walletAddress)
+            getOnChainAddressInfo()
+
             get_account_txlist(params.walletAddress)
-            isContract(params.walletAddress)
-            getAddressTokenList(params.walletAddress)
 
         }, 1000);
 
@@ -156,7 +152,7 @@ const Address = ({ networkName }) => {
     if (loading) return (
         <div className="flex ">
             <div className="px-5 py-3 container text-left">
-            <h4 className="infobox">Address: {params.walletAddress} <span onClick={() => copyToClipboard(params.walletAddress)}>{copyIcon}</span></h4>
+            <h4 className="infobox">Address: {getAddress(params.walletAddress)}</h4>
                 <Spinner animation="border" variant="primary" />
             </div>
       </div>
@@ -165,7 +161,7 @@ const Address = ({ networkName }) => {
     return (
         <div className="flex justify-center">
             <div className="px-5 py-3 container">
-                <h4 className="infobox">Address: {params.walletAddress} <span onClick={() => copyToClipboard(params.walletAddress)}>{copyIcon}</span></h4>
+                <h4 className="infobox">Address: {getAddress(params.walletAddress)}</h4>
 
                 <Row className="justify-content-center">
                     <Col xs={12} md={12} lg={6}>
