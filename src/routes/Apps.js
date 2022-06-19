@@ -1,6 +1,7 @@
 import Config from '../config.json'
 import { useState, useEffect } from 'react'
 import { Spinner } from 'react-bootstrap'
+import { ethers } from "ethers"
 
 import Applications from '../components/Applications'
 
@@ -11,8 +12,10 @@ const Apps = ({networkName, chainId }) => {
     const [apps, setApps] = useState([])
 
     const getApplications = async () => {
-        const response = await axios.get(Config.restAPI + '/api?module=app&action=getapplist&chainid='+ chainId + '&apikey=' + Config.ApiKeyToken)
+
+        const response = await axios.get(Config.restAPI + '/api?module=app&action=getapplist&chainId='+ parseInt(chainId) + '&apikey=' + Config.ApiKeyToken)
         const applications = response.data.result
+        console.log(applications,chainId)
 
         setApps(applications)
         return applications
@@ -21,6 +24,7 @@ const Apps = ({networkName, chainId }) => {
     useEffect(() => {
         getApplications()
         setLoading(false)
+
       }, [])
       if (loading) return (
         <main style={{ padding: "1rem 0" }}>

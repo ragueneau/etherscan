@@ -41,7 +41,7 @@ function App() {
   const [loading, setLoading] = useState(false)
   const [account, setAccount] = useState(null)
   const [networkName, setNetworkName] = useState('network')
-  const [chainId, setChainId] = useState(1)
+  const [chainId, setChainId] = useState(null)
 
   // MetaMask Login/Connect ------------------------------------------------------------------------ //
   const web3Handler = async () => {
@@ -66,13 +66,13 @@ function App() {
   }
 
   const loadNetwork = async () => {
-    console.log('CoeptIX network');
 
     //get the network chain id
     const _chainId = await window.ethereum.request({ method: 'eth_chainId' });
 
     //chainid hex to int
     const chainIdInt = parseInt(_chainId, 16);
+    setChainId(chainIdInt)
 
     //if chain id is 1, then it is mainnet (eth)
     if (chainIdInt === 1) {
@@ -108,17 +108,22 @@ function App() {
     } else {
       setNetworkName('Unknown '+chainIdInt)
     }
+
+    console.log('Network: '+networkName)
+    console.log('ChainID: '+chainId)
   }
 
   useEffect(() => {
 
     //on network change, loadNetwork
     window.ethereum.on('chainChanged', async (chainId) => {
-      //setChainId(chainId)
+      window.location.reload()
       await loadNetwork()
     })
 
     loadNetwork()
+
+    console.log('!Chain changed to ' + parseInt(chainId));
   }, [])
 
   // Render ---------------------------------------------------------------------------------------- //
