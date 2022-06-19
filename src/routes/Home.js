@@ -1,3 +1,5 @@
+import Config from '../config.json'
+
 import { useState, useEffect } from 'react'
 import { ethers } from "ethers"
 import { Col, Row, Spinner } from 'react-bootstrap'
@@ -6,7 +8,6 @@ import LatestBlocks from '../components/LatestBlocks'
 import LatestTransactions from '../components/LatestTransactions'
 import Dashboard from '../components/Dashboard'
 
-import Config from '../config.json'
 const axios = require('axios').default;
 
 const Home = ({ networkName }) => {
@@ -17,7 +18,7 @@ const Home = ({ networkName }) => {
     const [lastBlock, setLastBlock] = useState(0)
 
     const getLatestTransactions = async () => {
-        const response = await axios.get(Config.restAPI + '/api?module=proxy&action=eth_blockNumber&apikey=' + Config.ApiKeyToken)
+        await axios.get(Config.restAPI + '/api?module=proxy&action=eth_blockNumber&apikey=' + Config.ApiKeyToken)
         .then(function (response) {
           // handle success
           setTxs(response.data.result)
@@ -29,7 +30,6 @@ const Home = ({ networkName }) => {
        .then(function () {
           // always executed
         });
-
     }
 
     //subscribe to new blocks with ethers.js
@@ -47,6 +47,7 @@ const Home = ({ networkName }) => {
 
         if ( lastBlock === 0) {
             setLastBlock(blockNumber - 11)
+
         } else {
             if ( lastBlock < blockNumber ) {
                 for (let i = lastBlock+1; i < blockNumber; i++) {
