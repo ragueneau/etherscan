@@ -17,7 +17,6 @@ const Home = ({ networkName }) => {
     const [lastBlock, setLastBlock] = useState(0)
 
     const getLatestTransactions = async () => {
-
         const response = await axios.get(Config.restAPI + '/api?module=proxy&action=eth_blockNumber&apikey=' + Config.ApiKeyToken)
         .then(function (response) {
           // handle success
@@ -30,6 +29,7 @@ const Home = ({ networkName }) => {
        .then(function () {
           // always executed
         });
+
     }
 
     //subscribe to new blocks with ethers.js
@@ -80,8 +80,13 @@ const Home = ({ networkName }) => {
     useEffect(() => {
         let timer = setTimeout(() => {
             setCount((count) => count + 1);
+
             getLatestBlocks()
-            getLatestTransactions()
+
+            if (networkName === 'CoeptIX') {
+                getLatestTransactions()
+            }
+
             setLoading(false)
         }, 1000);
         return () => clearTimeout(timer)
