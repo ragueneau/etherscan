@@ -9,8 +9,6 @@ const Contract = ({ networkName }) => {
     const params = useParams()
     const [loading, setLoading] = useState(true)
 
-
-
     useEffect(() => {
         setLoading(false)
 
