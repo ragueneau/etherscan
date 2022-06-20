@@ -120,7 +120,7 @@ const Address = ({ networkName }) => {
         //console.log(transactions)
 
         setAddress({
-            address: address,
+            address: params.walletAddress,
             balance: balance,
             value: 0.00
         })
@@ -133,6 +133,7 @@ const Address = ({ networkName }) => {
         setLoading(false)
     }
 
+
     // -=< Effects >=- ------------------------------------------------------------------------------------------------------ //
     useEffect(() => {
         let timer = setTimeout(() => {
@@ -141,6 +142,7 @@ const Address = ({ networkName }) => {
             getOnChainAddressInfo()
 
             get_account_txlist(params.walletAddress)
+            console.log(params.walletAddress,address.address)
 
         }, 1000);
 
