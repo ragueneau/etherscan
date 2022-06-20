@@ -31,6 +31,7 @@ const Interface = ({ web3Handler, account, networkName }) => {
     const [abi, setAbi] = useState([])
     const [abiInterface, setAbiInterface] = useState([])
     const [events, setEvents] = useState([])
+    const [eventLabels, setEventLabels] = useState([])
 
     const [count, setCount] = useState(0);
     const [loading, setLoading] = useState(true)
@@ -114,7 +115,7 @@ const Interface = ({ web3Handler, account, networkName }) => {
                 //for event in the filter array
                 for (let i = 0; i < filter.length; i++) {
                     const event = filter[i]
-                    event.txkey = event.blockNumber +"-"+ event.transactionIndex +"-"+ event.logIndex +"-"+ event.transactionHash
+                    event.txkey = (100000000 + event.blockNumber) +"-"+ event.transactionIndex +"-"+ event.logIndex +"-"+ event.transactionHash
 
                     // insert if transactionHash is not in the array
                     if ( !events.find(item => item.txkey === event.txkey) ) {
@@ -267,7 +268,7 @@ const Interface = ({ web3Handler, account, networkName }) => {
       if (loading) return (
         <div className="flex ">
             <div className="px-5 py-3 container text-left">
-                <h3>Contract Interface</h3>
+                <h3 className="Address">Contract Interface</h3>
                     Loading... <br/><Spinner animation="border" variant="primary" />
                 </div>
         </div>
@@ -276,8 +277,8 @@ const Interface = ({ web3Handler, account, networkName }) => {
     // Render ---------------------------------------------------------------------------------------------------------- //
       return (
         <div className="flex ">
-            <div className="px-5 py-3 container text-left">
-                <h3>Contract Interface {getAddress(params.contract)}</h3>
+            <div className="px-5 py-3 text-left">
+                <h3 className="Address">Contract Interface {getAddress(params.contract)}</h3>
                 <Row>
                     <Col md={12} xs={12} lg={12} xl={12}>
                         <Card className="event-table">
@@ -322,7 +323,7 @@ const Interface = ({ web3Handler, account, networkName }) => {
                         </Card>
                     </Col>
                     <Col md={12} xs={12} lg={12} xl={12}>
-                        <ContractEvents events={events} />
+                        <ContractEvents events={events} labels={eventLabels}/>
                     </Col>
                 </Row>
 

@@ -12,8 +12,15 @@ const Tokens = ({ networkName }) => {
     const [items, setItems] = useState([])
 
     const getTokenList = async () => {
+
+        const _chainId = await window.ethereum.request({ method: 'eth_chainId' });
+
+        //chainid hex to int
+        const chainId = parseInt(_chainId, 16);
+
         //get token list from etherscan
-        const response = await axios.get(Config.restAPI + '/api?module=token&action=tokenlist&apikey=' + Config.ApiKeyToken)
+
+        const response = await axios.get(Config.restAPI + '/api?module=token&action=tokenlist&apikey=' + Config.ApiKeyToken+ '&chainid=' + chainId)
         const tokenList = response.data.result
 
         setItems(tokenList)

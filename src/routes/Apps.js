@@ -7,11 +7,15 @@ import Applications from '../components/Applications'
 
 const axios = require('axios').default;
 
-const Apps = ({networkName, chainId }) => {
+const Apps = ({networkName }) => {
     const [loading, setLoading] = useState(true)
     const [apps, setApps] = useState([])
 
     const getApplications = async () => {
+        const _chainId = await window.ethereum.request({ method: 'eth_chainId' });
+
+        //chainid hex to int
+        const chainId = parseInt(_chainId, 16);
 
         const response = await axios.get(Config.restAPI + '/api?module=app&action=getapplist&chainId='+ parseInt(chainId) + '&apikey=' + Config.ApiKeyToken)
         const applications = response.data.result

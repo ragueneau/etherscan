@@ -118,3 +118,17 @@
   padding: 0px;
   margin: 0px;
 }
+
+.Address {
+  text-align: left;
+  float: left;
+  width: 100%;
+  padding: 0px;
+  margin: 0px;
+  border: 1px solid #e4e1e1;
+}
+
+.extra-container {
+  padding-right: 0px;
+  padding-left: 0px;
+}

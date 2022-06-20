@@ -110,7 +110,7 @@ function App() {
     }
 
     console.log('Network: '+networkName)
-    console.log('ChainID: '+chainId)
+    console.log('ChainID: '+chainIdInt)
   }
 
   useEffect(() => {
@@ -133,7 +133,7 @@ function App() {
         <div>
           <Navigation web3Handler={web3Handler} account={account} networkName={networkName}/>
         </div>
-        <div className="container">
+        <div className="container extra-container">
         {loading ? (
             <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', minHeight: '80vh' }}>
               <Spinner animation="border" style={{ display: 'flex' }} />
@@ -163,7 +163,7 @@ function App() {
               <Tx networkName={networkName} account={account}/>
             } />
             <Route path="/txs" element={
-              <Txs networkName={networkName} account={account}/>
+              <Txs networkName={networkName} account={account} chainId={chainId}/>
             } />
             <Route path="/txs/:blockNumber" element={
               <Txs networkName={networkName} account={account}/>
@@ -181,7 +181,7 @@ function App() {
               <Profile networkName={networkName} account={account}/>
             } />
             <Route path="/apps" element={
-              <Applications networkName={networkName} account={account} chainId={chainId}/>
+              <Applications networkName={networkName} account={account} />
             } />
             <Route path="/logs/:contract/:topic" element={
               <Logs networkName={networkName} account={account}/>

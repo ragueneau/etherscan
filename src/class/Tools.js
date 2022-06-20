@@ -17,7 +17,7 @@ function copyToClipboard(text) {
 export function getAddress(address) {
     //const addr = address.slice(0,6) + '...' + address.slice(-4)
 
-    return <div>
+    return <div className="address">
         <span className="text-truncate">{address}</span> <Button variant="link" className="copy-button" onClick={() => copyToClipboard(address)}>{copyIcon}</Button>
     </div>
 }

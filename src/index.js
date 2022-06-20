@@ -3,7 +3,6 @@ import 'bootstrap/dist/css/bootstrap.css'
 import App from './App';
 import * as serviceWorker from './serviceWorker';
 
-
 //change website title
 document.title = "CoeptIX Etherscan";
 

@@ -154,7 +154,7 @@ const Address = ({ networkName }) => {
     if (loading) return (
         <div className="flex ">
             <div className="px-5 py-3 container text-left">
-            <h4 className="infobox">Address: {getAddress(params.walletAddress)}</h4>
+            <h4 className="Address">Address: {getAddress(params.walletAddress)}</h4>
                 <Spinner animation="border" variant="primary" />
             </div>
       </div>
@@ -163,7 +163,7 @@ const Address = ({ networkName }) => {
     return (
         <div className="flex justify-center">
             <div className="px-5 py-3 container">
-                <h4 className="infobox">Address: {getAddress(params.walletAddress)}</h4>
+                <h4 className="Address">Address: {getAddress(params.walletAddress)}</h4>
 
                 <Row className="justify-content-center">
                     <Col xs={12} md={12} lg={6}>
