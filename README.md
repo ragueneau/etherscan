@@ -10,7 +10,7 @@ git clone git@github.com:ragueneau/etherscan.git
 ```
 cd etherscan
 npm install
-sudo npm install -g npm@8.9.0
+
 ```
 ## Usage
 ```
