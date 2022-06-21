@@ -81,7 +81,12 @@ const TokensLogs = ({ networkName }) => {
     }
 
     const getAbi = async () => {
-        await axios.get(Config.restAPI + '/api?module=contract&action=getabi&address=0x&apikey=' + Config.ApiKeyToken)
+        const _chainId = await window.ethereum.request({ method: 'eth_chainId' });
+
+        //chainid hex to int
+        const chainId = parseInt(_chainId, 16);
+
+        await axios.get(Config.restAPI + '/api?module=contract&action=getabi&address=0x&chainid='+chainId+'&apikey=' + Config.ApiKeyToken)
         .then(function (response) {
             // handle success
             //console.log(response.data.result)
@@ -90,7 +95,12 @@ const TokensLogs = ({ networkName }) => {
     }
 
     const getTokenList = async () => {
-        const tokens = await axios.get(Config.restAPI + '/api?module=token&action=tokenlist&apikey=' + Config.ApiKeyToken)
+        const _chainId = await window.ethereum.request({ method: 'eth_chainId' });
+
+        //chainid hex to int
+        const chainId = parseInt(_chainId, 16);
+
+        const tokens = await axios.get(Config.restAPI + '/api?module=token&action=tokenlist&chainid='+chainId+'&apikey=' + Config.ApiKeyToken)
         const list = tokens.data.result
         setTokenlist(list)
     }
@@ -131,9 +141,10 @@ const TokensLogs = ({ networkName }) => {
                 getAbi()
             }
 
+            //console.log(tokenList)
             getLatestEvent()
             setLoading(false)
-        }, 5000);
+        }, 1000);
         return () => clearTimeout(timer)
     })
       if (loading) return (
