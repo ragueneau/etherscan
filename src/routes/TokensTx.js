@@ -186,7 +186,7 @@ const TokensLogs = ({ networkName }) => {
                                     <td>{event.logIndex}</td>
                                     <td><Link to={`/address/${event.address}`}>{event.symbol}</Link></td>
                                     <td><Link to={`/address/${event.args[0]}`}>{event.args[0].slice(0, 5) + '...' + event.args[0].slice(38, 42)}</Link></td>
-                                    <td><Link to={`/address/${event.args[0]}`}>{event.args[1].slice(0, 5) + '...' + event.args[1].slice(38, 42)}</Link></td>
+                                    <td><Link to={`/address/${event.args[1]}`}>{event.args[1].slice(0, 5) + '...' + event.args[1].slice(38, 42)}</Link></td>
                                     <td>{event.args[2] / 10 ** 18}</td>
                                 </tr>
                             )): null}
