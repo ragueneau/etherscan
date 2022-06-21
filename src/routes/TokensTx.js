@@ -144,7 +144,7 @@ const TokensLogs = ({ networkName }) => {
             //console.log(tokenList)
             getLatestEvent()
             setLoading(false)
-        }, 1000);
+        }, 5000);
         return () => clearTimeout(timer)
     })
       if (loading) return (
