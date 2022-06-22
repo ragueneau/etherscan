@@ -35,6 +35,7 @@ import Profile from './routes/Profile.js'
 import Applications from './routes/Apps.js'
 import Footer from './components/Footer.js';
 import Interface from './routes/Interface.js'
+import Interfaces from './routes/Interfaces.js'
 
 // Functions --------------------------------------------------------------------------------------- //
 function App() {
@@ -121,6 +122,7 @@ function App() {
       await loadNetwork()
     })
 
+
     loadNetwork()
 
     console.log('!Chain changed to ' + parseInt(chainId));
@@ -176,6 +178,9 @@ function App() {
             } />
             <Route path="/interface/:contract" element={
               <Interface networkName={networkName} account={account}/>
+            } />
+            <Route path="/interfaces" element={
+              <Interfaces networkName={networkName} account={account}/>
             } />
             <Route path="/profile" element={
               <Profile networkName={networkName} account={account}/>

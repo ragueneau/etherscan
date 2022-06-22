@@ -13,6 +13,12 @@ link.rel = 'shortcut icon';
 link.href = 'https://etherscan.io/images/favicon.ico';
 document.getElementsByTagName('head')[0].appendChild(link);
 
+//include the script http://code.dappbench.com/browser-solc.min.js
+//let script = document.createElement('script');
+//script.src = 'http://code.dappbench.com/browser-solc.min.js';
+//document.getElementsByTagName('head')[0].appendChild(script);
+
+
 const rootElement = document.getElementById("root");
 render( <App />, rootElement);
 

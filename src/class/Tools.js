@@ -24,7 +24,7 @@ export function getAddress(address) {
 
 // ---------------------------------------------------------------------------------------------------------------------------- //
 export function linkAddress(address) {
-    const addr = address.slice(0,6) + '...' + address.slice(-4)
+    const addr = address.slice(0,7) + '...' + address.slice(-5)
 
     return <div>
         <Link to={`/address/${address}`}>{addr}</Link>
