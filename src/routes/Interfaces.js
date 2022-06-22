@@ -69,6 +69,7 @@ const Interfaces = ({ web3Handler, account, networkName }) => {
 
                         newContracts.push({
                             address: item.address.toLowerCase(),
+                            addr: item.address,
                             name: item.contractName,
                             from: item.from.toLowerCase(),
                             isERC20: item.isERC20,
@@ -103,15 +104,15 @@ const Interfaces = ({ web3Handler, account, networkName }) => {
             //if abi is empty, get it
             if (abis.length === 0) {
                 getAbis()
-                //console.log(abis)
-            }
 
+            }
+            console.log(abis)
             //if contract is empty, load it
             if (contracts.length === 0) {
                 getContracts()
                 //console.log(contracts)
             }
-            //console.log(searchValue,
+
             //searchValue.includes('0x'))
 
             //setLoading(false)
@@ -217,8 +218,11 @@ const Interfaces = ({ web3Handler, account, networkName }) => {
                                                 <td>{item.isERC20 ? <Button variant="outline-secondary btn-list" size="sm"> ERC 20 </Button> : item.isERC721 ? <Button variant="outline-secondary btn-list" size="sm"> ERC 721 </Button> : null}</td>
                                                 <td>{Math.round((item.balance / 10 ** 18) * 100000 ) / 100000}</td>
                                                 <td><Link to={`/address/${item.address}`}><Button variant="outline-primary btn-list" size="sm"> View </Button>
-                                                    </Link> {abis.find(abi => abi.address === item.address) ?
-                                                    <Link to={`/interface/${(item.address)}`}><Button variant="outline-primary btn-list" size="sm"> Interface </Button></Link> : <Button variant="outline-secondary btn-list" size="sm"> Interface </Button> }
+                                                    </Link> {
+                                                        abis.find(abi => abi.address === item.addr) ?
+                                                        <Link to={`/interface/${(item.address)}`}><Button variant="outline-primary btn-list" size="sm"> Interface </Button></Link>
+                                                        : <Button variant="outline-secondary btn-list" size="sm"> Interface </Button>
+                                                    }
                                                 </td>
                                             </tr>
                                         )
