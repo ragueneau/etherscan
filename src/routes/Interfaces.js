@@ -142,17 +142,17 @@ const Interfaces = ({ web3Handler, account, networkName }) => {
                         marginBottom: '1rem'
                     }}
                 >
-                    <Col xs={12} md={5}>
+                    <Col xs={5} md={5}>
                         <Form.Group controlId="formContractSearch">
                             <Form.Label>Search</Form.Label>
-                            <Form.Control type="text" placeholder="Search" value={searchValue} onChange={(e) => setSearchValue(e.target.value.toLowerCase())} />
+                            <Form.Control size="sm" type="text" placeholder="Search" value={searchValue} onChange={(e) => setSearchValue(e.target.value.toLowerCase())} />
                         </Form.Group>
                     </Col>
 
-                    <Col xs={1} md={1}>
+                    <Col xs={2} md={2}>
                         <Form.Group controlId="formContractFilter">
                             <Form.Label>Filter</Form.Label>
-                            <Form.Control as="select" defaultValue="all" onChange={(e) => setSearchFilter(e.target.value)}>
+                            <Form.Control size="sm" as="select" defaultValue="all" onChange={(e) => setSearchFilter(e.target.value)}>
                                 <option value="all">All</option>
                                 <option value="ERC20">ERC20</option>
                                 <option value="ERC721">ERC721</option>
@@ -161,10 +161,10 @@ const Interfaces = ({ web3Handler, account, networkName }) => {
                     </Col>
 
                     { account && (
-                    <Col xs={1} md={2}>
-                        <Form.Group controlId="formContractAccount">
+                    <Col xs={2} md={2}>
+                        <Form.Group controlId="formContractAccount" size="sm">
                             <Form.Label>Account</Form.Label>
-                            <Form.Control as="select" defaultValue="all" onChange={(e) => setSearchAccount(e.target.value)}>
+                            <Form.Control size="sm" as="select" defaultValue="all" onChange={(e) => setSearchAccount(e.target.value)}>
                                 <option value="all">All</option>
                                 <option value={account}>{account.slice(0,7)+'...'+account.slice(35,42)}</option>
                             </Form.Control>
@@ -180,7 +180,7 @@ const Interfaces = ({ web3Handler, account, networkName }) => {
                                 <Card.Title>List</Card.Title>
                             </Card.Header>
                             <Card.Body>
-                                <Table responsive striped bordered className='font-small'>
+                                <Table responsive striped bordered className='font-small' size="sm">
                                     <thead>
                                         <tr>
                                             <th>#</th>
