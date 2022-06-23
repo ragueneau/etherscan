@@ -13,7 +13,11 @@ const Tokens = ({ networkName }) => {
 
     const getTokenList = async () => {
 
-        const _chainId = await window.ethereum.request({ method: 'eth_chainId' });
+        let _chainId = 35478
+
+        if (window.ethereum) {
+            _chainId = await window.ethereum.request({ method: 'eth_chainId' });
+        }
 
         //chainid hex to int
         const chainId = parseInt(_chainId, 16);

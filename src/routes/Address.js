@@ -106,7 +106,12 @@ const Address = ({ networkName }) => {
     // ---------------------------------------------------------------------------------------------------------------------------- //
     const getOnChainAddressInfo = async () => {
 
-        let provider = await getProvider()
+        let provider = new ethers.providers.JsonRpcProvider(Config.node);
+
+        //verify if metamask is connected
+        if (window.ethereum) {
+            provider = new ethers.providers.Web3Provider(window.ethereum);
+        }
 
         const address = await provider.getBalance(params.walletAddress)
 
@@ -142,7 +147,7 @@ const Address = ({ networkName }) => {
             getOnChainAddressInfo()
 
             get_account_txlist(params.walletAddress)
-            console.log(params.walletAddress,address.address)
+            //console.log(params.walletAddress,address.address)
 
         }, 1000);
 

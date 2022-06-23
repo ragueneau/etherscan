@@ -40,12 +40,11 @@ const Home = ({ networkName, account }) => {
 
     //subscribe to new blocks with ethers.js
     const getLatestBlocks = async () => {
-        const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
 
         let provider = new ethers.providers.JsonRpcProvider(Config.node);
 
         //verify if metamask is connected
-        if (accounts.length > 0) {
+        if (window.ethereum) {
             provider = new ethers.providers.Web3Provider(window.ethereum);
         }
 
@@ -113,7 +112,7 @@ const Home = ({ networkName, account }) => {
                 <h2>EVM Blockchain Explorer</h2>
 
                 <SearchBar />
-
+                {networkName === 'CoeptIX' ?
                 <Row>
                     <Col md={4}>
                         <Dashboard items={items} />
@@ -125,6 +124,7 @@ const Home = ({ networkName, account }) => {
                         <Dashboard items={items} />
                     </Col>
                 </Row>
+                : null}
                 <div className="mt-3">
                     <Row >
                         <Col xs={12} md={12} lg={6} xl={6}>

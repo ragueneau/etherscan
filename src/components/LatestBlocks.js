@@ -23,7 +23,7 @@ const LatestBlocks = ({items}) => {
                             </Col>
 
                             <Col md={8} className="col-list">
-                                <Row><Col><Link to={`/block/${item.number}`}>{item.hash.slice(0,32) + '...'}</Link></Col></Row>
+                                <Row><Col>Miner: <Link to={`/address/${item.miner}`}>{item.miner}</Link></Col></Row>
                                 <Row><Col><small>{item.transactions.length} transaction(s)</small></Col></Row>
                             </Col>
 

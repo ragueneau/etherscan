@@ -33,12 +33,11 @@ const Tx = ({ networkName, transactionHash }) => {
     )
 
     const getTransaction = async () => {
-        const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
 
         let provider = new ethers.providers.JsonRpcProvider(Config.node);
 
         //verify if metamask is connected
-        if (accounts.length > 0) {
+        if (window.ethereum) {
             provider = new ethers.providers.Web3Provider(window.ethereum);
         }
 
@@ -73,12 +72,10 @@ const Tx = ({ networkName, transactionHash }) => {
           // always executed
         });
 
-        const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
-
         let provider = new ethers.providers.JsonRpcProvider(Config.node);
 
         //verify if metamask is connected
-        if (accounts.length > 0) {
+        if (window.ethereum) {
             provider = new ethers.providers.Web3Provider(window.ethereum);
         }
 

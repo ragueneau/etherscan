@@ -31,15 +31,12 @@ const TokensLogs = ({ networkName }) => {
         for (let i = 0; i < tokenList.length; i++) {
             const token = tokenList[i]
 
-                // handle success
-                const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
+            let provider = new ethers.providers.JsonRpcProvider(Config.node);
 
-                let provider = new ethers.providers.JsonRpcProvider(Config.node);
-
-                //verify if metamask is connected
-                if (accounts.length > 0) {
-                    provider = new ethers.providers.Web3Provider(window.ethereum);
-                }
+            //verify if metamask is connected
+            if (window.ethereum) {
+                provider = new ethers.providers.Web3Provider(window.ethereum);
+            }
 
                 const contract = new ethers.Contract(token.address, abi, provider);
                 const topics = contract.interface.events
@@ -81,7 +78,11 @@ const TokensLogs = ({ networkName }) => {
     }
 
     const getAbi = async () => {
-        const _chainId = await window.ethereum.request({ method: 'eth_chainId' });
+
+        let _chainId = 35478
+        if (window.ethereum) {
+            _chainId = await window.ethereum.request({ method: 'eth_chainId' });
+        }
 
         //chainid hex to int
         const chainId = parseInt(_chainId, 16);
@@ -95,7 +96,10 @@ const TokensLogs = ({ networkName }) => {
     }
 
     const getTokenList = async () => {
-        const _chainId = await window.ethereum.request({ method: 'eth_chainId' });
+        let _chainId = 35478
+        if (window.ethereum) {
+            _chainId = await window.ethereum.request({ method: 'eth_chainId' });
+        }
 
         //chainid hex to int
         const chainId = parseInt(_chainId, 16);

@@ -121,18 +121,25 @@ function App() {
 
   useEffect(() => {
 
-    //on network change, loadNetwork
-    window.ethereum.on('chainChanged', async (chainId) => {
-      window.location.reload()
-      await loadNetwork()
-    })
+    //verify metamask is installed
+    if (window.ethereum) {
+      //on network change, loadNetwork
+      window.ethereum.on('chainChanged', async (chainId) => {
+        window.location.reload()
+        await loadNetwork()
+      })
 
-    //print the url to the console
-    console.log(window.location)
-    console.log(stats)
-    loadNetwork()
+      //print the url to the console
+      console.log(window.location)
+      console.log(stats)
+      loadNetwork()
 
-    console.log('!Chain changed to ' + parseInt(chainId));
+      console.log('!Chain changed to ' + parseInt(chainId));
+    } else {
+      console.log('No Metamask detected');
+      setNetworkName('CoeptIX')
+      setChainId(35478)
+    }
   }, [])
 
   // Render ---------------------------------------------------------------------------------------- //

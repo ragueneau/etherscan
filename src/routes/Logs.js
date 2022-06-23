@@ -28,7 +28,14 @@ const Logs = ({ networkName }) => {
 
     // ---------------------------------------------------------------------------------------------------- //
     const getLatestEvent = async () => {
-        const provider = new ethers.providers.JsonRpcProvider(Config.node);
+
+        let provider = new ethers.providers.JsonRpcProvider(Config.node);
+
+        //verify if metamask is connected
+        if (window.ethereum) {
+            provider = new ethers.providers.Web3Provider(window.ethereum);
+        }
+
         const contract = new ethers.Contract(params.contract, abi, provider);
         const topics = contract.interface.events
 
