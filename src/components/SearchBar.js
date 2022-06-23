@@ -1,46 +1,41 @@
 import React, { Component } from "react";
 import { Form, Button } from 'react-bootstrap'
+import { useState, useEffect } from 'react'
 
-class SearchBar extends Component {
-    constructor(props) {
-        super(props);
+const SearchBar = () => {
+    const [term, setTerm] = useState('')
 
-        this.state = { term: '' };
-    }
-
-    isAddress(address) {
+    function isAddress(address) {
         return /^(0x)?[0-9a-f]{40}$/i.test(address);
     }
-    isTx(address) {
+    function isTx(address) {
         return /^(0x)?[0-9a-f]{64}$/i.test(address);
     }
 
-    search(term) {
+    function search(term) {
 
         //if the term is an integer, load the block page
         if (term.match(/^[0-9]+$/)) {
             console.log(`Searching for block: ${term}`);
-            // open block route with block number
-            this.props.history.push(`/block/${term}`);
+            window.location.href = `/block/${term}`;
 
-
-        } else if (this.isAddress(term)) {
+        } else if (isAddress(term)) {
             console.log(`Searching for address: ${term}`);
-            this.props.history.push(`/address/${term}`);
+            window.location.href = `/address/${term}`;
 
-        } else if (this.isTx(term)) {
+        } else if (isTx(term)) {
             console.log(`Searching for tx: ${term}`);
-            this.props.history.push(`/tx/${term}`);
+            window.location.href = `/tx/${term}`;
 
         //else if ens name
         } else if (term.match(/^[a-z0-9]+\.[a-z0-9]+$/i)) {
             console.log(`Searching for ens name: ${term}`);
-            //this.props.history.push(`/ens/${term}`);
+            window.location.href = `/ens/${term}`;
 
         //else if token name
         } else if (term.match(/^[a-z0-9]+$/i)) {
             console.log(`Searching for token: ${term}`);
-            this.props.history.push(`/token/${term}`);
+            //window.location.href = `/token/${term}`;
 
         } else {
             console.log(`Not in bd: ${term}`);
@@ -48,36 +43,36 @@ class SearchBar extends Component {
 
     }
 
-    onInputChange(term) {
-        this.setState({ term });
-        //this.props.onSearchTermChange(term);
-
+    function onInputChange(term) {
+        //console.log(term)
+        setTerm( term ) ;
     }
 
-    render() {
-        return (
-            <div className="search-bar" style={{
-                marginTop: '1rem',
-                marginBottom: '1rem'
-            }}>
-                <input
-                    value={this.state.term}
-                    onChange={event => this.onInputChange(event.target.value)}
-                    placeholder="Search for a transaction, block, address, token, or ens name"
-                    style={{
-                        width: '540px',
-                        borderRadius: '0',
-                        border: 'none',
-                        borderBottom: '1px solid #ccc',
-                        padding: '0.5rem',
-                        fontSize: '1.2rem'
-                    }}
-                /> <Button variant="primary" onClick={() => this.search(this.state.term)}>Search</Button>
-            </div>
+    return (
+        <div className="search-bar" style={{
+            marginTop: '1rem',
+            marginBottom: '1rem'
+        }}>
 
-       );
-    }
-
-};
-
+            <input
+                value={term}
+                onChange={event => onInputChange(event.target.value)}
+                placeholder="Search for a transaction, block, address, token, or ens name"
+                onKeyPress={(e) => {
+                    if (e.key === 'Enter') {
+                        search(term)
+                    }
+                }}
+                style={{
+                    width: '540px',
+                    borderRadius: '0',
+                    border: 'none',
+                    borderBottom: '1px solid #ccc',
+                    padding: '0.5rem',
+                    fontSize: '1.2rem'
+                }}
+            /> <Button variant="primary" onClick={() => search(term)}>Search</Button>
+        </div>
+    );
+}
 export default SearchBar;
