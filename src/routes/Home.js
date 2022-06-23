@@ -104,8 +104,6 @@ const Home = ({ networkName, account }) => {
                 getLatestTransactions()
             }
 
-            console.log(items)
-
             setLoading(false)
         }, 1000);
         return () => clearTimeout(timer)
