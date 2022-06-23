@@ -17,8 +17,10 @@ import axios from 'axios'
 import './App.css';
 
 import Navigation from './components/Navbar';
+import HomeNavigation from './components/HomeNavbar';
 import HTTP404 from './components/404.js'
-import SearchBar from './components/search_bar';
+
+//import SearchBar from './components/SearchBar';
 
 // Routes ------------------------------------------------------------------------------------------ //
 import Home from './routes/Home.js'
@@ -43,6 +45,9 @@ function App() {
   const [account, setAccount] = useState(null)
   const [networkName, setNetworkName] = useState('network')
   const [chainId, setChainId] = useState(null)
+  const [stats, setStats] = useState({
+    BlockNumber: 0
+  })
 
   // MetaMask Login/Connect ------------------------------------------------------------------------ //
   const web3Handler = async () => {
@@ -122,7 +127,9 @@ function App() {
       await loadNetwork()
     })
 
-
+    //print the url to the console
+    console.log(window.location)
+    console.log(stats)
     loadNetwork()
 
     console.log('!Chain changed to ' + parseInt(chainId));
@@ -133,7 +140,11 @@ function App() {
     <BrowserRouter>
       <div className="App">
         <div>
-          <Navigation web3Handler={web3Handler} account={account} networkName={networkName}/>
+          {window.location.pathname === '/'
+          ? <Navigation web3Handler={web3Handler} account={account} networkName={networkName} stats={stats} />
+          : <Navigation web3Handler={web3Handler} account={account} networkName={networkName} stats={stats} />
+      }
+
         </div>
         <div className="container extra-container">
         {loading ? (

@@ -7,15 +7,21 @@ import { Col, Row, Spinner } from 'react-bootstrap'
 import LatestBlocks from '../components/LatestBlocks'
 import LatestTransactions from '../components/LatestTransactions'
 import Dashboard from '../components/Dashboard'
+import Dashboard2 from '../components/Dashboard2'
+
+import SearchBar from '../components/SearchBar'
 
 const axios = require('axios').default;
 
-const Home = ({ networkName }) => {
+const Home = ({ networkName, account }) => {
     const [count, setCount] = useState(0);
     const [loading, setLoading] = useState(false)
     const [items, setItems] = useState([])
     const [txs, setTxs] = useState([])
     const [lastBlock, setLastBlock] = useState(0)
+    const [searchValue, setSearchValue] = useState('')
+    const [searchFilter, setSearchFilter] = useState('all')
+    const [searchAccount, setSearchAccount] = useState('')
 
     const getLatestTransactions = async () => {
         await axios.get(Config.restAPI + '/api?module=proxy&action=eth_blockNumber&apikey=' + Config.ApiKeyToken)
@@ -88,6 +94,7 @@ const Home = ({ networkName }) => {
                 getLatestTransactions()
             }
 
+
             setLoading(false)
         }, 1000);
         return () => clearTimeout(timer)
@@ -104,8 +111,17 @@ const Home = ({ networkName }) => {
         <div className="flex justify-center">
             <div className="px-5 py-3 container">
                 <h2>EVM Blockchain Explorer</h2>
+
+                <SearchBar />
+
                 <Row>
-                    <Col md={12}>
+                    <Col md={4}>
+                        <Dashboard items={items} />
+                    </Col>
+                    <Col md={4}>
+                        <Dashboard2 items={items} />
+                    </Col>
+                    <Col md={4}>
                         <Dashboard items={items} />
                     </Col>
                 </Row>

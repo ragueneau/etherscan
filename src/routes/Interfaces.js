@@ -106,7 +106,7 @@ const Interfaces = ({ web3Handler, account, networkName }) => {
                 getAbis()
 
             }
-            console.log(abis)
+
             //if contract is empty, load it
             if (contracts.length === 0) {
                 getContracts()

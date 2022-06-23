@@ -5,7 +5,7 @@ import { Link } from "react-router-dom"
 
 const LatestBlocks = ({items}) => {
     return (
-        <Card>
+        <Card classMap="shadowCard">
             <Card.Header>Latest Blocks</Card.Header>
             <Card.Body className="std-card-info">
                 <ListGroup variant="flush" className="list-group-item">
