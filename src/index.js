@@ -6,6 +6,10 @@ import * as serviceWorker from './serviceWorker';
 //change website title
 document.title = "EVM Blockchain Explorer";
 
+//change website description
+document.querySelector('meta[name="description"]').setAttribute('content', "EVM Blockchain Explorer");
+
+
 const rootElement = document.getElementById("root");
 render( <App />, rootElement);
 
