@@ -4,20 +4,7 @@ import App from './App';
 import * as serviceWorker from './serviceWorker';
 
 //change website title
-document.title = "CoeptIX Etherscan";
-
-//change website favicon
-let link = document.createElement('link');
-link.type = 'image/x-icon';
-link.rel = 'shortcut icon';
-link.href = 'https://etherscan.io/images/favicon.ico';
-document.getElementsByTagName('head')[0].appendChild(link);
-
-//include the script http://code.dappbench.com/browser-solc.min.js
-//let script = document.createElement('script');
-//script.src = 'http://code.dappbench.com/browser-solc.min.js';
-//document.getElementsByTagName('head')[0].appendChild(script);
-
+document.title = "EVM Blockchain Explorer";
 
 const rootElement = document.getElementById("root");
 render( <App />, rootElement);
