@@ -16,21 +16,21 @@ const LatestTransactions = ({txs}) => {
                                 </Col>
                                 <Col md={2} className="col-list">
                                     <Row>
-                                        <Link to={`/tx/${item.hash}`}>{item.hash.slice(0, 6) + '...'}</Link>
+                                        <Link to={`/tx/${item.hash}`}  title={item.hash}>{item.hash.slice(0, 6) + '...'}</Link>
                                     </Row>
                                     <Row>
-                                        <small>Bk:<Link to={`/block/${item.blockNumber}`}>{item.blockNumber}</Link></small>
+                                        <small>Bk:<Link to={`/block/${item.blockNumber}`}  title={item.blockNumber}>{item.blockNumber}</Link></small>
                                     </Row>
                                 </Col>
                                 <Col md={7} className="col-list">
                                     <Row>
                                         <Col>
-                                            <small>From:</small> <Link to={`/address/${item.from}`}>{item.from.slice(0, 13) + '...'+item.from.slice(32, 42)}</Link>
+                                            <small>From:</small> <Link to={`/address/${item.from}`} title={item.from}>{item.from.slice(0, 13) + '...'+item.from.slice(32, 42)}</Link>
                                         </Col>
                                     </Row>
                                     <Row>
                                         <Col>
-                                            {item.to ? <span><small>To:</small> <Link to={`/address/${item.to}`}>{item.to.slice(0, 13) + '...'+item.to.slice(32, 42)}</Link></span> : null}
+                                            {item.to ? <span><small>To:</small> <Link to={`/address/${item.to}`} title={item.to}>{item.to.slice(0, 13) + '...'+item.to.slice(32, 42)}</Link></span> : null}
                                         </Col>
                                     </Row>
                                 </Col>
