@@ -65,6 +65,16 @@ const Home = ({ networkName, account }) => {
                     }
 
                     setLastBlock(i)
+
+                    //block exec time
+                    let lastTS = 0
+                    if (items.length > 0) {
+                        lastTS = items[0].timestamp || 0
+                    } else {
+                        const lblock = await provider.getBlock(i)
+                        lastTS = lblock.timestamp
+                    }
+                    block.duration = block.timestamp - lastTS
                     items.unshift(block)
 
                     // remove oldest item if we have more than 10 items
@@ -72,6 +82,7 @@ const Home = ({ networkName, account }) => {
                         items.pop()
                     }
                 }
+
 
                 //for each item is items echo to console
                 items.forEach(item => {
@@ -93,6 +104,7 @@ const Home = ({ networkName, account }) => {
                 getLatestTransactions()
             }
 
+            console.log(items)
 
             setLoading(false)
         }, 1000);

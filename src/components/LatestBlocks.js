@@ -24,7 +24,7 @@ const LatestBlocks = ({items}) => {
 
                             <Col md={8} className="col-list">
                                 <Row><Col>Miner: <Link to={`/address/${item.miner}`}>{item.miner}</Link></Col></Row>
-                                <Row><Col><small>{item.transactions.length} transaction(s)</small></Col></Row>
+                                <Row><Col><small>{item.transactions.length} transaction(s) in {item.duration} secs</small></Col></Row>
                             </Col>
 
                         </Row>
