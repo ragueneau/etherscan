@@ -9,10 +9,16 @@ const Navigation = ({ web3Handler, account, networkName, stats }) => {
 
         <Navbar expand="lg" bg="dark" variant="dark" classMap="NavBar">
             <Container>
-                <NavLastBlock stats={stats} />
                 <Navbar.Brand href="/">
+                    <img
+                        src="/logo192.png"
+                        width="30"
+                        height="30"
+                        className="d-inline-block align-top"
+                        />
                     &nbsp; EVM Explorer
                 </Navbar.Brand>
+                <NavLastBlock stats={stats} />
                 <Navbar.Toggle aria-controls="responsive-navbar-nav" />
                 <Navbar.Collapse id="responsive-navbar-nav">
                     <Nav className="me-auto">
