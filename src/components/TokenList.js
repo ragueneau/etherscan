@@ -21,7 +21,7 @@ const TokenList = ({tokens}) => {
                     <tr key={idx}>
                         <td>{item.name}</td>
                         <td>{item.symbol}</td>
-                        <td><Link to={`/address/${item.address}`}>{item.address.slice(0, 9) + '...'+item.address.slice(33, 42)}</Link></td>
+                        <td><Link title={item.address} to={`/address/${item.address}`}>{item.address.slice(0, 9) + '...'+item.address.slice(33, 42)}</Link></td>
                         <td>{item.decimals}</td>
                         <td>{item.supply / 10 ** 18 }</td>
                         <td>{item.balance / 10 ** 18 }</td>
