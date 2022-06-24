@@ -8,6 +8,8 @@ const Applications = ({applications}) => {
         <div className="flex justify-center">
         {applications.length > 0 ? (
             <Card>
+                <Card.Header>
+                </Card.Header>
                 <Card.Body className="std-card-info">
                     <ListGroup variant="flush" className="list-group-item">
                     {applications.map((item, idx) => (

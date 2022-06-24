@@ -188,7 +188,7 @@ function App() {
             <Route path="/txs/:blockNumber" element={
               <Txs networkName={networkName} account={account}/>
             } />
-            <Route path="/tokenlogs/" element={
+            <Route path="/tokentxns/" element={
               <TokensTx networkName={networkName} account={account}/>
             } />
             <Route path="/contractsim/:contract" element={

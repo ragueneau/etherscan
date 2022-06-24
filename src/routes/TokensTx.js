@@ -164,7 +164,7 @@ const TokensLogs = ({ networkName }) => {
       return (
         <div className="flex justify-center">
             <div className="px-5 py-3 container">
-              <h5>Tokens Event Logs</h5>
+              <h5>ERC20 Tokens Transfers</h5>
               <Card className="event-table">
                 <Card.Header>
                 </Card.Header>
