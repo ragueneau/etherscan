@@ -24,8 +24,10 @@ import HTTP404 from './components/404.js'
 
 // Routes ------------------------------------------------------------------------------------------ //
 import Home from './routes/Home.js'
+import Accounts from './routes/Accounts.js'
 import Address from './routes/Address.js'
 import Block from './routes/Block.js'
+import Charts from './routes/Charts.js'
 import Contract from './routes/Contract.js'
 import Logs from './routes/Logs.js'
 import Token from './routes/Token.js'
@@ -33,6 +35,7 @@ import Tokens from './routes/Tokens.js'
 import TokensTx from './routes/TokensTx.js'
 import Tx from './routes/Tx.js'
 import Txs from './routes/Txs.js'
+import Topstats from './routes/Topstats.js'
 import Profile from './routes/Profile.js'
 import Applications from './routes/Apps.js'
 import Footer from './components/Footer.js';
@@ -164,6 +167,9 @@ function App() {
             <Route exact path="/" element={
               <Home networkName={networkName} account={account}/>
             } />
+            <Route path="/accounts" element={
+              <Accounts networkName={networkName} account={account}/>
+            } />
             <Route path="/address/:walletAddress" element={
               <Address networkName={networkName} account={account}/>
             } />
@@ -183,6 +189,12 @@ function App() {
               <Tx networkName={networkName} account={account}/>
             } />
             <Route path="/txs" element={
+              <Txs networkName={networkName} account={account} chainId={chainId}/>
+            } />
+            <Route path="/txsPending" element={
+              <Txs networkName={networkName} account={account} chainId={chainId}/>
+            } />
+            <Route path="/txsInternal" element={
               <Txs networkName={networkName} account={account} chainId={chainId}/>
             } />
             <Route path="/txs/:blockNumber" element={
@@ -205,6 +217,12 @@ function App() {
             } />
             <Route path="/apps" element={
               <Applications networkName={networkName} account={account} />
+            } />
+            <Route path="/charts" element={
+              <Charts networkName={networkName} account={account} />
+            } />
+            <Route path="/topstats" element={
+              <Topstats networkName={networkName} account={account} />
             } />
             <Route path="/logs/:contract/:topic" element={
               <Logs networkName={networkName} account={account}/>
