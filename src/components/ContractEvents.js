@@ -29,19 +29,27 @@ const ContractEvents = ({ events }) => {
                     <td>{event.logIndex}</td>
                     <td>{event.event}</td>
                     <td>
-                        <Link to={`/tx/${event.transactionHash}`}>{event.transactionHash}</Link>
-                    </td>
-                    <td>
-                        {event.args.map((arg, idx) => (
-                        <Row key={idx} className="no-gutters infobox">
-                            <Col  md={3} className="text-truncate infobox">
-                                {Object.keys(event.args)[idx+event.args.length]}:
-                            </Col>
-                            <Col  md={8} className="text-truncate infobox">
-                                    {event.args[idx].toString()}
+                        <Row className="no-gutters infobox">
+                            <Col classMap="text-truncate">
+                                <Link to={`/tx/${event.transactionHash}`}>{event.transactionHash}</Link>
                             </Col>
                         </Row>
-                        ))}
+                    </td>
+                    <td>
+                        <table>
+                            <tbody>
+                                {event.args.map((arg, idx) => (
+                                <tr key={idx} className="no-gutters infobox">
+                                    <td  className="infobox" style={{width: "100%"}}>
+                                        {Object.keys(event.args)[idx+event.args.length]}:
+                                    </td>
+                                    <td  className="infobox">
+                                            {event.args[idx].toString()}
+                                    </td>
+                                </tr>
+                                ))}
+                                </tbody>
+                        </table>
                     </td>
                 </tr>
                 )): null}

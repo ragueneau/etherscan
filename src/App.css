@@ -113,6 +113,9 @@
 
 .infobox {
   text-align: left;
+  padding: 0px 0px 0px 0px;
+  margin: 0px 0px 0px 0px;
+  border: #102c41 0px solid;
 }
 
 .nopadding {

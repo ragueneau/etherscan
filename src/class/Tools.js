@@ -27,6 +27,6 @@ export function linkAddress(address) {
     const addr = address.slice(0,7) + '...' + address.slice(-5)
 
     return <div>
-        <Link to={`/address/${address}`}>{addr}</Link>
+        <Link title={address} to={`/address/${address}`}>{addr}</Link>
     </div>
 }

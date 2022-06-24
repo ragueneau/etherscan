@@ -65,8 +65,6 @@ const Interfaces = ({ web3Handler, account, networkName }) => {
             if (contracts.length > 0) {
                 response.data.result.forEach(function (item) {
                     if (item.address !== undefined) {
-
-
                         newContracts.push({
                             address: item.address.toLowerCase(),
                             addr: item.address,

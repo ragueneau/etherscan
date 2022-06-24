@@ -110,7 +110,7 @@ const Interface = ({ web3Handler, account, networkName }) => {
             const signature = keccak256(toUtf8Bytes(key));
 
             //get events
-            await contract1.queryFilter(signature, -100).then(function(filter) {
+            await contract1.queryFilter(signature, -1000).then(function(filter) {
 
                 //for event in the filter array
                 for (let i = 0; i < filter.length; i++) {
