@@ -7,7 +7,7 @@ import NavLastBlock from "./NavLastBlock";
 const Navigation = ({ web3Handler, account, networkName, stats }) => {
     return (
 
-        <Navbar expand="lg" bg="dark" variant="dark" classMap="NavBar">
+        <Navbar expand="lg"variant="dark" classMap="NavBar">
             <Container>
                 <Navbar.Brand href="/">
                     <img
