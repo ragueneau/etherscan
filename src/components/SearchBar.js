@@ -35,7 +35,7 @@ const SearchBar = () => {
         //else if token name
         } else if (term.match(/^[a-z0-9]+$/i)) {
             console.log(`Searching for token: ${term}`);
-            //window.location.href = `/token/${term}`;
+            window.location.href = `/token/${term}`;
 
         } else {
             console.log(`Not in bd: ${term}`);
