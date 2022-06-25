@@ -14,7 +14,7 @@ const TransactionLogs = ({ transaction }) => {
 
     // Render ---------------------------------------------------------------------------------------------------------- //
     return (
-        <Card className="std-card-txlogs">
+        <Card className="std-card-txlogs box">
             <Card.Header>
                 <Card.Title className="std-card-title">Transactions Logs</Card.Title>
             </Card.Header>
@@ -23,8 +23,6 @@ const TransactionLogs = ({ transaction }) => {
                     {receipt.logs.map((log, index) => {
                         return (
                             <ListGroup.Item key={index}>
-                                <b>Log Id</b>: {log.id}
-                                <br />
                                 <b>Log Index</b>: {log.logIndex}
                                 <br />
                                 <b>Transaction Index</b>: {log.transactionIndex}

@@ -23,7 +23,7 @@ const Transaction = ({ transaction }) => {
 
     // Render ---------------------------------------------------------------------------------------------------------- //
     return (
-    <Card >
+    <Card className="std-card-txbox box">
         <Card.Header>
             <Card.Title className="std-card-title">Overview</Card.Title>
         </Card.Header>

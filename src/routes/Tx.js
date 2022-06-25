@@ -103,30 +103,28 @@ const Tx = ({ networkName, transactionHash }) => {
         return () => clearTimeout(timer)
       })
       if (loading) return (
-        <div className="flex">
-            <div className="px-5 py-3 container text-left">
-            <h5>Transaction Details</h5>
-            Loading transaction...
-            </div>
-            <div className="px-5 py-3 container text-left">
-            <Spinner animation="border" variant="secondary" />
-            </div>
-        </div>
+        <main style={{ padding: "1rem 0" }}>
+            <h4>Transaction Details</h4>
+            <Row className="justify-content-center">
+                <Col xs={12} md={12} lg={12}>
+                    Loading transaction...
+                    <Spinner animation="border" variant="secondary" />
+                </Col>
+            </Row>
+        </main>
       )
 
       // Render ---------------------------------------------------------------------------------------------------------- //
       return (
-        <div className="flex justify-center">
-            <div className="px-5 py-3 container">
-                <h5>Transaction Details</h5>
+        <main style={{ padding: "1rem 0" }}>
+                <h4>Transaction Details</h4>
                 <Row className="justify-content-center">
                     <Col xs={12} md={12} lg={12}>
                         <Transaction transaction={transaction} />
                         <TransactionLogs transaction={transaction} />
                     </Col>
                 </Row>
-            </div>
-        </div>
+        </main>
     );
 }
 export default Tx
