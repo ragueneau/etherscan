@@ -31,7 +31,7 @@ const ContractEvents = ({ events }) => {
                     <td>
                         <Row className="no-gutters infobox">
                             <Col classMap="text-truncate">
-                                <Link to={`/tx/${event.transactionHash}`}>{event.transactionHash}</Link>
+                                <Link title={event.transactionHash} to={`/tx/${event.transactionHash}`}>{event.transactionHash.slice(0,15)+'...'+event.transactionHash.slice(49,64)}</Link>
                             </Col>
                         </Row>
                     </td>
@@ -40,11 +40,11 @@ const ContractEvents = ({ events }) => {
                             <tbody>
                                 {event.args.map((arg, idx) => (
                                 <tr key={idx} className="no-gutters infobox">
-                                    <td  className="infobox" style={{width: "100%"}}>
+                                    <td className="infobox" style={{width: "100%"}}>
                                         {Object.keys(event.args)[idx+event.args.length]}:
                                     </td>
                                     <td  className="infobox">
-                                            {event.args[idx].toString()}
+                                        {event.args[idx].toString()}
                                     </td>
                                 </tr>
                                 ))}
