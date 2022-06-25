@@ -1,5 +1,7 @@
 import { Card, ListGroup } from 'react-bootstrap'
 import { Link } from "react-router-dom";
+import { getAddress, linkAddress } from '../class/Tools'
+import { getProvider, isContract } from '../class/Evm'
 
 const TransactionLogs = ({ transaction }) => {
     const receipt = {
