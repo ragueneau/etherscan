@@ -5,12 +5,12 @@ import { Link } from "react-router-dom"
 const AddressTxTable = ({txs, walletAddress}) => {
     // Render ---------------------------------------------------------------------------------------------------------- //
     return (
-        <Card className="event-table">
-            <Card.Header className="infobox">
+        <Card className="infobox">
+            <Card.Header >
                 <Card.Title><b>Transaction List</b></Card.Title>
             </Card.Header>
             <Card.Body>
-                <Table striped bordered hover responsive variant="light">
+                <Table className="event-table" striped bordered hover responsive variant="light">
                     <thead>
                         <tr>
                             <th>Txn Hash</th>
