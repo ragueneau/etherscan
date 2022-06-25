@@ -21,7 +21,6 @@ const LatestBlocks = ({items}) => {
                             <th>Gas Limit</th>
                             <th>Difficulty</th>
                             <th>Miner</th>
-                            <th>Reward</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -35,7 +34,6 @@ const LatestBlocks = ({items}) => {
                             <td>{(item.gasLimit / 10 ** 9)} gwei</td>
                             <td>{item.difficulty}</td>
                             <td>{linkAddress(item.miner,1)}</td>
-                            <td>{(2+(item.gasUsed / 10 ** 18))} xETH</td>
                         </tr>
                     ))}
                     </tbody>
