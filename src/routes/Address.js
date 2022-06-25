@@ -91,7 +91,7 @@ const Address = ({ networkName }) => {
         const balance = ethers.utils.formatEther(_balance)
 
         const transactions = await provider.getTransactionCount(params.walletAddress)
-    
+
         //get transactions for address
         //const transaction = await provider.getTransaction(params.walletAddress)
         //console.log(transaction)
