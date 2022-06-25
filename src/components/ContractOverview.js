@@ -5,7 +5,7 @@ const ContractOverview = ({ address }) => {
     const tokens = []
       // Render ---------------------------------------------------------------------------------------------------------- //
       return (
-        <Card className="infobox">
+        <Card className="infobox box">
             <Card.Header>
                 <Card.Title><b>Contract Overview</b></Card.Title>
             </Card.Header>

@@ -41,7 +41,7 @@ const Tokens = ({ networkName }) => {
       }, [])
       if (loading) return (
         <main style={{ padding: "1rem 0" }}>
-          <h5>Tokens</h5>
+          <h4>Tokens</h4>
           <Spinner animation="border" style={{ display: 'flex' }} />
         </main>
       )
@@ -49,19 +49,19 @@ const Tokens = ({ networkName }) => {
       // Render ---------------------------------------------------------------------------------------------------------- //
       return (
         <main style={{ padding: "1rem 0" }}>
-                <h5>ERC20 Tokens</h5>
-                <Row className="justify-content-center">
-                    <Col md={6} lg={12}>
+            <h4>ERC20 Tokens</h4>
+            <Row className="justify-content-center">
+                <Col md={6} lg={12}>
                     <Card className="event-table">
                         <Card.Header>
                         </Card.Header>
                         <Card.Body>
-                                <TokenList tokens={items} />
+                            <TokenList tokens={items} />
                         </Card.Body>
-                        </Card>
-                    </Col>
-                </Row>
-            </main>
+                    </Card>
+                </Col>
+            </Row>
+        </main>
     );
 }
 export default Tokens

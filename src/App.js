@@ -155,7 +155,6 @@ function App() {
           ? <Navigation web3Handler={web3Handler} account={account} networkName={networkName} stats={stats} />
           : <Navigation web3Handler={web3Handler} account={account} networkName={networkName} stats={stats} />
       }
-
         </div>
         <div className="container extra-container">
         {loading ? (

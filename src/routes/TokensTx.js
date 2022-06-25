@@ -154,7 +154,7 @@ const TokensLogs = ({ networkName }) => {
       if (loading) return (
         <div className="flex ">
             <div className="px-5 py-3 container text-left">
-                <h5>Tokens Transfers Logs</h5>
+                <h4>Tokens Transfers Logs</h4>
                     Loading... <br/><Spinner animation="border" variant="primary" />
                 </div>
           </div>
@@ -164,7 +164,7 @@ const TokensLogs = ({ networkName }) => {
       return (
         <div className="flex justify-center">
             <div className="px-5 py-3 container">
-              <h5>ERC20 Tokens Transfers</h5>
+              <h4>ERC20 Tokens Transfers</h4>
               <Card className="event-table">
                 <Card.Header>
                 </Card.Header>
