@@ -30,8 +30,8 @@ const LatestBlocks = ({items}) => {
                             <td>{unixToDate(item.timestamp)}</td>
                             <td>{item.duration}</td>
                             <td>{item.transactions.length}</td>
-                            <td>{(item.gasUsed / 10 ** 9)} gwei</td>
-                            <td>{(item.gasLimit / 10 ** 9)} gwei</td>
+                            <td>{parseInt(item.gasUsed)} gwei</td>
+                            <td>{parseInt(item.gasLimit)} gwei</td>
                             <td>{item.difficulty}</td>
                             <td>{linkAddress(item.miner,1)}</td>
                         </tr>
