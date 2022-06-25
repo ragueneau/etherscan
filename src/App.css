@@ -1,12 +1,38 @@
 
 .App {
   text-align: center;
-  background: linear-gradient(to bottom, #e4e1e1,#0f2b3f);  
-  font-family: 'Roboto', sans-serif;
+  background: linear-gradient(to bottom, #e9e9e9,#0f2b3f);
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   color: #282c34;
   margin: 0;
   height: 100vh;
   width: 100vw;
+}
+
+h2 {
+  color:#ffffff;
+  font-size: 2em;
+  font-weight: bold;
+  margin: 0;
+  padding: 0;
+  text-shadow: 1px 1px 2px #000000;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+h4 {
+  color:#ffffff;
+  font-size: 1.5em;
+  margin: 0;
+  padding: 0;
+  text-shadow: 1px 1px 2px #000000;
+}
+
+h5 {
+  color:#ffffff;
+  font-size: 1.2em;
+  margin: 0;
+  padding: 0;
+  text-shadow:1px 1px 2px #000000;
 }
 
 .App-logo {
