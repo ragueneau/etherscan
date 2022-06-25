@@ -4,7 +4,7 @@ import { Link } from "react-router-dom"
 
 const TransactionList = ({txs}) => {
     return (
-        <Card className="event-table">
+        <Card >
             <Card.Header>
                 <Card.Title>Transaction List</Card.Title>
             </Card.Header>

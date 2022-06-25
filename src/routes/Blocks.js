@@ -1,42 +1,22 @@
-import Config from '../config.json'
 
+import Config from '../config.json'
 import { useState, useEffect } from 'react'
 import { ethers } from "ethers"
-import { Col, Row, Spinner } from 'react-bootstrap'
+import { Card, Row, Col, Spinner } from 'react-bootstrap'
+import TokenList from '../components/TokenList'
+import { Link } from "react-router-dom";
 
 import LatestBlocks from '../components/LatestBlocks'
-import LatestTransactions from '../components/LatestTransactions'
-import Dashboard from '../components/Dashboard'
-import Dashboard2 from '../components/Dashboard2'
-
-import SearchBar from '../components/SearchBar'
+import LatestBlocksExtented from '../components/LatestBlocksExtented'
 
 const axios = require('axios').default;
 
-const Home = ({ networkName, account }) => {
-    const [count, setCount] = useState(0);
-    const [loading, setLoading] = useState(false)
+const Blocks = ({ networkName }) => {
+    const [loading, setLoading] = useState(true)
+    const [count, setCount] = useState(0)
     const [items, setItems] = useState([])
     const [txs, setTxs] = useState([])
     const [lastBlock, setLastBlock] = useState(0)
-    const [searchValue, setSearchValue] = useState('')
-    const [searchFilter, setSearchFilter] = useState('all')
-    const [searchAccount, setSearchAccount] = useState('')
-
-    const getLatestTransactions = async () => {
-        await axios.get(Config.restAPI + '/api?module=proxy&action=eth_blockNumber&apikey=' + Config.ApiKeyToken)
-        .then(function (response) {
-          // handle success
-          setTxs(response.data.result)
-        })
-        .catch(function (error) {
-         // handle error
-          console.log(error);
-        })
-       .then(function () {
-          // always executed
-        });
-    }
 
     //subscribe to new blocks with ethers.js
     const getLatestBlocks = async () => {
@@ -51,7 +31,7 @@ const Home = ({ networkName, account }) => {
         const blockNumber = await provider.getBlockNumber()
 
         if ( lastBlock === 0) {
-            setLastBlock(blockNumber - 11)
+            setLastBlock(blockNumber - 26)
 
         } else {
             if ( lastBlock < blockNumber ) {
@@ -78,11 +58,10 @@ const Home = ({ networkName, account }) => {
                     items.unshift(block)
 
                     // remove oldest item if we have more than 10 items
-                    if (items.length > 10) {
+                    if (items.length > 25) {
                         items.pop()
                     }
                 }
-
 
                 //for each item is items echo to console
                 items.forEach(item => {
@@ -94,57 +73,46 @@ const Home = ({ networkName, account }) => {
         }
     }
 
+
     useEffect(() => {
         let timer = setTimeout(() => {
             setCount((count) => count + 1);
 
             getLatestBlocks()
 
-            if (networkName === 'CoeptIX') {
-                getLatestTransactions()
-            }
-
+            console.log(items)
             setLoading(false)
         }, 1000);
         return () => clearTimeout(timer)
     })
-    if (loading) return (
+      if (loading) return (
         <main style={{ padding: "1rem 0" }}>
-            <h2>Loading the latest blocks...</h2>
-            <Spinner animation="border" style={{ display: 'flex' }} />
-        </main>
-    )
-
-    // Render ---------------------------------------------------------------------------------------------------------- //
-    return (
-        <main style={{ padding: "1rem 0" }} >
-            <h2>EVM Blockchain Explorer</h2>
-
-            <SearchBar />
-            {networkName === 'CoeptIX' ?
-            <Row>
-                <Col md={4}>
-                    <Dashboard items={items} />
-                </Col>
-                <Col md={4}>
-                    <Dashboard2 items={items} />
-                </Col>
-                <Col md={4}>
-                    <Dashboard items={items} />
+          <h2 className="Address">Latest Blocks</h2>
+          <Row >
+                <Col xs={12} md={12} lg={12} xl={12}>
+                    <Card classMap="shadowCard">
+                        <Card.Header>Latest Blocks</Card.Header>
+                        <Card.Body className="std-card-info">
+                            <div className="spinner">
+                                <Spinner animation="border" style={{ display: 'flex' }} />
+                            </div>
+                        </Card.Body>
+                    </Card>
                 </Col>
             </Row>
-            : null}
-            <div className="mt-3">
+        </main>
+      )
+
+      // Render ---------------------------------------------------------------------------------------------------------- //
+      return (
+        <main style={{ padding: "1rem 0" }}>
+            <h2 className="Address">Latest Blocks</h2>
                 <Row >
-                    <Col xs={12} md={12} lg={6} xl={6}>
-                        <LatestBlocks items={items} />
-                    </Col>
-                    <Col xs={12} md={12} lg={6} xl={6}>
-                        <LatestTransactions txs={txs} />
+                    <Col xs={12} md={12} lg={12} xl={12}>
+                        <LatestBlocksExtented items={items} />
                     </Col>
                 </Row>
-            </div>
         </main>
     );
 }
-export default Home
+export default Blocks

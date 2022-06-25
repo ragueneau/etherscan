@@ -40,6 +40,15 @@ const LatestTransactions = ({txs}) => {
                             </Row>
                         </ListGroup.Item>
                     ))}
+                        <ListGroup.Item>
+                        <span className="text-muted">
+                            <small>
+                                <em>
+                                    <Link to="/txs">More transactions</Link>
+                                </em>
+                            </small>
+                        </span>
+                    </ListGroup.Item>
                 </ListGroup>
             </Card.Body>
         </Card>

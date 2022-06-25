@@ -27,6 +27,7 @@ import Home from './routes/Home.js'
 import Accounts from './routes/Accounts.js'
 import Address from './routes/Address.js'
 import Block from './routes/Block.js'
+import Blocks from './routes/Blocks.js'
 import Charts from './routes/Charts.js'
 import Contract from './routes/Contract.js'
 import Logs from './routes/Logs.js'
@@ -170,21 +171,22 @@ function App() {
             <Route path="/accounts" element={
               <Accounts networkName={networkName} account={account}/>
             } />
+
             <Route path="/address/:walletAddress" element={
               <Address networkName={networkName} account={account}/>
             } />
+
             <Route path="/contract/:contractAddress" element={
               <Contract networkName={networkName} account={account}/>
             } />
+
             <Route path="/block/:blockNumber" element={
               <Block networkName={networkName} account={account}/>
             } />
-            <Route path="/token/:tokenAddress" element={
-              <Token networkName={networkName} account={account}/>
+            <Route path="/blocks" element={
+              <Blocks networkName={networkName} account={account}/>
             } />
-            <Route path="/tokens" element={
-              <Tokens networkName={networkName} account={account}/>
-            } />
+
             <Route path="/tx/:transactionHash" element={
               <Tx networkName={networkName} account={account}/>
             } />
@@ -200,6 +202,13 @@ function App() {
             <Route path="/txs/:blockNumber" element={
               <Txs networkName={networkName} account={account}/>
             } />
+
+            <Route path="/token/:tokenAddress" element={
+              <Token networkName={networkName} account={account}/>
+            } />
+            <Route path="/tokens" element={
+              <Tokens networkName={networkName} account={account}/>
+            } />
             <Route path="/tokentxns/" element={
               <TokensTx networkName={networkName} account={account}/>
             } />
@@ -212,6 +221,7 @@ function App() {
             <Route path="/interfaces" element={
               <Interfaces networkName={networkName} account={account}/>
             } />
+
             <Route path="/profile" element={
               <Profile networkName={networkName} account={account}/>
             } />

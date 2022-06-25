@@ -52,7 +52,6 @@ const Interfaces = ({ web3Handler, account, networkName }) => {
             })
     }
 
-
     //function to get the list of contracts
     const getContracts = async () => {
         await axios.get(Config.restAPI + '/api?module=contract&action=contractlist&apikey=' + Config.ApiKeyToken)

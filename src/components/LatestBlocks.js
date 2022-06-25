@@ -30,8 +30,17 @@ const LatestBlocks = ({items}) => {
                         </Row>
                     </ListGroup.Item>
                 ))}
-            </ListGroup>
-        </Card.Body>
+                    <ListGroup.Item>
+                        <span className="text-muted">
+                            <small>
+                                <em>
+                                    <Link to="/blocks">More blocks</Link>
+                                </em>
+                            </small>
+                        </span>
+                    </ListGroup.Item>
+                </ListGroup>
+            </Card.Body>
         </Card>
     );
 };

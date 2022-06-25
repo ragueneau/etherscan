@@ -56,49 +56,6 @@ const Address = ({ networkName }) => {
     }
 
     // ---------------------------------------------------------------------------------------------------------------------------- //
-    const get_account_balance = async (addr) => {
-        const apicall = Config.restAPI + '/api?module=account&action=balance&address=' + addr + '&tag=latest&apikey=' + Config.ApiKeyToken
-
-        const response = await axios.get(apicall)
-        .then(function (response) {
-            setAddress({
-                address: addr,
-                balance: ethers.utils.formatEther(response.data.result),
-                value: 0.00
-            })
-        })
-        .catch(function (error) {
-            // handle error
-            console.log(error);
-        })
-        .then(function () {
-            // always executed
-        });
-
-    }
-
-    // ---------------------------------------------------------------------------------------------------------------------------- //
-    const isContractMongo = async (addr) => {
-
-        const apicall = Config.restAPI + '/api?module=contract&action=iscontract&address=' + addr + '&apikey=' + Config.ApiKeyToken
-
-        const response = await axios.get(apicall)
-        .then(function (response) {
-            setContract(response.data.result)
-            setLoading(false)
-        })
-        .catch(function (error) {
-            // handle error
-            console.log(error);
-        })
-        .then(function () {
-            // always executed
-        });
-
-        setLoading(false)
-    }
-
-    // ---------------------------------------------------------------------------------------------------------------------------- //
     const getAddressTokenList = async (addr) => {
 
     }

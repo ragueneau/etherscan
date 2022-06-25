@@ -12,12 +12,17 @@ const Accounts = ({ networkName }) => {
     const [loading, setLoading] = useState(true)
     const [items, setItems] = useState([])
 
+
+
+
+    
     useEffect(() => {
 
+        setLoading(false)
       }, [])
       if (loading) return (
         <main style={{ padding: "1rem 0" }}>
-          <h5>Accounts</h5>
+          <h2 className="Address">Accounts</h2>
           <Spinner animation="border" style={{ display: 'flex' }} />
         </main>
       )
@@ -26,8 +31,30 @@ const Accounts = ({ networkName }) => {
       return (
         <div className="flex justify-center">
             <div className="px-5 py-3 container">
-                <h5>Top Accounts</h5>
+                <h2 className="Address">Top Accounts</h2>
+                <Row className="justify-content-center">
 
+                    <Col md={6}>
+                        <Card>
+                            <Card.Header>
+                                <Card.Title>Top Balances</Card.Title>
+                            </Card.Header>
+                            <Card.Body>
+                            </Card.Body>
+                        </Card>
+                    </Col>
+
+                    <Col md={6}>
+                        <Card>
+                            <Card.Header>
+                                <Card.Title>Top Transactions</Card.Title>
+                            </Card.Header>
+                            <Card.Body>
+                            </Card.Body>
+                        </Card>
+                    </Col>
+
+                </Row>
             </div>
         </div>
     );

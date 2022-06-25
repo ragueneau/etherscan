@@ -164,3 +164,18 @@
   height: 50px;
   width: 150px;
 }
+
+.table-button {
+  padding: 0px;
+  margin: 0px 1px 8px 3px;
+  height: 10px;
+  width: 12px;
+}
+
+.spinner {
+  margin: 100px auto;
+  width: 200px;
+  height: 100px;
+  text-align: center;
+  font-size: 10px;
+}
