@@ -30,7 +30,8 @@ const LatestTransactions = ({txs}) => {
                                     </Row>
                                     <Row>
                                         <Col>
-                                            {item.to ? <span><small>To:</small> <Link to={`/address/${item.to}`} title={item.to}>{item.to.slice(0, 13) + '...'+item.to.slice(32, 42)}</Link></span> : null}
+                                            {item.to ? <span><small>To:</small> <Link to={`/address/${item.to}`} title={item.to}>{item.to.slice(0, 13) + '...'+item.to.slice(32, 42)}</Link></span> 
+                                            : <span>Contract creation</span>}
                                         </Col>
                                     </Row>
                                 </Col>
