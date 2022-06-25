@@ -103,8 +103,7 @@ const Token = ({ networkName }) => {
       //setLoading(false)
       // Render ---------------------------------------------------------------------------------------------------------- //
       return (
-        <div className="flex justify-center">
-            <div className="px-5 py-3 container">
+        <main style={{ padding: "1rem 0" }}>
                 <h5>Token {tokenAddress}</h5>
 
                 <Row className="justify-content-center">
@@ -156,8 +155,7 @@ const Token = ({ networkName }) => {
 
                 </Row>
                 {getQRCodePopup(tokenAddress)}
-            </div>
-        </div>
+        </main>
     );
 }
 export default Token
