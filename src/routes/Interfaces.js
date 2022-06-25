@@ -16,6 +16,7 @@ import { Link } from "react-router-dom";
 //import Compile from '../components/Compile'
 
 import { copyToClipboard, getAddress, linkAddress } from '../class/Tools'
+import { afterMain } from '@popperjs/core'
 //import { getProvider, isContract, loadContract2 } from '../class/Evm'
 
 const axios = require('axios').default;
@@ -117,12 +118,10 @@ const Interfaces = ({ web3Handler, account, networkName }) => {
         return () => clearTimeout(timer)
     })
       if (loading) return (
-        <div className="flex ">
-            <div className="px-5 py-3 container text-left">
+        <main style={{ padding: "1rem 0" }} >
                 <h3 className="Address">Contracts</h3>
-                    Loading... <br/><Spinner animation="border" variant="primary" />
-                </div>
-        </div>
+                Loading... <br/><Spinner animation="border" variant="primary" />
+        </main>
       )
     //<input variant={variant[action.stateMutability]} type="text" className="form-control" placeholder={inputLabels[action.name]}/>
     // find the contract in the list
@@ -130,8 +129,7 @@ const Interfaces = ({ web3Handler, account, networkName }) => {
 
     // Render ---------------------------------------------------------------------------------------------------------- //
       return (
-        <div className="flex ">
-            <div className="px-5 py-3 text-left">
+        <main style={{ padding: "1rem 0" }} >
                 <h3 className="Address">Contracts</h3>
                 <Row
                     className="justify-content-center"
@@ -231,8 +229,7 @@ const Interfaces = ({ web3Handler, account, networkName }) => {
                         </Card>
                     </Col>
                 </Row>
-          </div>
-        </div>
+        </main>
     );
 }
 export default Interfaces
