@@ -80,7 +80,6 @@ const Blocks = ({ networkName }) => {
 
             getLatestBlocks()
 
-            console.log(items)
             setLoading(false)
         }, 1000);
         return () => clearTimeout(timer)
