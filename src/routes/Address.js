@@ -114,17 +114,15 @@ const Address = ({ networkName }) => {
     //if params changes, reload page
 
     if (loading) return (
-        <div className="flex ">
-            <div className="px-5 py-3 container text-left">
+        <main style={{ padding: "1rem 0" }}>
             <h4 className="Address">Address: {getAddress(params.walletAddress)}</h4>
                 <Spinner animation="border" variant="primary" />
-            </div>
-      </div>
+      </main>
     )
     // -=< Render >=- ------------------------------------------------------------------------------------------------------ //
     return (
-        <div className="flex justify-center">
-            <div className="px-5 py-3 container">
+        <main style={{ padding: "1rem 0" }}>
+
                 <h4 className="Address">Address: {getAddress(params.walletAddress)}</h4>
 
                 <Row className="justify-content-center">
@@ -148,8 +146,7 @@ const Address = ({ networkName }) => {
                         <AddressTxTable txs={txs} walletAddress={params.walletAddress}/>
                     </Col>
                 </Row>
-            </div>
-        </div>
+            </main>
     );
 }
 export default Address
