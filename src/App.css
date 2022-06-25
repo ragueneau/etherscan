@@ -190,3 +190,9 @@ div.card {
   text-align: center;
   font-size: 10px;
 }
+
+
+.color2 {
+  background-color: #0f2b3f;
+  border: #0f2b3f 1px solid;
+}

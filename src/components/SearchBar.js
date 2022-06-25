@@ -2,6 +2,10 @@ import React, { Component } from "react";
 import { Form, Button } from 'react-bootstrap'
 import { useState, useEffect } from 'react'
 
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faCoffee } from '@fortawesome/free-solid-svg-icons'
+
+
 const SearchBar = () => {
     const [term, setTerm] = useState('')
 
@@ -71,7 +75,7 @@ const SearchBar = () => {
                     padding: '0.5rem',
                     fontSize: '1.2rem'
                 }}
-            /> <Button variant="primary" onClick={() => search(term)}>Search</Button>
+            /> <Button className="color2" onClick={() => search(term)}><FontAwesomeIcon icon={['fas', 'search']} />Search</Button>
         </div>
     );
 }
