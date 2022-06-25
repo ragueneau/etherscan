@@ -34,8 +34,8 @@ const AddressTxTable = ({txs, walletAddress}) => {
                             <td>{item.age}</td>
                             <td><Link to={`/address/${item.from}`}>{item.from.slice(0, 7) + '...'+item.from.slice(38, 42)}</Link></td>
                             <td>{item.from === walletAddress ? <Button variant="danger btn-list" size="sm" className="ml-2"> OUT </Button> : <Button variant="success btn-list" size="sm" className="ml-2"> IN </Button> }</td>
-                            <td>{item.to ? <span><Link to={`/address/${item.to}`}>{item.to.slice(0, 7) + '...'+item.to.slice(38, 42)}</Link></span> : null}</td>
-                            <td>{(item.value / 10 ** 18).toString()} ether</td>
+                            <td>{item.to ? <span><Link to={`/address/${item.to}`}>{item.to.slice(0, 7) + '...'+item.to.slice(38, 42)}</Link></span> : <span>Contract creation</span>}</td>
+                            <td>{(item.value / 10 ** 18).toString()} eth</td>
                             <td>{(item.gas / 10 ** 0).toString()} gwei</td>
                         </tr>
                     ))}

@@ -55,6 +55,21 @@ const Address = ({ networkName }) => {
 
     }
 
+    const get_account_txlist1 = async (addr) => {
+
+        let provider = new ethers.providers.JsonRpcProvider(Config.node);
+
+        //verify if metamask is connected
+        if (window.ethereum) {
+            provider = new ethers.providers.Web3Provider(window.ethereum);
+        }
+
+        //get addr balance
+        const balance = await provider.getBalance(addr)
+
+
+        setLoading(false)
+    }
     // ---------------------------------------------------------------------------------------------------------------------------- //
     const getAddressTokenList = async (addr) => {
 
@@ -70,16 +85,17 @@ const Address = ({ networkName }) => {
             provider = new ethers.providers.Web3Provider(window.ethereum);
         }
 
-        const address = await provider.getBalance(params.walletAddress)
+        const _balance = await provider.getBalance(params.walletAddress)
 
         //get account balance in ether
-        const balance = ethers.utils.formatEther(address)
+        const balance = ethers.utils.formatEther(_balance)
 
-        //const transactions = await provider.getTransactionCount(address)
-
+        const transactions = await provider.getTransactionCount(params.walletAddress)
+    
         //get transactions for address
-        //const transactions = await provider.getTransactions(address)
-        //console.log(transactions)
+        //const transaction = await provider.getTransaction(params.walletAddress)
+        //console.log(transaction)
+
 
         setAddress({
             address: params.walletAddress,

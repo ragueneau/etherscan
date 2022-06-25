@@ -17,14 +17,17 @@ const LatestBlocks = ({items}) => {
                                 <Link to={`/block/${item.number}`}  title={item.number}><Button variant="secondary" size="sm" className="ml-2">Bk</Button></Link>
                             </Col>
 
-                            <Col md={3} className="col-list">
+                            <Col md={2} className="col-list">
                                 <Row><Col><Link to={`/block/${item.number}`}>{item.number}</Link></Col></Row>
                                 <Row><Col><small>{item.timediff} secs ago</small></Col></Row>
                             </Col>
 
-                            <Col md={8} className="col-list">
+                            <Col md={7} className="col-list">
                                 <Row><Col>Miner: <Link to={`/address/${item.miner}`} title={item.miner}>{item.miner.slice(0, 13) + '...'+item.miner.slice(30, 42)}</Link></Col></Row>
                                 <Row><Col><small>{item.transactions.length} transaction(s) in {item.duration} secs</small></Col></Row>
+                            </Col>
+                            <Col md={2} className="col-list">
+                                <small>{parseInt(item.gasUsed)} gwei</small>
                             </Col>
 
                         </Row>
