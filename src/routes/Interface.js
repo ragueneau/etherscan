@@ -280,7 +280,7 @@ const Interface = ({ web3Handler, account, networkName }) => {
                 <h3 className="Address">Contract Interface {getAddress(params.contract)}</h3>
                 <Row>
                     <Col md={12} xs={12} lg={12} xl={12}>
-                        <Card className="event-table">
+                        <Card className="event-table box">
                             <Card.Header>
                             <Row className="align-items-left">
                                 <Col md={3} className="text-left">
