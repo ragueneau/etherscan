@@ -1,7 +1,7 @@
 
 .App {
   text-align: center;
-  background-color: #e4e1e1;
+  background: linear-gradient(to bottom, #e4e1e1,#0f2b3f);  
   font-family: 'Roboto', sans-serif;
   color: #282c34;
   margin: 0;
@@ -119,6 +119,11 @@
   border: #102c41 0px solid;
 }
 
+.infobox-header {
+  background: linear-gradient(to bottom, #e4e1e1,#0f2b3f);
+  padding: 0px 0px 100px 0px;
+}
+
 .nopadding {
   padding: 0px;
   margin: 0px;
@@ -148,10 +153,15 @@
 
 .shadowCard {
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+  text-shadow: 2px 2px 4px #000000;
   max-width: 300px;
   margin: auto;
   text-align: center;
   font-family: arial;
+}
+
+div.card {
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 
 .nav-last-block {

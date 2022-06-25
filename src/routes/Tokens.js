@@ -48,8 +48,7 @@ const Tokens = ({ networkName }) => {
 
       // Render ---------------------------------------------------------------------------------------------------------- //
       return (
-        <div className="flex justify-center">
-            <div className="px-5 py-3 container">
+        <main style={{ padding: "1rem 0" }}>
                 <h5>ERC20 Tokens</h5>
                 <Row className="justify-content-center">
                     <Col md={6} lg={12}>
@@ -62,8 +61,7 @@ const Tokens = ({ networkName }) => {
                         </Card>
                     </Col>
                 </Row>
-            </div>
-        </div>
+            </main>
     );
 }
 export default Tokens
