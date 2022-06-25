@@ -5,7 +5,7 @@ const AddressOverview = ({ address }) => {
 
       // Render ---------------------------------------------------------------------------------------------------------- //
       return (
-        <Card className="infobox">
+        <Card className="infobox box">
             <Card.Header>
                 <Card.Title><b>Overview</b></Card.Title>
             </Card.Header>

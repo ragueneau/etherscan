@@ -19,6 +19,16 @@ h2 {
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
+h3 {
+  color:#ffffff;
+  font-size: 1.7em;
+  font-weight: bold;
+  margin: 0;
+  padding: 0;
+  text-shadow: 1px 1px 2px #000000;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
 h4 {
   color:#ffffff;
   font-size: 1.5em;
@@ -145,6 +155,8 @@ h5 {
   border: #102c41 0px solid;
 }
 
+
+
 .infobox-header {
   background: linear-gradient(to bottom, #e4e1e1,#0f2b3f);
   padding: 0px 0px 100px 0px;
@@ -188,6 +200,13 @@ h5 {
 
 div.card {
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  padding: 0px 0px 0px 0px;
+  margin: 0px 0px 0px 0px;
+}
+
+div.card.box {
+  padding: 0px 0px 0px 0px;
+  margin: 0px 0px 10px 0px;
 }
 
 .nav-last-block {

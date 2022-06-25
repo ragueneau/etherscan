@@ -119,7 +119,7 @@ const Interfaces = ({ web3Handler, account, networkName }) => {
     })
       if (loading) return (
         <main style={{ padding: "1rem 0" }} >
-                <h3 className="Address">Contracts</h3>
+                <h3 className="Address">Contract List</h3>
                 Loading... <br/><Spinner animation="border" variant="primary" />
         </main>
       )
@@ -130,105 +130,104 @@ const Interfaces = ({ web3Handler, account, networkName }) => {
     // Render ---------------------------------------------------------------------------------------------------------- //
       return (
         <main style={{ padding: "1rem 0" }} >
-                <h3 className="Address">Contracts</h3>
-                <Row
-                    className="justify-content-center"
-                    style={{
-                        marginTop: '1rem',
-                        marginBottom: '1rem'
-                    }}
-                >
-                    <Col xs={5} md={5}>
-                        <Form.Group controlId="formContractSearch">
-                            <Form.Label>Search</Form.Label>
-                            <Form.Control size="sm" type="text" placeholder="Search" value={searchValue} onChange={(e) => setSearchValue(e.target.value.toLowerCase())} />
-                        </Form.Group>
-                    </Col>
+            <h3 className="Address">Contract List</h3>
+            <Row className="justify-content-center">
+                <Card className="box">
+                    <Card.Body>
+                        <Row className="justify-content-center">
 
-                    <Col xs={2} md={2}>
-                        <Form.Group controlId="formContractFilter">
-                            <Form.Label>Filter</Form.Label>
-                            <Form.Control size="sm" as="select" defaultValue="all" onChange={(e) => setSearchFilter(e.target.value)}>
-                                <option value="all">All</option>
-                                <option value="ERC20">ERC20</option>
-                                <option value="ERC721">ERC721</option>
-                            </Form.Control>
-                        </Form.Group>
-                    </Col>
+                            <Col xs={5} md={5}>
+                                <Form.Group controlId="formContractSearch">
+                                    <Form.Label>Search</Form.Label>
+                                    <Form.Control size="sm" type="text" placeholder="Search" value={searchValue} onChange={(e) => setSearchValue(e.target.value.toLowerCase())} />
+                                </Form.Group>
+                            </Col>
 
-                    { account && (
-                    <Col xs={2} md={2}>
-                        <Form.Group controlId="formContractAccount" size="sm">
-                            <Form.Label>Account</Form.Label>
-                            <Form.Control size="sm" as="select" defaultValue="all" onChange={(e) => setSearchAccount(e.target.value)}>
-                                <option value="all">All</option>
-                                <option value={account}>{account.slice(0,7)+'...'+account.slice(35,42)}</option>
-                            </Form.Control>
-                        </Form.Group>
-                    </Col>
-                    )}
-                </Row>
+                            <Col xs={2} md={2}>
+                                <Form.Group controlId="formContractFilter">
+                                    <Form.Label>Filter</Form.Label>
+                                    <Form.Control size="sm" as="select" defaultValue="all" onChange={(e) => setSearchFilter(e.target.value)}>
+                                        <option value="all">All</option>
+                                        <option value="ERC20">ERC20</option>
+                                        <option value="ERC721">ERC721</option>
+                                    </Form.Control>
+                                </Form.Group>
+                            </Col>
 
-                <Row className="justify-content-center">
-                    <Col xs={12} md={12}>
-                        <Card >
-                            <Card.Header>
-                                <Card.Title>List</Card.Title>
-                            </Card.Header>
-                            <Card.Body>
-                                <Table responsive striped bordered className='font-small' size="sm">
-                                    <thead>
-                                        <tr>
-                                            <th>#</th>
-                                            <th>Address</th>
-                                            <th>Creator</th>
-                                            <th>Type</th>
-                                            <th>Balance</th>
-                                            <th>Actions</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                    {contracts.map(function (item, index) {
-                                        if (
-                                            ( item.address.includes(searchValue)
-                                                || searchValue === ''
-                                            )
-                                            &&
-                                            (searchFilter === 'all'
-                                                || (searchFilter === 'ERC20' && item.isERC20)
-                                                || (searchFilter === 'ERC721' && item.isERC721)
-                                            )
-                                            &&
-                                            ( searchAccount === ''
-                                                || searchAccount === 'all'
-                                                || searchAccount === item.from
-                                            )
-                                            ) {
+                            { account && (
+                            <Col xs={2} md={2}>
+                                <Form.Group controlId="formContractAccount" size="sm">
+                                    <Form.Label>Account</Form.Label>
+                                    <Form.Control size="sm" as="select" defaultValue="all" onChange={(e) => setSearchAccount(e.target.value)}>
+                                        <option value="all">All</option>
+                                        <option value={account}>{account.slice(0,7)+'...'+account.slice(35,42)}</option>
+                                    </Form.Control>
+                                </Form.Group>
+                            </Col>
+                            )}
 
-                                        return (
-                                            <tr key={index+1}>
-                                                <td>{index + 1}</td>
-                                                <td className='hover truncate'>{getAddress(item.address)}</td>
-                                                <td><span>{linkAddress(item.from)}</span></td>
-                                                <td>{item.isERC20 ? <Button variant="outline-secondary btn-list" size="sm"> ERC 20 </Button> : item.isERC721 ? <Button variant="outline-secondary btn-list" size="sm"> ERC 721 </Button> : null}</td>
-                                                <td>{Math.round((item.balance / 10 ** 18) * 100000 ) / 100000}</td>
-                                                <td><Link to={`/address/${item.address}`}><Button variant="outline-primary btn-list" size="sm"> View </Button>
-                                                    </Link> {
-                                                        abis.find(abi => abi.address === item.addr) ?
-                                                        <Link to={`/interface/${(item.address)}`}><Button variant="outline-primary btn-list" size="sm"> Interface </Button></Link>
-                                                        : <Button variant="outline-secondary btn-list" size="sm"> Interface </Button>
-                                                    }
-                                                </td>
-                                            </tr>
-                                        )
-                                        }
-                                    })}
-                                    </tbody>
-                                </Table>
-                            </Card.Body>
-                        </Card>
-                    </Col>
-                </Row>
+                        </Row>
+                    </Card.Body>
+                </Card>
+            </Row>
+            <Row className="justify-content-center">
+                <Card className="box">
+                    <Card.Header>
+                        <Card.Title>List</Card.Title>
+                    </Card.Header>
+                    <Card.Body>
+                        <Table responsive striped bordered className='font-small' size="sm">
+                            <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>Address</th>
+                                    <th>Creator</th>
+                                    <th>Type</th>
+                                    <th>Balance</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            {contracts.map(function (item, index) {
+                                if (
+                                    ( item.address.includes(searchValue)
+                                        || searchValue === ''
+                                    )
+                                    &&
+                                    (searchFilter === 'all'
+                                        || (searchFilter === 'ERC20' && item.isERC20)
+                                        || (searchFilter === 'ERC721' && item.isERC721)
+                                    )
+                                    &&
+                                    ( searchAccount === ''
+                                        || searchAccount === 'all'
+                                        || searchAccount === item.from
+                                    )
+                                    ) {
+
+                                return (
+                                    <tr key={index+1}>
+                                        <td>{index + 1}</td>
+                                        <td className='hover truncate'>{getAddress(item.address)}</td>
+                                        <td><span>{linkAddress(item.from)}</span></td>
+                                        <td>{item.isERC20 ? <Button variant="outline-secondary btn-list" size="sm"> ERC 20 </Button> : item.isERC721 ? <Button variant="outline-secondary btn-list" size="sm"> ERC 721 </Button> : null}</td>
+                                        <td>{Math.round((item.balance / 10 ** 18) * 100000 ) / 100000}</td>
+                                        <td><Link to={`/address/${item.address}`}><Button variant="outline-primary btn-list" size="sm"> View </Button>
+                                            </Link> {
+                                                abis.find(abi => abi.address === item.addr) ?
+                                                <Link to={`/interface/${(item.address)}`}><Button variant="outline-primary btn-list" size="sm"> Interface </Button></Link>
+                                                : <Button variant="outline-secondary btn-list" size="sm"> Interface </Button>
+                                            }
+                                        </td>
+                                    </tr>
+                                )
+                                }
+                            })}
+                            </tbody>
+                        </Table>
+                    </Card.Body>
+                </Card>
+            </Row>
         </main>
     );
 }

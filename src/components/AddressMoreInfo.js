@@ -5,7 +5,7 @@ const AddressMoreinfo = ({ address }) => {
 
       // Render ---------------------------------------------------------------------------------------------------------- //
       return (
-        <Card className="infobox">
+        <Card className="infobox box">
             <Card.Header>
                 <Card.Title><b>More Info</b></Card.Title>
             </Card.Header>
