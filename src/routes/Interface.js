@@ -139,15 +139,11 @@ const Interface = ({ web3Handler, account, networkName }) => {
 
     //function to call the function
     const callFunction = async (address, action) => {
-        //console.log(action.name, contract[action.name])
-        //console.log('inputValues: ', inputValues)
-        //call the function with a custom name and the input values
 
         const inputs = {}
 
         // if inputsValues is not empty
         for (let key in inputValues) {
-            //console.log('key',key, inputValues[key])
             inputs[key] = inputValues[key]
         }
 
@@ -250,14 +246,8 @@ const Interface = ({ web3Handler, account, networkName }) => {
             if (abi.length === 0) {
                 getAbi(params.contract)
             }
-            //getAbi(params.contract)
-            //console.log(topicsStatus)
-            //console.log(events[1])
 
             loadContract(params.contract)
-
-            //const cntract = await loadContract2(params.contract,abi)
-            //setContract(cntract)
 
             getLatestEvent(params.contract,abi)
             setLoading(false)
