@@ -115,14 +115,17 @@ const Home = ({ networkName, account }) => {
 
         const blockNumber = await provider.getBlockNumber()
 
-
+        console.log(blockNumber)
 
 
        //console.log('new get latest', blockNumber)
 
         if ( lastBlock === 0) {
-            setLastBlock(blockNumber - 11)
-
+            if ( blockNumber > 10 ) {
+                setLastBlock(blockNumber - 11)
+            } else {
+                setLastBlock(-1)
+            }
         } else {
             if ( lastBlock < blockNumber ) {
                 for (let i = lastBlock+1; i < blockNumber; i++) {
@@ -141,11 +144,12 @@ const Home = ({ networkName, account }) => {
                         block.transactions.forEach(async (tx) => {
 
                             //if tx is not in txs, add it
-                            if ( !txs.find(item => item.hash === tx) && block.number > txs[0].blockNumber) {
+                            if ( txs.length === 0 || (!txs.find(item => item.hash === tx) )) {
 
                                 const txData = await provider.getTransactionReceipt(tx)
                                 //txData.method = txData.data.slice(0, 10)
                                 txData.hash = tx
+                                txData.value = parseInt(txData.value)
                                 txData.receipt = {
                                     status: txData.status,
                                     gasUsed: parseInt(txData.gasUsed).toString()
