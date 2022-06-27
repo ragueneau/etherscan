@@ -16,7 +16,7 @@ import { getProvider, isContract, loadContract2 } from '../class/Evm'
 
 const axios = require('axios').default;
 
-const Interface = ({ web3Handler, account, networkName }) => {
+const Interface = ({ account, networkName }) => {
     const params = useParams()
     const variant = {
         'nonpayable': 'warning',
@@ -40,6 +40,7 @@ const Interface = ({ web3Handler, account, networkName }) => {
 
     const [outputs, setOutputs] = useState([])
     const [topicsStatus, setTopicsStatus] = useState(null)
+    const [account1, setAccount] = useState(null)
 
 
     // ---------------------------------------------------------------------------------------------------- //
@@ -92,6 +93,7 @@ const Interface = ({ web3Handler, account, networkName }) => {
             }
         })
     }
+
 
     // ---------------------------------------------------------------------------------------------------- //
     const getLatestEvent = async (address,abi) => {
@@ -280,6 +282,7 @@ const Interface = ({ web3Handler, account, networkName }) => {
                                 <Col md={2} className="text-left">
                                     Max Gas: <Form.Control onChange={(e) => setMaximumGas(e.target.value)} value={maximumGas} type="text" placeholder="Default Gas" />
                                 </Col>
+
                             </Row>
                             </Card.Header>
                             <Card.Body>

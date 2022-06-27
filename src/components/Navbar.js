@@ -9,16 +9,16 @@ const Navigation = ({ web3Handler, account, networkName, stats }) => {
 
         <Navbar expand="lg"variant="dark" classMap="NavBar">
             <Container>
-                <Navbar.Brand href="/">
-                    <img
+                <Navbar.Brand href="/" >
+                    <img 
                         src="/logo192.png"
                         width="30"
                         height="30"
                         className="d-inline-block align-top"
                         />
-                    &nbsp; EVM Explorer
+                    &nbsp; <span className="navbar-brand ">EVM Explorer</span>
                 </Navbar.Brand>
-                <NavLastBlock stats={stats} />
+                <NavLastBlock stats={stats} network={networkName}/>
                 <Navbar.Toggle aria-controls="responsive-navbar-nav" />
                 <Navbar.Collapse id="responsive-navbar-nav">
                     <Nav className="me-auto">
@@ -61,7 +61,6 @@ const Navigation = ({ web3Handler, account, networkName, stats }) => {
 
                     </Nav>
 
-                    <Button variant="outline-light">{networkName}</Button>
                     <Nav className="ml-auto">
                         {account ? (
                             <Nav.Link

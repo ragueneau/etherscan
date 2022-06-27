@@ -63,22 +63,18 @@ const Block = ({ networkName }) => {
         return () => clearTimeout(timer)
     })
     if (loading) return (
-        <div className="flex ">
-            <div className="px-5 py-3 container text-left">
+        <main style={{ padding: "1rem 0" }}>
                 <h4>Block #{blockNumber}</h4>
                 Loading... <br/><Spinner animation="border" variant="primary" />
-            </div>
-      </div>
+        </main>
     )
 //    <Link to={`/block/${blockContent.number+1}`}><Button variant="primary" size="sm" className="ml-2">Next</Button></Link>
     // Render ---------------------------------------------------------------------------------------------------------- //
     return (
-        <div className="flex ">
-            <div className="px-5 py-3 container text-left">
-                <h4>Block #{blockContent.number}</h4>
-                <BlockInfo block={blockContent} />
-            </div>
-        </div>
+        <main style={{ padding: "1rem 0" }}>
+            <h4>Block #{blockContent.number}</h4>
+            <BlockInfo block={blockContent} />
+        </main>
     );
 }
 export default Block

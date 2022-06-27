@@ -1,12 +1,64 @@
 
+Body {
+  background: #0f2b3f;
+}
+
+/*
+blue: 0f133f
+red: 3f0f13
+green: 133f0f
+purple: 240f3f
+cyan: 0f2b3f
+yellow: 3f3c0f
+mauve2: 3c0f3f
+gris: e9e9e9
+*/
+
 .App {
   text-align: center;
+  background: #0f2b3f;
+
+
   background: linear-gradient(to bottom, #e9e9e9,#0f2b3f);
+
+  /* background-image: linear-gradient(to right, #0f133f, #3c0f3f, #0f2b3f); */
+
+  /* background-image: linear-gradient(to right, #0f0c29, #302b63, #24243e); */
+
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   color: #282c34;
   margin: 0;
   height: 100vh;
   width: 100vw;
+}
+
+.navbar {
+  background: linear-gradient(to bottom, #102c41,#0f2b3f);
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+.navbar-brand {
+  text-shadow: #000000 1px 1px 2px;
+  font-weight: bold;
+}
+
+.nav-last-block {
+  text-align: left;
+  vertical-align: top;
+  color: black;
+  font-size: 0.7em;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  size: 1px;
+  padding: 0px;
+  margin: 0px 0px 0px 0px;
+  height: 50px;
+  width: 160px;
+  border: 1px solid #000000;
+  background: linear-gradient(to bottom, #ffffff,#ffffff);
+
+  /* inner drop shadow */
+  /* box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19); */
+  /* box-shadow: 0 0px 0px 0 rgba(0, 0, 0, 0), 0 0px 0px 0 rgba(0, 0, 0, 0); */
 }
 
 h2 {
@@ -185,9 +237,7 @@ h5 {
   font-size: small;
 }
 
-.navbar {
-  background-color: #102c41;
-}
+
 
 .shadowCard {
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
@@ -209,17 +259,7 @@ div.card.box {
   margin: 0px 0px 10px 0px;
 }
 
-.nav-last-block {
-  text-align: left;
-  float: left;
-  vertical-align: top;
-  color: black;
-  size: 5px;
-  padding: 0px;
-  margin: 0px 10px 0px 10px;
-  height: 50px;
-  width: 150px;
-}
+
 
 .table-button {
   padding: 0px;
@@ -241,3 +281,30 @@ div.card.box {
   background-color: #0f2b3f;
   border: #0f2b3f 1px solid;
 }
+
+
+.morebutton {
+  width: 100%;
+}
+
+.card-header1 {
+  background: linear-gradient(to bottom, #ffffff,#133f0f);
+}
+.card {
+  border: 0px;
+  border: #0f2b3f 0px solid;
+}
+.card-header {
+  border: #0f2b3f 0px solid;
+}
+
+/* change the success botton to dark red */
+/* .btn-success {
+  background-color: #133f0f;
+  border-color: #133f0f;
+}
+.btn-alert {
+  background-color: #3f0f13;
+  border-color: #3f0f13;
+} */
+

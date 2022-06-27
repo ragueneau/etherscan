@@ -3,7 +3,7 @@ import { Form, Button } from 'react-bootstrap'
 import { useState, useEffect } from 'react'
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faCoffee } from '@fortawesome/free-solid-svg-icons'
+import { faSearch } from '@fortawesome/free-solid-svg-icons'
 
 
 const SearchBar = () => {
@@ -54,10 +54,9 @@ const SearchBar = () => {
 
     return (
         <div className="search-bar" style={{
-            marginTop: '1rem',
-            marginBottom: '1rem'
+            marginTop: '0.9rem',
+            marginBottom: '0.9rem'
         }}>
-
             <input
                 value={term}
                 onChange={event => onInputChange(event.target.value)}
@@ -73,9 +72,9 @@ const SearchBar = () => {
                     border: 'none',
                     borderBottom: '1px solid #ccc',
                     padding: '0.5rem',
-                    fontSize: '1.2rem'
+                    fontSize: '0.9rem'
                 }}
-            /> <Button className="color2" onClick={() => search(term)}><FontAwesomeIcon icon={['fas', 'search']} />Search</Button>
+            /> <Button className="color2" onClick={() => search(term)}><FontAwesomeIcon icon={faSearch} /></Button>
         </div>
     );
 }
