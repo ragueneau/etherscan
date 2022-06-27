@@ -19,7 +19,8 @@ import './App.css';
 import Navigation from './components/Navbar';
 import HomeNavigation from './components/HomeNavbar';
 import HTTP404 from './components/404.js'
-
+//import { copyToClipboard, getAddress, linkAddress } from './class/Tools'
+//import { web3Handler, getProvider, isContract, loadContract2 } from './class/Evm'
 //import SearchBar from './components/SearchBar';
 
 // Routes ------------------------------------------------------------------------------------------ //
@@ -45,13 +46,19 @@ import Interfaces from './routes/Interfaces.js'
 
 // Functions --------------------------------------------------------------------------------------- //
 function App() {
-  const [loading, setLoading] = useState(false)
-  const [account, setAccount] = useState(null)
-  const [networkName, setNetworkName] = useState('network')
-  const [chainId, setChainId] = useState(null)
-  const [stats, setStats] = useState({
-    BlockNumber: 0
-  })
+    const [loading, setLoading] = useState(false)
+    const [account, setAccount] = useState(null)
+    const [networkName, setNetworkName] = useState('Network')
+    const [chainId, setChainId] = useState(null)
+    const [stats, setStats] = useState({
+        latest: 'latest',
+        pending: 'pending',
+        gasPrice: null,
+        gasLimit: null,
+        blockTime: null,
+        blockReward: null,
+        totalSupply: null
+    })
 
   // MetaMask Login/Connect ------------------------------------------------------------------------ //
   const web3Handler = async () => {
@@ -123,28 +130,53 @@ function App() {
     console.log('ChainID: '+chainIdInt)
   }
 
+  const loadLastBlock = async () => {
+
+    let provider = new ethers.providers.JsonRpcProvider(Config.node);
+
+    //verify if metamask is connected
+    if (window.ethereum) {
+        provider = new ethers.providers.Web3Provider(window.ethereum);
+    }
+
+    const pblock = await provider.getBlock('pending')
+    const lblock = await provider.getBlock('latest')
+    setStats({
+      pending: pblock.number.toString(),
+      latest: lblock.number.toString()
+    })
+
+  }
+
   useEffect(() => {
 
-    //verify metamask is installed
-    if (window.ethereum) {
-      //on network change, loadNetwork
-      window.ethereum.on('chainChanged', async (chainId) => {
-        window.location.reload()
-        await loadNetwork()
-      })
+    if (networkName === 'Network') {
+      //verify metamask is installed
+      if (window.ethereum) {
+        //on network change, loadNetwork
+        window.ethereum.on('chainChanged', async (chainId) => {
+          window.location.reload()
+          await loadNetwork()
+        })
 
-      //print the url to the console
-      console.log(window.location)
-      console.log(stats)
-      loadNetwork()
+        //print the url to the console
+        //console.log(window.location)
+        //console.log(stats)
+        loadNetwork()
 
-      console.log('!Chain changed to ' + parseInt(chainId));
-    } else {
-      console.log('No Metamask detected');
-      setNetworkName('CoeptIX')
-      setChainId(35478)
+        console.log('!Chain changed to ' + parseInt(chainId));
+      } else {
+        console.log('No Metamask detected');
+        setNetworkName('CoeptIX')
+        setChainId(35478)
+      }
     }
-  }, [])
+    let timer = setTimeout(() => {
+      loadLastBlock()
+    }, 1000);
+
+    return () => clearTimeout(timer)
+});
 
   // Render ---------------------------------------------------------------------------------------- //
   return (

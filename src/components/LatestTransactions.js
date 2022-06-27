@@ -30,8 +30,8 @@ const LatestTransactions = ({txs}) => {
                                     </Row>
                                     <Row>
                                         <Col>
-                                            {item.to ? <span><small>To:</small> <Link to={`/address/${item.to}`} title={item.to}>{item.to.slice(0, 13) + '...'+item.to.slice(32, 42)}</Link></span> 
-                                            : <span>Contract creation</span>}
+                                            {item.to ? <span><small>To:</small> <Link to={`/address/${item.to}`} title={item.to}>{item.to.slice(0, 13) + '...'+item.to.slice(32, 42)}</Link></span>
+                                            : <span>Contract Creation</span>}
                                         </Col>
                                     </Row>
                                 </Col>
@@ -42,13 +42,9 @@ const LatestTransactions = ({txs}) => {
                         </ListGroup.Item>
                     ))}
                         <ListGroup.Item>
-                        <span className="text-muted">
-                            <small>
-                                <em>
-                                    <Link to="/txs">More transactions</Link>
-                                </em>
-                            </small>
-                        </span>
+                            <Link to="/txs">
+                                <Button variant="secondary morebutton" size="sm" className="ml-2">More transactions</Button>
+                            </Link>
                     </ListGroup.Item>
                 </ListGroup>
             </Card.Body>

@@ -3,10 +3,7 @@ import Config from '../config.json'
 import { useState, useEffect } from 'react'
 import { ethers } from "ethers"
 import { Card, Row, Col, Spinner } from 'react-bootstrap'
-import TokenList from '../components/TokenList'
-import { Link } from "react-router-dom";
 
-import LatestBlocks from '../components/LatestBlocks'
 import LatestBlocksExtented from '../components/LatestBlocksExtented'
 
 const axios = require('axios').default;
@@ -73,7 +70,7 @@ const Blocks = ({ networkName }) => {
         }
     }
 
-
+    // Use Effect ---------------------------------------------------------------------------------------------------- //
     useEffect(() => {
         let timer = setTimeout(() => {
             setCount((count) => count + 1);
@@ -84,34 +81,37 @@ const Blocks = ({ networkName }) => {
         }, 1000);
         return () => clearTimeout(timer)
     })
-      if (loading) return (
-        <main style={{ padding: "1rem 0" }}>
-          <h2 className="Address">Latest Blocks</h2>
-          <Row >
-                <Col xs={12} md={12} lg={12} xl={12}>
-                    <Card classMap="shadowCard">
-                        <Card.Header>Latest Blocks</Card.Header>
-                        <Card.Body className="std-card-info">
-                            <div className="spinner">
-                                <Spinner animation="border" style={{ display: 'flex' }} />
-                            </div>
-                        </Card.Body>
-                    </Card>
-                </Col>
-            </Row>
-        </main>
-      )
 
-      // Render ---------------------------------------------------------------------------------------------------------- //
-      return (
-        <main style={{ padding: "1rem 0" }}>
-            <h2 className="Address">Latest Blocks</h2>
+    // Render ---------------------------------------------------------------------------------------------------------- //
+    if (loading) {
+        return (
+            <main style={{ padding: "1rem 0" }}>
+                <h2 className="Address">Latest Blocks</h2>
+                <Row >
+                    <Col xs={12} md={12} lg={12} xl={12}>
+                        <Card classMap="shadowCard">
+                            <Card.Header>Latest Blocks</Card.Header>
+                            <Card.Body className="std-card-info">
+                                <div className="spinner">
+                                    <Spinner animation="border" style={{ display: 'flex' }} />
+                                </div>
+                            </Card.Body>
+                        </Card>
+                    </Col>
+                </Row>
+            </main>
+        )
+    } else {
+        return (
+            <main style={{ padding: "1rem 0" }}>
+                <h2 className="Address">Latest Blocks</h2>
                 <Row >
                     <Col xs={12} md={12} lg={12} xl={12}>
                         <LatestBlocksExtented items={items} />
                     </Col>
                 </Row>
-        </main>
-    );
+            </main>
+        );
+    }
 }
 export default Blocks

@@ -105,7 +105,7 @@ const Home = ({ networkName, account }) => {
             }
 
             setLoading(false)
-        }, 1000);
+        }, 900);
         return () => clearTimeout(timer)
     })
     if (loading) return (

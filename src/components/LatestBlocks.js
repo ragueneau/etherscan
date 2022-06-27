@@ -34,13 +34,9 @@ const LatestBlocks = ({items}) => {
                     </ListGroup.Item>
                 ))}
                     <ListGroup.Item>
-                        <span className="text-muted">
-                            <small>
-                                <em>
-                                    <Link to="/blocks">More blocks</Link>
-                                </em>
-                            </small>
-                        </span>
+                        <Link to="/blocks">
+                            <Button variant="secondary morebutton" size="sm" className="ml-2">More blocks</Button>
+                        </Link>
                     </ListGroup.Item>
                 </ListGroup>
             </Card.Body>

@@ -43,3 +43,4 @@ export async function loadContract2(address, abi) {
 
     return contract
 }
+
