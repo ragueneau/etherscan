@@ -36,7 +36,7 @@ const LatestTransactions = ({txs}) => {
                                     </Row>
                                 </Col>
                                 <Col md={2} className="col-list">
-                                    <small>{(item.receipt.gasUsed).toFixed(0)} gwei</small>
+                                    <small>{item.receipt.gasUsed} gwei</small>
                                 </Col>
                             </Row>
                         </ListGroup.Item>

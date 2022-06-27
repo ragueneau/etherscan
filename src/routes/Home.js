@@ -17,8 +17,12 @@ const Home = ({ networkName, account }) => {
     const [count, setCount] = useState(0);
     const [loading, setLoading] = useState(false)
     const [items, setItems] = useState([])
+    
     const [txs, setTxs] = useState([])
+    const [pendingTxs, setPendingTxs] = useState([])
     const [lastBlock, setLastBlock] = useState(0)
+    const [pendingBlocks, setPendingBlocks] = useState([])
+
     const [searchValue, setSearchValue] = useState('')
     const [searchFilter, setSearchFilter] = useState('all')
     const [searchAccount, setSearchAccount] = useState('')
@@ -94,13 +98,103 @@ const Home = ({ networkName, account }) => {
         }
     }
 
+
+
+
+
+
+    const getLatest = async () => {
+
+        let provider = new ethers.providers.JsonRpcProvider(Config.node);
+
+        //verify if metamask is connected
+        if (window.ethereum) {
+            provider = new ethers.providers.Web3Provider(window.ethereum);
+        }
+
+
+        const blockNumber = await provider.getBlockNumber()
+
+
+
+
+       //console.log('new get latest', blockNumber)
+
+        if ( lastBlock === 0) {
+            setLastBlock(blockNumber - 11)
+
+        } else {
+            if ( lastBlock < blockNumber ) {
+                for (let i = lastBlock+1; i < blockNumber; i++) {
+
+                    const block = await provider.getBlock(i+1)
+
+                    //skip if block is in items
+                    if ( items.find(item => item.number === block.number) ) {
+                        continue
+                    }
+
+                    setLastBlock(i)
+
+                    // if block has transactions, get them
+                    if (block.transactions.length > 0) {
+                        block.transactions.forEach(async (tx) => {
+                            const txData = await provider.getTransactionReceipt(tx)
+                            //txData.method = txData.data.slice(0, 10)
+                            txData.hash = tx
+                            txData.receipt = {
+                                status: txData.status,
+                                gasUsed: parseInt(txData.gasUsed).toString()
+                            }
+                            txs.unshift(txData)
+
+                            //if txs is more than 10, remove oldest
+                            if (txs.length > 10) {
+                                txs.pop()
+                            }
+
+                           setTxs(txs)
+                        })
+
+                    }
+
+
+                    //block exec time
+                    let lastTS = 0
+                    if (items.length > 0) {
+                        lastTS = items[0].timestamp || 0
+                    } else {
+                        const lblock = await provider.getBlock(i)
+                        lastTS = lblock.timestamp
+                    }
+                    block.duration = block.timestamp - lastTS
+                    items.unshift(block)
+
+                    // remove oldest item if we have more than 10 items
+                    if (items.length > 10) {
+                        items.pop()
+                    }
+                }
+
+
+                //for each item is items echo to console
+                items.forEach(item => {
+                    item.timediff = Math.round(+new Date()/1000) - item.timestamp
+                })
+
+                setItems(items)
+            }
+        }
+    }
+
+
     useEffect(() => {
         let timer = setTimeout(() => {
             setCount((count) => count + 1);
 
-            getLatestBlocks()
+            getLatest()
 
-            if (networkName === 'CoeptIX') {
+            if (networkName === 'CoeptIX' && txs.length === 0) {
                 getLatestTransactions()
             }
 
@@ -108,6 +202,7 @@ const Home = ({ networkName, account }) => {
         }, 900);
         return () => clearTimeout(timer)
     })
+
     if (loading) return (
         <main style={{ padding: "1rem 0" }}>
             <h2>Loading the latest blocks...</h2>

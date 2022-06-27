@@ -139,7 +139,7 @@ function App() {
         provider = new ethers.providers.Web3Provider(window.ethereum);
     }
 
-    const pblock = await provider.getBlock('pending')
+    const pblock = await provider.getBlock('pending') || 0
     const lblock = await provider.getBlock('latest')
     setStats({
       pending: pblock.number.toString(),
