@@ -139,21 +139,26 @@ const Home = ({ networkName, account }) => {
                     // if block has transactions, get them
                     if (block.transactions.length > 0) {
                         block.transactions.forEach(async (tx) => {
-                            const txData = await provider.getTransactionReceipt(tx)
-                            //txData.method = txData.data.slice(0, 10)
-                            txData.hash = tx
-                            txData.receipt = {
-                                status: txData.status,
-                                gasUsed: parseInt(txData.gasUsed).toString()
-                            }
-                            txs.unshift(txData)
 
-                            //if txs is more than 10, remove oldest
-                            if (txs.length > 10) {
-                                txs.pop()
-                            }
+                            //if tx is not in txs, add it
+                            if ( !txs.find(item => item.hash === tx) && block.number > txs[0].blockNumber) {
 
-                           setTxs(txs)
+                                const txData = await provider.getTransactionReceipt(tx)
+                                //txData.method = txData.data.slice(0, 10)
+                                txData.hash = tx
+                                txData.receipt = {
+                                    status: txData.status,
+                                    gasUsed: parseInt(txData.gasUsed).toString()
+                                }
+                                txs.unshift(txData)
+
+                                //if txs is more than 10, remove oldest
+                                if (txs.length > 10) {
+                                    txs.pop()
+                                }
+
+                                setTxs(txs)
+                            }
                         })
 
                     }
