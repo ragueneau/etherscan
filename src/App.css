@@ -171,7 +171,15 @@ h5 {
 .list-group-item {
   padding: 5px 2px 5px 2px;
   margin: 0px 0px 0px 0px;
+  /* blink once */
+
 }
+
+.fadein {
+  animation-name: fadein;
+  animation-duration: 1s;
+}
+
 
 .std-card-title {
   font-size: large;
