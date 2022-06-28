@@ -52,7 +52,7 @@ const Tx = ({ networkName, transactionHash }) => {
         tx.block.humandate = date.toString()
 
 
-        console.log(tx)
+        //console.log(tx)
 
         setTransaction(tx)
     }

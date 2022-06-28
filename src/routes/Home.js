@@ -115,7 +115,7 @@ const Home = ({ networkName, account }) => {
 
         const blockNumber = await provider.getBlockNumber()
 
-        console.log(blockNumber)
+        //console.log(blockNumber)
 
 
        //console.log('new get latest', blockNumber)
