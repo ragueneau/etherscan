@@ -16,6 +16,21 @@ import { getProvider, isContract, loadContract2 } from '../class/Evm'
 
 const axios = require('axios').default;
 
+const contracts = [
+    {
+        name: 'ERC20',
+        address: '0x4edDe623379B27db9B0283E917F4c130963cd676',
+    },
+    {
+        name: 'ERC721',
+        address: '0x073c0286D628F8Bd490CE645Ea6c6bA11c607412',
+    },
+    {
+        name: 'Lottery',
+        address: '0x891f0f2eF6A154e937B6a07B03d3a28fa3A61CaD',
+    }
+];
+
 const Interface = ({ account, networkName }) => {
     const params = useParams()
     const variant = {
@@ -37,6 +52,7 @@ const Interface = ({ account, networkName }) => {
     const [loading, setLoading] = useState(true)
 
     const [contract, setContract] = useState(null)
+    const [contractAddress, setContractAddress] = useState()
 
     const [outputs, setOutputs] = useState([])
     const [topicsStatus, setTopicsStatus] = useState(null)
@@ -237,6 +253,7 @@ const Interface = ({ account, networkName }) => {
         const contract = new ethers.Contract(address, abi, wallet)
 
         setContract(contract)
+        setContractAddress(address)
     }
     // ---------------------------------------------------------------------------------------------------------- //
     // ---------------------------------------------------------------------------------------------------------- //
@@ -244,12 +261,14 @@ const Interface = ({ account, networkName }) => {
         let timer = setTimeout(() => {
             setCount((count) => count + 1);
 
-            //if abi is empty, get it
-            if (abi.length === 0) {
-                getAbi(params.contract)
+            if (contractAddress === undefined) {
+                setContractAddress(params.contract)
             }
-
-            loadContract(params.contract)
+            //if abi is empty, get it
+            if (abi.length === 0 || contract.address !== contractAddress) {
+                getAbi(contractAddress)
+                loadContract(params.contract)
+            }
 
             getLatestEvent(params.contract,abi)
             setLoading(false)
@@ -257,34 +276,42 @@ const Interface = ({ account, networkName }) => {
         return () => clearTimeout(timer)
     })
       if (loading) return (
-        <div className="flex ">
-            <div className="px-5 py-3 container text-left">
+        <main style={{ padding: "1rem 0" }} >
                 <h3 className="Address">Contract Interface</h3>
                     Loading... <br/><Spinner animation="border" variant="primary" />
-                </div>
-        </div>
+        </main>
       )
     //<input variant={variant[action.stateMutability]} type="text" className="form-control" placeholder={inputLabels[action.name]}/>
     // Render ---------------------------------------------------------------------------------------------------------- //
       return (
-        <div className="flex ">
-            <div className="px-5 py-3 text-left">
+        <main style={{ padding: "1rem 0" }} >
                 <h3 className="Address">Contract Interface {getAddress(params.contract)}</h3>
                 <Row>
-                    <Col md={12} xs={12} lg={12} xl={12}>
+                    <Col xl={6} md={12} >
                         <Card className="event-table box">
-                            <Card.Header>
-                            <Row className="align-items-left">
-                                <Col md={3} className="text-left">
-                                    Value: <Form.Control onChange={(e) => setEtherValue(e.target.value)} value={etherValue} type="text" placeholder="wei" />
-                                    <span className="text-muted">{(etherValue / 10 ** 18).toFixed(18)} eth</span>
-                                </Col>
-                                <Col md={2} className="text-left">
-                                    Max Gas: <Form.Control onChange={(e) => setMaximumGas(e.target.value)} value={maximumGas} type="text" placeholder="Default Gas" />
-                                </Col>
 
-                            </Row>
+                            <Card.Header>
+                                <Row className="align-items-left">
+                                    <Col md={4} className="text-left">
+                                        Value: <Form.Control onChange={(e) => setEtherValue(e.target.value)} value={etherValue} type="text" placeholder="wei" />
+                                        <span className="text-muted">{(etherValue / 10 ** 18).toFixed(18)} eth</span>
+                                    </Col>
+                                    <Col md={3} className="text-left">
+                                        Max Gas: <Form.Control onChange={(e) => setMaximumGas(e.target.value)} value={maximumGas} type="text" placeholder="Default Gas" />
+                                    </Col>
+                                    <Col md={5} className="text-left">
+                                        {/* a set of default contract */}
+                                        Contract: <Form.Control as="select" onChange={(e) => setContractAddress(e.target.value)} value={contract}>
+                                            <option value="">{params.contract}</option>
+                                            {contracts.map((item, index) => {
+                                                return <option key={index} value={item.address}>{item.name}</option>
+                                            })}
+                                        </Form.Control>
+
+                                    </Col>
+                                </Row>
                             </Card.Header>
+
                             <Card.Body>
                                 <Card.Text>
                                     <ListGroup variant="flush" className="list-group-item">
@@ -312,15 +339,15 @@ const Interface = ({ account, networkName }) => {
                                     </ListGroup>
                                 </Card.Text>
                             </Card.Body>
+
                         </Card>
                     </Col>
-                    <Col md={12} xs={12} lg={12} xl={12}>
+                    <Col xl={6} md={12}  >
                         <ContractEvents events={events} labels={eventLabels}/>
                     </Col>
                 </Row>
 
-          </div>
-        </div>
+          </main>
     );
 }
 export default Interface
