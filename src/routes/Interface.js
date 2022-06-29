@@ -115,7 +115,7 @@ const Interface = ({ account, networkName }) => {
     const getLatestEvent = async (address,abi) => {
         //const provider = new ethers.providers.JsonRpcProvider(Config.node);
         //const contract = new ethers.Contract(address, abi, provider);
-        const contract1 = await loadContract2(params.contract,abi)
+        const contract1 = await loadContract2(address,abi)
         const topics = contract1.interface.events
 
         //if no key in topics
@@ -155,8 +155,11 @@ const Interface = ({ account, networkName }) => {
         }
     }
 
-    //function to call the function
+    // ---------------------------------------------------------------------------------------------------- //
     const callFunction = async (address, action) => {
+        const contract1 = await loadContract2(address,abi)
+
+        console.log('callFunction',address, action.name)
 
         const inputs = {}
 
@@ -184,11 +187,11 @@ const Interface = ({ account, networkName }) => {
             inputs[action.name] = ''
         }
 
-        //console.log('action.name:',action.name,' inputs:', inputs[action.name], ' maximumGas:', maximumGas, ' etherValue:', etherValue)
+        console.log('action.name:',action.name,' inputs:', inputs[action.name], ' maximumGas:', maximumGas, ' etherValue:', etherValue,abi)
 
         //call payable function 'enter'
         if (action.payable) {
-            await contract[action.name]({value: etherValue, gasLimit: maximumGas})
+            await contract1[action.name]({value: etherValue, gasLimit: maximumGas})
             .then(function(result) {
 
                 outputs[action.name] = <Link target={'_blank'} to={`/tx/${result.hash}`}>{result.hash}</Link>
@@ -196,7 +199,7 @@ const Interface = ({ account, networkName }) => {
                 setOutputs(outputs)
             })
         } else {
-            await contract[action.name](...inputs[action.name],{ gasLimit: maximumGas }).
+            await contract1[action.name](...inputs[action.name],{ gasLimit: maximumGas }).
             then(function(result) {
 
                 if (result.toString().substring(0,2) === '0x') {
@@ -237,6 +240,7 @@ const Interface = ({ account, networkName }) => {
 
     }
 
+    // ---------------------------------------------------------------------------------------------------- //
     const loadContract = async (address) => {
 
         let provider = new ethers.providers.JsonRpcProvider(Config.node);
@@ -253,7 +257,6 @@ const Interface = ({ account, networkName }) => {
         const contract = new ethers.Contract(address, abi, wallet)
 
         setContract(contract)
-        setContractAddress(address)
     }
     // ---------------------------------------------------------------------------------------------------------- //
     // ---------------------------------------------------------------------------------------------------------- //
@@ -267,7 +270,7 @@ const Interface = ({ account, networkName }) => {
             //if abi is empty, get it
             if (abi.length === 0 || contract.address !== contractAddress) {
                 getAbi(contractAddress)
-                loadContract(params.contract)
+                loadContract(params.contract,abi)
             }
 
             getLatestEvent(params.contract,abi)
@@ -277,8 +280,8 @@ const Interface = ({ account, networkName }) => {
     })
       if (loading) return (
         <main style={{ padding: "1rem 0" }} >
-                <h3 className="Address">Contract Interface</h3>
-                    Loading... <br/><Spinner animation="border" variant="primary" />
+            <h3 className="Address">Contract Interface</h3>
+            Loading... <br/><Spinner animation="border" variant="primary" />
         </main>
       )
     //<input variant={variant[action.stateMutability]} type="text" className="form-control" placeholder={inputLabels[action.name]}/>
@@ -302,7 +305,7 @@ const Interface = ({ account, networkName }) => {
                                     <Col md={5} className="text-left">
                                         {/* a set of default contract */}
                                         Contract: <Form.Control as="select" onChange={(e) => setContractAddress(e.target.value)} value={contract}>
-                                            <option value="">{params.contract}</option>
+                                            <option value={params.contract}>{params.contract}</option>
                                             {contracts.map((item, index) => {
                                                 return <option key={index} value={item.address}>{item.name}</option>
                                             })}
