@@ -4,7 +4,7 @@ import NavLastBlock from "./NavLastBlock";
 //import MetamaskConnect from './MetamaskConnect'
 //                    <MetamaskConnect web3Handler={web3Handler} account={account} networkName={networkName} />
 
-const Navigation = ({ web3Handler, account, networkName, stats }) => {
+const Navigation = ({ web3Handler, setNetwork, account, networkName, stats }) => {
     return (
 
         <Navbar expand="lg"variant="dark" classMap="NavBar">
@@ -60,19 +60,21 @@ const Navigation = ({ web3Handler, account, networkName, stats }) => {
                         </NavDropdown>
 
                     </Nav>
-
+                    <Nav className="ml-auto">
+                        <Button variant="outline-light" size="sm" onClick={setNetwork}>Add xETH to Metamask!&nbsp;<img src="https://raw.githubusercontent.com/MetaMask/metamask-extension/develop/app/images/icon-16.png"/></Button>
+                    </Nav>
                     <Nav className="ml-auto">
                         {account ? (
                             <Nav.Link
                                 href={`https://etherscan.coeptix.net/address/${account}`}
                                 rel="noopener noreferrer"
                                 className="button nav-button btn-sm nopadding">
-                                <Button variant="outline-light">
+                                <Button variant="outline-light btn-sm">
                                     {account.slice(0, 6) + '...' + account.slice(36, 42)}
                                 </Button>
                             </Nav.Link>
                         ) : (
-                            <Button onClick={web3Handler} variant="outline-light">Connect Wallet</Button>
+                            <Button onClick={web3Handler} variant="outline-light nav-button btn-sm">Connect Wallet</Button>
                         )}
                     </Nav>
                 </Navbar.Collapse>

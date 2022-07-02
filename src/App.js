@@ -82,6 +82,44 @@ function App() {
 
   }
 
+  const setNetwork = async () => {
+    try {
+        await window.ethereum.request({
+          method: 'wallet_switchEthereumChain',
+          params: [{ chainId: '0x8A96' }],
+        });
+      } catch (switchError) {
+        // This error code indicates that the chain has not been added to MetaMask.
+        if (switchError.code === 4902) {
+          try {
+            await window.ethereum.request({
+              method: 'wallet_addEthereumChain',
+              params: [
+                {
+                  chainId: '0x8A96',
+                  chainName: 'CoeptIX Devnet',
+                  rpcUrls: ['https://ethernode.coeptix.net'] /* ... */,
+                  nativeCurrency: {
+                    name: "CoeptIX ETH",
+                    symbol: "xETH",
+                    decimals: 18,
+                  },
+                  iconUrls: [
+                    'https://etherscan.coeptix.net/logo.svg',
+                    'https://etherscan.coeptix.net/logo192.png'
+                  ],
+                  blockExplorerUrls: ['https://etherscan.coeptix.net']
+                },
+              ],
+            });
+          } catch (addError) {
+            // handle "add" error
+          }
+        }
+        // handle other "switch" errors
+      }
+  }
+
   const loadNetwork = async () => {
 
     //get the network chain id
@@ -122,6 +160,8 @@ function App() {
       setNetworkName('Arbitrum One')
     } else if (chainIdInt === 43114) {
       setNetworkName('Avalanche Mainnet')
+    } else if (chainIdInt === 75000) {
+      setNetworkName('Resin')
     } else {
       setNetworkName('Unknown '+chainIdInt)
     }
@@ -184,8 +224,8 @@ function App() {
       <div className="App">
         <div>
           {window.location.pathname === '/'
-          ? <Navigation web3Handler={web3Handler} account={account} networkName={networkName} stats={stats} />
-          : <Navigation web3Handler={web3Handler} account={account} networkName={networkName} stats={stats} />
+          ? <Navigation web3Handler={web3Handler} setNetwork={setNetwork} account={account} networkName={networkName} stats={stats} />
+          : <Navigation web3Handler={web3Handler} setNetwork={setNetwork} account={account} networkName={networkName} stats={stats} />
       }
         </div>
         <div className="container extra-container">

@@ -114,7 +114,9 @@ const Interface = ({ account, networkName }) => {
     // ---------------------------------------------------------------------------------------------------- //
     const getLatestEvent = async (address,abi) => {
         //const provider = new ethers.providers.JsonRpcProvider(Config.node);
-        //const contract = new ethers.Contract(address, abi, provider);
+        //let provider = new ethers.providers.WebSocketProvider(Config.node);
+
+        //const contract1 = new ethers.Contract(address, abi, provider);
         const contract1 = await loadContract2(address,abi)
         const topics = contract1.interface.events
 
@@ -244,6 +246,7 @@ const Interface = ({ account, networkName }) => {
     const loadContract = async (address) => {
 
         let provider = new ethers.providers.JsonRpcProvider(Config.node);
+
 
         //verify if metamask is connected
         if (window.ethereum) {
