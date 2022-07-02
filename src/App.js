@@ -98,17 +98,17 @@ function App() {
                 {
                   chainId: '0x8A96',
                   chainName: 'CoeptIX Devnet',
+                  rpcUrls: ['https://ethernode.coeptix.net'] /* ... */,
                   nativeCurrency: {
-                    name: "xETH",
+                    name: "CoeptIX ETH",
                     symbol: "xETH",
                     decimals: 18,
                   },
-                  rpcUrls: ['https://ethernode.coeptix.net'] /* ... */,
-                  blockExplorerUrls: ['https://etherscan.coeptix.net'],
                   iconUrls: [
-                    'https://etherscan.coeptix.net/logo192.png',
-                    'https://etherscan.coeptix.net/logo.svg'
-                  ]
+                    'https://etherscan.coeptix.net/logo.svg',
+                    'https://etherscan.coeptix.net/logo192.png'
+                  ],
+                  blockExplorerUrls: ['https://etherscan.coeptix.net']
                 },
               ],
             });
