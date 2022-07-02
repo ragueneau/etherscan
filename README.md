@@ -1,6 +1,6 @@
 # Geth Explorer
 
-An explorer for private EVM compatible blockchain to learn about ethereum, solidity, web3js, etherjs, reactjs and more!
+An EVM compatible blockchain project to learn about ethereum, solidity, web3js, etherjs, reactjs and more!
 
 # Installation
 
@@ -19,7 +19,9 @@ npm run start
 
 ### Docker
 
-
+```
+docker run -p '8080:3000' -d ragueneau/etherscan:latest
+```
 
 #
 https://etherscan.coeptix.net/
