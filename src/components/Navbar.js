@@ -69,12 +69,12 @@ const Navigation = ({ web3Handler, setNetwork, account, networkName, stats }) =>
                                 href={`https://etherscan.coeptix.net/address/${account}`}
                                 rel="noopener noreferrer"
                                 className="button nav-button btn-sm nopadding">
-                                <Button variant="outline-light">
+                                <Button variant="outline-light btn-sm">
                                     {account.slice(0, 6) + '...' + account.slice(36, 42)}
                                 </Button>
                             </Nav.Link>
                         ) : (
-                            <Button onClick={web3Handler} variant="outline-light">Connect Wallet</Button>
+                            <Button onClick={web3Handler} variant="outline-light nav-button btn-sm">Connect Wallet</Button>
                         )}
                     </Nav>
                 </Navbar.Collapse>
