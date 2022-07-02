@@ -1,6 +1,6 @@
 # Geth Explorer
 
-An EVM compatible blockchain project to learn about ethereum, solidity, web3js, etherjs, reactjs and more!
+An EVM compatible blockchain explorer project to learn about ethereum, solidity, web3js, etherjs, reactjs and more!
 
 # Installation
 
