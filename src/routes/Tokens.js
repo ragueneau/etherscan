@@ -36,12 +36,41 @@ const Tokens = ({ networkName }) => {
     //    return `https://chart.googleapis.com/chart?cht=qr&chs=300x300&chl=${tokenAddress}`
     //}
 
+    const addToken = async (tokenAddress) => {
+
+        const response = await axios.get(Config.restAPI + '/api?module=token&action=tokeninfo&contractaddress='+tokenAddress+'&apikey=' + Config.ApiKeyToken)
+        const token = response.data.result
+
+        const tokenSymbol = token.symbol;
+        const tokenDecimals = token.decimals;
+        const tokenImage = token.image;
+
+        try {
+
+            const wasAdded = await window.ethereum.request({
+                method: 'wallet_watchAsset',
+                params: {
+                    type: 'ERC20', // Initially only supports ERC20, but eventually more!
+                    options: {
+                        address: tokenAddress, // The address that the token is at.
+                        symbol: tokenSymbol, // A ticker symbol or shorthand, up to 5 chars.
+                        decimals: tokenDecimals, // The number of decimals in the token
+                        image: tokenImage, // A string url of the token logo
+                    },
+                },
+            });
+            console.log('wasAdded:', wasAdded)
+        } catch (error) {
+            console.log('error:', error)
+        }
+    }
+
     useEffect(() => {
         getTokenList()
       }, [])
       if (loading) return (
         <main style={{ padding: "1rem 0" }}>
-          <h4>Tokens</h4>
+          <h4 className='Title'>ERC20 Tokens</h4>
           <Spinner animation="border" style={{ display: 'flex' }} />
         </main>
       )
@@ -49,14 +78,14 @@ const Tokens = ({ networkName }) => {
       // Render ---------------------------------------------------------------------------------------------------------- //
       return (
         <main style={{ padding: "1rem 0" }}>
-            <h4>ERC20 Tokens</h4>
+            <h4 className='Title'>ERC20 Tokens</h4>
             <Row className="justify-content-center">
                 <Col md={6} lg={12}>
                     <Card className="event-table">
                         <Card.Header>
                         </Card.Header>
                         <Card.Body>
-                            <TokenList tokens={items} />
+                            <TokenList tokens={items} addToken={addToken}/>
                         </Card.Body>
                     </Card>
                 </Col>
