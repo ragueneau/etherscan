@@ -321,7 +321,7 @@ function App() {
             <Row>
               <div className="col-md-3">
                 <p>
-                EVM Explorer is a tool for navigating and analyzing EVM based blockchains. Blockchain explorer for Ethereum Networks.
+                EVM Explorer is a tool for navigating and analyzing public and private EVM based blockchains. Blockchain explorer for Ethereum Networks.
                 </p>
                 </div>
               <div className="col-md-9">

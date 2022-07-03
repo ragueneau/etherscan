@@ -8,7 +8,7 @@ import { getProvider, isContract } from '../class/Evm'
 const LatestBlocks = ({items}) => {
     return (
         <Card classMap="shadowCard">
-            <Card.Header>Latest Blocks</Card.Header>
+            <Card.Header className="std-card-title"></Card.Header>
             <Card.Body className="std-card-info">
                 <table className="table table-striped">
                     <thead>
