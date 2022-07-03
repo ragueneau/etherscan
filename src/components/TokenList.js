@@ -1,8 +1,9 @@
+import { left } from "@popperjs/core";
 import React from "react";
-import { Button, Table } from 'react-bootstrap'
+import { Image, Button, Table } from 'react-bootstrap'
 import { Link } from "react-router-dom"
 
-const TokenList = ({tokens}) => {
+const TokenList = ({tokens, addToken}) => {
     return (
         <Table striped bordered hover>
             <thead>
@@ -19,7 +20,11 @@ const TokenList = ({tokens}) => {
             <tbody>
                 {tokens ? tokens.map((item, idx) => (
                     <tr key={idx}>
-                        <td>{item.name}</td>
+                        <td style={{textAlign: left}}>
+                            {item.name !== '' ? (
+                                <Image thumbnail src={item.image} alt={item.name} onClick={() => addToken(item.address)} title={'Add '+item.name+' to metamask'} style={{width: '30px'}} />
+                            ) : ( null )} {item.name}
+                        </td>
                         <td>{item.symbol}</td>
                         <td><Link title={item.address} to={`/address/${item.address}`}>{item.address.slice(0, 9) + '...'+item.address.slice(33, 42)}</Link></td>
                         <td>{item.decimals}</td>
