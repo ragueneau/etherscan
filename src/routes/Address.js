@@ -111,7 +111,6 @@ const Address = ({ networkName }) => {
         setLoading(false)
     }
 
-
     // -=< Effects >=- ------------------------------------------------------------------------------------------------------ //
     useEffect(() => {
         let timer = setTimeout(() => {
