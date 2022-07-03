@@ -153,7 +153,7 @@ const Address = ({ networkName }) => {
 
     if (loading) return (
         <main style={{ padding: "1rem 0" }}>
-            <h4 className="Address">Address: {getAddress(params.walletAddress)}</h4>
+            <h4 className="Title">Address {getAddress(params.walletAddress)}</h4>
             <Spinner animation="border" variant="primary" />
         </main>
     )
@@ -161,7 +161,7 @@ const Address = ({ networkName }) => {
     return (
         <main style={{ padding: "1rem 0" }}>
 
-                <h4 className="Address">Address: {getAddress(params.walletAddress)}</h4>
+                <h4 className="Title">Address {getAddress(params.walletAddress)}</h4>
 
                 <Row className="justify-content-center">
                     <Col xs={12} md={12} lg={6}>
