@@ -29,9 +29,9 @@ gris: e9e9e9
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   color: #282c34;
   margin: 0;
-  height: 100vh;
+
   width: 100vw;
-  min-height: auto;
+  min-height: 1024px;
 }
 
 .container {
@@ -274,7 +274,7 @@ h5 {
   float: left;
   width: 100%;
   padding: 0px;
-  margin: 0px;
+  margin: 0px 0px 15px 0px;
   border: 0px solid #e4e1e1;
 }
 

@@ -95,7 +95,7 @@ const Token = ({ networkName }) => {
       }, [])
       if (loading) return (
         <main style={{ padding: "1rem 0" }}>
-          <h5>Loading token {params.tokenAddress}</h5>
+          <h4 className='Title'>Loading token {params.tokenAddress}</h4>
           <Spinner animation="border" style={{ display: 'flex' }} />
         </main>
       )
@@ -104,7 +104,7 @@ const Token = ({ networkName }) => {
       // Render ---------------------------------------------------------------------------------------------------------- //
       return (
         <main style={{ padding: "1rem 0" }}>
-                <h5>Token {tokenAddress}</h5>
+                <h4 className='Title'>Token {tokenAddress}</h4>
 
                 <Row className="justify-content-center">
                     <Col xs={12} md={12} lg={6}>

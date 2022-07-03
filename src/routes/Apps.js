@@ -1,6 +1,6 @@
 import Config from '../config.json'
 import { useState, useEffect } from 'react'
-import { Spinner } from 'react-bootstrap'
+import { Col, Row,Spinner } from 'react-bootstrap'
 import { ethers } from "ethers"
 
 import Applications from '../components/Applications'
@@ -32,19 +32,21 @@ const Apps = ({networkName }) => {
       }, [])
       if (loading) return (
         <main style={{ padding: "1rem 0" }}>
-          <h5>Applications</h5>
+          <h4 className='Title'>Applications</h4>
           Loading Apps<Spinner animation="border" style={{ display: 'flex' }} />
         </main>
     )
 
     // -------------------------------------------------------------------------------------------------------------------- //
     return (
-        <div className="flex justify-center">
-            <div className="px-5 py-3 container">
-                <h5>Applications</h5>
-                <Applications applications={apps} />
-            </div>
-        </div>
+        <main style={{ padding: "1rem 0" }}>
+            <h4 className='Title'>Applications</h4>
+            <Row>
+                <Col>
+                    <Applications applications={apps} />
+                </Col>
+            </Row>
+        </main>
     );
 };
 export default Apps;

@@ -152,22 +152,18 @@ const TokensLogs = ({ networkName }) => {
         return () => clearTimeout(timer)
     })
       if (loading) return (
-        <div className="flex ">
-            <div className="px-5 py-3 container text-left">
-                <h4>Tokens Transfers Logs</h4>
+        <main style={{ padding: "1rem 0" }}>
+                <h4 className='Title'>Tokens Transfers Logs</h4>
                     Loading... <br/><Spinner animation="border" variant="primary" />
-                </div>
-          </div>
+                </main>
       )
 
       // Render ---------------------------------------------------------------------------------------------------------- //
       return (
-        <div className="flex justify-center">
-            <div className="px-5 py-3 container">
-              <h4>ERC20 Tokens Transfers</h4>
-              <Card className="event-table">
-                <Card.Header>
-                </Card.Header>
+        <main style={{ padding: "1rem 0" }}>
+            <h4  className='Title'>ERC20 Tokens Transfers</h4>
+            <Card className="event-table">
+                <Card.Header></Card.Header>
                 <Card.Body>
                     <Table striped bordered hover>
                         <thead>
@@ -181,24 +177,23 @@ const TokensLogs = ({ networkName }) => {
                                 <th>To</th>
                                 <th>Value</th>
                             </tr>
-                            </thead>
-                            {events ? events.map((event, idx) => (
-                                <tr key={idx}>
-                                    <td><Link to={`/block/${event.blockNumber}`}>{event.blockNumber}</Link></td>
-                                    <td>{event.event}</td>
-                                    <td><Link to={`/tx/${event.transactionHash}`}>{event.transactionIndex}</Link></td>
-                                    <td>{event.logIndex}</td>
-                                    <td><Link to={`/address/${event.address}`}>{event.symbol}</Link></td>
-                                    <td><Link to={`/address/${event.args[0]}`}>{event.args[0].slice(0, 5) + '...' + event.args[0].slice(38, 42)}</Link></td>
-                                    <td><Link to={`/address/${event.args[1]}`}>{event.args[1].slice(0, 5) + '...' + event.args[1].slice(38, 42)}</Link></td>
-                                    <td>{event.args[2] / 10 ** 18}</td>
-                                </tr>
-                            )): null}
-                        </Table>
-                    </Card.Body>
-                </Card>
-            </div>
-        </div>
+                        </thead>
+                        {events ? events.map((event, idx) => (
+                            <tr key={idx}>
+                                <td><Link to={`/block/${event.blockNumber}`}>{event.blockNumber}</Link></td>
+                                <td>{event.event}</td>
+                                <td><Link to={`/tx/${event.transactionHash}`}>{event.transactionIndex}</Link></td>
+                                <td>{event.logIndex}</td>
+                                <td><Link to={`/address/${event.address}`}>{event.symbol}</Link></td>
+                                <td><Link to={`/address/${event.args[0]}`}>{event.args[0].slice(0, 5) + '...' + event.args[0].slice(38, 42)}</Link></td>
+                                <td><Link to={`/address/${event.args[1]}`}>{event.args[1].slice(0, 5) + '...' + event.args[1].slice(38, 42)}</Link></td>
+                                <td>{event.args[2] / 10 ** 18}</td>
+                            </tr>
+                        )): null}
+                    </Table>
+                </Card.Body>
+            </Card>
+        </main>
     );
 }
 export default TokensLogs

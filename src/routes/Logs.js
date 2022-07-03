@@ -44,7 +44,7 @@ const Logs = ({ networkName }) => {
             const signature = keccak256(toUtf8Bytes(key));
 
             //get events
-            await contract.queryFilter(signature, -100).then(function(filter) {
+            await contract.queryFilter(signature, -1000).then(function(filter) {
 
                 //for event in the filter array
                 for (let i = 0; i < filter.length; i++) {
@@ -103,20 +103,18 @@ const Logs = ({ networkName }) => {
     })
       if (loading) return (
         <main style={{ padding: "1rem 0" }}>
-            <h3>Contract Event Logs</h3>
+            <h4 className='Title'>Contract Event Logs</h4>
             <Spinner animation="border" style={{ display: 'flex' }} />
         </main>
       )
 
       // Render ---------------------------------------------------------------------------------------------------------- //
       return (
-        <div className="flex justify-center">
-            <div className="px-5 py-3 container">
-              <h3>Contract Event Logs</h3>
+        <main style={{ padding: "1rem 0" }}>
+              <h4 className='Title'>Contract Event Logs</h4>
               Contract: <Link to={`/address/${params.contract}`}>{params.contract}</Link> {copyButton(params.contract)}<br/>
                 <ContractEvents events={events}/>
-            </div>
-        </div>
+            </main>
     );
 }
 export default Logs
