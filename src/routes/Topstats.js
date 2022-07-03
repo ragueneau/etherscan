@@ -17,19 +17,17 @@ const Topstats = ({ networkName }) => {
       }, [])
       if (loading) return (
         <main style={{ padding: "1rem 0" }}>
-          <h5>Top Statistics</h5>
+          <h4 className='Title'>Top Statistics</h4>
           <Spinner animation="border" style={{ display: 'flex' }} />
         </main>
       )
 
       // Render ---------------------------------------------------------------------------------------------------------- //
       return (
-        <div className="flex justify-center">
-            <div className="px-5 py-3 container">
-                <h5>Top Statistics</h5>
+        <main style={{ padding: "1rem 0" }}>
+          <h4 className='Title'>Top Statistics</h4>
 
-            </div>
-        </div>
+        </main>
     );
 }
 export default Topstats
