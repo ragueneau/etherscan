@@ -8,6 +8,19 @@ const AddressTxTable = ({txs, walletAddress}) => {
         <Card className="infobox">
             <Card.Header >
                 <Card.Title><b>Transaction List</b></Card.Title>
+                <Nav variant="tabs" defaultActiveKey="#first">
+                    <Nav.Item>
+                        <Nav.Link href="#first">Active</Nav.Link>
+                    </Nav.Item>
+                    <Nav.Item>
+                        <Nav.Link href="#link">Link</Nav.Link>
+                </Nav.Item>
+                <Nav.Item>
+                    <Nav.Link href="#disabled" disabled>
+                    Disabled
+                    </Nav.Link>
+                </Nav.Item>
+                </Nav>
             </Card.Header>
             <Card.Body>
                 <Table className="event-table" striped bordered hover responsive variant="light">
