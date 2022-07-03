@@ -62,14 +62,12 @@ const Txs = ({ networkName }) => {
 
       // Render ---------------------------------------------------------------------------------------------------------- //
       return (
-        <div className="flex justify-center">
-            <div className="px-5 py-3 container">
-              <h5>Transactions</h5>
-              For block #{params.blockNumber}
-              <TransactionList txs={blockContent} />
-              A total of {blockContent.length} transaction(s) found.
-            </div>
-        </div>
+        <main style={{ padding: "1rem 0" }}>
+            <h5>Transactions</h5>
+            For block #{params.blockNumber}
+            <TransactionList txs={blockContent} />
+            A total of {blockContent.length} transaction(s) found.
+        </main>
     );
 }
 export default Txs

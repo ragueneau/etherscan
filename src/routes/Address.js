@@ -8,7 +8,7 @@ import { ethers } from "ethers"
 
 // -=< React.Component >=- ------------------------------------------------------------------------------------------------- //
 import { useState, useEffect } from 'react'
-import { Button, Row, Col, Spinner } from 'react-bootstrap'
+import { Card, Nav, Button, Row, Col, Spinner } from 'react-bootstrap'
 import { useParams } from "react-router-dom"
 
 // -=< Components >=- ------------------------------------------------------------------------------------------------------ //
@@ -36,6 +36,8 @@ const Address = ({ networkName }) => {
         value: 0.00
     })
     const [contract, setContract] = useState(false)
+    const [activeTab, setActiveTab] = useState('#tx')
+    const [cardbody, setCardbody] = useState('')
 
     // -=< Functions >=- ------------------------------------------------------------------------------------------------------ //
     const get_account_txlist = async (addr) => {
@@ -118,9 +120,30 @@ const Address = ({ networkName }) => {
 
             getOnChainAddressInfo()
 
-            get_account_txlist(params.walletAddress)
+
+            // Transactions Tab //
+            if (activeTab === '#tx')  {
+                get_account_txlist(params.walletAddress)
+
+                const c = (
+                    <AddressTxTable txs={txs} walletAddress={params.walletAddress}/>
+                )
+                setCardbody(c)
+
+            } else if (activeTab === '#inttx') {
+                const c = (
+                    <AddressOverview address={address}/>
+                )
+                setCardbody(c)
+            } else if (activeTab === '#int') {
+                const c = (
+                    <AddressMoreInfo address={address}/>
+                )
+                setCardbody(c)
+            }
             //console.log(params.walletAddress,address.address)
 
+            console.log(activeTab)
         }, 1000);
 
         return () => clearTimeout(timer)
@@ -131,8 +154,8 @@ const Address = ({ networkName }) => {
     if (loading) return (
         <main style={{ padding: "1rem 0" }}>
             <h4 className="Address">Address: {getAddress(params.walletAddress)}</h4>
-                <Spinner animation="border" variant="primary" />
-      </main>
+            <Spinner animation="border" variant="primary" />
+        </main>
     )
     // -=< Render >=- ------------------------------------------------------------------------------------------------------ //
     return (
@@ -158,7 +181,30 @@ const Address = ({ networkName }) => {
                 </Row>
                 <Row>
                     <Col xs={12} md={12} lg={12}>
-                        <AddressTxTable txs={txs} walletAddress={params.walletAddress}/>
+                        <Card className="infobox">
+                            <Card.Header>
+                                <Card.Title><b>Transactions List</b></Card.Title>
+                                <Nav variant="tabs" defaultActiveKey="#tx" onSelect={(selectedKey) => setActiveTab(selectedKey)} >
+                                    <Nav.Item>
+                                        <Nav.Link href="#tx">Transactions</Nav.Link>
+                                    </Nav.Item>
+                                    <Nav.Item>
+                                        <Nav.Link href="#inttx">Internal Tx</Nav.Link>
+                                    </Nav.Item>
+                                    <Nav.Item>
+                                        <Nav.Link href="#int">Contracts</Nav.Link>
+                                    </Nav.Item>
+                                    <Nav.Item>
+                                        <Nav.Link href="#disabled" disabled>
+                                        Disabled
+                                        </Nav.Link>
+                                    </Nav.Item>
+                                </Nav>
+                            </Card.Header>
+                            <Card.Body>
+                                {cardbody}
+                            </Card.Body>
+                        </Card>
                     </Col>
                 </Row>
             </main>

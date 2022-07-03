@@ -7,7 +7,7 @@ import Config from './config.json'
 
 // Modules ----------------------------------------------------------------------------------------- //
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import { Spinner } from 'react-bootstrap'
+import { Row,Col,Button, Spinner } from 'react-bootstrap'
 import { useState, useEffect } from 'react'
 import { ethers } from "ethers"
 
@@ -287,10 +287,10 @@ function App() {
               <Interface networkName={networkName} account={account}/>
             } />
             <Route path="/interface/:contract" element={
-              <Interface networkName={networkName} account={account}/>
+              <Interface networkName={networkName} account={account} web3Handler={web3Handler}/>
             } />
             <Route path="/interfaces" element={
-              <Interfaces networkName={networkName} account={account}/>
+              <Interfaces networkName={networkName} account={account} web3Handler={web3Handler}/>
             } />
 
             <Route path="/profile" element={
@@ -318,18 +318,25 @@ function App() {
         </div>
         <div className="footer">
           <div className="container">
-            <div className="row">
-              <div className="col-md-6">
+            <Row>
+              <div className="col-md-3">
                 <p>
-                  <a href="/">link 1</a>
+                EVM Explorer is a tool for navigating and analyzing EVM based blockchains. Blockchain explorer for Ethereum Networks.
                 </p>
                 </div>
-              <div className="col-md-6">
+              <div className="col-md-9">
                 <p className="text-right">
-                  <a href="/">Link 2</a>
+                  <Button variant="secondary" size="sm" onClick={setNetwork}>Add xETH to Metamask!&nbsp;<img src="https://raw.githubusercontent.com/MetaMask/metamask-extension/develop/app/images/icon-16.png"/></Button>
                 </p>
               </div>
-            </div>
+            </Row>
+            <Row>
+              <Col md={12}>
+                <p>
+                  Copyright <a href="https://www.coeptix.com" target="_blank" rel="noopener noreferrer">CoeptIX</a> 2022. All rights reserved.
+                </p>
+                </Col>
+            </Row>
           </div>
         </div>
       </div>

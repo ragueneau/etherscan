@@ -4,11 +4,11 @@ import { Link } from "react-router-dom";
 const BlockInfo = ({ block }) => {
       // Render ---------------------------------------------------------------------------------------------------------- //
       return (
-        <Card>
+        <Card className="std-card-info">
             <Card.Header>
                 <Card.Title className="std-card-title">Overview</Card.Title>
             </Card.Header>
-            <Card.Body className="std-card-info">
+            <Card.Body className="std-card-info-body">
                 <ListGroup variant="flush">
                     <ListGroup.Item><b>Block Number</b>: <i>{block.number}</i> <Link to={`/block/${block.number-1}`} className="btn btn-primary btn-card">Previous</Link> <Link to={`/block/${block.number+1}`} className="btn btn-primary btn-card">Next</Link></ListGroup.Item>
                     <ListGroup.Item><b>Timestamp</b>: {block.timediff} sec(s) ago {block.humandate} </ListGroup.Item>

@@ -7,7 +7,7 @@ const ContractEvents = ({ events }) => {
     return (
         <Card className="event-table">
             <Card.Header>
-                <Card.Title>Contract Events</Card.Title>
+                <Card.Title className="Title">Contract Events</Card.Title>
             </Card.Header>
             <Card.Body>
                 <Table striped bordered hover responsive size="sm" className="table-sm table-responsive" >

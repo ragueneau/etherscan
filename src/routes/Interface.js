@@ -1,7 +1,7 @@
 import Config from '../config.json'
 import { useState, useEffect } from 'react'
 import { ethers } from "ethers"
-import { Button, Row, Col, Card, Spinner, ListGroup, Form } from 'react-bootstrap'
+import { Nav, Button, Row, Col, Card, Spinner, ListGroup, Form } from 'react-bootstrap'
 import { useParams } from 'react-router-dom'
 import { Link } from "react-router-dom";
 
@@ -31,7 +31,7 @@ const contracts = [
     }
 ];
 
-const Interface = ({ account, networkName }) => {
+const Interface = ({ account, networkName, web3Handler }) => {
     const params = useParams()
     const variant = {
         'nonpayable': 'warning',
@@ -283,7 +283,7 @@ const Interface = ({ account, networkName }) => {
     })
       if (loading) return (
         <main style={{ padding: "1rem 0" }} >
-            <h3 className="Address">Contract Interface</h3>
+            <h3 className="Title Address">Contract Interface</h3>
             Loading... <br/><Spinner animation="border" variant="primary" />
         </main>
       )
@@ -297,6 +297,17 @@ const Interface = ({ account, networkName }) => {
                         <Card className="event-table box">
 
                             <Card.Header>
+                                <Row >
+                                    <Col md={2}>
+                                    {account ? (
+                                        <Button variant="secondary btn-sm">
+                                            {account.slice(0, 6) + '...' + account.slice(36, 42)}
+                                        </Button>
+                                    ) : (
+                                        <Button onClick={web3Handler} variant="secondary nav-button btn-sm">Connect Wallet</Button>
+                                    )}
+                                    </Col>
+                                </Row>
                                 <Row className="align-items-left">
                                     <Col md={4} className="text-left">
                                         Value: <Form.Control onChange={(e) => setEtherValue(e.target.value)} value={etherValue} type="text" placeholder="wei" />
