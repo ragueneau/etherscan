@@ -54,7 +54,7 @@ const Txs = ({ networkName }) => {
     })
       if (loading) return (
         <main style={{ padding: "1rem 0" }}>
-          <h5>Transactions</h5>
+          <h4 className='Title'>Transactions</h4>
           Loading transaction for block #{params.blockNumber}
           <Spinner animation="border" style={{ display: 'flex' }} />
         </main>
@@ -63,7 +63,7 @@ const Txs = ({ networkName }) => {
       // Render ---------------------------------------------------------------------------------------------------------- //
       return (
         <main style={{ padding: "1rem 0" }}>
-            <h5>Transactions</h5>
+            <h4 className='Title'>Transactions</h4>
             For block #{params.blockNumber}
             <TransactionList txs={blockContent} />
             A total of {blockContent.length} transaction(s) found.
