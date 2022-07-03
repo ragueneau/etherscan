@@ -316,6 +316,22 @@ function App() {
             } />
           </Routes>)}
         </div>
+        <div className="footer">
+          <div className="container">
+            <div className="row">
+              <div className="col-md-6">
+                <p>
+                  <a href="/">link 1</a>
+                </p>
+                </div>
+              <div className="col-md-6">
+                <p className="text-right">
+                  <a href="/">Link 2</a>
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </BrowserRouter>
   );
