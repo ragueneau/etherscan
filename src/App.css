@@ -150,7 +150,7 @@ h5 {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  font-size: calc(8px + 1vmin);
+  font-size: calc(4px + 1vmin);
   color: white;
 }
 

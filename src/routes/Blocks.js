@@ -86,7 +86,7 @@ const Blocks = ({ networkName }) => {
     if (loading) {
         return (
             <main style={{ padding: "1rem 0" }}>
-                <h2 className="Address">Latest Blocks</h2>
+                <h4 className="Title">Latest Blocks</h4>
                 <Row >
                     <Col xs={12} md={12} lg={12} xl={12}>
                         <Card classMap="shadowCard">
@@ -104,7 +104,7 @@ const Blocks = ({ networkName }) => {
     } else {
         return (
             <main style={{ padding: "1rem 0" }}>
-                <h2 className="Address">Latest Blocks</h2>
+                <h4 className="Title">Latest Blocks</h4>
                 <Row >
                     <Col xs={12} md={12} lg={12} xl={12}>
                         <LatestBlocksExtented items={items} />

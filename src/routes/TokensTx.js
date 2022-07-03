@@ -38,42 +38,42 @@ const TokensLogs = ({ networkName }) => {
                 provider = new ethers.providers.Web3Provider(window.ethereum);
             }
 
-                const contract = new ethers.Contract(token.address, abi, provider);
-                const topics = contract.interface.events
+            const contract = new ethers.Contract(token.address, abi, provider);
+            const topics = contract.interface.events
 
-                for (let key in topics) {
-                    //convert the key to bytelike
-                    const signature = keccak256(toUtf8Bytes(key));
+            for (let key in topics) {
+                //convert the key to bytelike
+                const signature = keccak256(toUtf8Bytes(key));
 
-                    //get events
-                    contract.queryFilter(signature, -1).then(function(filter) {
+                //get events
+                contract.queryFilter(signature, -1).then(function(filter) {
 
-                        //for event in the filter array
-                        for (let i = 0; i < filter.length; i++) {
-                            const event = filter[i]
-                            event.txkey = event.blockNumber +"-"+ (event.transactionIndex+1000) +"-"+ (event.logIndex+1000) +"-"+ event.transactionHash
+                    //for event in the filter array
+                    for (let i = 0; i < filter.length; i++) {
+                        const event = filter[i]
+                        event.txkey = event.blockNumber +"-"+ (event.transactionIndex+1000) +"-"+ (event.logIndex+1000) +"-"+ event.transactionHash
 
-                            event.name = token.name
-                            event.symbol = token.symbol
+                        event.name = token.name
+                        event.symbol = token.symbol
 
-                            // insert if transactionHash is not in the array
-                            if ( !events.find(item => item.txkey === event.txkey) ) {
-                                events.unshift(event)
-                            }
+                        // insert if transactionHash is not in the array
+                        if ( !events.find(item => item.txkey === event.txkey) ) {
+                            events.unshift(event)
                         }
-                        //reverse sort by txkey
-                        events.sort((a, b) => {
-                            if (a.txkey < b.txkey) {
-                                return 1;
-                            }
-                            if (a.txkey > b.txkey) {
-                                return -1;
-                            }
-                            return 0;
-                        })
-                        setEvents(events)
+                    }
+                    //reverse sort by txkey
+                    events.sort((a, b) => {
+                        if (a.txkey < b.txkey) {
+                            return 1;
+                        }
+                        if (a.txkey > b.txkey) {
+                            return -1;
+                        }
+                        return 0;
                     })
-                }
+                    setEvents(events)
+                })
+            }
         }
     }
 

@@ -17,7 +17,7 @@ const Home = ({ networkName, account }) => {
     const [count, setCount] = useState(0);
     const [loading, setLoading] = useState(false)
     const [items, setItems] = useState([])
-    
+
     const [txs, setTxs] = useState([])
     const [pendingTxs, setPendingTxs] = useState([])
     const [lastBlock, setLastBlock] = useState(0)
