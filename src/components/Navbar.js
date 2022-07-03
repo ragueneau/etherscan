@@ -12,13 +12,12 @@ const Navigation = ({ web3Handler, setNetwork, account, networkName, stats }) =>
                 <Navbar.Brand href="/" >
                     <img
                         src="/logo192.png"
-                        width="30"
-                        height="30"
+                        width="32"
+                        height="32"
                         className="d-inline-block align-top"
                         />
                     &nbsp; <span className="navbar-brand ">EVM Explorer</span>
                 </Navbar.Brand>
-                <NavLastBlock stats={stats} network={networkName}/>
                 <Navbar.Toggle aria-controls="responsive-navbar-nav" />
                 <Navbar.Collapse id="responsive-navbar-nav">
                     <Nav className="me-auto">
@@ -60,24 +59,10 @@ const Navigation = ({ web3Handler, setNetwork, account, networkName, stats }) =>
                         </NavDropdown>
 
                     </Nav>
-                    <Nav className="ml-auto">
-                        <Button variant="outline-light" size="sm" onClick={setNetwork}>Add xETH to Metamask!&nbsp;<img src="https://raw.githubusercontent.com/MetaMask/metamask-extension/develop/app/images/icon-16.png"/></Button>
-                    </Nav>
-                    <Nav className="ml-auto">
-                        {account ? (
-                            <Nav.Link
-                                href={`https://etherscan.coeptix.net/address/${account}`}
-                                rel="noopener noreferrer"
-                                className="button nav-button btn-sm nopadding">
-                                <Button variant="outline-light btn-sm">
-                                    {account.slice(0, 6) + '...' + account.slice(36, 42)}
-                                </Button>
-                            </Nav.Link>
-                        ) : (
-                            <Button onClick={web3Handler} variant="outline-light nav-button btn-sm">Connect Wallet</Button>
-                        )}
-                    </Nav>
+
                 </Navbar.Collapse>
+                <NavLastBlock stats={stats} network={networkName}/>
+
             </Container>
         </Navbar>
     )

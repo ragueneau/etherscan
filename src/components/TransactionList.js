@@ -8,7 +8,7 @@ const TransactionList = ({txs}) => {
     return (
         <Card >
             <Card.Header>
-                <Card.Title>Transaction List</Card.Title>
+                <Card.Title className="std-card-title">Transaction List</Card.Title>
             </Card.Header>
             <Card.Body>
                 <Table striped bordered hover responsive>
