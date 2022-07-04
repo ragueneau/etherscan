@@ -129,8 +129,8 @@ const Address = ({ networkName }) => {
         let timer = setTimeout(() => {
             setCount((count) => count + 1);
 
-            //getOnChainAddressInfo()
-            getAccountInfo()
+            getOnChainAddressInfo()
+            //getAccountInfo()
 
             // Transactions Tab //
             if (activeTab === '#tx')  {
