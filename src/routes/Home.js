@@ -213,7 +213,7 @@ const Home = ({ networkName, account }) => {
     })
 
     if (loading) return (
-        <main style={{ padding: "1rem 0" }}>
+        <main style={{ padding: "1rem 0" }} className='app-body'>
             <h2>Loading the latest blocks...</h2>
             <Spinner animation="border" style={{ display: 'flex' }} />
         </main>
@@ -221,7 +221,7 @@ const Home = ({ networkName, account }) => {
 
     // Render ---------------------------------------------------------------------------------------------------------- //
     return (
-        <main style={{ padding: "1rem 0" }} >
+        <main style={{ padding: "1rem 0" }} className='app-body'>
             <h2>EVM Blockchain Explorer</h2>
 
             <SearchBar />

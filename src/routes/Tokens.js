@@ -69,7 +69,7 @@ const Tokens = ({ networkName }) => {
         getTokenList()
       }, [])
       if (loading) return (
-        <main style={{ padding: "1rem 0" }}>
+        <main style={{ padding: "1rem 0" }} className='app-body'>
           <h4 className='Title'>ERC20 Tokens</h4>
           Loading... <br/><Spinner animation="border" variant="secondary" />
         </main>
@@ -77,7 +77,7 @@ const Tokens = ({ networkName }) => {
 
       // Render ---------------------------------------------------------------------------------------------------------- //
       return (
-        <main style={{ padding: "1rem 0" }}>
+        <main style={{ padding: "1rem 0" }} className='app-body'>
             <h4 className='Title'>ERC20 Tokens</h4>
             <Row className="justify-content-center">
                 <Col md={12} lg={12}>

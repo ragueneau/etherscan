@@ -14,7 +14,7 @@ const Contract = ({ networkName }) => {
 
       }, [])
       if (loading) return (
-        <main style={{ padding: "1rem 0" }}>
+        <main style={{ padding: "1rem 0" }} className='app-body'>
           <h5>Loading contract {params.contractAddress}</h5>
         </main>
       )
@@ -22,8 +22,7 @@ const Contract = ({ networkName }) => {
       //setLoading(false)
       // Render ---------------------------------------------------------------------------------------------------------- //
       return (
-        <div className="flex justify-center">
-            <div className="px-5 py-3 container">
+        <main style={{ padding: "1rem 0" }} className='app-body'>
                 <h5>Contract {params.contractAddress}</h5>
 
                 <Row className="justify-content-center">
@@ -75,8 +74,7 @@ const Contract = ({ networkName }) => {
 
                 </Row>
 
-            </div>
-        </div>
+            </main>
     );
 }
 export default Contract

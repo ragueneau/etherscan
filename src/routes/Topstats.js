@@ -16,7 +16,7 @@ const Topstats = ({ networkName }) => {
 
       }, [])
       if (loading) return (
-        <main style={{ padding: "1rem 0" }}>
+        <main style={{ padding: "1rem 0" }} className='app-body'>
           <h4 className='Title'>Top Statistics</h4>
           <Spinner animation="border" style={{ display: 'flex' }} />
         </main>
@@ -24,7 +24,7 @@ const Topstats = ({ networkName }) => {
 
       // Render ---------------------------------------------------------------------------------------------------------- //
       return (
-        <main style={{ padding: "1rem 0" }}>
+        <main style={{ padding: "1rem 0" }} className='app-body'>
           <h4 className='Title'>Top Statistics</h4>
 
         </main>

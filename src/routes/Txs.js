@@ -53,7 +53,7 @@ const Txs = ({ networkName }) => {
         return () => clearTimeout(timer)
     })
       if (loading) return (
-        <main style={{ padding: "1rem 0" }}>
+        <main style={{ padding: "1rem 0" }} className='app-body'>
           <h4 className='Title'>Transactions</h4>
           Loading transaction for block #{params.blockNumber}
           <Spinner animation="border" style={{ display: 'flex' }} />
@@ -62,7 +62,7 @@ const Txs = ({ networkName }) => {
 
       // Render ---------------------------------------------------------------------------------------------------------- //
       return (
-        <main style={{ padding: "1rem 0" }}>
+        <main style={{ padding: "1rem 0" }} className='app-body'>
             <h4 className='Title'>Transactions</h4>
             For block #{params.blockNumber}
             <TransactionList txs={blockContent} />

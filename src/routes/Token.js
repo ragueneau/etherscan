@@ -90,20 +90,22 @@ const Token = ({ networkName }) => {
 
 
     useEffect(() => {
-        getTokenSupply()
-        setToken(params.tokenAddress)
-      }, [])
-      if (loading) return (
-        <main style={{ padding: "1rem 0" }}>
-          <h4 className='Title'>Loading token {params.tokenAddress}</h4>
-          <Spinner animation="border" style={{ display: 'flex' }} />
-        </main>
-      )
+            getTokenSupply()
+            setToken(params.tokenAddress)
+        }, [])
 
+        if (loading) {
+        return (
+            <main style={{ padding: "1rem 0" }} className='app-body'>
+                <h4 className='Title'>Token {tokenAddress}</h4>
+                Loading... <br/><Spinner animation="border" variant="secondary" />
+            </main>
+        )
+        }
       //setLoading(false)
       // Render ---------------------------------------------------------------------------------------------------------- //
       return (
-        <main style={{ padding: "1rem 0" }}>
+        <main style={{ padding: "1rem 0" }} className='app-body'>
                 <h4 className='Title'>Token {tokenAddress}</h4>
 
                 <Row className="justify-content-center">

@@ -18,7 +18,7 @@ const Accounts = ({ networkName }) => {
         setLoading(false)
       }, [])
       if (loading) return (
-        <main style={{ padding: "1rem 0" }}>
+        <main style={{ padding: "1rem 0" }} className='app-body'>
           <h4 className="Title">Accounts</h4>
           <Spinner animation="border" style={{ display: 'flex' }} />
         </main>
@@ -26,7 +26,7 @@ const Accounts = ({ networkName }) => {
 
       // Render ---------------------------------------------------------------------------------------------------------- //
       return (
-        <main style={{ padding: "1rem 0" }}>
+        <main style={{ padding: "1rem 0" }} className='app-body'>
           <h4 className="Title">Accounts</h4>
                 <Row className="justify-content-center">
 
