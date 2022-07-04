@@ -93,6 +93,47 @@ const Interfaces = ({ web3Handler, account, networkName }) => {
 
     }
 
+    const listHeader = () => {
+        return (
+            <Card className="box">
+                <Card.Body>
+                    <Row className="justify-content-center">
+
+                        <Col xs={5} md={5}>
+                            <Form.Group controlId="formContractSearch">
+                                <Form.Label>Search</Form.Label>
+                                <Form.Control size="sm" type="text" placeholder="Search" value={searchValue} onChange={(e) => setSearchValue(e.target.value.toLowerCase())} />
+                            </Form.Group>
+                        </Col>
+
+                        <Col xs={2} md={2}>
+                            <Form.Group controlId="formContractFilter">
+                                <Form.Label>Filter</Form.Label>
+                                <Form.Control size="sm" as="select" defaultValue="all" onChange={(e) => setSearchFilter(e.target.value)}>
+                                    <option value="all">All</option>
+                                    <option value="ERC20">ERC20</option>
+                                    <option value="ERC721">ERC721</option>
+                                </Form.Control>
+                            </Form.Group>
+                        </Col>
+
+                        { account && (
+                        <Col xs={2} md={2}>
+                            <Form.Group controlId="formContractAccount" size="sm">
+                                <Form.Label>Account</Form.Label>
+                                <Form.Control size="sm" as="select" defaultValue="all" onChange={(e) => setSearchAccount(e.target.value)}>
+                                    <option value="all">All</option>
+                                    <option value={account}>{account.slice(0,7)+'...'+account.slice(35,42)}</option>
+                                </Form.Control>
+                            </Form.Group>
+                        </Col>
+                        )}
+                    </Row>
+                </Card.Body>
+            </Card>
+        )
+    }
+
     // ---------------------------------------------------------------------------------------------------------- //
     // ---------------------------------------------------------------------------------------------------------- //
     useEffect(() => {
@@ -119,8 +160,11 @@ const Interfaces = ({ web3Handler, account, networkName }) => {
     })
       if (loading) return (
         <main style={{ padding: "1rem 0" }} >
-                <h3 className="Address">Contract List</h3>
-                Loading... <br/><Spinner animation="border" variant="primary" />
+            <h4 className="Title">Contract List</h4>
+            <Row className="justify-content-center">
+                { listHeader() }
+            </Row>
+            Loading... <br/><Spinner animation="border" variant="primary" />
         </main>
       )
     //<input variant={variant[action.stateMutability]} type="text" className="form-control" placeholder={inputLabels[action.name]}/>
@@ -130,45 +174,9 @@ const Interfaces = ({ web3Handler, account, networkName }) => {
     // Render ---------------------------------------------------------------------------------------------------------- //
       return (
         <main style={{ padding: "1rem 0" }} >
-            <h3 className="Address">Contract List</h3>
+            <h4 className="Title">Contract List</h4>
             <Row className="justify-content-center">
-                <Card className="box">
-                    <Card.Body>
-                        <Row className="justify-content-center">
-
-                            <Col xs={5} md={5}>
-                                <Form.Group controlId="formContractSearch">
-                                    <Form.Label>Search</Form.Label>
-                                    <Form.Control size="sm" type="text" placeholder="Search" value={searchValue} onChange={(e) => setSearchValue(e.target.value.toLowerCase())} />
-                                </Form.Group>
-                            </Col>
-
-                            <Col xs={2} md={2}>
-                                <Form.Group controlId="formContractFilter">
-                                    <Form.Label>Filter</Form.Label>
-                                    <Form.Control size="sm" as="select" defaultValue="all" onChange={(e) => setSearchFilter(e.target.value)}>
-                                        <option value="all">All</option>
-                                        <option value="ERC20">ERC20</option>
-                                        <option value="ERC721">ERC721</option>
-                                    </Form.Control>
-                                </Form.Group>
-                            </Col>
-
-                            { account && (
-                            <Col xs={2} md={2}>
-                                <Form.Group controlId="formContractAccount" size="sm">
-                                    <Form.Label>Account</Form.Label>
-                                    <Form.Control size="sm" as="select" defaultValue="all" onChange={(e) => setSearchAccount(e.target.value)}>
-                                        <option value="all">All</option>
-                                        <option value={account}>{account.slice(0,7)+'...'+account.slice(35,42)}</option>
-                                    </Form.Control>
-                                </Form.Group>
-                            </Col>
-                            )}
-
-                        </Row>
-                    </Card.Body>
-                </Card>
+                { listHeader() }
             </Row>
             <Row className="justify-content-center">
                 <Card className="box">

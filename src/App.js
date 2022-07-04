@@ -316,7 +316,7 @@ function App() {
             } />
           </Routes>)}
         </div>
-        <div className="footer">
+        <div className="footer align-self-end" >
           <div className="container">
             <Row>
               <div className="col-md-3">

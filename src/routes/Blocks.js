@@ -87,18 +87,7 @@ const Blocks = ({ networkName }) => {
         return (
             <main style={{ padding: "1rem 0" }}>
                 <h4 className="Title">Latest Blocks</h4>
-                <Row >
-                    <Col xs={12} md={12} lg={12} xl={12}>
-                        <Card classMap="shadowCard">
-                            <Card.Header>Latest Blocks</Card.Header>
-                            <Card.Body className="std-card-info">
-                                <div className="spinner">
-                                    <Spinner animation="border" style={{ display: 'flex' }} />
-                                </div>
-                            </Card.Body>
-                        </Card>
-                    </Col>
-                </Row>
+                Loading... <br/><Spinner animation="border" variant="secondary" />
             </main>
         )
     } else {

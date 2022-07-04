@@ -71,7 +71,7 @@ const Tokens = ({ networkName }) => {
       if (loading) return (
         <main style={{ padding: "1rem 0" }}>
           <h4 className='Title'>ERC20 Tokens</h4>
-          <Spinner animation="border" style={{ display: 'flex' }} />
+          Loading... <br/><Spinner animation="border" variant="secondary" />
         </main>
       )
 
@@ -80,7 +80,7 @@ const Tokens = ({ networkName }) => {
         <main style={{ padding: "1rem 0" }}>
             <h4 className='Title'>ERC20 Tokens</h4>
             <Row className="justify-content-center">
-                <Col md={6} lg={12}>
+                <Col md={12} lg={12}>
                     <Card className="event-table">
                         <Card.Header>
                         </Card.Header>

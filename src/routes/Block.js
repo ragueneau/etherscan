@@ -90,7 +90,7 @@ const Block = ({ networkName }) => {
     if (loading) return (
         <main style={{ padding: "1rem 0" }}>
             <h4 className='Title' >Block #{blockNumber}</h4>
-            Loading... <br/><Spinner animation="border" variant="primary" />
+            Loading... <br/><Spinner animation="border" variant="secondary" />
         </main>
     )
 //    <Link to={`/block/${blockContent.number+1}`}><Button variant="primary" size="sm" className="ml-2">Next</Button></Link>

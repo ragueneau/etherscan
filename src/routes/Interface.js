@@ -283,7 +283,7 @@ const Interface = ({ account, networkName, web3Handler }) => {
     })
       if (loading) return (
         <main style={{ padding: "1rem 0" }} >
-            <h3 className="Title Address">Contract Interface</h3>
+            <h4 className="Title">Contract Interface</h4>
             Loading... <br/><Spinner animation="border" variant="primary" />
         </main>
       )
@@ -291,7 +291,7 @@ const Interface = ({ account, networkName, web3Handler }) => {
     // Render ---------------------------------------------------------------------------------------------------------- //
       return (
         <main style={{ padding: "1rem 0" }} >
-                <h3 className="Address">Contract Interface {getAddress(params.contract)}</h3>
+                <h4 className="Title">Contract Interface {getAddress(params.contract)}</h4>
                 <Row>
                     <Col xl={6} md={12} >
                         <Card className="event-table box">

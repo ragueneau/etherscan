@@ -22,7 +22,7 @@ const TokenList = ({tokens, addToken}) => {
                     <tr key={idx}>
                         <td style={{textAlign: left}}>
                             {item.name !== '' ? (
-                                <Image thumbnail src={item.image} alt={item.name} onClick={() => addToken(item.address)} title={'Add '+item.name+' to metamask'} style={{width: '30px'}} />
+                                <Image thumbnail src={item.image} alt={item.name} onClick={() => addToken(item.address)} title={'Add '+item.symbol+' to metamask'} style={{width: '30px'}} />
                             ) : ( null )} {item.name}
                         </td>
                         <td>{item.symbol}</td>

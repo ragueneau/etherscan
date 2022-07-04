@@ -26,7 +26,6 @@ export default function FooterContainer() {
                     </Footer.Column>
                 </Footer.Row>
 
-
             </Footer.Wrapper>
         </Footer>
     );
