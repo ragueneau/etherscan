@@ -1,14 +1,12 @@
-import { Card, ListGroup } from 'react-bootstrap'
-import { Link } from "react-router-dom";
+import { Button, Row, Col, Card, ListGroup } from 'react-bootstrap'
+import {  Link } from "react-router-dom";
 
 const ContractMoreinfo = ({ address }) => {
 
       // Render ---------------------------------------------------------------------------------------------------------- //
       return (
         <Card className="infobox box">
-            <Card.Header>
-                <Card.Title><b>Contract Info</b></Card.Title>
-            </Card.Header>
+            <Card.Header><Card.Title><b>Contract Info</b></Card.Title></Card.Header>
             <Card.Body>
                 <ListGroup variant="flush">
                     <ListGroup.Item><b>Name Tag</b>: </ListGroup.Item>

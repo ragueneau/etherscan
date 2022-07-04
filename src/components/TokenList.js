@@ -21,9 +21,10 @@ const TokenList = ({tokens, addToken}) => {
                 {tokens ? tokens.map((item, idx) => (
                     <tr key={idx}>
                         <td style={{textAlign: left}}>
-                            {item.name !== '' ? (
-                                <Image thumbnail src={item.image} alt={item.name} onClick={() => addToken(item.address)} title={'Add '+item.symbol+' to metamask'} style={{width: '30px'}} />
-                            ) : ( null )} {item.name}
+                            {item.image !== '' ? (
+                                <Image thumbnail src={item.image} alt={item.name} onClick={() => addToken(item.address)} title={'Add '+item.symbol+' to metamask'} style={{width: '32px'}} />
+                            ) : ( <Image thumbnail src='https://etherscan.coeptix.net/token.png' alt={item.name} onClick={() => addToken(item.address)} title={'Add '+item.symbol+' to metamask'} style={{width: '32px'}} />
+                             )} {item.name}
                         </td>
                         <td>{item.symbol}</td>
                         <td><Link title={item.address} to={`/address/${item.address}`}>{item.address.slice(0, 9) + '...'+item.address.slice(33, 42)}</Link></td>

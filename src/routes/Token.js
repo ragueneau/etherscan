@@ -1,9 +1,10 @@
 import Config from '../config.json'
 import { useState, useEffect } from 'react'
 import { ethers } from "ethers"
-import { Image, Row, Col, Card, Spinner, Button } from 'react-bootstrap'
+import { Modal, ListGroup, Image, Row, Col, Card, Spinner, Button, Nav } from 'react-bootstrap'
 import { Link, useParams } from "react-router-dom";
 
+import ContractEvents from '../components/ContractEvents'
 import { getAddress, linkAddress } from '../class/Tools'
 
 const axios = require('axios').default;
@@ -14,6 +15,15 @@ const Token = ({ networkName }) => {
     const [tokenAddress, setToken] = useState({})
     const [lastBlockNumber, setLastBlockNumber] = useState(0)
     const [token, setTokenData] = useState({})
+
+    const [events, setEvents] = useState([])
+    const [eventLabels, setEventLabels] = useState([])
+    const [tab, setTab] = useState(1)
+
+    const [show, setShow] = useState(false);
+
+    const handleClose = () => setShow(false);
+    const handleShow = () => setShow(true);
 
     //const [account, setAccount] = useState([])
     console.log('Network:', networkName)
@@ -68,7 +78,7 @@ const Token = ({ networkName }) => {
     //    const token = new ethers.Contract(tokenAddress, tokenABI, provider)
     //   const supply = await token.totalSupply()
     //    console.log('Token supply:', supply)
-        setLoading(false)
+
     }
 
     const getQRCode = (tokenAddress) => {
@@ -79,12 +89,7 @@ const Token = ({ networkName }) => {
     const getQRCodePopup = (tokenAddress) => {
         return (
             <div>
-                <div className="qr-code">
-                    <img src={getQrCode(tokenAddress)} alt="qr code" />
-                </div>
-                <div className="qr-code-address">
-                    <p>{tokenAddress}</p>
-                </div>
+                <img src={getQrCode(tokenAddress)} alt={tokenAddress} title={tokenAddress} />
             </div>
         )
     }
@@ -102,6 +107,7 @@ const Token = ({ networkName }) => {
         getTokenSupply()
         setToken(params.tokenAddress)
         getTokenInfo(params.tokenAddress)
+        console.log('Token:', JSON.stringify(token))
       }, [])
       if (loading) return (
         <main style={{ padding: "1rem 0" }} className='app-body'>
@@ -115,40 +121,42 @@ const Token = ({ networkName }) => {
       return (
         <main style={{ padding: "1rem 0" }} className='app-body'>
                 <h4 className='Title'>
-                {token.image !== '' ? 
+                {token.image !== '' ?
                 (
-                    <Image src={token.image} onClick={() => addToken(token.address)} style={{width: '30px'}} />
-                ) : ( null ) } {token.name}
+                    <Image src={token.image} style={{width: '32px'}} />
+                ) : ( <Image src='https://etherscan.coeptix.net/token.png' style={{width: '32px'}} /> ) } {token.name}
                 </h4>
 
                 <Row className="justify-content-center">
                     <Col xs={12} md={12} lg={6}>
                         <Card className='infobox box'>
+                            <Card.Header>
+                                <Card.Title><b>Overview</b></Card.Title>
+                            </Card.Header>
                             <Card.Body>
-                                <Card.Title>Overview</Card.Title>
-                                <Card.Text>
-                                    <ul>
-                                        <li className="list-group-item"><b>Price</b>: </li>
-                                        <li className="list-group-item"><b>Total Supply</b>: </li>
-                                        <li className="list-group-item"><b>Holders</b>: </li>
-                                    </ul>
-                                </Card.Text>
+                                <ListGroup variant="flush">
+                                    <ListGroup.Item><b>Value</b>: {token.balance / token.totalSupply} xETH</ListGroup.Item>
+                                    <ListGroup.Item><b>Total Supply</b>: {token.totalSupply / 10 ** token.decimals} {token.symbol}</ListGroup.Item>
+                                    <ListGroup.Item><b>Holders</b>: </ListGroup.Item>
+                                </ListGroup>
                             </Card.Body>
                         </Card>
                     </Col>
                     <Col xs={12} md={12} lg={6}>
                         <Card className='infobox box'>
+                            <Card.Header>
+                                <Row>
+                                    <Col><Card.Title><b>Profile Summary</b></Card.Title></Col>
+                                    <Col><Button variant="secondary" size="sm" onClick={() => addToken()} style={{float: 'right', margin: '1px'}}>Add Token</Button><Button variant="dark" size="sm" onClick={handleShow} style={{margin: '1px',float: 'right'}}>QR</Button> </Col>
+                                </Row>
+                            </Card.Header>
                             <Card.Body>
-                                <Card.Title>Profile Summary</Card.Title>
-                                <Card.Text>
-                                <ul>
-                                    <li className="list-group-item"><b>Contract</b>: <Link to={`/address/${tokenAddress}`}>{tokenAddress.slice(0, 7) + '...' + tokenAddress.slice(35, 42)}</Link></li>
-                                    <li className="list-group-item"><b>Decimals</b>: 0</li>
-                                    <li className="list-group-item"><b>Official Site</b>: http://</li>
-                                    <li className="list-group-item"><b>Social profiles</b>: </li>
-                                    <Button variant="primary" onClick={() => addToken()}>Add Token</Button>
-                                </ul>
-                                </Card.Text>
+                                <ListGroup variant="flush">
+                                    <ListGroup.Item><b>Contract</b>: <Link to={`/address/${tokenAddress}`}>{tokenAddress.slice(0, 7) + '...' + tokenAddress.slice(35, 42)}</Link></ListGroup.Item>
+                                    <ListGroup.Item><b>Decimals</b>: {token.decimals}</ListGroup.Item>
+                                    <ListGroup.Item><b>Official Site</b>: <a href={token.site_url} rel="noopener noreferrer">{token.site_url}</a></ListGroup.Item>
+                                    <ListGroup.Item><b>Social profiles</b>: </ListGroup.Item>
+                                </ListGroup>
                             </Card.Body>
                         </Card>
                     </Col>
@@ -157,19 +165,37 @@ const Token = ({ networkName }) => {
                 <Row>
                     <Col xs={12} md={12} lg={12}>
                         <Card className='infobox box'>
-                            <Card.Body>
+                            <Card.Header>
                                 <Card.Title>Transactions</Card.Title>
-                                <Card.Text>
-                                    <span className="text-muted">
-                                        <i className="fas fa-user-circle">Transactions</i>:
-                                    </span>
-                                </Card.Text>
+                                <Nav variant="tabs" defaultActiveKey="1">
+                                    <Nav.Item>
+                                        <Nav.Link eventKey="1" onClick={() => setTab(1)}>All</Nav.Link>
+                                    </Nav.Item>
+                                    <Nav.Item>
+                                        <Nav.Link eventKey="2" onClick={() => setTab(2)}>Sent</Nav.Link>
+                                    </Nav.Item>
+                                    <Nav.Item>
+                                        <Nav.Link eventKey="3" onClick={() => setTab(3)}>Received</Nav.Link>
+                                    </Nav.Item>
+                                </Nav>
+                            </Card.Header>
+                            <Card.Body>
+                                {/* <ContractEvents events={events} labels={eventLabels}/> */}
                             </Card.Body>
                         </Card>
                     </Col>
 
                 </Row>
-                {getQRCodePopup(tokenAddress)}
+
+                <Modal className="r-code" show={show} onHide={handleClose}>
+                    <Modal.Header closeButton>
+                    <Modal.Title>{token.image !== '' ?
+                        (
+                            <Image src={token.image} style={{width: '32px'}} />
+                        ) : ( <Image src='https://etherscan.coeptix.net/token.png' style={{width: '32px'}} /> ) } {token.name}</Modal.Title>
+                    </Modal.Header>
+                    <Modal.Body>{getQRCodePopup(tokenAddress)}</Modal.Body>
+                </Modal>
         </main>
     );
 }
