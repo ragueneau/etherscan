@@ -1,7 +1,7 @@
 import Config from '../config.json'
 import { useState, useEffect } from 'react'
 import { ethers } from "ethers"
-import { Image, Row, Col, Card, Spinner, Button } from 'react-bootstrap'
+import { ListGroup, Image, Row, Col, Card, Spinner, Button } from 'react-bootstrap'
 import { Link, useParams } from "react-router-dom";
 
 import { getAddress, linkAddress } from '../class/Tools'
@@ -115,40 +115,42 @@ const Token = ({ networkName }) => {
       return (
         <main style={{ padding: "1rem 0" }} className='app-body'>
                 <h4 className='Title'>
-                {token.image !== '' ? 
+                {token.image !== '' ?
                 (
-                    <Image src={token.image} onClick={() => addToken(token.address)} style={{width: '30px'}} />
-                ) : ( null ) } {token.name}
+                    <Image src={token.image} style={{width: '32px'}} />
+                ) : ( <Image src='https://etherscan.coeptix.net/token.png' style={{width: '32px'}} /> ) } {token.name}
                 </h4>
 
                 <Row className="justify-content-center">
                     <Col xs={12} md={12} lg={6}>
                         <Card className='infobox box'>
+                            <Card.Header>
+                                <Card.Title><b>Overview</b></Card.Title>
+                            </Card.Header>
                             <Card.Body>
-                                <Card.Title>Overview</Card.Title>
-                                <Card.Text>
-                                    <ul>
-                                        <li className="list-group-item"><b>Price</b>: </li>
-                                        <li className="list-group-item"><b>Total Supply</b>: </li>
-                                        <li className="list-group-item"><b>Holders</b>: </li>
-                                    </ul>
-                                </Card.Text>
+                                <ListGroup variant="flush">
+                                    <ListGroup.Item><b>Price</b>: </ListGroup.Item>
+                                    <ListGroup.Item><b>Total Supply</b>: </ListGroup.Item>
+                                    <ListGroup.Item><b>Holders</b>: </ListGroup.Item>
+                                </ListGroup>
                             </Card.Body>
                         </Card>
                     </Col>
                     <Col xs={12} md={12} lg={6}>
                         <Card className='infobox box'>
+                            <Card.Header>
+                                <Row>
+                                    <Col><Card.Title><b>Profile Summary</b></Card.Title></Col>
+                                    <Col><Button variant="secondary" size="sm" onClick={() => addToken()} style={{float: 'right'}}>Add Token</Button></Col>
+                                </Row>
+                            </Card.Header>
                             <Card.Body>
-                                <Card.Title>Profile Summary</Card.Title>
-                                <Card.Text>
-                                <ul>
-                                    <li className="list-group-item"><b>Contract</b>: <Link to={`/address/${tokenAddress}`}>{tokenAddress.slice(0, 7) + '...' + tokenAddress.slice(35, 42)}</Link></li>
-                                    <li className="list-group-item"><b>Decimals</b>: 0</li>
-                                    <li className="list-group-item"><b>Official Site</b>: http://</li>
-                                    <li className="list-group-item"><b>Social profiles</b>: </li>
-                                    <Button variant="primary" onClick={() => addToken()}>Add Token</Button>
-                                </ul>
-                                </Card.Text>
+                                <ListGroup variant="flush">
+                                    <ListGroup.Item><b>Contract</b>: <Link to={`/address/${tokenAddress}`}>{tokenAddress.slice(0, 7) + '...' + tokenAddress.slice(35, 42)}</Link></ListGroup.Item>
+                                    <ListGroup.Item><b>Decimals</b>: </ListGroup.Item>
+                                    <ListGroup.Item><b>Official Site</b>: </ListGroup.Item>
+                                    <ListGroup.Item><b>Social profiles</b>: </ListGroup.Item>
+                                </ListGroup>
                             </Card.Body>
                         </Card>
                     </Col>
