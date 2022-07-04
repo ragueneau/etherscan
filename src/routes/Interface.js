@@ -282,89 +282,89 @@ const Interface = ({ account, networkName, web3Handler }) => {
         return () => clearTimeout(timer)
     })
       if (loading) return (
-        <main style={{ padding: "1rem 0" }} >
+        <main style={{ padding: "1rem 0" }} className='app-body'>
             <h4 className="Title">Contract Interface</h4>
-            Loading... <br/><Spinner animation="border" variant="primary" />
+            Loading... <br/><Spinner animation="border" variant="secondary" />
         </main>
       )
     //<input variant={variant[action.stateMutability]} type="text" className="form-control" placeholder={inputLabels[action.name]}/>
     // Render ---------------------------------------------------------------------------------------------------------- //
       return (
-        <main style={{ padding: "1rem 0" }} >
-                <h4 className="Title">Contract Interface {getAddress(params.contract)}</h4>
-                <Row>
-                    <Col xl={6} md={12} >
-                        <Card className="event-table box">
+        <main style={{ padding: "1rem 0" }} className='app-body'>
+            <h4 className="Title">Contract Interface {getAddress(params.contract)}</h4>
+            <Row>
+                <Col xl={6} md={12} >
+                    <Card className="event-table box">
 
-                            <Card.Header>
-                                <Row >
-                                    <Col md={2}>
-                                    {account ? (
-                                        <Button variant="secondary btn-sm">
-                                            {account.slice(0, 6) + '...' + account.slice(36, 42)}
-                                        </Button>
-                                    ) : (
-                                        <Button onClick={web3Handler} variant="secondary nav-button btn-sm">Connect Wallet</Button>
-                                    )}
-                                    </Col>
-                                </Row>
-                                <Row className="align-items-left">
-                                    <Col md={4} className="text-left">
-                                        Value: <Form.Control onChange={(e) => setEtherValue(e.target.value)} value={etherValue} type="text" placeholder="wei" />
-                                        <span className="text-muted">{(etherValue / 10 ** 18).toFixed(18)} eth</span>
-                                    </Col>
-                                    <Col md={3} className="text-left">
-                                        Max Gas: <Form.Control onChange={(e) => setMaximumGas(e.target.value)} value={maximumGas} type="text" placeholder="Default Gas" />
-                                    </Col>
-                                    <Col md={5} className="text-left">
-                                        {/* a set of default contract */}
-                                        Contract: <Form.Control as="select" onChange={(e) => setContractAddress(e.target.value)} value={contract}>
-                                            <option value={params.contract}>{params.contract}</option>
-                                            {contracts.map((item, index) => {
-                                                return <option key={index} value={item.address}>{item.name}</option>
-                                            })}
-                                        </Form.Control>
+                        <Card.Header>
+                            <Row >
+                                <Col md={2}>
+                                {account ? (
+                                    <Button variant="secondary btn-sm">
+                                        {account.slice(0, 6) + '...' + account.slice(36, 42)}
+                                    </Button>
+                                ) : (
+                                    <Button onClick={web3Handler} variant="secondary nav-button btn-sm">Connect Wallet</Button>
+                                )}
+                                </Col>
+                            </Row>
+                            <Row className="align-items-left">
+                                <Col md={4} className="text-left">
+                                    Value: <Form.Control onChange={(e) => setEtherValue(e.target.value)} value={etherValue} type="text" placeholder="wei" />
+                                    <span className="text-muted">{(etherValue / 10 ** 18).toFixed(18)} eth</span>
+                                </Col>
+                                <Col md={3} className="text-left">
+                                    Max Gas: <Form.Control onChange={(e) => setMaximumGas(e.target.value)} value={maximumGas} type="text" placeholder="Default Gas" />
+                                </Col>
+                                <Col md={5} className="text-left">
+                                    {/* a set of default contract */}
+                                    Contract: <Form.Control as="select" onChange={(e) => setContractAddress(e.target.value)} value={contract}>
+                                        <option value={params.contract}>{params.contract}</option>
+                                        {contracts.map((item, index) => {
+                                            return <option key={index} value={item.address}>{item.name}</option>
+                                        })}
+                                    </Form.Control>
 
-                                    </Col>
-                                </Row>
-                            </Card.Header>
+                                </Col>
+                            </Row>
+                        </Card.Header>
 
-                            <Card.Body>
-                                <Card.Text>
-                                    <ListGroup variant="flush" className="list-group-item">
-                                    {abiInterface.map((action, index) => {
-                                        return <ListGroup.Item key={index}>
-                                            <Row className="align-items-left">
-                                                <Col md={3} className="text-left">
-                                                    <Button variant={variant[action.stateMutability]} className="copy-button" onClick={() => callFunction(params.contract,action)}>{action.name}</Button>
-                                                </Col>
-                                                <Col md={8} className="align-items-left">
-                                                    <Row className="align-items-left">
-                                                        {! action.payable && action.inputs.length > 0 ?
-                                                        <Col className="text-left">
-                                                            <Form.Control onChange={(e) => setInputValues({...inputValues, [action.name]: e.target.value})} value={inputValues[action.name]} type="text" placeholder={inputLabels[action.name]} />
-                                                        </Col> : null
-                                                        }
-                                                    </Row>
-                                                    <Row className="align-items-left infobox">
-                                                        {outputs[action.name]}
-                                                    </Row>
-                                                </Col>
-                                            </Row>
-                                        </ListGroup.Item>
-                                    })}
-                                    </ListGroup>
-                                </Card.Text>
-                            </Card.Body>
+                        <Card.Body>
+                            <Card.Text>
+                                <ListGroup variant="flush" className="list-group-item">
+                                {abiInterface.map((action, index) => {
+                                    return <ListGroup.Item key={index}>
+                                        <Row className="align-items-left">
+                                            <Col md={3} className="text-left">
+                                                <Button variant={variant[action.stateMutability]} className="copy-button" onClick={() => callFunction(params.contract,action)}>{action.name}</Button>
+                                            </Col>
+                                            <Col md={8} className="align-items-left">
+                                                <Row className="align-items-left">
+                                                    {! action.payable && action.inputs.length > 0 ?
+                                                    <Col className="text-left">
+                                                        <Form.Control onChange={(e) => setInputValues({...inputValues, [action.name]: e.target.value})} value={inputValues[action.name]} type="text" placeholder={inputLabels[action.name]} />
+                                                    </Col> : null
+                                                    }
+                                                </Row>
+                                                <Row className="align-items-left infobox">
+                                                    {outputs[action.name]}
+                                                </Row>
+                                            </Col>
+                                        </Row>
+                                    </ListGroup.Item>
+                                })}
+                                </ListGroup>
+                            </Card.Text>
+                        </Card.Body>
 
-                        </Card>
-                    </Col>
-                    <Col xl={6} md={12}  >
-                        <ContractEvents events={events} labels={eventLabels}/>
-                    </Col>
-                </Row>
+                    </Card>
+                </Col>
+                <Col xl={6} md={12}  >
+                    <ContractEvents events={events} labels={eventLabels}/>
+                </Col>
+            </Row>
 
-          </main>
+        </main>
     );
 }
 export default Interface
