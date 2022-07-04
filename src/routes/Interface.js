@@ -58,7 +58,6 @@ const Interface = ({ account, networkName, web3Handler }) => {
     const [topicsStatus, setTopicsStatus] = useState(null)
     const [account1, setAccount] = useState(null)
 
-
     // ---------------------------------------------------------------------------------------------------- //
     const getAbi = async (address) => {
         await axios.get(Config.restAPI + '/api?module=contract&action=getabi&address='+address+'&apikey=' + Config.ApiKeyToken)
@@ -109,7 +108,6 @@ const Interface = ({ account, networkName, web3Handler }) => {
             }
         })
     }
-
 
     // ---------------------------------------------------------------------------------------------------- //
     const getLatestEvent = async (address,abi) => {
@@ -261,6 +259,8 @@ const Interface = ({ account, networkName, web3Handler }) => {
 
         setContract(contract)
     }
+
+
     // ---------------------------------------------------------------------------------------------------------- //
     // ---------------------------------------------------------------------------------------------------------- //
     useEffect(() => {

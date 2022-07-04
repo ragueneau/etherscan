@@ -113,13 +113,24 @@ const Address = ({ networkName }) => {
         setLoading(false)
     }
 
+    const getAccountInfo = async () => {
+
+        //get account info from the API
+        const apicall = Config.restAPI + '/api?module=account&action=balance&address=' + params.address + '&tag=latest&apikey=' + Config.ApiKeyToken
+        const response = await axios.get(apicall)
+        .then(function (response) {
+            setAddress(response.data.result)
+        }
+        )
+    }
+
     // -=< Effects >=- ------------------------------------------------------------------------------------------------------ //
     useEffect(() => {
         let timer = setTimeout(() => {
             setCount((count) => count + 1);
 
-            getOnChainAddressInfo()
-
+            //getOnChainAddressInfo()
+            getAccountInfo()
 
             // Transactions Tab //
             if (activeTab === '#tx')  {
@@ -143,7 +154,7 @@ const Address = ({ networkName }) => {
             }
             //console.log(params.walletAddress,address.address)
 
-            console.log(activeTab)
+            console.log(address)
         }, 1000);
 
         return () => clearTimeout(timer)

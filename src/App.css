@@ -367,3 +367,8 @@ div.card.box {
   border-color: #3f0f13;
 } */
 
+.qr-code {
+  width: auto;
+  height: 100%;
+  align-items: center;
+}
