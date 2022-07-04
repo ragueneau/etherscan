@@ -103,7 +103,7 @@ const Tx = ({ networkName, transactionHash }) => {
         return () => clearTimeout(timer)
       })
       if (loading) return (
-        <main style={{ padding: "1rem 0" }}>
+        <main style={{ padding: "1rem 0" }} className='app-body'>
             <h4>Transaction Details</h4>
             <Row className="justify-content-center">
                 <Col xs={12} md={12} lg={12}>
@@ -116,7 +116,7 @@ const Tx = ({ networkName, transactionHash }) => {
 
       // Render ---------------------------------------------------------------------------------------------------------- //
       return (
-        <main style={{ padding: "1rem 0" }}>
+        <main style={{ padding: "1rem 0" }} className='app-body'>
                 <h4>Transaction Details</h4>
                 <Row className="justify-content-center">
                     <Col xs={12} md={12} lg={12}>

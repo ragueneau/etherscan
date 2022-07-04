@@ -152,14 +152,14 @@ const Address = ({ networkName }) => {
     //if params changes, reload page
 
     if (loading) return (
-        <main style={{ padding: "1rem 0" }}>
+        <main style={{ padding: "1rem 0" }} className='app-body'>
             <h4 className="Title">Address {getAddress(params.walletAddress)}</h4>
             <Spinner animation="border" variant="primary" />
         </main>
     )
     // -=< Render >=- ------------------------------------------------------------------------------------------------------ //
     return (
-        <main style={{ padding: "1rem 0" }}>
+        <main style={{ padding: "1rem 0" }} className='app-body'>
 
                 <h4 className="Title">Address {getAddress(params.walletAddress)}</h4>
 

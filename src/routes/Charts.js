@@ -16,7 +16,7 @@ const Accounts = ({ networkName }) => {
 
       }, [])
       if (loading) return (
-        <main style={{ padding: "1rem 0" }}>
+        <main style={{ padding: "1rem 0" }} className='app-body'>
           <h5>Accounts</h5>
           <Spinner animation="border" style={{ display: 'flex' }} />
         </main>
@@ -24,12 +24,10 @@ const Accounts = ({ networkName }) => {
 
       // Render ---------------------------------------------------------------------------------------------------------- //
       return (
-        <div className="flex justify-center">
-            <div className="px-5 py-3 container">
+        <main style={{ padding: "1rem 0" }} className='app-body'>
                 <h5>Top Accounts</h5>
 
-            </div>
-        </div>
+        </main>
     );
 }
 export default Accounts

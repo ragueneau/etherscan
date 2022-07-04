@@ -102,7 +102,7 @@ const Logs = ({ networkName }) => {
         return () => clearTimeout(timer)
     })
       if (loading) return (
-        <main style={{ padding: "1rem 0" }}>
+        <main style={{ padding: "1rem 0" }} className='app-body'>
             <h4 className='Title'>Contract Event Logs</h4>
             <Spinner animation="border" style={{ display: 'flex' }} />
         </main>
@@ -110,7 +110,7 @@ const Logs = ({ networkName }) => {
 
       // Render ---------------------------------------------------------------------------------------------------------- //
       return (
-        <main style={{ padding: "1rem 0" }}>
+        <main style={{ padding: "1rem 0" }} className='app-body'>
               <h4 className='Title'>Contract Event Logs</h4>
               Contract: <Link to={`/address/${params.contract}`}>{params.contract}</Link> {copyButton(params.contract)}<br/>
                 <ContractEvents events={events}/>

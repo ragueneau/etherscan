@@ -28,7 +28,7 @@ const LatestBlocks = ({items}) => {
                         <tr key={idx}>
                             <td><Link to={`/block/${item.number}`}>{item.number}</Link></td>
                             <td>{unixToDate(item.timestamp)}</td>
-                            <td>{item.duration}</td>
+                            <td>{item.duration} {item.duration > 1 ? 'secs' : 'sec'}</td>
                             <td>{item.transactions.length}</td>
                             <td>{parseInt(item.gasUsed)} gwei</td>
                             <td>{parseInt(item.gasLimit)} gwei</td>

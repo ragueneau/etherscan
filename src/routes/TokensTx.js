@@ -152,7 +152,7 @@ const TokensLogs = ({ networkName }) => {
         return () => clearTimeout(timer)
     })
       if (loading) return (
-        <main style={{ padding: "1rem 0" }}>
+        <main style={{ padding: "1rem 0" }} className='app-body'>
                 <h4 className='Title'>Tokens Transfers Logs</h4>
                     Loading... <br/><Spinner animation="border" variant="primary" />
                 </main>
@@ -160,7 +160,7 @@ const TokensLogs = ({ networkName }) => {
 
       // Render ---------------------------------------------------------------------------------------------------------- //
       return (
-        <main style={{ padding: "1rem 0" }}>
+        <main style={{ padding: "1rem 0" }} className='app-body'>
             <h4  className='Title'>ERC20 Tokens Transfers</h4>
             <Card className="event-table">
                 <Card.Header></Card.Header>

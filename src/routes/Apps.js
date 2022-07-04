@@ -31,7 +31,7 @@ const Apps = ({networkName }) => {
 
       }, [])
       if (loading) return (
-        <main style={{ padding: "1rem 0" }}>
+        <main style={{ padding: "1rem 0" }} className='app-body'>
           <h4 className='Title'>Applications</h4>
           Loading Apps<Spinner animation="border" style={{ display: 'flex' }} />
         </main>
@@ -39,7 +39,7 @@ const Apps = ({networkName }) => {
 
     // -------------------------------------------------------------------------------------------------------------------- //
     return (
-        <main style={{ padding: "1rem 0" }}>
+        <main style={{ padding: "1rem 0" }} className='app-body'>
             <h4 className='Title'>Applications</h4>
             <Row>
                 <Col>

@@ -1,8 +1,10 @@
 import Config from '../config.json'
 import { useState, useEffect } from 'react'
 import { ethers } from "ethers"
-import { Row, Col, Card, Spinner, Button } from 'react-bootstrap'
+import { Image, Row, Col, Card, Spinner, Button } from 'react-bootstrap'
 import { Link, useParams } from "react-router-dom";
+
+import { getAddress, linkAddress } from '../class/Tools'
 
 const axios = require('axios').default;
 
@@ -11,6 +13,7 @@ const Token = ({ networkName }) => {
     const [loading, setLoading] = useState(true)
     const [tokenAddress, setToken] = useState({})
     const [lastBlockNumber, setLastBlockNumber] = useState(0)
+    const [token, setTokenData] = useState({})
 
     //const [account, setAccount] = useState([])
     console.log('Network:', networkName)
@@ -86,15 +89,22 @@ const Token = ({ networkName }) => {
         )
     }
 
+    const getTokenInfo = async (tokenAddress) => {
+        const response = await axios.get(Config.restAPI + '/api?module=token&action=tokeninfo&contractaddress='+tokenAddress+'&apikey=' + Config.ApiKeyToken)
+        const token = response.data.result
+        setTokenData(token)
+        setLoading(false)
+    }
 
 
 
     useEffect(() => {
         getTokenSupply()
         setToken(params.tokenAddress)
+        getTokenInfo(params.tokenAddress)
       }, [])
       if (loading) return (
-        <main style={{ padding: "1rem 0" }}>
+        <main style={{ padding: "1rem 0" }} className='app-body'>
           <h4 className='Title'>Loading token {params.tokenAddress}</h4>
           <Spinner animation="border" style={{ display: 'flex' }} />
         </main>
@@ -103,12 +113,17 @@ const Token = ({ networkName }) => {
       //setLoading(false)
       // Render ---------------------------------------------------------------------------------------------------------- //
       return (
-        <main style={{ padding: "1rem 0" }}>
-                <h4 className='Title'>Token {tokenAddress}</h4>
+        <main style={{ padding: "1rem 0" }} className='app-body'>
+                <h4 className='Title'>
+                {token.image !== '' ? 
+                (
+                    <Image src={token.image} onClick={() => addToken(token.address)} style={{width: '30px'}} />
+                ) : ( null ) } {token.name}
+                </h4>
 
                 <Row className="justify-content-center">
                     <Col xs={12} md={12} lg={6}>
-                        <Card className="text-center">
+                        <Card className='infobox box'>
                             <Card.Body>
                                 <Card.Title>Overview</Card.Title>
                                 <Card.Text>
@@ -122,7 +137,7 @@ const Token = ({ networkName }) => {
                         </Card>
                     </Col>
                     <Col xs={12} md={12} lg={6}>
-                        <Card className="text-center">
+                        <Card className='infobox box'>
                             <Card.Body>
                                 <Card.Title>Profile Summary</Card.Title>
                                 <Card.Text>
@@ -141,7 +156,7 @@ const Token = ({ networkName }) => {
 
                 <Row>
                     <Col xs={12} md={12} lg={12}>
-                        <Card>
+                        <Card className='infobox box'>
                             <Card.Body>
                                 <Card.Title>Transactions</Card.Title>
                                 <Card.Text>

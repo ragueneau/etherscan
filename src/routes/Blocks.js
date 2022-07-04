@@ -85,14 +85,14 @@ const Blocks = ({ networkName }) => {
     // Render ---------------------------------------------------------------------------------------------------------- //
     if (loading) {
         return (
-            <main style={{ padding: "1rem 0" }}>
+            <main style={{ padding: "1rem 0" }} className='app-body'>
                 <h4 className="Title">Latest Blocks</h4>
                 Loading... <br/><Spinner animation="border" variant="secondary" />
             </main>
         )
     } else {
         return (
-            <main style={{ padding: "1rem 0" }}>
+            <main style={{ padding: "1rem 0" }} className='app-body'>
                 <h4 className="Title">Latest Blocks</h4>
                 <Row >
                     <Col xs={12} md={12} lg={12} xl={12}>

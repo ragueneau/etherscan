@@ -88,7 +88,7 @@ const Block = ({ networkName }) => {
         return () => clearTimeout(timer)
     })
     if (loading) return (
-        <main style={{ padding: "1rem 0" }}>
+        <main style={{ padding: "1rem 0" }} className='app-body'>
             <h4 className='Title' >Block #{blockNumber}</h4>
             Loading... <br/><Spinner animation="border" variant="secondary" />
         </main>
@@ -96,23 +96,25 @@ const Block = ({ networkName }) => {
 //    <Link to={`/block/${blockContent.number+1}`}><Button variant="primary" size="sm" className="ml-2">Next</Button></Link>
     // Render ---------------------------------------------------------------------------------------------------------- //
     return (
-        <main style={{ padding: "1rem 0" }}>
+        <main style={{ padding: "1rem 0" }} className='app-body'>
             <h4 className='Title'>Block #{blockContent.number}</h4>
-            <Row>
-                <Col>
-                    <BlockInfo block={blockContent} />
-                </Col>
-            </Row>
-            <Row>
-                <Col>
-                &nbsp;
-                </Col>
-            </Row>
-            <Row>
-                <Col>
-                    <TransactionList txs={txsContent} />
-                </Col>
-            </Row>
+
+                <Row>
+                    <Col>
+                        <BlockInfo block={blockContent} />
+                    </Col>
+                </Row>
+                <Row>
+                    <Col>
+                    &nbsp;
+                    </Col>
+                </Row>
+                <Row>
+                    <Col>
+                        <TransactionList txs={txsContent} />
+                    </Col>
+                </Row>
+      
         </main>
     );
 }
