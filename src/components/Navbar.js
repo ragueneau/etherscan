@@ -49,13 +49,18 @@ const Navigation = ({ web3Handler, setNetwork, account, networkName, stats }) =>
 
                         <NavDropdown title="Resources" id="collasible-nav-resources">
                             <NavDropdown.Item as={Link} to="/apps">Applications</NavDropdown.Item>
-                            <NavDropdown.Item as={Link} to="/faucet">Faucet</NavDropdown.Item>
+                            <NavDropdown.Item href="https://powfaucet.coeptix.net/" target="_blank">PoW Faucet</NavDropdown.Item>
+                            <NavDropdown.Item href="https://etherstats.coeptix.net//" target="_blank">Blockchain Stats</NavDropdown.Item>
+                            {/* <NavDropdown.Item as={Link} to="/faucet">Faucet</NavDropdown.Item> */}
                             {/* <NavDropdown.Divider />
                             <NavDropdown.Item as={Link} to="/charts">Stats</NavDropdown.Item>
                             <NavDropdown.Item as={Link} to="/topstats">Top Stats</NavDropdown.Item>
                             <NavDropdown.Divider />
                             <NavDropdown.Item as={Link} to="/events">Documentation</NavDropdown.Item> */}
-                                <a href="https://documenter.getpostman.com/view/15658566/UyxeoTrH" target="_blank" rel="noopener noreferrer">API Documentation</a>
+                            {/* a navdropdown.item link to open a page in a new tab */}
+                            <NavDropdown.Item href="https://documenter.getpostman.com/view/15658566/UyxeoTrH" target="_blank">API Documentation</NavDropdown.Item>
+{/* 
+                                <a href="https://documenter.getpostman.com/view/15658566/UyxeoTrH" target="_blank" rel="noopener noreferrer">API Documentation</a> */}
                         </NavDropdown>
 
                     </Nav>
