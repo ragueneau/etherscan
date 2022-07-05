@@ -51,7 +51,8 @@ const Navigation = ({ web3Handler, setNetwork, account, networkName, stats }) =>
                             <NavDropdown.Item as={Link} to="/apps">Applications</NavDropdown.Item>
                             <NavDropdown.Item href="https://powfaucet.coeptix.net/" target="_blank">PoW Faucet</NavDropdown.Item>
                             <NavDropdown.Divider />
-                            <NavDropdown.Item href="https://etherstats.coeptix.net//" target="_blank">Blockchain Node Stats</NavDropdown.Item>
+                            <NavDropdown.Item href="http://172.105.29.6:3000/" target="_blank">Blockchain Node Stats</NavDropdown.Item>
+                            {/* <NavDropdown.Item href="https://etherstats.coeptix.net/" target="_blank">Blockchain Node Stats</NavDropdown.Item> */}
                             {/* <NavDropdown.Item as={Link} to="/faucet">Faucet</NavDropdown.Item> */}
                             {/* <NavDropdown.Divider />
                             <NavDropdown.Item as={Link} to="/charts">Stats</NavDropdown.Item>
