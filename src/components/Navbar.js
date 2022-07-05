@@ -59,7 +59,7 @@ const Navigation = ({ web3Handler, setNetwork, account, networkName, stats }) =>
                             <NavDropdown.Item as={Link} to="/events">Documentation</NavDropdown.Item> */}
                             {/* a navdropdown.item link to open a page in a new tab */}
                             <NavDropdown.Item href="https://documenter.getpostman.com/view/15658566/UyxeoTrH" target="_blank">API Documentation</NavDropdown.Item>
-{/* 
+{/*
                                 <a href="https://documenter.getpostman.com/view/15658566/UyxeoTrH" target="_blank" rel="noopener noreferrer">API Documentation</a> */}
                         </NavDropdown>
 
