@@ -109,90 +109,73 @@ const TokensLogs = ({ networkName }) => {
         setTokenlist(list)
     }
 
-    function copyToClipboard(text) {
-        navigator.clipboard.writeText(text);
-    }
 
-    //function to display a trunked address and a button to copy it
-    function getAddress(address) {
-        const addr = address.slice(0,6) + '...' + address.slice(-4)
-
-        return <div>
-            <span className="text-truncate">{address}</span>
-            <Button variant="link" className="copy-button" onClick={() => copyToClipboard(address)}>copy</Button>
-        </div>
-    }
-    function linkAddress(address) {
-        const addr = address.slice(0,6) + '...' + address.slice(-4)
-
-        return <div>
-            <Link to={`/address/${address}`}>{addr}</Link>
-        </div>
-    }
     // ---------------------------------------------------------------------------------------------------------- //
     useEffect(() => {
         let timer = setTimeout(() => {
             setCount((count) => count + 1);
 
+
             //if tken list is empty, get it
             if (tokenList.length === 0) {
-                //console.log('get token list')
                 getTokenList()
             }
 
             if (abi.length === 0) {
-                //console.log('get abi')
                 getAbi()
             }
 
-            //console.log(tokenList)
             getLatestEvent()
             setLoading(false)
-        }, 5000);
+        }, 900);
         return () => clearTimeout(timer)
     })
       if (loading) return (
         <main style={{ padding: "1rem 0" }} className='app-body'>
-                <h4 className='Title'>Tokens Transfers Logs</h4>
-                    Loading... <br/><Spinner animation="border" variant="primary" />
-                </main>
+            <h4 className='Title'>Tokens Transfers Logs</h4>
+            Loading... <br/><Spinner animation="border" variant="secondary" />
+        </main>
       )
 
       // Render ---------------------------------------------------------------------------------------------------------- //
       return (
         <main style={{ padding: "1rem 0" }} className='app-body'>
             <h4  className='Title'>ERC20 Tokens Transfers</h4>
-            <Card className="event-table">
-                <Card.Header></Card.Header>
-                <Card.Body>
-                    <Table striped bordered hover>
-                        <thead>
-                            <tr>
-                                <th>Block Number</th>
-                                <th>Event</th>
-                                <th>tx#</th>
-                                <th>Log#</th>
-                                <th>Symbol</th>
-                                <th>From</th>
-                                <th>To</th>
-                                <th>Value</th>
-                            </tr>
-                        </thead>
-                        {events ? events.map((event, idx) => (
-                            <tr key={idx}>
-                                <td><Link to={`/block/${event.blockNumber}`}>{event.blockNumber}</Link></td>
-                                <td>{event.event}</td>
-                                <td><Link to={`/tx/${event.transactionHash}`}>{event.transactionIndex}</Link></td>
-                                <td>{event.logIndex}</td>
-                                <td><Link to={`/address/${event.address}`}>{event.symbol}</Link></td>
-                                <td><Link to={`/address/${event.args[0]}`}>{event.args[0].slice(0, 5) + '...' + event.args[0].slice(38, 42)}</Link></td>
-                                <td><Link to={`/address/${event.args[1]}`}>{event.args[1].slice(0, 5) + '...' + event.args[1].slice(38, 42)}</Link></td>
-                                <td>{event.args[2] / 10 ** 18}</td>
-                            </tr>
-                        )): null}
-                    </Table>
-                </Card.Body>
-            </Card>
+            <Row>
+                <Col>
+                    <Card className="event-table">
+                        <Card.Header></Card.Header>
+                        <Card.Body>
+                            <Table striped bordered hover size="sm">
+                                <thead>
+                                    <Row>
+                                        <Col>Block</Col>
+                                        <Col>Event</Col>
+                                        <Col>tx#</Col>
+                                        <Col>Log#</Col>
+                                        <Col>Symbol</Col>
+                                        <Col>From</Col>
+                                        <Col>To</Col>
+                                        <Col>Value</Col>
+                                    </Row>
+                                </thead>
+                                {events ? events.map((event, idx) => (
+                                    <Row key={idx}>
+                                        <Col><Link to={`/block/${event.blockNumber}`}>{event.blockNumber}</Link></Col>
+                                        <Col>{event.event}</Col>
+                                        <Col><Link to={`/tx/${event.transactionHash}`}>{event.transactionIndex}</Link></Col>
+                                        <Col>{event.logIndex}</Col>
+                                        <Col><Link to={`/address/${event.address}`}>{event.symbol}</Link></Col>
+                                        <Col><Link to={`/address/${event.args[0]}`}>{event.args[0].slice(0, 5) + '...' + event.args[0].slice(38, 42)}</Link></Col>
+                                        <Col><Link to={`/address/${event.args[1]}`}>{event.args[1].slice(0, 5) + '...' + event.args[1].slice(38, 42)}</Link></Col>
+                                        <Col>{event.args[2] / 10 ** 18}</Col>
+                                    </Row>
+                                )): null}
+                            </Table>
+                        </Card.Body>
+                    </Card>
+                </Col>
+            </Row>
         </main>
     );
 }
