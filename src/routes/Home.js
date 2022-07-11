@@ -37,7 +37,7 @@ const Home = ({ networkName, account }) => {
         })
         .catch(function (error) {
          // handle error
-          console.log(error);
+          //console.log(error);
         })
        .then(function () {
           // always executed
@@ -195,6 +195,12 @@ const Home = ({ networkName, account }) => {
 
     const getStats = async () => {
         let stats = {}
+        let provider = new ethers.providers.JsonRpcProvider(Config.node);
+
+        //verify if metamask is connected
+        if (window.ethereum) {
+            provider = new ethers.providers.Web3Provider(window.ethereum);
+        }
 
         //today date yyyy-mm-dd
         const today = new Date()
@@ -215,39 +221,53 @@ const Home = ({ networkName, account }) => {
             startdate: yesterdayDate,
             enddate: todayDate,
             dailytxnfee: 0,
-            dailynetutilization: 0
+            dailynetutilization: 0,
+            avgdifficulty: 0,
+            avgtxnperblock: 0,
+            avgtxnperday: 0,
+            avgtxnperhour: 0,
+            avgtxnperminute: 0
         }
         //get stats dailytxnfee
-        //const response = await axios.get(Config.restAPI + '/api?module=stats&action=dailytxnfee&apikey=' + Config.ApiKeyToken+'&startdate='+yesterdayDate+'&enddate='+todayDate)
-        await axios.get(Config.restAPI + '/api?module=stats&action=dailytxnfee&apikey=' + Config.ApiKeyToken+'&startdate='+yesterdayDate+'&enddate='+todayDate)
+        await axios.get(Config.restAPI + '/api?module=stats&action=dailytxnfee&apikey=' + Config.ApiKeyToken+'&startdate='+todayDate+'&enddate='+todayDate)
         .then(function (response) {
-          // handle success
-            // stats.dailytxnfee = response.data.result.txnfee
+            stats.dailytxnfee = response.data.result[0].transactionfee_eth
         })
-        .catch(function (error) {
-         // handle error
-          console.log(error);
-        })
-       .then(function () {
-          // always executed
-        });
 
-        await axios.get(Config.restAPI + '/api?module=stats&action=dailynetutilization&apikey=' + Config.ApiKeyToken+'&startdate='+yesterdayDate+'&enddate='+todayDate)
+        await axios.get(Config.restAPI + '/api?module=stats&action=dailynewaddress&apikey=' + Config.ApiKeyToken+'&startdate='+todayDate+'&enddate='+todayDate)
         .then(function (response) {
-          // handle success
-            // stats.dailytxnfee = response.data.result.txnfee
+            //get the firtst address
+            stats.dailynewaddress = response.data.result[0].newaddresscount
         })
-        .catch(function (error) {
-         // handle error
-          console.log(error);
+
+        await axios.get(Config.restAPI + '/api?module=stats&action=dailynetutilization&apikey=' + Config.ApiKeyToken+'&startdate='+todayDate+'&enddate='+todayDate)
+        .then(function (response) {
+            stats.dailynetutilization = response.data.result[0].networkutilization
         })
-       .then(function () {
-          // always executed
-        });
 
+        await axios.get(Config.restAPI + '/api?module=stats&action=dailyavggaslimit&apikey=' + Config.ApiKeyToken+'&startdate='+todayDate+'&enddate='+todayDate)
+        .then(function (response) {
+            stats.dailyavggaslimit = response.data.result[0].avglimit
+        })
 
+        await axios.get(Config.restAPI + '/api?module=stats&action=dailyavggasprice&apikey=' + Config.ApiKeyToken+'&startdate='+todayDate+'&enddate='+todayDate)
+        .then(function (response) {
+            stats.dailyavggasprice = response.data.result[0].avggaspricewei
+        })
 
+        await axios.get(Config.restAPI + '/api?module=stats&action=dailyavggasprice&apikey=' + Config.ApiKeyToken+'&startdate='+todayDate+'&enddate='+todayDate)
+        .then(function (response) {
+            stats.dailyavggasprice = response.data.result[0].avggaspricewei
+        })
 
+        await axios.get(Config.restAPI + '/api?module=stats&action=dailygasused&apikey=' + Config.ApiKeyToken+'&startdate='+todayDate+'&enddate='+todayDate)
+        .then(function (response) {
+            stats.dailygasused = response.data.result[0].gasused
+        })
+
+        
+
+        console.log(stats)
 
 
         setStats(stats)
@@ -275,39 +295,24 @@ const Home = ({ networkName, account }) => {
             if (networkName === 'CoeptIX' && txs.length === 0) {
                 getLatestTransactions()
             }
-            //getStats()
+            getStats()
 
             setLoading(false)
         }, 900);
         return () => clearTimeout(timer)
     })
-
-    if (loading) return (
-        <main style={{ padding: "1rem 0" }} className='app-body'>
-            <h2>Loading the latest blocks...</h2>
-            <Spinner animation="border" style={{ display: 'flex' }} />
-        </main>
-    )
-
     // Render ---------------------------------------------------------------------------------------------------------- //
     return (
         <main style={{ padding: "1rem 0" }} className='app-body'>
             <h2>EVM Blockchain Explorer</h2>
 
+            {/* Search Bar */}
             <SearchBar />
-            {networkName === 'CoeptIX' ?
-            <Row>
-                <Col>
-                    <Dashboard items={items} />
-                </Col>
-                {/* <Col md={4}>
-                    <Dashboard2 items={items} />
-                </Col>
-                <Col md={4}>
-                    <Dashboard items={items} />
-                </Col> */}
-            </Row>
-            : null}
+
+            {/* Stats */}
+            {networkName === 'CoeptIX' ? <Dashboard stats={stats} /> : null}
+
+            {/* Blocks & Transactions */}
             <div className="mt-3">
                 <Row >
                     <Col xs={12} md={12} lg={6} xl={6}>
@@ -318,6 +323,7 @@ const Home = ({ networkName, account }) => {
                     </Col>
                 </Row>
             </div>
+
         </main>
     );
 }
