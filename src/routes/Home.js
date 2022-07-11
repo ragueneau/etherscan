@@ -279,11 +279,11 @@ const Home = ({ networkName, account }) => {
                 getLatestTransactions()
             }
 
-            if (stats.length === 0) {
+            if (! stats.startdate ) {
                 getStats()
+                setLoading(false)
             }
 
-            setLoading(false)
         }, 1000);
         return () => clearTimeout(timer)
     })
