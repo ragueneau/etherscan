@@ -331,6 +331,7 @@ const Interface = ({ account, networkName, web3Handler }) => {
 
                         <Card.Body>
                             <Card.Text>
+                            {account ? (
                                 <ListGroup variant="flush" className="list-group-item">
                                 {abiInterface.map((action, index) => {
                                     return <ListGroup.Item key={index}>
@@ -352,9 +353,13 @@ const Interface = ({ account, networkName, web3Handler }) => {
                                             </Col>
                                         </Row>
                                     </ListGroup.Item>
-                                })}
+                                    })}
                                 </ListGroup>
-                            </Card.Text>
+                            ) : (
+                                <div>Connect metamask</div>
+                            )}
+
+                                </Card.Text>
                         </Card.Body>
 
                     </Card>
