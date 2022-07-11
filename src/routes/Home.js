@@ -14,7 +14,6 @@ import SearchBar from '../components/SearchBar'
 const axios = require('axios').default;
 
 const Home = ({ networkName, account }) => {
-    const [count, setCount] = useState(0);
     const [loading, setLoading] = useState(false)
     const [items, setItems] = useState([])
 
@@ -265,23 +264,8 @@ const Home = ({ networkName, account }) => {
             stats.dailygasused = response.data.result[0].gasused
         })
 
-        
-
-        console.log(stats)
-
 
         setStats(stats)
-
-
-
-
-
-
-
-
-
-
-
 
     }
 
@@ -289,7 +273,6 @@ const Home = ({ networkName, account }) => {
 
     useEffect(() => {
         let timer = setTimeout(() => {
-            setCount((count) => count + 1);
 
             getLatest()
             if (networkName === 'CoeptIX' && txs.length === 0) {
@@ -298,7 +281,7 @@ const Home = ({ networkName, account }) => {
             getStats()
 
             setLoading(false)
-        }, 900);
+        }, 500);
         return () => clearTimeout(timer)
     })
     // Render ---------------------------------------------------------------------------------------------------------- //
