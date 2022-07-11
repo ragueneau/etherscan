@@ -17,6 +17,7 @@ const LatestBlocks = ({items}) => {
                             <th>Timestamp</th>
                             <th>Time</th>
                             <th>tx</th>
+                            <th>uncles</th>
                             <th>Gas Used</th>
                             <th>Gas Limit</th>
                             <th>Difficulty</th>
@@ -30,6 +31,7 @@ const LatestBlocks = ({items}) => {
                             <td>{unixToDate(item.timestamp)}</td>
                             <td>{item.duration} {item.duration > 1 ? 'secs' : 'sec'}</td>
                             <td>{item.transactions.length}</td>
+                            <td>{item.uncles}</td>
                             <td>{parseInt(item.gasUsed)} gwei</td>
                             <td>{parseInt(item.gasLimit)} gwei</td>
                             <td>{item.difficulty}</td>

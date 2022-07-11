@@ -24,7 +24,7 @@ export function getAddress(address) {
 
 // ---------------------------------------------------------------------------------------------------------------------------- //
 export function linkAddress(address) {
-    const addr = address.slice(0,7) + '...' + address.slice(-5)
+    const addr = address.slice(0,7) + '...' + address.slice(-7)
 
     return <span>
         <Link title={address} to={`/address/${address}`}>{addr}</Link><Button variant="link" size="sm" className="copy-button table-button" onClick={() => copyToClipboard(address)}>{copyIcon}</Button>
