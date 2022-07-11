@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react'
 //import { ethers } from "ethers"
 import { Card, Row, Col, Spinner } from 'react-bootstrap'
 import TokenList from '../components/TokenList'
-import { Link } from "react-router-dom";
+//import { Link } from "react-router-dom";
 
 import Config from '../config.json'
 const axios = require('axios').default;

@@ -7,10 +7,9 @@ import { useParams } from 'react-router-dom'
 
 import TransactionList from '../components/TransactionList'
 
-const axios = require('axios').default;
+//const axios = require('axios').default;
 
 const Txs = ({ networkName }) => {
-    const [count, setCount] = useState(0);
     const params = useParams()
     const [loading, setLoading] = useState(true)
     const [blockContent, setTxsContent] = useState([])
@@ -41,8 +40,6 @@ const Txs = ({ networkName }) => {
     // ---------------------------------------------------------------------------------------------------------- //
     useEffect(() => {
         let timer = setTimeout(() => {
-            setCount((count) => count + 1);
-
             if (blockContent.length === 0) {
                 setBlockNumber(parseInt(params.blockNumber))
                 eth_getTransactionByBlockNumber()
