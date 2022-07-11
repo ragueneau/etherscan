@@ -57,6 +57,12 @@ const Accounts = ({ networkName }) => {
             stats.topminers = response.data.result
         })
 
+        //get stats dailytxnfee
+        await axios.get(Config.restAPI + '/api?module=stats&action=topbalances&apikey=' + Config.ApiKeyToken+'&startdate='+todayDate+'&enddate='+todayDate)
+        .then(function (response) {
+            stats.topbalances = response.data.result
+        })
+
         console.log(stats)
         setStats(stats)
 
@@ -86,6 +92,24 @@ const Accounts = ({ networkName }) => {
                                 <Card.Title className="std-card-title">Top Balances</Card.Title>
                             </Card.Header>
                             <Card.Body className="std-card-info-body">
+                                <Table size="sm">
+                                    <thead>
+                                        <tr>
+                                            <th>Account</th>
+                                            <th>Origin</th>
+                                            <th>Balance</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                    {stats.topbalances && stats.topbalances.map((item, index) => (
+                                        <tr key={index}>
+                                            <td>{item.name ? (<Link label={item.address} to={`/account/${item.address}`}>{item.name}</Link>) : (<Link label={item.address} to={`/account/${item.address}`}>{linkAddress(item.address)}</Link>)}</td>
+                                            <td><Link label={item.blocknumber} to={`/block/${item.blocknumber}`}>{item.blocknumber}</Link></td>
+                                            <td>{item.balance/1000000000000000000} xEth</td>
+                                        </tr>
+                                    ))}
+                                    </tbody>
+                                </Table>
                             </Card.Body>
                         </Card>
                     </Col>
@@ -121,7 +145,7 @@ const Accounts = ({ networkName }) => {
                                     <tbody>
                                     {stats.topminers && stats.topminers.map((item, index) => (
                                         <tr key={index}>
-                                            <td>{item.name ? (<Link to={`/account/${item.address}`}>{item.name}</Link>) : (<Link to={`/account/${item.address}`}>{linkAddress(item.address)}</Link>)}</td>
+                                            <td>{item.name ? (<Link label={item.miner} to={`/address/${item.miner}`}>{item.name}</Link>) : (<Link label={item.miner} to={`/address/${item.miner}`}>{linkAddress(item.miner)}</Link>)}</td>
                                             <td>{item.blocks}</td>
                                             <td>{item.totalrewards/1000000000} xEth</td>
                                         </tr>
