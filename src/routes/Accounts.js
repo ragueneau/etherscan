@@ -70,16 +70,16 @@ const Accounts = ({ networkName }) => {
 
 
     useEffect(() => {
-        let timer = setTimeout(() => {
+     //   let timer = setTimeout(() => {
             //setCount((count) => count + 1);
 
-            if (stats.length === 0) {
+            //if (stats.length === 0) {
                 getStats()
-            }
+           // }
 
             setLoading(false)
-        }, 900);
-        return () => clearTimeout(timer)
+      //  }, 900);
+       // return () => clearTimeout(timer)
       }, [])
 
       // Render ---------------------------------------------------------------------------------------------------------- //
