@@ -278,7 +278,10 @@ const Home = ({ networkName, account }) => {
             if (networkName === 'CoeptIX' && txs.length === 0) {
                 getLatestTransactions()
             }
-            getStats()
+
+            if (stats.length === 0) {
+                getStats()
+            }
 
             setLoading(false)
         }, 1000);
