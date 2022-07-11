@@ -10,7 +10,6 @@ import TransactionLogs from '../components/TransactionLogs'
 const axios = require('axios').default;
 
 const Tx = ({ networkName, transactionHash }) => {
-    const [count, setCount] = useState(0);
     const [loading, setLoading] = useState(true)
     const params = useParams()
     const [txlogs, setTxlogs] = useState(null)
@@ -95,7 +94,7 @@ const Tx = ({ networkName, transactionHash }) => {
 
     useEffect(() => {
         let timer = setTimeout(() => {
-            setCount((count) => count + 1);
+
             getTransaction()
             //getTxMongo()
             setLoading(false)

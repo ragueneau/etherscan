@@ -73,7 +73,9 @@ const Accounts = ({ networkName }) => {
         let timer = setTimeout(() => {
             //setCount((count) => count + 1);
 
-            getStats()
+            if (stats.length === 0) {
+                getStats()
+            }
 
             setLoading(false)
         }, 900);
