@@ -27,6 +27,8 @@ const Home = ({ networkName, account }) => {
     const [searchFilter, setSearchFilter] = useState('all')
     const [searchAccount, setSearchAccount] = useState('')
 
+    const [stats, setStats] = useState({})
+
     const getLatestTransactions = async () => {
         await axios.get(Config.restAPI + '/api?module=proxy&action=eth_blockNumber&apikey=' + Config.ApiKeyToken)
         .then(function (response) {
@@ -97,11 +99,6 @@ const Home = ({ networkName, account }) => {
             }
         }
     }
-
-
-
-
-
 
     const getLatest = async () => {
 
@@ -196,16 +193,89 @@ const Home = ({ networkName, account }) => {
         }
     }
 
+    const getStats = async () => {
+        let stats = {}
+
+        //today date yyyy-mm-dd
+        const today = new Date()
+        const dd = String(today.getDate()).padStart(2, '0')
+        const mm = String(today.getMonth() + 1).padStart(2, '0')
+        const yyyy = today.getFullYear()
+        const todayDate = yyyy + '-' + mm + '-' + dd
+
+        //yesterday date yyyy-mm-dd
+        const yesterday = new Date(today)
+        yesterday.setDate(today.getDate() - 1)
+        const ydd = String(yesterday.getDate()).padStart(2, '0')
+        const ymm = String(yesterday.getMonth() + 1).padStart(2, '0')
+        const yyyy2 = yesterday.getFullYear()
+        const yesterdayDate = yyyy2 + '-' + ymm + '-' + ydd
+
+        stats = {
+            startdate: yesterdayDate,
+            enddate: todayDate,
+            dailytxnfee: 0,
+            dailynetutilization: 0
+        }
+        //get stats dailytxnfee
+        //const response = await axios.get(Config.restAPI + '/api?module=stats&action=dailytxnfee&apikey=' + Config.ApiKeyToken+'&startdate='+yesterdayDate+'&enddate='+todayDate)
+        await axios.get(Config.restAPI + '/api?module=stats&action=dailytxnfee&apikey=' + Config.ApiKeyToken+'&startdate='+yesterdayDate+'&enddate='+todayDate)
+        .then(function (response) {
+          // handle success
+            // stats.dailytxnfee = response.data.result.txnfee
+        })
+        .catch(function (error) {
+         // handle error
+          console.log(error);
+        })
+       .then(function () {
+          // always executed
+        });
+
+        await axios.get(Config.restAPI + '/api?module=stats&action=dailynetutilization&apikey=' + Config.ApiKeyToken+'&startdate='+yesterdayDate+'&enddate='+todayDate)
+        .then(function (response) {
+          // handle success
+            // stats.dailytxnfee = response.data.result.txnfee
+        })
+        .catch(function (error) {
+         // handle error
+          console.log(error);
+        })
+       .then(function () {
+          // always executed
+        });
+
+
+
+
+
+
+        setStats(stats)
+
+
+
+
+
+
+
+
+
+
+
+
+    }
+
+
 
     useEffect(() => {
         let timer = setTimeout(() => {
             setCount((count) => count + 1);
 
             getLatest()
-
             if (networkName === 'CoeptIX' && txs.length === 0) {
                 getLatestTransactions()
             }
+            getStats()
 
             setLoading(false)
         }, 900);
@@ -227,15 +297,15 @@ const Home = ({ networkName, account }) => {
             <SearchBar />
             {networkName === 'CoeptIX' ?
             <Row>
-                <Col md={4}>
+                <Col>
                     <Dashboard items={items} />
                 </Col>
-                <Col md={4}>
+                {/* <Col md={4}>
                     <Dashboard2 items={items} />
                 </Col>
                 <Col md={4}>
                     <Dashboard items={items} />
-                </Col>
+                </Col> */}
             </Row>
             : null}
             <div className="mt-3">
