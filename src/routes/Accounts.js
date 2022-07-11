@@ -17,23 +17,17 @@ const Accounts = ({ networkName }) => {
 
         setLoading(false)
       }, [])
-      if (loading) return (
-        <main style={{ padding: "1rem 0" }} className='app-body'>
-          <h4 className="Title">Accounts</h4>
-          <Spinner animation="border" style={{ display: 'flex' }} />
-        </main>
-      )
 
       // Render ---------------------------------------------------------------------------------------------------------- //
       return (
         <main style={{ padding: "1rem 0" }} className='app-body'>
           <h4 className="Title">Accounts</h4>
-                <Row className="justify-content-center">
+                <Row>
 
                     <Col md={6}>
                         <Card>
                             <Card.Header>
-                                <Card.Title>Top Balances</Card.Title>
+                                <Card.Title className="std-card-title">Top Balances</Card.Title>
                             </Card.Header>
                             <Card.Body>
                             </Card.Body>
@@ -43,7 +37,31 @@ const Accounts = ({ networkName }) => {
                     <Col md={6}>
                         <Card>
                             <Card.Header>
-                                <Card.Title>Top Transactions</Card.Title>
+                                <Card.Title className="std-card-title">Top Transactions</Card.Title>
+                            </Card.Header>
+                            <Card.Body>
+                            </Card.Body>
+                        </Card>
+                    </Col>
+
+                </Row>
+                <br/>
+                <Row>
+
+                    <Col md={6}>
+                        <Card>
+                            <Card.Header>
+                                <Card.Title className="std-card-title">Top Miners</Card.Title>
+                            </Card.Header>
+                            <Card.Body>
+                            </Card.Body>
+                        </Card>
+                    </Col>
+
+                    <Col md={6}>
+                        <Card>
+                            <Card.Header>
+                                <Card.Title className="std-card-title">Top Gas Used</Card.Title>
                             </Card.Header>
                             <Card.Body>
                             </Card.Body>
