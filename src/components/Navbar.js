@@ -54,8 +54,9 @@ const Navigation = ({ web3Handler, setNetwork, account, networkName, stats }) =>
                             <NavDropdown.Item href="http://172.105.29.6:8258/" target="_blank">PoW Faucet</NavDropdown.Item>
                             <NavDropdown.Divider />
                             <NavDropdown.Item href="http://172.105.29.6:3000/" target="_blank">CoeptIX Network Stats</NavDropdown.Item>
+                            <NavDropdown.Item href="https://uptime.coeptix.com/status/coeptix-testnet" target="_blank">CoeptIX Network Status</NavDropdown.Item>
+                            <NavDropdown.Divider />
                             <NavDropdown.Item href="http://netstats.nopy.org:3000/" target="_blank">Hellnet Network Stats</NavDropdown.Item>
-                            <NavDropdown.Item href="https://uptime.coeptix.com/status/coeptix-testnet" target="_blank">Network Status</NavDropdown.Item>
                             <NavDropdown.Divider />
                             <NavDropdown.Item href="https://documenter.getpostman.com/view/15658566/UyxeoTrH" target="_blank">API Documentation</NavDropdown.Item>
                         </NavDropdown>
