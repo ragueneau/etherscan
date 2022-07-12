@@ -32,7 +32,6 @@ const Interfaces = ({ web3Handler, account, networkName }) => {
     const [searchFilter, setSearchFilter] = useState('all')
     const [searchAccount, setSearchAccount] = useState('')
 
-    const [count, setCount] = useState(0);
     const [loading, setLoading] = useState(true)
 
     // ---------------------------------------------------------------------------------------------------- //

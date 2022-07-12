@@ -8,7 +8,6 @@ import BlockInfo from '../components/BlockInfo'
 import TransactionList from '../components/TransactionList'
 
 const Block = ({ networkName }) => {
-    const [count, setCount] = useState(0);
     const params = useParams()
     const [loading, setLoading] = useState(true)
     const blockNumber = parseInt(params.blockNumber)
@@ -74,7 +73,6 @@ const Block = ({ networkName }) => {
 
     useEffect(() => {
         let timer = setTimeout(() => {
-            setCount((count) => count + 1);
             if ( blockNumber !== blockContent.number ) {
                 eth_getTransactionByBlockNumber()
                 setLoading(true)

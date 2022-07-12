@@ -23,7 +23,6 @@ const Logs = ({ networkName }) => {
     const [events, setEvents] = useState([])
     const [abi, setAbi] = useState([])
 
-    const [count, setCount] = useState(0);
     const [loading, setLoading] = useState(true)
 
     // ---------------------------------------------------------------------------------------------------- //
@@ -88,7 +87,6 @@ const Logs = ({ networkName }) => {
     // ---------------------------------------------------------------------------------------------------------- //
     useEffect(() => {
         let timer = setTimeout(() => {
-            setCount((count) => count + 1);
 
             //if abi is empty, get it
             if (abi.length === 0) {
