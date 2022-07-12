@@ -4,12 +4,11 @@ import { useState, useEffect } from 'react'
 import { ethers } from "ethers"
 import { Col, Row, Spinner } from 'react-bootstrap'
 
+import SearchBar from '../components/SearchBar'
+import Dashboard from '../components/Dashboard'
+
 import LatestBlocks from '../components/LatestBlocks'
 import LatestTransactions from '../components/LatestTransactions'
-import Dashboard from '../components/Dashboard'
-import Dashboard2 from '../components/Dashboard2'
-
-import SearchBar from '../components/SearchBar'
 
 const axios = require('axios').default;
 

@@ -25,7 +25,6 @@ const Address = ({ networkName }) => {
 
     // -=< Variables >=- ------------------------------------------------------------------------------------------------------ //
 
-    const [count, setCount] = useState(0)
     const [txs, setTxs] = useState([])
 
     const params = useParams()
@@ -127,7 +126,6 @@ const Address = ({ networkName }) => {
     // -=< Effects >=- ------------------------------------------------------------------------------------------------------ //
     useEffect(() => {
         let timer = setTimeout(() => {
-            setCount((count) => count + 1);
 
             getOnChainAddressInfo()
             //getAccountInfo()

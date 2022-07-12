@@ -15,15 +15,19 @@ const Accounts = ({ networkName }) => {
     const [items, setItems] = useState([])
     const [stats, setStats] = useState({})
 
+    const [topBalances, setTopBalances] = useState([])
+    const [topMiners, setTopMiners] = useState([])
 
-    const getStats = async () => {
+    const [toptransactions, setTopTransactions] = useState([])
+    //const [toptransfers, setTopTransfers] = useState([])
+    //const [toptokens, setTopTokens] = useState([])
+    const [topaddresses, setTopAddresses] = useState([])
+    const [topcontracts, setTopContracts] = useState([])
+    //const [topevents, setTopEvents] = useState([])
+    //const [topblocksbyhash, setTopBlocksByHash] = useState([])
+
+    const getTopMiners = async () => {
         let stats = {}
-        let provider = new ethers.providers.JsonRpcProvider(Config.node);
-
-        //verify if metamask is connected
-        if (window.ethereum) {
-            provider = new ethers.providers.Web3Provider(window.ethereum);
-        }
 
         //today date yyyy-mm-dd
         const today = new Date()
@@ -42,45 +46,59 @@ const Accounts = ({ networkName }) => {
 
         stats = {
             startdate: yesterdayDate,
-            enddate: todayDate,
-            dailytxnfee: 0,
-            dailynetutilization: 0,
-            avgdifficulty: 0,
-            avgtxnperblock: 0,
-            avgtxnperday: 0,
-            avgtxnperhour: 0,
-            avgtxnperminute: 0
+            enddate: todayDate
         }
-        //get stats dailytxnfee
+
         await axios.get(Config.restAPI + '/api?module=stats&action=topminers&apikey=' + Config.ApiKeyToken+'&startdate='+todayDate+'&enddate='+todayDate)
         .then(function (response) {
             stats.topminers = response.data.result
+            setTopMiners(stats.topminers)
         })
 
+    }
+
+    const getTopBalances = async () => {
+        let stats = {}
+
+        //today date yyyy-mm-dd
+        const today = new Date()
+        const dd = String(today.getDate()).padStart(2, '0')
+        const mm = String(today.getMonth() + 1).padStart(2, '0')
+        const yyyy = today.getFullYear()
+        const todayDate = yyyy + '-' + mm + '-' + dd
+
+        //yesterday date yyyy-mm-dd
+        const yesterday = new Date(today)
+        yesterday.setDate(today.getDate() - 1)
+        const ydd = String(yesterday.getDate()).padStart(2, '0')
+        const ymm = String(yesterday.getMonth() + 1).padStart(2, '0')
+        const yyyy2 = yesterday.getFullYear()
+        const yesterdayDate = yyyy2 + '-' + ymm + '-' + ydd
+
+        stats = {
+            startdate: yesterdayDate,
+            enddate: todayDate
+        }
         //get stats dailytxnfee
         await axios.get(Config.restAPI + '/api?module=stats&action=topbalances&apikey=' + Config.ApiKeyToken+'&startdate='+todayDate+'&enddate='+todayDate)
         .then(function (response) {
             stats.topbalances = response.data.result
+            setTopBalances(stats.topbalances)
         })
-
-        console.log(stats)
-        setStats(stats)
 
     }
 
-
+ 
     useEffect(() => {
-     //   let timer = setTimeout(() => {
-            //setCount((count) => count + 1);
+        let timer = setTimeout(() => {
 
-            //if (stats.length === 0) {
-                getStats()
-           // }
+            getTopMiners()
+            getTopBalances()
 
             setLoading(false)
-      //  }, 900);
-       // return () => clearTimeout(timer)
-      }, [])
+        }, 1000);
+        return () => clearTimeout(timer)
+      })
 
       // Render ---------------------------------------------------------------------------------------------------------- //
       return (
@@ -91,7 +109,7 @@ const Accounts = ({ networkName }) => {
                     <Col md={6}>
                     <Card className="std-card-info">
                             <Card.Header>
-                                <Card.Title className="std-card-title">Top Balances</Card.Title>
+                                <Card.Title >Top Balances</Card.Title>
                             </Card.Header>
                             <Card.Body className="std-card-info-body">
                                 <Table size="sm">
@@ -103,9 +121,9 @@ const Accounts = ({ networkName }) => {
                                         </tr>
                                     </thead>
                                     <tbody>
-                                    {stats.topbalances && stats.topbalances.map((item, index) => (
+                                    {topBalances && topBalances.map((item, index) => (
                                         <tr key={index}>
-                                            <td>{item.name ? (<Link label={item.address} to={`/account/${item.address}`}>{item.name}</Link>) : (<Link label={item.address} to={`/account/${item.address}`}>{linkAddress(item.address)}</Link>)}</td>
+                                            <td>{item.name ? (<Link title={item.address} to={`/address/${item.address}`}>{item.name}</Link>) : (<Link label={item.address} to={`/address/${item.address}`}>{linkAddress(item.address)}</Link>)}</td>
                                             <td><Link label={item.blocknumber} to={`/block/${item.blocknumber}`}>{item.blocknumber}</Link></td>
                                             <td>{item.balance/1000000000000000000} xEth</td>
                                         </tr>
@@ -119,7 +137,7 @@ const Accounts = ({ networkName }) => {
                     <Col md={6}>
                     <Card className="std-card-info">
                             <Card.Header>
-                                <Card.Title className="std-card-title">Top Transactions</Card.Title>
+                                <Card.Title >Top Transactions</Card.Title>
                             </Card.Header>
                             <Card.Body className="std-card-info-body">
                             </Card.Body>
@@ -133,7 +151,7 @@ const Accounts = ({ networkName }) => {
                     <Col md={6}>
                         <Card className="std-card-info">
                             <Card.Header>
-                                <Card.Title className="std-card-title">Top Miners</Card.Title>
+                                <Card.Title >Top Miners</Card.Title>
                             </Card.Header>
                             <Card.Body className="std-card-info-body">
                                 <Table size="sm">
@@ -145,7 +163,7 @@ const Accounts = ({ networkName }) => {
                                         </tr>
                                     </thead>
                                     <tbody>
-                                    {stats.topminers && stats.topminers.map((item, index) => (
+                                    {topMiners && topMiners.map((item, index) => (
                                         <tr key={index}>
                                             <td>{item.name ? (<Link label={item.miner} to={`/address/${item.miner}`}>{item.name}</Link>) : (<Link label={item.miner} to={`/address/${item.miner}`}>{linkAddress(item.miner)}</Link>)}</td>
                                             <td>{item.blocks}</td>
@@ -161,13 +179,34 @@ const Accounts = ({ networkName }) => {
                     <Col md={6}>
                     <Card className="std-card-info">
                             <Card.Header>
-                                <Card.Title className="std-card-title">Top Gas Used</Card.Title>
+                                <Card.Title >Top Gas Used</Card.Title>
                             </Card.Header>
                             <Card.Body className="std-card-info-body">
                             </Card.Body>
                         </Card>
                     </Col>
 
+                </Row>
+                <br/>
+                <Row>
+                <Col md={6}>
+                    <Card className="std-card-info">
+                            <Card.Header>
+                                <Card.Title>Top Contract by Value</Card.Title>
+                            </Card.Header>
+                            <Card.Body className="std-card-info-body">
+                            </Card.Body>
+                        </Card>
+                    </Col>
+                    <Col md={6}>
+                    <Card className="std-card-info">
+                            <Card.Header>
+                                <Card.Title>Top Contract by Tx</Card.Title>
+                            </Card.Header>
+                            <Card.Body className="std-card-info-body">
+                            </Card.Body>
+                        </Card>
+                    </Col>
                 </Row>
             </main>
     );

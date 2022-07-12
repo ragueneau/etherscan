@@ -22,7 +22,6 @@ const TokensLogs = ({ networkName }) => {
     const [tokenList, setTokenlist] = useState([])
     const [abi, setAbi] = useState([])
 
-    const [count, setCount] = useState(0);
     const [loading, setLoading] = useState(true)
 
     // ---------------------------------------------------------------------------------------------------- //
@@ -113,8 +112,6 @@ const TokensLogs = ({ networkName }) => {
     // ---------------------------------------------------------------------------------------------------------- //
     useEffect(() => {
         let timer = setTimeout(() => {
-            setCount((count) => count + 1);
-
 
             //if tken list is empty, get it
             if (tokenList.length === 0) {

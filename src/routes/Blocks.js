@@ -10,7 +10,6 @@ const axios = require('axios').default;
 
 const Blocks = ({ networkName }) => {
     const [loading, setLoading] = useState(true)
-    const [count, setCount] = useState(0)
     const [items, setItems] = useState([])
     const [txs, setTxs] = useState([])
     const [lastBlock, setLastBlock] = useState(0)
@@ -73,7 +72,6 @@ const Blocks = ({ networkName }) => {
     // Use Effect ---------------------------------------------------------------------------------------------------- //
     useEffect(() => {
         let timer = setTimeout(() => {
-            setCount((count) => count + 1);
 
             getLatestBlocks()
 

@@ -5,7 +5,6 @@ import { Spinner } from 'react-bootstrap'
 import { useParams } from "react-router-dom";
 
 const Profile = ({ networkName }) => {
-    const [count, setCount] = useState(0);
     const params = useParams()
     const [loading, setLoading] = useState(true)
 
@@ -20,7 +19,7 @@ const Profile = ({ networkName }) => {
         getProfile()
 
         let timer = setTimeout(() => {
-            setCount((count) => count + 1);
+
         }, 1000);
 
         return () => clearTimeout(timer)

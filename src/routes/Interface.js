@@ -48,7 +48,6 @@ const Interface = ({ account, networkName, web3Handler }) => {
     const [events, setEvents] = useState([])
     const [eventLabels, setEventLabels] = useState([])
 
-    const [count, setCount] = useState(0);
     const [loading, setLoading] = useState(true)
 
     const [contract, setContract] = useState(null)
@@ -265,7 +264,6 @@ const Interface = ({ account, networkName, web3Handler }) => {
     // ---------------------------------------------------------------------------------------------------------- //
     useEffect(() => {
         let timer = setTimeout(() => {
-            setCount((count) => count + 1);
 
             if (contractAddress === undefined) {
                 setContractAddress(params.contract)
