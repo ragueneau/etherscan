@@ -25,7 +25,15 @@ const Home = ({ networkName, account }) => {
     const [searchFilter, setSearchFilter] = useState('all')
     const [searchAccount, setSearchAccount] = useState('')
 
-    const [stats, setStats] = useState({})
+    const [stats, setStats] = useState({
+        dailytxnfee: 0,
+        dailynetutilization: 0,
+        avgdifficulty: 0,
+        avgtxnperblock: 0,
+        avgtxnperday: 0,
+        avgtxnperhour: 0,
+        avgtxnperminute: 0
+    })
 
     const getLatestTransactions = async () => {
         await axios.get(Config.restAPI + '/api?module=proxy&action=eth_blockNumber&apikey=' + Config.ApiKeyToken)
@@ -235,22 +243,26 @@ const Home = ({ networkName, account }) => {
         await axios.get(Config.restAPI + '/api?module=stats&action=dailynewaddress&apikey=' + Config.ApiKeyToken+'&startdate='+todayDate+'&enddate='+todayDate)
         .then(function (response) {
             //get the firtst address
-            stats.dailynewaddress = response.data.result[0].newaddresscount
+            if (response.data.result[0]) {
+                stats.dailynewaddress = response.data.result[0].newaddresscount
+            } else {
+                stats.dailynewaddress = 0
+            }
         })
 
         await axios.get(Config.restAPI + '/api?module=stats&action=dailynetutilization&apikey=' + Config.ApiKeyToken+'&startdate='+todayDate+'&enddate='+todayDate)
         .then(function (response) {
-            stats.dailynetutilization = response.data.result[0].networkutilization
+            stats.dailynetutilization = response.data.result[0].networkutilization || 0
         })
 
         await axios.get(Config.restAPI + '/api?module=stats&action=dailyavggaslimit&apikey=' + Config.ApiKeyToken+'&startdate='+todayDate+'&enddate='+todayDate)
         .then(function (response) {
-            stats.dailyavggaslimit = response.data.result[0].avglimit
+            stats.dailyavggaslimit = response.data.result[0].avglimit || 0
         })
 
         await axios.get(Config.restAPI + '/api?module=stats&action=dailyavggasprice&apikey=' + Config.ApiKeyToken+'&startdate='+todayDate+'&enddate='+todayDate)
         .then(function (response) {
-            stats.dailyavggasprice = response.data.result[0].avggaspricewei
+            stats.dailyavggasprice = response.data.result[0].avggaspricewei || 0
         })
 
         await axios.get(Config.restAPI + '/api?module=stats&action=dailyavggasprice&apikey=' + Config.ApiKeyToken+'&startdate='+todayDate+'&enddate='+todayDate)
@@ -278,10 +290,7 @@ const Home = ({ networkName, account }) => {
                 getLatestTransactions()
             }
 
-            if (! stats.startdate ) {
-                getStats()
-                setLoading(false)
-            }
+            getStats()
 
         }, 1000);
         return () => clearTimeout(timer)
