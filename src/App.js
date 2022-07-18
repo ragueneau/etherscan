@@ -152,10 +152,14 @@ function App() {
       setNetworkName('Moonriver')
     } else if (chainIdInt === 1337) {
       setNetworkName('Ganache')
+    } else if (chainIdInt === 3712) {
+      setNetworkName('Legalsuite')
     } else if (chainIdInt === 31337) {
       setNetworkName('Hardhat')
     } else if (chainIdInt === 35478) {
       setNetworkName('CoeptIX')
+    } else if (chainIdInt === 37012) {
+      setNetworkName('LS Lab')
     } else if (chainIdInt === 42161) {
       setNetworkName('Arbitrum One')
     } else if (chainIdInt === 43114) {
