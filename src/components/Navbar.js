@@ -50,8 +50,9 @@ const Navigation = ({ web3Handler, setNetwork, account, networkName, stats }) =>
                         <NavDropdown title="Resources" id="collasible-nav-resources">
                             <NavDropdown.Item as={Link} to="/apps">Applications</NavDropdown.Item>
                             <NavDropdown.Divider />
-                            <NavDropdown.Item as={Link} to="/faucet">Auth Faucet</NavDropdown.Item>
+                            <NavDropdown.Item href="https://faucet.coeptix.net" target="_blank">Auth Faucet</NavDropdown.Item>
                             <NavDropdown.Item href="http://172.105.29.6:8258/" target="_blank">PoW Faucet</NavDropdown.Item>
+                            <NavDropdown.Item href="https://factory.coeptix.net" target="_blank">Token Factory</NavDropdown.Item>
                             <NavDropdown.Divider />
                             <NavDropdown.Item href="http://172.105.29.6:3000/" target="_blank">CoeptIX Network Stats</NavDropdown.Item>
                             <NavDropdown.Item href="https://uptime.coeptix.com/status/coeptix-testnet" target="_blank">CoeptIX Network Status</NavDropdown.Item>
