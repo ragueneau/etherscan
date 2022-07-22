@@ -63,12 +63,13 @@ const Interfaces = ({ web3Handler, account, networkName }) => {
 
             if (contracts.length > 0) {
                 response.data.result.forEach(function (item) {
+                    let from = item.from ? item.from : '-'
                     if (item.address !== undefined) {
                         newContracts.push({
                             address: item.address.toLowerCase(),
                             addr: item.address,
                             name: item.contractName,
-                            from: item.from.toLowerCase(),
+                            from: from,
                             isERC20: item.isERC20,
                             isERC721: item.isERC721,
                             balance: item.balance
