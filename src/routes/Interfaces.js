@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react'
 import { ethers } from "ethers"
 //import { solc } from 'solc'
 
-import { Button, Table, Row, Col, Card, Spinner, ListGroup, Form } from 'react-bootstrap'
+import { Badge, Button, Table, Row, Col, Card, Spinner, ListGroup, Form } from 'react-bootstrap'
 import { useParams } from 'react-router-dom'
 import { Link } from "react-router-dom";
 
@@ -218,7 +218,7 @@ const Interfaces = ({ web3Handler, account, networkName }) => {
                                         <td>{index + 1}</td>
                                         <td className='hover truncate'>{getAddress(item.address)}</td>
                                         <td><span>{linkAddress(item.from)}</span></td>
-                                        <td>{item.isERC20 ? <Button variant="outline-secondary btn-list" size="sm"> ERC 20 </Button> : item.isERC721 ? <Button variant="outline-secondary btn-list" size="sm"> ERC 721 </Button> : null}</td>
+                                        <td>{item.isERC20 ? <Badge variant="outline-secondary btn-list" size="sm"> ERC 20 </Badge> : item.isERC721 ? <Badge variant="outline-secondary btn-list" size="sm"> ERC 721 </Badge> : null}</td>
                                         <td>{Math.round((item.balance / 10 ** 18) * 100000 ) / 100000}</td>
                                         <td><Link to={`/address/${item.address}`}><Button variant="outline-primary btn-list" size="sm"> View </Button>
                                             </Link> {
