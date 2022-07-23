@@ -330,7 +330,7 @@ const Home = ({ networkName, account }) => {
             <SearchBar />
 
             {/* Stats */}
-            {/* {networkName === 'CoeptIX' ? <Dashboard stats={stats} /> : null} */}
+            {networkName === 'CoeptIX' ? <Dashboard stats={stats} /> : null}
 
             {/* Blocks & Transactions */}
             <div className="mt-3">
