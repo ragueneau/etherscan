@@ -290,7 +290,9 @@ const Home = ({ networkName, account }) => {
                 getLatestTransactions()
             }
 
-            getStats()
+            if (stats.dailytxnfee === 0) {
+                getStats()
+            }
 
         }, 1000);
         return () => clearTimeout(timer)
