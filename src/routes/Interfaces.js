@@ -137,27 +137,23 @@ const Interfaces = ({ web3Handler, account, networkName }) => {
     // ---------------------------------------------------------------------------------------------------------- //
     // ---------------------------------------------------------------------------------------------------------- //
     useEffect(() => {
-        let timer = setTimeout(() => {
-            //setCount((count) => count + 1);
 
-            //if abi is empty, get it
-            if (abis.length === 0) {
-                getAbis()
+        //if abi is empty, get it
+        if (abis.length === 0) {
+            getAbis()
 
-            }
+        }
 
-            //if contract is empty, load it
-            if (contracts.length === 0) {
-                getContracts()
-                //console.log(contracts)
-            }
+        //if contract is empty, load it
+        if (contracts.length === 0) {
+            getContracts()
+            //console.log(contracts)
+        }
 
-            //searchValue.includes('0x'))
+        //searchValue.includes('0x'))
 
-            //setLoading(false)
-    }, 1000);
-        return () => clearTimeout(timer)
-    })
+    }, [])
+
       if (loading) return (
         <main style={{ padding: "1rem 0" }} >
             <h4 className="Title">Contract List</h4>
