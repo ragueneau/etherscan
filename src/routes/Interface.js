@@ -19,15 +19,11 @@ const axios = require('axios').default;
 const contracts = [
     {
         name: 'ERC20',
-        address: '0x4edDe623379B27db9B0283E917F4c130963cd676',
+        address: '0x00000000000000000000000000000000000000001',
     },
     {
         name: 'ERC721',
-        address: '0x073c0286D628F8Bd490CE645Ea6c6bA11c607412',
-    },
-    {
-        name: 'Lottery',
-        address: '0x891f0f2eF6A154e937B6a07B03d3a28fa3A61CaD',
+        address: '0x00000000000000000000000000000000000000002',
     }
 ];
 
