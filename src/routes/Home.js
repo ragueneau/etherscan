@@ -237,7 +237,11 @@ const Home = ({ networkName, account }) => {
         //get stats dailytxnfee
         await axios.get(Config.restAPI + '/api?module=stats&action=dailytxnfee&apikey=' + Config.ApiKeyToken+'&startdate='+todayDate+'&enddate='+todayDate)
         .then(function (response) {
-            stats.dailytxnfee = response.data.result[0].transactionfee_eth
+            if ( response.data.length > 0 ) {
+                stats.dailytxnfee = response.data.result[0].transactionfee_eth
+            } else {
+                stats.dailytxnfee = 0
+            }
         })
 
         await axios.get(Config.restAPI + '/api?module=stats&action=dailynewaddress&apikey=' + Config.ApiKeyToken+'&startdate='+todayDate+'&enddate='+todayDate)
@@ -252,32 +256,52 @@ const Home = ({ networkName, account }) => {
 
         await axios.get(Config.restAPI + '/api?module=stats&action=dailynetutilization&apikey=' + Config.ApiKeyToken+'&startdate='+todayDate+'&enddate='+todayDate)
         .then(function (response) {
-            stats.dailynetutilization = response.data.result[0].networkutilization || 0
+            if ( response.data.length > 0 ) {
+                stats.dailynetutilization = response.data.result[0].networkutilization
+            } else {
+                stats.dailynetutilization = 0
+            }
         })
 
         await axios.get(Config.restAPI + '/api?module=stats&action=dailyavggaslimit&apikey=' + Config.ApiKeyToken+'&startdate='+todayDate+'&enddate='+todayDate)
         .then(function (response) {
-            stats.dailyavggaslimit = response.data.result[0].avglimit || 0
+            if ( response.data.length > 0 ) {
+                stats.dailyavggaslimit = response.data.result[0].avglimit
+            } else {
+                stats.dailyavggaslimit = 0
+            }
+
+            })
+
+        await axios.get(Config.restAPI + '/api?module=stats&action=dailyavggasprice&apikey=' + Config.ApiKeyToken+'&startdate='+todayDate+'&enddate='+todayDate)
+        .then(function (response) {
+            if ( response.data.length > 0 ) {
+                stats.dailyavggasprice = response.data.result[0].avggaspricewei
+            } else {
+                stats.dailyavggasprice = 0
+            }
+
         })
 
         await axios.get(Config.restAPI + '/api?module=stats&action=dailyavggasprice&apikey=' + Config.ApiKeyToken+'&startdate='+todayDate+'&enddate='+todayDate)
         .then(function (response) {
-            stats.dailyavggasprice = response.data.result[0].avggaspricewei || 0
-        })
-
-        await axios.get(Config.restAPI + '/api?module=stats&action=dailyavggasprice&apikey=' + Config.ApiKeyToken+'&startdate='+todayDate+'&enddate='+todayDate)
-        .then(function (response) {
-            stats.dailyavggasprice = response.data.result[0].avggaspricewei
+            if ( response.data.length > 0 ) {
+                stats.dailyavggasprice = response.data.result[0].avggaspricewei
+            } else {
+                stats.dailyavggasprice = 0
+            }
         })
 
         await axios.get(Config.restAPI + '/api?module=stats&action=dailygasused&apikey=' + Config.ApiKeyToken+'&startdate='+todayDate+'&enddate='+todayDate)
         .then(function (response) {
-            stats.dailygasused = response.data.result[0].gasused
+            if ( response.data.length > 0 ) {
+                stats.dailygasused = response.data.result[0].gasused
+            } else {
+                stats.dailygasused = 0
+            }
         })
 
-
         setStats(stats)
-
     }
 
 
@@ -306,7 +330,7 @@ const Home = ({ networkName, account }) => {
             <SearchBar />
 
             {/* Stats */}
-            {networkName === 'CoeptIX' ? <Dashboard stats={stats} /> : null}
+            {/* {networkName === 'CoeptIX' ? <Dashboard stats={stats} /> : null} */}
 
             {/* Blocks & Transactions */}
             <div className="mt-3">
