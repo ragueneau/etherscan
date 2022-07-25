@@ -11,7 +11,7 @@
     "@fortawesome/free-brands-svg-icons": "^6.1.1",
     "@fortawesome/free-solid-svg-icons": "^6.1.1",
     "@fortawesome/react-fontawesome": "^0.1.18",
-    "@openzeppelin/contracts": "^4.5.0",
+    "@openzeppelin/contracts": "^4.7.1",
     "@syncfusion/ej2-react-charts": "^20.1.61",
     "@testing-library/jest-dom": "^5.16.2",
     "@testing-library/react": "^12.1.3",
