@@ -112,7 +112,6 @@ const Block = ({ networkName }) => {
                         <TransactionList txs={txsContent} />
                     </Col>
                 </Row>
-      
         </main>
     );
 }

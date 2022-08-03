@@ -14,7 +14,7 @@ const TransactionLogs = ({ transaction }) => {
 
     // Render ---------------------------------------------------------------------------------------------------------- //
     return (
-        <Card className="std-card-txlogs box">
+        <Card classMap="shadowCard">
             <Card.Header>
                 <Card.Title className="std-card-title">Transactions Logs</Card.Title>
             </Card.Header>

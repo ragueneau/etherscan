@@ -1,5 +1,6 @@
 import { Card, Button, ListGroup } from 'react-bootstrap'
 import { Link } from "react-router-dom";
+import { copyToClipboardButton } from '../class/Tools'
 
 const BlockInfo = ({ block }) => {
       // Render ---------------------------------------------------------------------------------------------------------- //
@@ -18,7 +19,7 @@ const BlockInfo = ({ block }) => {
                     <ListGroup.Item><b>Difficulty</b>: {block.difficulty}</ListGroup.Item>
                     <ListGroup.Item><b>Total Difficulty</b>: {block.totalDifficulty}</ListGroup.Item>
                     <ListGroup.Item><b>Nonce</b>: {block.nonce}</ListGroup.Item>
-                    <ListGroup.Item><b>Miner</b>: <Link to={`/address/${block.miner}`}><i className="fas fa-user-circle">{block.miner}</i></Link></ListGroup.Item>
+                    <ListGroup.Item><b>Miner</b>: <Link to={`/address/${block.miner}`}><i className="fas fa-user-circle">{block.miner}</i> {copyToClipboardButton(block.miner)}</Link></ListGroup.Item>
                     <ListGroup.Item><b>Block hash</b>: <Link to={`/block/${block.number}`}><i className="fas fa-user-circle">{block.hash}</i></Link></ListGroup.Item>
                     <ListGroup.Item><b>Parent Hash</b>: <Link to={`/block/${block.number - 1}`}><i className="fas fa-user-circle">{block.parentHash}</i></Link></ListGroup.Item>
                     <ListGroup.Item><b>Extra Data</b>: {block.extraData}</ListGroup.Item>

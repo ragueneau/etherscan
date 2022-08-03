@@ -64,7 +64,7 @@ const Token = ({ networkName }) => {
 
 
     //get the token supply
-    const getTokenSupply = async () => {
+    const getTokenSupply = async (_token) => {
 
         let provider = new ethers.providers.JsonRpcProvider(Config.node);
 
@@ -108,7 +108,7 @@ const Token = ({ networkName }) => {
                 totalSupply:0,
                 owner:'Unknown',
                 lastUpdated:0,
-                site_url: '://',
+                site_url: '',
             })
         }
         setLoading(false)
@@ -117,13 +117,14 @@ const Token = ({ networkName }) => {
 
 
     useEffect(() => {
-        getTokenSupply()
+        getTokenSupply(params.tokenAddress)
         setToken(params.tokenAddress)
         getTokenInfo(params.tokenAddress)
         console.log('Token:', JSON.stringify(token))
       }, [
         networkName,
-        params.tokenAddress
+        params.tokenAddress,
+        token
       ])
 
       if (loading) return (

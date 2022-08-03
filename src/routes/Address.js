@@ -152,7 +152,7 @@ const Address = ({ networkName }) => {
             }
             //console.log(params.walletAddress,address.address)
 
-            console.log(address)
+            //console.log(address)
         }, 1000);
 
         return () => clearTimeout(timer)

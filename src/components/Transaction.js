@@ -2,6 +2,7 @@ import { Card, Button, ListGroup } from 'react-bootstrap'
 import { Link } from "react-router-dom";
 
 const Transaction = ({ transaction }) => {
+
     const receipt = {}
     for (let key in transaction.receipt) {
         receipt[key] = transaction.receipt[key]
@@ -23,7 +24,7 @@ const Transaction = ({ transaction }) => {
 
     // Render ---------------------------------------------------------------------------------------------------------- //
     return (
-    <Card className="std-card-txbox box">
+    <Card classMap="shadowCard">
         <Card.Header>
             <Card.Title className="std-card-title">Overview</Card.Title>
         </Card.Header>
