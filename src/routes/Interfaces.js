@@ -15,7 +15,7 @@ import { Link } from "react-router-dom";
 
 //import Compile from '../components/Compile'
 
-import { copyToClipboard, getAddress, linkAddress } from '../class/Tools'
+import { copyToClipboard, getAddress, linkCopyAddress } from '../class/Tools'
 import { afterMain } from '@popperjs/core'
 //import { getProvider, isContract, loadContract2 } from '../class/Evm'
 
@@ -88,8 +88,6 @@ const Interfaces = ({ web3Handler, account, networkName }) => {
     const Compile = async () => {
         //print to the console the code to compile
                 console.log(contractFile)
-
-
 
     }
 
@@ -213,8 +211,8 @@ const Interfaces = ({ web3Handler, account, networkName }) => {
                                     <tr key={index+1}>
                                         <td>{index + 1}</td>
                                         <td className='hover truncate'>{getAddress(item.address)}</td>
-                                        <td><span>{linkAddress(item.from)}</span></td>
-                                        <td>{item.isERC20 ? <Badge variant="outline-secondary btn-list" size="sm"> ERC 20 </Badge> : item.isERC721 ? <Badge variant="outline-secondary btn-list" size="sm"> ERC 721 </Badge> : null}</td>
+                                        <td><span>{linkCopyAddress(item.from)}</span></td>
+                                        <td>{item.isERC20 ? <Link to={`/token/${item.address}`}><Badge variant="outline-secondary btn-list" size="sm"> ERC 20 </Badge></Link> : item.isERC721 ? <Badge variant="outline-secondary btn-list" size="sm"> ERC 721 </Badge> : null}</td>
                                         <td>{Math.round((item.balance / 10 ** 18) * 100000 ) / 100000}</td>
                                         <td><Link to={`/address/${item.address}`}><Button variant="outline-primary btn-list" size="sm"> View </Button>
                                             </Link> {

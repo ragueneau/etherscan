@@ -1,6 +1,6 @@
 import Config from '../config.json'
 
-import { getAddress, linkAddress } from '../class/Tools'
+import { getAddress, copyToClipboardButton } from '../class/Tools'
 import { getProvider, isContract } from '../class/Evm'
 
 // -=< Ethers >=------------------------------------------------------------------------------------------------------------ //
@@ -8,7 +8,7 @@ import { ethers } from "ethers"
 
 // -=< React.Component >=- ------------------------------------------------------------------------------------------------- //
 import { useState, useEffect } from 'react'
-import { Card, Nav, Button, Row, Col, Spinner } from 'react-bootstrap'
+import { Card, Nav, Row, Col, Spinner } from 'react-bootstrap'
 import { useParams } from "react-router-dom"
 
 // -=< Components >=- ------------------------------------------------------------------------------------------------------ //
@@ -77,7 +77,7 @@ const Address = ({ networkName }) => {
     }
 
     // ---------------------------------------------------------------------------------------------------------------------------- //
-    const getOnChainAddressInfo = async () => {
+    const getOnChainAddressInfo = async (_wallet) => {
 
         let provider = new ethers.providers.JsonRpcProvider(Config.node);
 
@@ -86,12 +86,12 @@ const Address = ({ networkName }) => {
             provider = new ethers.providers.Web3Provider(window.ethereum);
         }
 
-        const _balance = await provider.getBalance(params.walletAddress)
+        const _balance = await provider.getBalance(_wallet)
 
         //get account balance in ether
         const balance = ethers.utils.formatEther(_balance)
 
-        const transactions = await provider.getTransactionCount(params.walletAddress)
+        const transactions = await provider.getTransactionCount(_wallet)
 
         //get transactions for address
         //const transaction = await provider.getTransaction(params.walletAddress)
@@ -99,16 +99,16 @@ const Address = ({ networkName }) => {
 
 
         setAddress({
-            address: params.walletAddress,
+            address: _wallet,
             balance: balance,
             value: 0.00
         })
 
-        if (await isContract(params.walletAddress) === true) {
+        if (await isContract(_wallet) === true) {
             setContract(true)
         }
 
-        //getAddressTokenList(params.walletAddress)
+        //getAddressTokenList(_wallet)
         setLoading(false)
     }
 
@@ -127,7 +127,7 @@ const Address = ({ networkName }) => {
     useEffect(() => {
         let timer = setTimeout(() => {
 
-            getOnChainAddressInfo()
+            getOnChainAddressInfo(params.walletAddress)
             //getAccountInfo()
 
             // Transactions Tab //
@@ -156,13 +156,13 @@ const Address = ({ networkName }) => {
         }, 1000);
 
         return () => clearTimeout(timer)
-    });
+    }, [activeTab, params.walletAddress, address, txs, networkName])
 
     //if params changes, reload page
 
     if (loading) return (
         <main style={{ padding: "1rem 0" }} className='app-body'>
-            <h4 className="Title">Address {getAddress(params.walletAddress)}</h4>
+            <h4 className="Title">Address {params.walletAddress}{copyToClipboardButton(params.walletAddress)}</h4>
             <Spinner animation="border" variant="primary" />
         </main>
     )
@@ -170,7 +170,7 @@ const Address = ({ networkName }) => {
     return (
         <main style={{ padding: "1rem 0" }} className='app-body'>
 
-                <h4 className="Title">Address {getAddress(params.walletAddress)}</h4>
+                <h4 className="Title">Address {params.walletAddress}{copyToClipboardButton(params.walletAddress)}</h4>
 
                 <Row className="justify-content-center">
                     <Col xs={12} md={12} lg={6}>

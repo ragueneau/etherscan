@@ -18,7 +18,7 @@ const Block = ({ networkName }) => {
         blockTransactions: [],
     }])
 
-    const eth_getTransactionByBlockNumber = async () => {
+    const eth_getTransactionByBlockNumber = async (_blockNumber) => {
 
         let provider = new ethers.providers.JsonRpcProvider(Config.node);
 
@@ -27,7 +27,7 @@ const Block = ({ networkName }) => {
             provider = new ethers.providers.Web3Provider(window.ethereum);
         }
 
-        const block = await provider.getBlock(blockNumber)
+        const block = await provider.getBlock(_blockNumber)
         let txs = []
 
         block.transactions.forEach(async (tx) => {
@@ -40,12 +40,12 @@ const Block = ({ networkName }) => {
     }
 
     //get last block number
-    const getBlockNumber = async () => {
+    const getBlockNumber = async (_blockNumber, _blockContent) => {
         let blockTransactions = {}
 
-        if ( blockNumber !== blockContent.number ) {
+        if ( _blockNumber !== _blockContent.number ) {
             console.log('getBlockNumber')
-            console.log(blockNumber , blockContent.number)
+            console.log(_blockNumber , _blockContent.number)
 
             let provider = new ethers.providers.JsonRpcProvider(Config.node);
 
@@ -54,17 +54,17 @@ const Block = ({ networkName }) => {
                 provider = new ethers.providers.Web3Provider(window.ethereum);
             }
 
-            blockTransactions = await provider.getBlockWithTransactions(blockNumber)
+            blockTransactions = await provider.getBlockWithTransactions(_blockNumber)
 
             blockTransactions.timediff = Math.round(+new Date()/1000) - blockTransactions.timestamp
             const date = new Date(blockTransactions.timestamp * 1000)
             blockTransactions.humandate = date.toString()
         } else {
-            blockContent.timediff = Math.round(+new Date()/1000) - blockContent.timestamp
+            _blockContent.timediff = Math.round(+new Date()/1000) - _blockContent.timestamp
 
-            const date = new Date(blockContent.timestamp * 1000)
-            blockContent.humandate = date.toString()
-            blockTransactions = blockContent
+            const date = new Date(_blockContent.timestamp * 1000)
+            _blockContent.humandate = date.toString()
+            blockTransactions = _blockContent
         }
 
         setBlockContent(blockTransactions)
@@ -74,17 +74,17 @@ const Block = ({ networkName }) => {
     useEffect(() => {
         let timer = setTimeout(() => {
             if ( blockNumber !== blockContent.number ) {
-                eth_getTransactionByBlockNumber()
+                eth_getTransactionByBlockNumber(blockNumber)
                 setLoading(true)
             }
             if (txsContent.length === 0) {
-                eth_getTransactionByBlockNumber()
+                eth_getTransactionByBlockNumber(blockNumber)
             }
-            getBlockNumber()
+            getBlockNumber(blockNumber, blockContent)
         }, 1000);
 
         return () => clearTimeout(timer)
-    })
+    },[ blockNumber, blockContent, txsContent ])
     if (loading) return (
         <main style={{ padding: "1rem 0" }} className='app-body'>
             <h4 className='Title' >Block #{blockNumber}</h4>

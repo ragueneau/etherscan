@@ -235,19 +235,28 @@ const Accounts = ({ networkName }) => {
     }
 
     useEffect(() => {
-        let timer = setTimeout(() => {
-
-            getTopMiners()
+        if (loading) {
             getTopBalances()
+            getTopTransactions()
             getTopContracts()
             getTopContractsTxns()
-            getTopTransactions()
             getTopGasUsed()
-
             setLoading(false)
-        }, 1000);
-        return () => clearTimeout(timer)
-      })
+        } else {
+            let timer = setTimeout(() => {
+
+                getTopMiners()
+                getTopBalances()
+                getTopContracts()
+                getTopContractsTxns()
+                getTopTransactions()
+                getTopGasUsed()
+
+                setLoading(false)
+            }, 10000);
+            return () => clearTimeout(timer)
+        }
+      },[])
 
       // Render ---------------------------------------------------------------------------------------------------------- //
       return (

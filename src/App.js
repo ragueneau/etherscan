@@ -206,7 +206,7 @@ function App() {
         //print the url to the console
         //console.log(window.location)
         //console.log(stats)
-        loadNetwork()
+        //loadNetwork()
 
         console.log('!Chain changed to ' + parseInt(chainId));
       } else {
@@ -220,7 +220,10 @@ function App() {
     }, 1000);
 
     return () => clearTimeout(timer)
-});
+}, [
+  networkName,
+  chainId
+])
 
   // Render ---------------------------------------------------------------------------------------- //
   return (

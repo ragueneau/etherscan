@@ -36,11 +36,11 @@ const Token = ({ networkName }) => {
     const addToken = async () => {
 
         const response = await axios.get(Config.restAPI + '/api?module=token&action=tokeninfo&contractaddress='+tokenAddress+'&apikey=' + Config.ApiKeyToken)
-        const token = response.data.result
+        const _token = response.data.result
 
-        const tokenSymbol = token.symbol;
-        const tokenDecimals = token.decimals;
-        const tokenImage = token.image;
+        const tokenSymbol = _token.symbol;
+        const tokenDecimals = _token.decimals;
+        const tokenImage = _token.image;
 
         try {
 
@@ -97,7 +97,20 @@ const Token = ({ networkName }) => {
     const getTokenInfo = async (tokenAddress) => {
         const response = await axios.get(Config.restAPI + '/api?module=token&action=tokeninfo&contractaddress='+tokenAddress+'&apikey=' + Config.ApiKeyToken)
         const token = response.data.result
-        setTokenData(token)
+        if (token) {
+            setTokenData(token)
+        } else {
+            setTokenData({
+                image:'https://etherscan.coeptix.net/token.png',
+                name:'Unknown',
+                symbol:'Unknown',
+                decimals:0,
+                totalSupply:0,
+                owner:'Unknown',
+                lastUpdated:0,
+                site_url: '://',
+            })
+        }
         setLoading(false)
     }
 
@@ -108,7 +121,11 @@ const Token = ({ networkName }) => {
         setToken(params.tokenAddress)
         getTokenInfo(params.tokenAddress)
         console.log('Token:', JSON.stringify(token))
-      }, [])
+      }, [
+        networkName,
+        params.tokenAddress
+      ])
+
       if (loading) return (
         <main style={{ padding: "1rem 0" }} className='app-body'>
           <h4 className='Title'>Loading token {params.tokenAddress}</h4>

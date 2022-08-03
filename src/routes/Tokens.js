@@ -67,7 +67,8 @@ const Tokens = ({ networkName }) => {
 
     useEffect(() => {
         getTokenList()
-      }, [])
+      }, [ networkName ])
+
       if (loading) return (
         <main style={{ padding: "1rem 0" }} className='app-body'>
           <h4 className='Title'>ERC20 Tokens</h4>
