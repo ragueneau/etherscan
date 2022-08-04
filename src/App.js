@@ -169,9 +169,6 @@ function App() {
     } else {
       setNetworkName('Unknown '+chainIdInt)
     }
-
-    console.log('Network: '+networkName)
-    console.log('ChainID: '+chainIdInt)
   }
 
   const loadLastBlock = async () => {
@@ -216,14 +213,13 @@ function App() {
       }
     }
     let timer = setTimeout(() => {
+      loadNetwork()
       loadLastBlock()
     }, 1000);
 
+    //console.log('Network: '+networkName)
     return () => clearTimeout(timer)
-}, [
-  networkName,
-  chainId
-])
+})
 
   // Render ---------------------------------------------------------------------------------------- //
   return (
