@@ -285,7 +285,7 @@ const Accounts = ({ networkName }) => {
                                             <td>{index + 1}</td>
                                             <td>{item.name ? (<Link title={item.address} to={`/address/${item.address}`}>{item.name}</Link>) : (<span>{linkAddress(item.address)}</span>)}</td>
                                             <td><Link title={item.blocknumber} to={`/block/${item.blocknumber}`}>{item.blocknumber}</Link></td>
-                                            <td>{item.balance/1000000000000000000} xEth</td>
+                                            <td>{item.balance/1000000000000000000} xETH</td>
                                         </tr>
                                     ))}
                                     </tbody>
@@ -349,7 +349,7 @@ const Accounts = ({ networkName }) => {
                                             <td>{index + 1}</td>
                                             <td>{item.name ? (<Link title={item.miner} to={`/address/${item.miner}`}>{item.name}</Link>) : (<span>{linkAddress(item.miner)}</span>)}</td>
                                             <td>{item.blocks}</td>
-                                            <td>{item.totalrewards/1000000000} xEth</td>
+                                            <td>{item.totalrewards/1000000000} xETH</td>
                                         </tr>
                                     ))}
                                     </tbody>
@@ -403,7 +403,7 @@ const Accounts = ({ networkName }) => {
                                             <th>#</th>
                                             <th>Contracts</th>
                                             <th>Origin</th>
-                                            <th>Total Wrapped xEth</th>
+                                            <th>Total Wrapped xETH</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -412,7 +412,7 @@ const Accounts = ({ networkName }) => {
                                             <td>{index + 1}</td>
                                             <td>{item.name ? (<Link title={item.address} to={`/address/${item.address}`}>{item.name}</Link>) : (<span>{linkAddress(item.address)}</span>)}</td>
                                             <td><Link title={item.blocknumber} to={`/block/${item.blocknumber}`}>{item.blocknumber}</Link></td>
-                                            <td>{item.balance/1000000000000000000} xEth</td>
+                                            <td>{item.balance/1000000000000000000} xETH</td>
                                         </tr>
                                     ))}
                                     </tbody>
