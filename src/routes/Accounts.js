@@ -71,7 +71,7 @@ const Accounts = ({ networkName }) => {
             enddate: todayDate
         }
 
-        await axios.get(Config.restAPI + '/api?module=stats&action=topminers&apikey=' + Config.ApiKeyToken+'&startdate='+todayDate+'&enddate='+todayDate)
+        await axios.get(Config.restAPI + '/api?module=stats&action=topminers&static=1&apikey=' + Config.ApiKeyToken+'&startdate='+todayDate+'&enddate='+todayDate)
         .then(function (response) {
             stats.topminers = response.data.result
             setTopMiners(stats.topminers)
@@ -102,7 +102,7 @@ const Accounts = ({ networkName }) => {
             enddate: todayDate
         }
         //get stats dailytxnfee
-        await axios.get(Config.restAPI + '/api?module=stats&action=topbalances&apikey=' + Config.ApiKeyToken+'&startdate='+todayDate+'&enddate='+todayDate)
+        await axios.get(Config.restAPI + '/api?module=stats&action=topbalances&static=1&apikey=' + Config.ApiKeyToken+'&startdate='+todayDate+'&enddate='+todayDate)
         .then(function (response) {
             stats.topbalances = response.data.result
             setTopBalances(stats.topbalances)
@@ -133,7 +133,7 @@ const Accounts = ({ networkName }) => {
             enddate: todayDate
         }
         //get stats dailytxnfee
-        await axios.get(Config.restAPI + '/api?module=stats&action=topaddressestxns&apikey=' + Config.ApiKeyToken+'&startdate='+todayDate+'&enddate='+todayDate)
+        await axios.get(Config.restAPI + '/api?module=stats&action=topaddressestxns&static=1&apikey=' + Config.ApiKeyToken+'&startdate='+todayDate+'&enddate='+todayDate)
         .then(function (response) {
             stats.topTransactions = response.data.result
             setTopTransactions(stats.topTransactions)
@@ -164,7 +164,7 @@ const Accounts = ({ networkName }) => {
             enddate: todayDate
         }
         //get stats dailytxnfee
-        await axios.get(Config.restAPI + '/api?module=stats&action=topcontracts&apikey=' + Config.ApiKeyToken+'&startdate='+todayDate+'&enddate='+todayDate)
+        await axios.get(Config.restAPI + '/api?module=stats&action=topcontracts&static=1&apikey=' + Config.ApiKeyToken+'&startdate='+todayDate+'&enddate='+todayDate)
         .then(function (response) {
             stats.topcontracts = response.data.result
             setTopContracts(stats.topcontracts)
@@ -196,7 +196,7 @@ const Accounts = ({ networkName }) => {
             enddate: todayDate
         }
         //get stats dailytxnfee
-        await axios.get(Config.restAPI + '/api?module=stats&action=topcontractstxns&apikey=' + Config.ApiKeyToken+'&startdate='+todayDate+'&enddate='+todayDate)
+        await axios.get(Config.restAPI + '/api?module=stats&action=topcontractstxns&static=1&apikey=' + Config.ApiKeyToken+'&startdate='+todayDate+'&enddate='+todayDate)
         .then(function (response) {
             stats.topcontractstxns = response.data.result
             setTopContractsTxns(stats.topcontractstxns)
@@ -227,7 +227,7 @@ const Accounts = ({ networkName }) => {
             enddate: todayDate
         }
         //get stats dailytxnfee
-        await axios.get(Config.restAPI + '/api?module=stats&action=topgasused&apikey=' + Config.ApiKeyToken+'&startdate='+todayDate+'&enddate='+todayDate)
+        await axios.get(Config.restAPI + '/api?module=stats&action=topgasused&static=1&apikey=' + Config.ApiKeyToken+'&startdate='+todayDate+'&enddate='+todayDate)
         .then(function (response) {
             stats.topgasused = response.data.result
             setTopGasUsed(stats.topgasused)
@@ -236,15 +236,15 @@ const Accounts = ({ networkName }) => {
 
     useEffect(() => {
         if (loading) {
+            getTopMiners()
             getTopBalances()
-            getTopTransactions()
             getTopContracts()
             getTopContractsTxns()
+            getTopTransactions()
             getTopGasUsed()
             setLoading(false)
         } else {
             let timer = setTimeout(() => {
-
                 getTopMiners()
                 getTopBalances()
                 getTopContracts()
@@ -253,7 +253,7 @@ const Accounts = ({ networkName }) => {
                 getTopGasUsed()
 
                 setLoading(false)
-            }, 10000);
+            }, 60000);
             return () => clearTimeout(timer)
         }
       },[ loading ]);
