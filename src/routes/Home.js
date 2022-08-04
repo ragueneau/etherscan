@@ -235,7 +235,7 @@ const Home = ({ networkName, account }) => {
             avgtxnperminute: 0
         }
         //get stats dailytxnfee
-        await axios.get(Config.restAPI + '/api?module=stats&action=dailytxnfee&apikey=' + Config.ApiKeyToken+'&startdate='+todayDate+'&enddate='+todayDate)
+        await axios.get(Config.restAPI + '/api?module=stats&action=dailytxnfee&static=1&apikey=' + Config.ApiKeyToken+'&startdate='+todayDate+'&enddate='+todayDate)
         .then(function (response) {
             if ( response.data.length > 0 ) {
                 stats.dailytxnfee = response.data.result[0].transactionfee_eth
@@ -244,7 +244,7 @@ const Home = ({ networkName, account }) => {
             }
         })
 
-        await axios.get(Config.restAPI + '/api?module=stats&action=dailynewaddress&apikey=' + Config.ApiKeyToken+'&startdate='+todayDate+'&enddate='+todayDate)
+        await axios.get(Config.restAPI + '/api?module=stats&action=dailynewaddress&static=1&apikey=' + Config.ApiKeyToken+'&startdate='+todayDate+'&enddate='+todayDate)
         .then(function (response) {
             //get the firtst address
             if (response.data.result[0]) {
@@ -254,7 +254,7 @@ const Home = ({ networkName, account }) => {
             }
         })
 
-        await axios.get(Config.restAPI + '/api?module=stats&action=dailynetutilization&apikey=' + Config.ApiKeyToken+'&startdate='+todayDate+'&enddate='+todayDate)
+        await axios.get(Config.restAPI + '/api?module=stats&action=dailynetutilization&static=1&apikey=' + Config.ApiKeyToken+'&startdate='+todayDate+'&enddate='+todayDate)
         .then(function (response) {
             if ( response.data.length > 0 ) {
                 stats.dailynetutilization = response.data.result[0].networkutilization
@@ -263,7 +263,7 @@ const Home = ({ networkName, account }) => {
             }
         })
 
-        await axios.get(Config.restAPI + '/api?module=stats&action=dailyavggaslimit&apikey=' + Config.ApiKeyToken+'&startdate='+todayDate+'&enddate='+todayDate)
+        await axios.get(Config.restAPI + '/api?module=stats&action=dailyavggaslimit&static=1&apikey=' + Config.ApiKeyToken+'&startdate='+todayDate+'&enddate='+todayDate)
         .then(function (response) {
             if ( response.data.length > 0 ) {
                 stats.dailyavggaslimit = response.data.result[0].avglimit
@@ -273,7 +273,7 @@ const Home = ({ networkName, account }) => {
 
             })
 
-        await axios.get(Config.restAPI + '/api?module=stats&action=dailyavggasprice&apikey=' + Config.ApiKeyToken+'&startdate='+todayDate+'&enddate='+todayDate)
+        await axios.get(Config.restAPI + '/api?module=stats&action=dailyavggasprice&static=1&apikey=' + Config.ApiKeyToken+'&startdate='+todayDate+'&enddate='+todayDate)
         .then(function (response) {
             if ( response.data.length > 0 ) {
                 stats.dailyavggasprice = response.data.result[0].avggaspricewei
@@ -283,7 +283,7 @@ const Home = ({ networkName, account }) => {
 
         })
 
-        await axios.get(Config.restAPI + '/api?module=stats&action=dailyavggasprice&apikey=' + Config.ApiKeyToken+'&startdate='+todayDate+'&enddate='+todayDate)
+        await axios.get(Config.restAPI + '/api?module=stats&action=dailyavggasprice&static=1&apikey=' + Config.ApiKeyToken+'&startdate='+todayDate+'&enddate='+todayDate)
         .then(function (response) {
             if ( response.data.length > 0 ) {
                 stats.dailyavggasprice = response.data.result[0].avggaspricewei
@@ -292,7 +292,7 @@ const Home = ({ networkName, account }) => {
             }
         })
 
-        await axios.get(Config.restAPI + '/api?module=stats&action=dailygasused&apikey=' + Config.ApiKeyToken+'&startdate='+todayDate+'&enddate='+todayDate)
+        await axios.get(Config.restAPI + '/api?module=stats&action=dailygasused&static=1&apikey=' + Config.ApiKeyToken+'&startdate='+todayDate+'&enddate='+todayDate)
         .then(function (response) {
             if ( response.data.length > 0 ) {
                 stats.dailygasused = response.data.result[0].gasused
