@@ -251,12 +251,10 @@ const Accounts = ({ networkName }) => {
                 getTopContractsTxns()
                 getTopTransactions()
                 getTopGasUsed()
-
-                setLoading(false)
-            }, 60000);
+            }, 15000);
             return () => clearTimeout(timer)
         }
-      },[ loading ]);
+      });
 
       // Render ---------------------------------------------------------------------------------------------------------- //
       return (
