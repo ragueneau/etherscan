@@ -205,7 +205,7 @@ function App() {
         //console.log(stats)
         //loadNetwork()
 
-        console.log('!Chain changed to ' + parseInt(chainId));
+        //console.log('!Chain changed to ' + parseInt(chainId));
       } else {
         console.log('No Metamask detected');
         setNetworkName('CoeptIX')
