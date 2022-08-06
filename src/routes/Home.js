@@ -1,8 +1,7 @@
 import Config from '../config.json'
-
 import { useState, useEffect } from 'react'
 import { ethers } from "ethers"
-import { Col, Row, Spinner } from 'react-bootstrap'
+import { Col, Row } from 'react-bootstrap'
 
 import SearchBar from '../components/SearchBar'
 import Dashboard from '../components/Dashboard'
@@ -247,7 +246,7 @@ const Home = ({ networkName, account }) => {
         await axios.get(Config.restAPI + '/api?module=stats&action=dailynewaddress&static=1&apikey=' + Config.ApiKeyToken+'&startdate='+todayDate+'&enddate='+todayDate)
         .then(function (response) {
             //get the firtst address
-            if (response.data.result[0]) {
+            if (response.data.result.length > 0) {
                 stats.dailynewaddress = response.data.result[0].newaddresscount
             } else {
                 stats.dailynewaddress = 0
@@ -307,19 +306,24 @@ const Home = ({ networkName, account }) => {
 
 
     useEffect(() => {
-        let timer = setTimeout(() => {
+        if (loading) {
+            getStats()
+        } else {
+            let timer = setTimeout(() => {
 
-            getLatest()
-            if (networkName === 'CoeptIX' && txs.length === 0) {
-                getLatestTransactions()
-            }
+                getLatest()
+                if (networkName === 'CoeptIX' && txs.length === 0) {
+                    getLatestTransactions()
+                }
 
-            if (stats.dailytxnfee === 0) {
-                getStats()
-            }
+                if (stats.dailytxnfee === 0) {
+                    getStats()
+                }
+                console.log('stats',stats)
 
-        }, 1000);
-        return () => clearTimeout(timer)
+            }, 1000);
+            return () => clearTimeout(timer)
+        }
     })
     // Render ---------------------------------------------------------------------------------------------------------- //
     return (
