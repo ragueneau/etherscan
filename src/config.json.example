@@ -1,0 +1,15 @@
+{
+    "mongo": "mongodb://mongo:27017",
+    "seed":  "",
+    "restAPI": "http://127.0.0.1:4321",
+    "node": "http://192.168.2.125:8545",
+    "chainId": "1",
+    "pg": {
+        "host": "127.0.0.1",
+        "port": 5432,
+        "user": "",
+        "password": "",
+        "database": "geth"
+    },
+    "ApiKeyToken": ""
+}
