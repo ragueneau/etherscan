@@ -30,7 +30,7 @@ RUN apt update \
 WORKDIR /opt/etherscan
 COPY . /opt/etherscan
 
-RUN echo '{"mongo":"mongodb://mongo:27017","seed":"enemy basket garden manage best leopard profit text border vintage bachelor multiply spike shoe cable cute there security column fix gift stomach trigger banana","node":"https://ethernode.coeptix.net","restAPI":"https://etherscan.coeptix.net","restAPIport":4321,"ApiKeyToken":"UReFQ1CCRMUpFTGi0hy1wku6YsSY8Uu7","contracts":{"token1":"0x264Ecf2BD0aCe1e26047b5a3Ddc6A8c9D8309464","faucet":{"address":"0xCAEB631af6e9A583A7DC5471E51B9E1E8b64bdBF"}}}' > /opt/etherscan/src/config.json \
+RUN echo '{"mongo":"mongodb://mongo:27017","seed":"first public gravity man ecology enemy earth solve absorb spring hat among behave purchase believe","node":"https://ethernode.coeptix.net","restAPI":"https://etherscan.coeptix.net","restAPIport":4321,"ApiKeyToken":""}' > /opt/etherscan/src/config.json \
   && npm install \
   && npm run build \
   && npm install -g serve \
