@@ -52,8 +52,10 @@
     "stream-http": "^3.2.0",
     "styled-components": "^5.3.5",
     "tar": "^6.1.11",
+    "underscore": ">=1.12.1",
     "util": "^0.12.4",
-    "web-vitals": "^2.1.4"
+    "web-vitals": "^2.1.4",
+    "ws": "^8.8.1"
   },
   "scripts": {
     "start": "react-scripts start",
