@@ -236,7 +236,7 @@ const Home = ({ networkName, account }) => {
         //get stats dailytxnfee
         await axios.get(Config.restAPI + '/api?module=stats&action=dailytxnfee&static=1&apikey=' + Config.ApiKeyToken+'&startdate='+todayDate+'&enddate='+todayDate)
         .then(function (response) {
-            if ( response.data.result.length > 0 ) {
+            if ( response.data.result && response.data.result.length > 0 ) {
                 stats.dailytxnfee = response.data.result[0].transactionfee_eth
             } else {
                 stats.dailytxnfee = 0
@@ -246,7 +246,7 @@ const Home = ({ networkName, account }) => {
         await axios.get(Config.restAPI + '/api?module=stats&action=dailynewaddress&static=1&apikey=' + Config.ApiKeyToken+'&startdate='+todayDate+'&enddate='+todayDate)
         .then(function (response) {
             //get the firtst address
-            if (response.data.result.length > 0) {
+            if (response.data.result && response.data.result.length > 0) {
                 stats.dailynewaddress = response.data.result[0].newaddresscount
             } else {
                 stats.dailynewaddress = 0
@@ -255,7 +255,7 @@ const Home = ({ networkName, account }) => {
 
         await axios.get(Config.restAPI + '/api?module=stats&action=dailynetutilization&static=1&apikey=' + Config.ApiKeyToken+'&startdate='+todayDate+'&enddate='+todayDate)
         .then(function (response) {
-            if ( response.data.result.length > 0 ) {
+            if ( response.data.result && response.data.result.length > 0 ) {
                 stats.dailynetutilization = response.data.result[0].networkutilization
             } else {
                 stats.dailynetutilization = 0
