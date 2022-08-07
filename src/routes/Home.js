@@ -200,12 +200,12 @@ const Home = ({ networkName, account }) => {
 
     const getStats = async () => {
         let stats = {}
-        let provider = new ethers.providers.JsonRpcProvider(Config.node);
+        // let provider = new ethers.providers.JsonRpcProvider(Config.node);
 
-        //verify if metamask is connected
-        if (window.ethereum) {
-            provider = new ethers.providers.Web3Provider(window.ethereum);
-        }
+        // //verify if metamask is connected
+        // if (window.ethereum) {
+        //     provider = new ethers.providers.Web3Provider(window.ethereum);
+        // }
 
         //today date yyyy-mm-dd
         const today = new Date()
@@ -236,7 +236,7 @@ const Home = ({ networkName, account }) => {
         //get stats dailytxnfee
         await axios.get(Config.restAPI + '/api?module=stats&action=dailytxnfee&static=1&apikey=' + Config.ApiKeyToken+'&startdate='+todayDate+'&enddate='+todayDate)
         .then(function (response) {
-            if ( response.data.length > 0 ) {
+            if ( response.data.result.length > 0 ) {
                 stats.dailytxnfee = response.data.result[0].transactionfee_eth
             } else {
                 stats.dailytxnfee = 0
@@ -255,7 +255,7 @@ const Home = ({ networkName, account }) => {
 
         await axios.get(Config.restAPI + '/api?module=stats&action=dailynetutilization&static=1&apikey=' + Config.ApiKeyToken+'&startdate='+todayDate+'&enddate='+todayDate)
         .then(function (response) {
-            if ( response.data.length > 0 ) {
+            if ( response.data.result.length > 0 ) {
                 stats.dailynetutilization = response.data.result[0].networkutilization
             } else {
                 stats.dailynetutilization = 0
@@ -264,7 +264,7 @@ const Home = ({ networkName, account }) => {
 
         await axios.get(Config.restAPI + '/api?module=stats&action=dailyavggaslimit&static=1&apikey=' + Config.ApiKeyToken+'&startdate='+todayDate+'&enddate='+todayDate)
         .then(function (response) {
-            if ( response.data.length > 0 ) {
+            if ( response.data.result.length > 0 ) {
                 stats.dailyavggaslimit = response.data.result[0].avglimit
             } else {
                 stats.dailyavggaslimit = 0
@@ -274,7 +274,7 @@ const Home = ({ networkName, account }) => {
 
         await axios.get(Config.restAPI + '/api?module=stats&action=dailyavggasprice&static=1&apikey=' + Config.ApiKeyToken+'&startdate='+todayDate+'&enddate='+todayDate)
         .then(function (response) {
-            if ( response.data.length > 0 ) {
+            if ( response.data.result.length > 0 ) {
                 stats.dailyavggasprice = response.data.result[0].avggaspricewei
             } else {
                 stats.dailyavggasprice = 0
@@ -284,7 +284,7 @@ const Home = ({ networkName, account }) => {
 
         await axios.get(Config.restAPI + '/api?module=stats&action=dailyavggasprice&static=1&apikey=' + Config.ApiKeyToken+'&startdate='+todayDate+'&enddate='+todayDate)
         .then(function (response) {
-            if ( response.data.length > 0 ) {
+            if ( response.data.result.length > 0 ) {
                 stats.dailyavggasprice = response.data.result[0].avggaspricewei
             } else {
                 stats.dailyavggasprice = 0
@@ -293,7 +293,7 @@ const Home = ({ networkName, account }) => {
 
         await axios.get(Config.restAPI + '/api?module=stats&action=dailygasused&static=1&apikey=' + Config.ApiKeyToken+'&startdate='+todayDate+'&enddate='+todayDate)
         .then(function (response) {
-            if ( response.data.length > 0 ) {
+            if ( response.data.result.length > 0 ) {
                 stats.dailygasused = response.data.result[0].gasused
             } else {
                 stats.dailygasused = 0
