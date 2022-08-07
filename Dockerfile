@@ -30,7 +30,7 @@ RUN apt update \
 WORKDIR /opt/etherscan
 COPY . /opt/etherscan
 
-# This seed is useless, but it's required to run the app. #
+# This seed has no value but it is required by the app. #
 RUN echo '{"mongo":"mongodb://mongo:27017","seed":"first public gravity man ecology enemy earth solve absorb spring hat among behave purchase believe","node":"https://ethernode.coeptix.net","restAPI":"https://etherscan.coeptix.net","restAPIport":4321,"ApiKeyToken":""}' > /opt/etherscan/src/config.json \
   && npm install \
   && npm run build \
