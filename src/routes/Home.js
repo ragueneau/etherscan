@@ -234,69 +234,83 @@ const Home = ({ networkName, account }) => {
             avgtxnperminute: 0
         }
         //get stats dailytxnfee
-        await axios.get(Config.restAPI + '/api?module=stats&action=dailytxnfee&static=1&apikey=' + Config.ApiKeyToken+'&startdate='+todayDate+'&enddate='+todayDate)
+        await axios.get(Config.restAPI + '/api?module=stats&action=dailytxnfee&static=1&apikey=' + Config.ApiKeyToken + '&startdate='+todayDate+'&enddate='+todayDate)
         .then(function (response) {
             if ( response.data.result && response.data.result.length > 0 ) {
                 stats.dailytxnfee = response.data.result[0].transactionfee_eth
+                console.log('dailytxnfee',response.data.result)
             } else {
                 stats.dailytxnfee = 0
+                console.log('dailytxnfee',response.data.result)
             }
         })
 
-        await axios.get(Config.restAPI + '/api?module=stats&action=dailynewaddress&static=1&apikey=' + Config.ApiKeyToken+'&startdate='+todayDate+'&enddate='+todayDate)
+        await axios.get(Config.restAPI + '/api?module=stats&action=dailynewaddress&static=1&apikey=' + Config.ApiKeyToken + '&startdate='+todayDate+'&enddate='+todayDate)
         .then(function (response) {
             //get the firtst address
             if (response.data.result && response.data.result.length > 0) {
                 stats.dailynewaddress = response.data.result[0].newaddresscount
+                console.log('dailynewaddress',response.data.result)
             } else {
                 stats.dailynewaddress = 0
+                console.log('dailynewaddress',response.data.result)
             }
         })
 
-        await axios.get(Config.restAPI + '/api?module=stats&action=dailynetutilization&static=1&apikey=' + Config.ApiKeyToken+'&startdate='+todayDate+'&enddate='+todayDate)
+        await axios.get(Config.restAPI + '/api?module=stats&action=dailynetutilization&static=1&apikey=' + Config.ApiKeyToken + '&startdate='+todayDate+'&enddate='+todayDate)
         .then(function (response) {
             if ( response.data.result && response.data.result.length > 0 ) {
                 stats.dailynetutilization = response.data.result[0].networkutilization
+                console.log('dailynetutilization',response.data.result)
             } else {
                 stats.dailynetutilization = 0
+                console.log('dailynetutilization',response)
             }
         })
 
-        await axios.get(Config.restAPI + '/api?module=stats&action=dailyavggaslimit&static=1&apikey=' + Config.ApiKeyToken+'&startdate='+todayDate+'&enddate='+todayDate)
+        await axios.get(Config.restAPI + '/api?module=stats&action=dailyavggaslimit&static=1&apikey=' + Config.ApiKeyToken + '&startdate='+todayDate+'&enddate='+todayDate)
         .then(function (response) {
-            if ( response.data.result.length > 0 ) {
+            if ( response.data.result && response.data.result.length > 0 ) {
                 stats.dailyavggaslimit = response.data.result[0].avglimit
+                console.log('dailyavggaslimit',response.data.result)
             } else {
                 stats.dailyavggaslimit = 0
-            }
-
-            })
-
-        await axios.get(Config.restAPI + '/api?module=stats&action=dailyavggasprice&static=1&apikey=' + Config.ApiKeyToken+'&startdate='+todayDate+'&enddate='+todayDate)
-        .then(function (response) {
-            if ( response.data.result.length > 0 ) {
-                stats.dailyavggasprice = response.data.result[0].avggaspricewei
-            } else {
-                stats.dailyavggasprice = 0
+                console.log('dailyavggaslimit',response)
             }
 
         })
 
-        await axios.get(Config.restAPI + '/api?module=stats&action=dailyavggasprice&static=1&apikey=' + Config.ApiKeyToken+'&startdate='+todayDate+'&enddate='+todayDate)
+        await axios.get(Config.restAPI + '/api?module=stats&action=dailyavggasprice&static=1&apikey=' + Config.ApiKeyToken + '&startdate='+todayDate+'&enddate='+todayDate)
         .then(function (response) {
-            if ( response.data.result.length > 0 ) {
+            if ( response.data.result && response.data.result.length > 0 ) {
                 stats.dailyavggasprice = response.data.result[0].avggaspricewei
+                console.log('dailyavggasprice',response.data.result)
             } else {
                 stats.dailyavggasprice = 0
+                console.log('e-dailyavggasprice',response)
+            }
+
+        })
+
+        await axios.get(Config.restAPI + '/api?module=stats&action=dailyavggasprice&static=1&apikey=' + Config.ApiKeyToken + '&startdate='+todayDate+'&enddate='+todayDate)
+        .then(function (response) {
+            if ( response.data.result && response.data.result.length > 0 ) {
+                stats.dailyavggasprice = response.data.result[0].avggaspricewei
+                console.log('dailyavggasprice',response.data.result)
+            } else {
+                stats.dailyavggasprice = 0
+                console.log('e-dailyavggasprice',response)
             }
         })
 
-        await axios.get(Config.restAPI + '/api?module=stats&action=dailygasused&static=1&apikey=' + Config.ApiKeyToken+'&startdate='+todayDate+'&enddate='+todayDate)
+        await axios.get(Config.restAPI + '/api?module=stats&action=dailygasused&static=1&apikey=' + Config.ApiKeyToken + '&startdate='+todayDate+'&enddate='+todayDate)
         .then(function (response) {
-            if ( response.data.result.length > 0 ) {
+            if ( response.data.result && response.data.result.length > 0 ) {
                 stats.dailygasused = response.data.result[0].gasused
+                console.log('dailygasused',response.data.result)
             } else {
                 stats.dailygasused = 0
+                console.log('e-dailygasused',response)
             }
         })
 
@@ -308,17 +322,17 @@ const Home = ({ networkName, account }) => {
     useEffect(() => {
         if (loading) {
             getStats()
+            getLatest()
+            setLoading(false)
         } else {
             let timer = setTimeout(() => {
-
+                getStats()
                 getLatest()
+
                 if (networkName === 'CoeptIX' && txs.length === 0) {
                     getLatestTransactions()
                 }
 
-                if (stats.dailytxnfee === 0) {
-                    getStats()
-                }
                 console.log('stats',stats)
 
             }, 1000);
