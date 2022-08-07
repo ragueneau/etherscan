@@ -47,7 +47,8 @@
     "stream-http": "^3.2.0",
     "styled-components": "^5.3.5",
     "util": "^0.12.4",
-    "web-vitals": "^2.1.4"
+    "web-vitals": "^2.1.4",
+    "simple-get": ">=2.8.2"
   },
   "scripts": {
     "start": "react-scripts start",
