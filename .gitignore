@@ -27,3 +27,4 @@ cache/
 package-lock.json
 src/config.json
 TODO.txt
+config.json
