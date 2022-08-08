@@ -8,8 +8,7 @@ COPY . /opt/etherscan
 
 # This seed has no value but it is required to build the app. #
 RUN npm install --location=global npm \
-  && npm install \
-  && rm /opt/etherscan/src/config.json
+  && npm install
 
 USER node
 
