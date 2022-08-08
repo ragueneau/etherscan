@@ -321,12 +321,12 @@ const Home = ({ networkName, account }) => {
 
     useEffect(() => {
         if (loading) {
-            getStats()
+         //   getStats()
             getLatest()
             setLoading(false)
         } else {
             let timer = setTimeout(() => {
-                getStats()
+             //   getStats()
                 getLatest()
 
                 if (networkName === 'CoeptIX' && txs.length === 0) {
