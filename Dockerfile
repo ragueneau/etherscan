@@ -8,10 +8,7 @@ ARG CONFIG
 WORKDIR /opt/etherscan
 COPY . /opt/etherscan
 
-RUN apt update -y && apt install -y dos2unix
-
 RUN echo "${CONFIG}" > /opt/etherscan/src/config.json
-
 
 RUN npm install --location=global npm@8.16.0  \
   && npm install \
