@@ -8,7 +8,7 @@ ARG config
 WORKDIR /opt/etherscan
 COPY . /opt/etherscan
 
-RUN apt install -y dos2unix
+RUN apt update -y && apt install -y dos2unix
 
 RUN echo -e "${config}\n" > /opt/etherscan/src/config.json
 RUN dos2unix /opt/etherscan/src/config.json
