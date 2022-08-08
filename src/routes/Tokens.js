@@ -12,8 +12,7 @@ const Tokens = ({ networkName }) => {
     const [items, setItems] = useState([])
 
     const getTokenList = async () => {
-
-        let _chainId = 35478
+        let _chainId = 1
 
         if (window.ethereum) {
             _chainId = await window.ethereum.request({ method: 'eth_chainId' });
@@ -67,6 +66,7 @@ const Tokens = ({ networkName }) => {
 
     useEffect(() => {
         getTokenList()
+        console.log(items)
       }, [ networkName ])
 
       if (loading) return (
