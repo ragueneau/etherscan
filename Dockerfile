@@ -1,18 +1,23 @@
 FROM node:16
 USER root
 
+ARG config
+
 ##############################################################
 # App
 WORKDIR /opt/etherscan
 COPY . /opt/etherscan
 
-# This seed has no value but it is required to build the app. #
-RUN npm install --location=global npm \
-  && npm install
+RUN echo ${config} > /opt/etherscan/src/config.json
+
+RUN npm install --location=global npm@8.16.0  \
+  && npm install \
+  && npm run build \
+  && npm install -g serve
 
 USER node
 
 ##############################################################
 # Start Container
 ##############################################################
-CMD ["npm", "start"]
+CMD [ "serve", "-s", "build" ]
