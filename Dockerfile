@@ -8,12 +8,16 @@ ARG config
 WORKDIR /opt/etherscan
 COPY . /opt/etherscan
 
-RUN echo ${config} > /opt/etherscan/src/config.json
+RUN apt install -y dos2unix
+
+RUN echo -e "${config}\n" > /opt/etherscan/src/config.json
+RUN dos2unix /opt/etherscan/src/config.json
 
 RUN npm install --location=global npm@8.16.0  \
   && npm install \
   && npm run build \
-  && npm install -g serve
+  && npm install -g serve \
+  && apt remove -y dos2unix
 
 USER node
 
