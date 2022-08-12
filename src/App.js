@@ -11,7 +11,7 @@ import { Row,Col,Button, Spinner } from 'react-bootstrap'
 import { useState, useEffect } from 'react'
 import { ethers } from "ethers"
 
-import axios from 'axios'
+// import axios from 'axios'
 
 // Export ------------------------------------------------------------------------------------------ //
 import './App.css';
