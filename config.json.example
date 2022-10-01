@@ -1,0 +1,16 @@
+{
+    "mongo": "mongodb://mongo:27017",
+    "seed":  "seed phrase",
+    "node": "https://explorer_url",
+    "restAPI": "https://api_url",
+    "restAPIport": 2343,
+    "chainId": "1",
+    "pg": {
+        "host": "db",
+        "port": 5432,
+        "user": "postgres",
+        "password": "password",
+        "database": "database"
+    },
+    "ApiKeyToken": ""
+}
