@@ -55,9 +55,9 @@
     "tar": "^6.1.11",
     "underscore": ">=1.12.1",
     "util": "^0.12.4",
-    "yargs-parser": ">=5.0.1",
     "web-vitals": "^2.1.4",
-    "ws": "^8.8.1"
+    "ws": "^8.8.1",
+    "yargs-parser": ">=5.0.1"
   },
   "scripts": {
     "start": "react-scripts start",
