@@ -8,7 +8,7 @@ ARG CONFIG
 WORKDIR /opt/etherscan
 COPY . /opt/etherscan
 
-RUN echo "${CONFIG}" > /opt/etherscan/src/config.json
+# RUN echo "${CONFIG}" > /opt/etherscan/src/config.json
 
 RUN npm install --location=global npm@9.3.1  \
   && npm install \
