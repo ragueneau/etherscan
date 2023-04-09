@@ -10,7 +10,7 @@ COPY . /opt/etherscan
 
 RUN echo "${CONFIG}" > /opt/etherscan/src/config.json
 
-RUN npm install --location=global npmlatest && npm install && npm run build && npm install -g serve
+RUN npm install --location=global npm@latest && npm install && npm run build && npm install -g serve
 
 USER node
 
