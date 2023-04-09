@@ -18,6 +18,7 @@ import './App.css';
 
 import Navigation from './components/Navbar';
 import HomeNavigation from './components/HomeNavbar';
+import Footer from './components/Footer.js';
 import HTTP404 from './components/404.js'
 //import { copyToClipboard, getAddress, linkAddress } from './class/Tools'
 //import { web3Handler, getProvider, isContract, loadContract2 } from './class/Evm'
@@ -40,7 +41,6 @@ import Txs from './routes/Txs.js'
 import Topstats from './routes/Topstats.js'
 import Profile from './routes/Profile.js'
 import Applications from './routes/Apps.js'
-import Footer from './components/Footer.js';
 import Interface from './routes/Interface.js'
 import Interfaces from './routes/Interfaces.js'
 
